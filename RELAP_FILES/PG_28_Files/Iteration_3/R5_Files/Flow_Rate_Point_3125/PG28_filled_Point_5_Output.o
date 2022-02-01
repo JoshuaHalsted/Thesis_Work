@@ -1,0 +1,957 @@
+1RELAP5-3D/Ver:4.3.4      Reactor Excursion Leak Analysis Program
+0               __________________________ 
+               |                          |
+               |         COPYRIGHT        |
+               | Battelle Energy Alliance |
+               |           2012           |
+               |    All Rights Reserved   |
+               |__________________________|
+
+                __________________________ 
+               |                          |
+               |     EXPORT CONTROLLED    |
+               |        INFORMATION       |
+               |  Contains technical data |
+               |     whose export is      |
+               |  restricted by statute.  |
+               |  Violations may result   |
+               |    in administrative,    |
+               |    civil, or criminal    |
+               |        penalties.        |
+               |__________________________|
+
+                __________________________ 
+               |                          |
+               |          NOFORN          |
+               | This document is subject |
+               |    to special export     |
+               |    controls and each     |
+               |  transmittal to foreign  |
+               |  governments or foreign  |
+               |  nationals may be made   |
+               |   only with the prior    |
+               |    approval of the       |
+               |        U.S. DOE.         |
+               |__________________________|
+
+               Copyright 2012 Battelle Energy Alliance, LLC
+                           ALL RIGHTS RESERVED             
+                                                           
+                Prepared by Battelle Energy Alliance, LLC  
+                  under Contract No. DE-AC07-05ID14517     
+                  with the U. S. Department of Energy      
+
+   NOTICE: This computer software, RELAP5-3D, was prepared by     
+   Battelle Energy Alliance, LLC, hereinafter the Contractor,     
+   under Contract No. AC07-05ID14517 with the United States       
+   (U. S.) Department of Energy (DOE). For five years from        
+   April 10, 2012, the Government is granted for itself and others
+   acting on its behalf a nonexclusive, paid-up, irrevocable      
+   worldwide license in this data to reproduce, prepare derivative
+   works, and perform publicly and display publicly, by or on     
+   behalf of the Government. There is provision for the possible  
+   extension of the term of this license. Subsequent to that      
+   period or any extension granted, the Government is granted for 
+   itself and others acting on its behalf a nonexclusive, paid-up,
+   irrevocable worldwide license in this data to reproduce,       
+   prepare derivative works, distribute copies to the public,     
+   perform publicly and display publicly, and to permit others to 
+   do so. The specific term of the license can be identified by   
+   inquiry made to Contractor or DOE. NEITHER THE UNITED STATES   
+   NOR THE UNITED STATES DEPARTMENT OF ENERGY, NOR CONTRACTOR     
+   MAKES ANY WARRANTY, EXPRESS OR IMPLIED, OR ASSUMES ANY         
+   LIABILITY OR RESPONSIBILITY FOR THE USE, ACCURACY,             
+   COMPLETENESS, OR USEFULNESS OR ANY INFORMATION, APPARATUS,     
+   PRODUCT, OR PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE WOULD
+   NOT INFRINGE PRIVATELY OWNED RIGHTS.                           
+                                                                  
+   EXPORT RESTRICTIONS: The provider of this computer software and
+   its employees and its agents are subject to U.S. export control
+   laws that prohibit or restrict (i) transactions with certain   
+   parties, and (ii) the type and level of technologies and       
+   services that may be exported. You agree to comply fully with  
+   all laws and regulations of the United States and other        
+   countries (Export Laws) to assure that neither this computer   
+   software, nor any direct products thereof are (1) exported,    
+   directly or indirectly, in violation of Export Laws, or (2) are
+   used for any purpose prohibited by Export Laws, including,     
+   without limitation, nuclear, chemical, or biological weapons   
+   proliferation.                                                 
+                                                                  
+   None of this computer software or underlying information or    
+   technology may be downloaded or otherwise exported or          
+   re-exported (i) into (or to a national or resident of) Cuba,   
+   North Korea, Iran, Sudan, Syria or any other country to which  
+   the U.S. has embargoed goods; or (ii) to anyone on the U.S.    
+   Treasury Department's List of Specially Designated Nationals   
+   or the U.S. Commerce Department's Denied Persons List,         
+   Unverified List, Entity List, Nonproliferation Sanctions or    
+   General Orders. By downloading or using this computer software,
+   you are agreeing to the foregoing and you are representing and 
+   warranting that you are not located in, under the control of,  
+   or a national or resident of any such country or on any such   
+   list, and that you acknowledge you are responsible to obtain   
+   any necessary U.S. government authorization to ensure          
+   compliance with U.S. law.                                      
+
+0Execute file: /nfs/stak/users/halstedj/RELAP5_3D_Files/relap5.x                               
+0Effective command line parameters:
+    -f    ftb1                                                                                    
+    -i    PG28_filled_Point_5_rst_test_heat.i                                                     
+    -o    (see option -O)                                                                         
+    -p    new                                                                                     
+    -r    [restrt]                                                                                
+    -s    stripf                                                                                  
+    -j    jbinfo                                                                                  
+    -n    null                                                                                    
+    -c    cdffile                                                                                 
+    -a    coupfl                                                                                  
+    -X                                                                                            
+    -C    0                                                                                       
+    -A    dumpfil1                                                                                
+    -B    dumpfil2                                                                                
+    -R    verify                                                                                  
+    -N                                                                                            
+    -F    r5-r5f                                                                                  
+    -P                                                                                            
+    -stat statfl                                                                                  
+    -O    PG28_filled_Point_5_Output.o                                                            
+    -w    tpfh2o                                                                                  
+    -d    tpfd2o                                                                                  
+    -h    tpfh2                                                                                   
+    -l    tpfli                                                                                   
+    -k    tpfk                                                                                    
+    -b    tpfhe                                                                                   
+    -e    tpfn2                                                                                   
+    -m    tpfna                                                                                   
+    -q    tpfnak                                                                                  
+    -t    tpflipb                                                                                 
+    -u    tpfnh3                                                                                  
+    -W    tpfh2on                                                                                 
+    -g    tpfglyc                                                                                 
+    -H    tpfblood                                                                                
+    -L    tpfbipb                                                                                 
+    -T    tpfh2o                                                                                  
+    -D    tpfd2o                                                                                  
+    -S    tpfh2o95                                                                                
+    -G    tpfco2                                                                                  
+    -M    tpfhen                                                                                  
+    -E    tpfxen                                                                                  
+    -J    tpfhenxen                                                                               
+    -U    tpfms1                                                                                  
+    -V    tpfms2                                                                                  
+    -Y    tpfms3                                                                                  
+    -Z    tpfms4                                                                                  
+    -x    tpfdowa                                                                                 
+    -y    tpfr134a                                                                                
+    -Q    tpfpb                                                                                   
+    -v    tpfvertrel                                                                              
+    -rgtest <not active>
+
+    -tpfdir 
+
+    [] = tentative file name (may be overridden by input data)
+
+0Environmental library version number is: envr434 .
+0Table of update define values
+ adflimit off         apollo   off         astra    off         athena   on          bicub    off
+ blkdta   off         boront   on          bufr     off         calstrat off         card1    off
+ change5  off         cmdarg   on          cmprs    off         cooper   off         cprdbg   off
+ cprsai   off         ctss     off         dbdoekin off         dbgilu   off         dbgkin   off
+ dbgkxsec off         dbgnem   off         dbgnode  off         dbgplm1  off         dbgplm2  off
+ dbgpls   off         dbgpvm   off         decalpha off         doeitr   on          doesolvr on 
+ doption  on          dssbordn off         dvalue   on          everdone off         exjn20   off
+ expnum   off         extjun   off         extsys   off         extvol   off         exvn100  off
+ exvn20   off         f90      on          f90mod   off         fourbyt  off         fptran   off
+ g77      off         glrnode  off         hp       off         hp90     off         int32    off
+ leveltrk on          license  on          lin      on          linux    on          makemap  off
+ mmfld    off         msnt     off         nanscr   off         ndbgkry  off         newnrc   on 
+ newwtrp  on          nnkm     on          nopen    off         npa      off         openmp   off
+ parallel off         partser  off         pgmrs2   off         pvmcoupl on          pvmdbg   off
+ r5force  off         rbmkfb   on          readnonb off         rgui     off         rjw      off
+ rodcusp  off         selap    off         simair   on          simlev   on          simsolv  on 
+ simvisc  on          snap     off         snapwin  off         testing  off         testpvm1 off
+ testpvm2 off         testpvm3 off         testpvm4 off         testpvm6 off         testpvm7 off
+ testpvm8 off         testpvm9 off         thfront  on          threed   on          tmpjet   off
+ tstcprss off         tstpvm10 off         tststrph off         vam      off         vargrav  on 
+ vectoryz off
+0Table of print control options
+ accum    on          brntrn   on          ccfl     on          chfcal   on          conden   on 
+ dittus   on          eqfinl   on          fwdrag   on          ht1tdp   on          ht2tdp   on 
+ htadv    on          htfilm   on          htfinl   on          htrc1    on          htrcn2   on 
+ hydro    on          icompt   on          istate   on          jchoke   on          jprop    on 
+ noncnd   on          phantj   on          phantv   on          pimplt   on          pintfc   on 
+ prednb   on          preseq   on          pstdnb   on          qfmove   on          simplt   on 
+ sstchk   on          stacc    on          state    on          statep   on          suboil   on 
+ sysitr   on          syssol   on          tstate   on          valve    on          vexplt   on 
+ vfinl    on          vimplt   on          vlvela   on          volvel   on          trip     on 
+ power    on          volume   on          junction on          heatstr  on          radht    on 
+ reflood  on          fsnprdtr on          control  on          input    on          miedit   on 
+ zoneth   on          xsect    on          cntlrods on          nodprdst on          radnucld on 
+ detectr  on 
+ Listing of input data for case  1                                                                                      
+                                                                                                                        
+     1    =base_2018-05-30QA.i HTTF system model                                                                        
+     2    * base model adjusted for PG-28                                                                               
+     3    *                                                                                                             
+     4    * This model represents the High Temperature Test Facility (HTTF) (prismatic core                             
+     5    * design), which is being built at Oregon State University to support the Advanced                            
+     6    * Reactor Technologies program.                                                                               
+     7    *                                                                                                             
+     8    * This is a full system model developed to perform assessment calculations using                              
+     9    * experiment data from the facility. The model includes the primary pressure vessel                           
+    10    * and internals, the primary coolant system, the secondary coolant system, and                                
+    11    * the reactor cavity cooling system (RCCS).                                                                   
+    12    *                                                                                                             
+    13    * The core is modeled with three parallel channels, each representing one of the                              
+    14    * three rings in the annular heated region. The heater rods radiate to the                                    
+    15    * surrounding ceramic material. The helium gap between the rods and the                                       
+    16    * ceramic is included.                                                                                        
+    17    *                                                                                                             
+    18    * The central reflector is modeled in three pieces: a solid inner ring, a middle ring                         
+    19    * with coolant holes, and an outer solid ring next to the heated region.                                      
+    20    *                                                                                                             
+    21    * The side reflector is also modeled with a solid ring next to the heated portion of                          
+    22    * the core, a middle ring with coolant holes, and a solid ring outside it. The                                
+    23    * permanent side reflector is also modeled as a solid ring.                                                   
+    24    *                                                                                                             
+    25    * The primary coolant system includes the hot and cold ducts, the steam                                       
+    26    * generator plenums and tubes, the gas circulator, pressure relief and                                        
+    27    * depressurization valves, the check valve at the steam generator inlet, the loop                             
+    28    * isolation valve, and connecting piping. Break valves at the end of the hot duct and                         
+    29    * in the cold leg piping connect to the reactor cavity simulation tank (RCST).                                
+    30    *                                                                                                             
+    31    * The hot duct is split into top and bottom halves, and is extended to include all of the                     
+    32    * piping between the pressure vessel and the RCST.                                                            
+    33    *                                                                                                             
+    34    * The upper volume in the RCST is modeled as a large, short volume so that both the top                       
+    35    * half of the hot duct and the cold duct can be connected to it. This provides a large, well-mix              
+    36    * volume of gas to be circulated back into the primary coolant system. A small                                
+    37    * component is added to make the connection from the large RCST volume to the                                 
+    38    * bottom of the hot duct.                                                                                     
+    39    *                                                                                                             
+    40    * The outlet plenum is divided into four components: a volume at the top that connects                        
+    41    * to all of the core channels, a volume between this upper volume and the top half of the                     
+    42    * hot duct, a vertical pipe containing most of the plenum volume (connected at the top                        
+    43    * to the upper volume), and a volume between the bottom half of the hot duct and the pipe.                    
+    44    *                                                                                                             
+    45    * The secondary coolant system includes the feedwater pump, steam generator,                                  
+    46    * the steam line pressure control valve, the pressure relief valve, and associated                            
+    47    * piping. The feedwater piping is not modeled explicitly: the approximate length and                          
+    48    * correct elevation change are input, as the flow resistance of the feedwater piping                          
+    49    * is not important to the plant response.                                                                     
+    50    *                                                                                                             
+    51    * The RCCS is modeled as a set of panels completely surrounding the primary                                   
+    52    * pressure vessel. Flowing water cools the front side of the panels, and natural                              
+    53    * convection heat transfer cools the back side.                                                               
+    54    *                                                                                                             
+    55    * The tank that provides water to the feedwater and RCCS pumps is modeled,                                    
+    56    * along with its water supply, drain valve, and vent line.                                                    
+    57    *                                                                                                             
+    58    * The air cavity between the primary pressure vessel and the RCCS panels is                                   
+    59    * also included in the model.                                                                                 
+    60    *                                                                                                             
+    61    * Trips and control systems are provided for the circulator, the feedwater and RCCS                           
+    62    * pumps, the break and loop isolation valves, the pressure relief and depressurization                        
+    63    * valves, and the tank water supply and drain valves.                                                         
+    64    *                                                                                                             
+    65    * All of the vertically-oriented heat structures have 2-D conduction turned on where                          
+    66    * possible. Axial conduction between the core and the top and                                                 
+    67    * bottom reflectors, and in three of the four solid reflector regions, is modeled                             
+    68    * using conduction enclosures.                                                                                
+    69    *                                                                                                             
+    70    * -----------------------------------------------------------                                                 
+    71    * The deck is set-up to model test PG-28, a low power DCC                                                     
+    72    * -----------------------------------------------------------                                                 
+    73    *                                                                                                             
+    74    * - Changes compared to QA basedeck HTTF_base_2018-05-30QA.i:                                                 
+    75    *   - Split hot duct has been added.                                                                          
+    76    *                                                                                                             
+    77    * - Initial conditions (from OSU-HTTF-TAR-028-R0)                                                             
+    78    * - Boundary conditions (from OSU-HTTF-TAR-028-R0)                                                            
+    79    *                                                                                                             
+    80    *                                                                                                             
+    81    *                                                                                                             
+    82    *********************************************************                                                     
+    83    1 8 12 54                                                                                                     
+    84    100 restart transnt                                                                                           
+    85    101 run                                                                                                       
+    86    102 si  si                                                                                                    
+    87    103 -1 binary restrt                                                                                          
+    88    200 0.0                                                                                                       
+    89    201 80000.0 1.0001-12 2.5-3 3 1000 5000 5000                                                                  
+    90    400                                                                                                           
+    91    600 322                                                                                                       
+    92    *                                                                                                             
+    93    *******************************************************                                                       
+    94    * additional plot variables                                                                                   
+    95    *******************************************************                                                       
+    96    *                                                                                                             
+    97    20800031  systms  1                                                                                           
+    98    20800032  systms  5                                                                                           
+    99    *                                                                                                             
+   100    *******************************************************                                                       
+   101    * trips                                                                                                       
+   102    *******************************************************                                                       
+   103    *                                                                                                             
+   104    20600000  expanded                                                                                            
+   105    *                                                                                                             
+   106    *                                                                                                             
+   107    * Control primary and RCST system pressure                                                                    
+   108    * =================================                                                                           
+   109    * Primary: tmpdjun 233 mondels both, the pressurisation and depressurisation                                  
+   110    * RCST: The pressurisation is modeled through leakage from the primary                                        
+   111    *       valves 256 and 207, the depressurisation through tmpdjun 235                                          
+   112                                                                                                                  
+   113    * Primary: Switch primary from pressurising through SV-4014 to                                                
+   114    *          depressurisation through SV-6201                                                                   
+   115    * RCST: Switch from leakage valves to depressurisation through SV-4001                                        
+   116    20602330 time  0 ge  null  0 1.16E+08  l * 1/6/2019 20:00:00                                                  
+   117                                                                                                                  
+   118    * Global on/off switches                                                                                      
+   119    * strat pressure control                                                                                      
+   120    20602350 time  0 ge  null  0 1.16E+08  l * strat pressure control after 5 seconds                             
+   121    * no more pressure control                                                                                    
+   122    20602340 time  0 ge  null  0 1.16E+08  l * 1/6/2019 20:22:00                                                  
+   123    *                                                                                                             
+   124    * primary helium blower trip                                                                                  
+   125    * (only used when dynamic blower control is used)                                                             
+   126    20602360 time  0 ge  null  0 1.16E+08  l *                                                                    
+   127    *                                                                                                             
+   128    * break trips                                                                                                 
+   129    20602050  time  0 ge  null  0 1.16E+08  l * open hot duct break valve                                         
+   130    20602060  time  0 ge  null  0 1.16E+08  l * close hot duct break valve                                        
+   131                                                                                                                  
+   132    20602550  time  0 ge  null  0 1.16E+08  l * open cold leg break valve                                         
+   133    20602560  time  0 ge  null  0 1.16E+08  l * close cold leg break valve                                        
+   134    *                                                                                                             
+   135    * valve V-6201 trips                                                                                          
+   136    20602450  time  0 ge  null  0 1.16E+08  l * open valve                                                        
+   137    20602460  time  0 ge  null  0 1.16E+08  l * close valve                                                       
+   138    *                                                                                                             
+   139    * primary coolant system relief valve trips                                                                   
+   140    20602940  p 293010000 gt  null  0 1.16E+08  n * opening pressure                                              
+   141    20602950  p 293010000 gt  null  0 1.10E+08  n * closing pressure                                              
+   142    20612940  294 or  1295  n * initial opening or already open                                                   
+   143    20612950  1294  and -295  n * open valve                                                                      
+   144    *                                                                                                             
+   145    * primary coolant system depressurization valve trips                                                         
+   146    20602960  time  0 ge  null  0 1.16E+08  n * open valve manually                                               
+   147    20602970  time  0 ge  null  0 1.16E+08  n * close valve manually                                              
+   148    20612960  296 and -297  n * open valve                                                                        
+   149    *                                                                                                             
+   150    * steam generator relief valve trips                                                                          
+   151    20603940  p 390010000 gt  null  0 1.16E+08  n * opening pressure                                              
+   152    20603950  p 390010000 gt  null  0 1.16E+08  n * closing pressure                                              
+   153    20613940  394 or  1395  n * initial opening or already open                                                   
+   154    20613950  1394  and -395  n * open valve                                                                      
+   155    *                                                                                                             
+   156    * steam generator feedwater valve trips                                                                       
+   157    20603200  cntrlvar  355 lt  null,0 60.0 n  * low SG level setpoint (opening)                                  
+   158    20603210  cntrlvar  355 gt  null,0 80.0 n  * high SG level setpoint (closing)                                 
+   159    *                                                                                                             
+   160    * steam generator level trip (LF-5002 = 69.13% of full to initiate PG-28)                                     
+   161    20603220  cntrlvar  355 lt  null,0 49.45 n  * low SG level setpoint (closing)                                 
+   162    *                                                                                                             
+   163    * water supply valve controls for tank T-010                                                                  
+   164    20604100  cntrlvar  450 lt  cntrlvar  451 0.0 n  * low liquid level setpoint                                  
+   165    20604110  cntrlvar  450 gt  cntrlvar  452 0.0 n  * high liquid level setpoint                                 
+   166    20604120  cntrlvar  450 gt  cntrlvar  453 0.0 n  * level above mid-range                                      
+   167    20614090  410 or  1410  n                                                                                     
+   168    20614100  1409  and -412  n * open supply valve                                                               
+   169    20614110  411 or  1412  n                                                                                     
+   170    20614120  1411  and 412 n * close supply valve                                                                
+   171    *                                                                                                             
+   172    *******************************************************                                                       
+   173    * hydrodynamics                                                                                               
+   174    *******************************************************                                                       
+   175    *                                                                                                             
+   176    2370000 circultr tmdpjun                                                                                      
+   177    2370101 235010000 240000000 0.00000                                                                           
+   178    2370200 1 0                                                                                                   
+   179    2370201 0.0 0.0 0.025763628 0                                                                                 
+   180    2370202 27.0 0.0 0.02576545 0                                                                                 
+   181    2370203 100.5 0.0 0.028761753 0                                                                               
+   182    2370204 153.0 0.0 0.028769218 0                                                                               
+   183    2370205 208.5 0.0 0.028773522 0                                                                               
+   184    2370206 267.5 0.0 0.028780881 0                                                                               
+   185    2370207 330.5 0.0 0.028788164 0                                                                               
+   186    2370208 398.0 0.0 0.028792284 0                                                                               
+   187    2370209 472.0 0.0 0.028796343 0                                                                               
+   188    2370210 557.5 0.0 0.028803368 0                                                                               
+   189    2370211 667.0 0.0 0.028810269 0                                                                               
+   190    2370212 813.0 0.0 0.028820174 0                                                                               
+   191    2370213 1329.5 0.0 0.028873394 0                                                                              
+   192    2370214 1404.0 0.0 0.028884679 0                                                                              
+   193    2370215 1496.5 0.0 0.028904156 0                                                                              
+   194    2370216 1574.0 0.0 0.028920512 0                                                                              
+   195    2370217 1613.5 0.0 0.028925454 0                                                                              
+   196    2370218 1657.0 0.0 0.028933472 0                                                                              
+   197    2370219 1712.0 0.0 0.028941505 0                                                                              
+   198    2370220 1773.5 0.0 0.028949503 0                                                                              
+   199    2370221 1879.0 0.0 0.028965181 0                                                                              
+   200    2370222 1934.5 0.0 0.028969861 0                                                                              
+   201    2370223 2003.0 0.0 0.028974542 0                                                                              
+   202    2370224 2464.0 0.0 0.028936031 0                                                                              
+   203    2370225 2645.5 0.0 0.028905084 0                                                                              
+   204    2370226 2744.0 0.0 0.028891092 0                                                                              
+   205    2370227 2847.5 0.0 0.028877053 0                                                                              
+   206    2370228 2946.5 0.0 0.028864854 0                                                                              
+   207    2370229 3034.0 0.0 0.028855088 0                                                                              
+   208    2370230 3282.0 0.0 0.028835986 0                                                                              
+   209    2370231 3435.5 0.0 0.028827904 0                                                                              
+   210    2370232 3670.0 0.0 0.028825866 0                                                                              
+   211    2370233 4005.0 0.0 0.028826774 0                                                                              
+   212    2370234 4644.0 0.0 0.02883371 0                                                                               
+   213    2370235 4997.0 0.0 0.028801089 0                                                                              
+   214    2370236 5322.0 0.0 0.028777513 0                                                                              
+   215    2370237 5542.5 0.0 0.028790329 0                                                                              
+   216    2370238 5688.0 0.0 0.028827315 0                                                                              
+   217    2370239 5815.0 0.0 0.028861036 0                                                                              
+   218    2370240 5907.5 0.0 0.028891652 0                                                                              
+   219    2370241 5976.0 0.0 0.028922107 0                                                                              
+   220    2370242 6042.0 0.0 0.028952422 0                                                                              
+   221    2370243 6118.5 0.0 0.028985678 0                                                                              
+   222    2370244 6241.5 0.0 0.0391991 0                                                                                
+   223    2370245 6353.5 0.0 0.039299446 0                                                                              
+   224    2370246 6668.5 0.0 0.039614753 0                                                                              
+   225    2370247 6731.5 0.0 0.039695609 0                                                                              
+   226    2370248 6795.0 0.0 0.039768385 0                                                                              
+   227    2370249 6869.5 0.0 0.039828817 0                                                                              
+   228    2370250 6931.5 0.0 0.039897512 0                                                                              
+   229    2370251 6982.0 0.0 0.039974591 0                                                                              
+   230    2370252 7029.0 0.0 0.04004755 0                                                                               
+   231    2370253 7128.0 0.0 0.040177148 0                                                                              
+   232    2370254 7195.5 0.0 0.040200633 0                                                                              
+   233    2370255 7296.0 0.0 0.04014549 0                                                                               
+   234    2370256 7296.5 0.0 0.040145545 0                                                                              
+   235    2370257 7424.5 0.0 0.040007501 0                                                                              
+   236    2370258 8388.5 0.0 0.038131978 0                                                                              
+   237    2370259 9894.5 0.0 0.039965529 0                                                                              
+   238    2370260 10102.0 0.0 0.039867585 0                                                                             
+   239    2370261 10278.5 0.0 0.039761508 0                                                                             
+   240    2370262 10420.5 0.0 0.039729895 0                                                                             
+   241    2370263 10547.5 0.0 0.039702436 0                                                                             
+   242    2370264 10704.0 0.0 0.039679112 0                                                                             
+   243    2370265 10869.5 0.0 0.039668173 0                                                                             
+   244    2370266 11112.5 0.0 0.039648955 0                                                                             
+   245    2370267 11749.5 0.0 0.039641777 0                                                                             
+   246    2370268 11943.5 0.0 0.039696655 0                                                                             
+   247    2370269 12059.5 0.0 0.039730837 0                                                                             
+   248    2370270 12210.5 0.0 0.039819664 0                                                                             
+   249    2370271 12286.5 0.0 0.039861894 0                                                                             
+   250    2370272 12378.5 0.0 0.050158181 0                                                                             
+   251    2370273 12460.0 0.0 0.050274036 0                                                                             
+   252    2370274 12536.0 0.0 0.050415794 0                                                                             
+   253    2370275 12619.5 0.0 0.050536737 0                                                                             
+   254    2370276 12758.5 0.0 0.0505122 0                                                                               
+   255    2370277 13606.5 0.0 0.047918354 0                                                                             
+   256    2370278 15001.5 0.0 0.050751661 0                                                                             
+   257    2370279 15316.5 0.0 0.050835708 0                                                                             
+   258    2370280 16231.5 0.0 0.050287941 0                                                                             
+   259    2370281 17703.0 0.0 0.050258939 0                                                                             
+   260    2370282 17839.0 0.0 0.050306894 0                                                                             
+   261    2370283 17928.5 0.0 0.050349688 0                                                                             
+   262    2370284 18000.0 0.0 0.05039763 0                                                                              
+   263    2370285 18158.5 0.0 0.060818972 0                                                                             
+   264    2370286 18378.0 0.0 0.061010273 0                                                                             
+   265    2370287 18619.5 0.0 0.061240201 0                                                                             
+   266    2370288 18978.0 0.0 0.061397506 0                                                                             
+   267    2370289 19137.5 0.0 0.061098562 0                                                                             
+   268    2370290 19318.5 0.0 0.060337445 0                                                                             
+   269    2370291 19449.5 0.0 0.059418815 0                                                                             
+   270    2370292 19522.0 0.0 0.059031114 0                                                                             
+   271    2370293 19600.0 0.0 0.058737228 0                                                                             
+   272    2370294 19723.0 0.0 0.058010863 0                                                                             
+   273    2370295 19859.0 0.0 0.057352708 0                                                                             
+   274    2370296 19975.0 0.0 0.057164566 0                                                                             
+   275    *                                                                                                             
+   276    * pressure in preimary loop                                                                                   
+   277    *                                                                                                             
+   278    20220000 reac-t                                                                                               
+   279    20220001 0.0 210000.0                                                                                         
+   280    20220002 447.5 210400.0                                                                                       
+   281    20220003 523.5 210600.0                                                                                       
+   282    20220004 855.5 210100.0                                                                                       
+   283    20220005 895.5 210300.0                                                                                       
+   284    20220006 1042.5 210700.0                                                                                      
+   285    20220007 1121.0 210200.0                                                                                      
+   286    20220008 1121.5 210800.0                                                                                      
+   287    20220009 1343.0 210300.0                                                                                      
+   288    20220010 1345.0 210200.0                                                                                      
+   289    20220011 1791.0 210700.0                                                                                      
+   290    20220012 1996.5 210600.0                                                                                      
+   291    20220013 2239.0 210400.0                                                                                      
+   292    20220014 2686.5 210500.0                                                                                      
+   293    20220015 2994.0 210700.0                                                                                      
+   294    20220016 3134.5 210200.0                                                                                      
+   295    20220017 3256.5 210100.0                                                                                      
+   296    20220018 3582.5 210400.0                                                                                      
+   297    20220019 3678.0 210700.0                                                                                      
+   298    20220020 4030.0 210300.0                                                                                      
+   299    20220021 4421.0 210400.0                                                                                      
+   300    20220022 4478.0 210500.0                                                                                      
+   301    20220023 4926.0 210100.0                                                                                      
+   302    20220024 5327.5 210200.0                                                                                      
+   303    20220025 5373.5 210000.0                                                                                      
+   304    20220026 5596.5 210400.0                                                                                      
+   305    20220027 5619.0 209900.0                                                                                      
+   306    20220028 5821.5 210400.0                                                                                      
+   307    20220029 5957.0 209300.0                                                                                      
+   308    20220030 5957.5 209800.0                                                                                      
+   309    20220031 6269.5 210000.0                                                                                      
+   310    20220032 6717.0 210000.0                                                                                      
+   311    20220033 6952.0 209800.0                                                                                      
+   312    20220034 7165.0 209800.0                                                                                      
+   313    20220035 7613.0 209800.0                                                                                      
+   314    20220036 7714.0 209900.0                                                                                      
+   315    20220037 7763.5 210300.0                                                                                      
+   316    20220038 8060.5 210300.0                                                                                      
+   317    20220039 8508.5 209000.0                                                                                      
+   318    20220040 8518.0 209300.0                                                                                      
+   319    20220041 8568.0 208800.0                                                                                      
+   320    20220042 8956.5 209100.0                                                                                      
+   321    20220043 9341.0 209500.0                                                                                      
+   322    20220044 9404.0 209200.0                                                                                      
+   323    20220045 9450.0 209500.0                                                                                      
+   324    20220046 9450.5 208900.0                                                                                      
+   325    20220047 9852.0 208900.0                                                                                      
+   326    20220048 10076.0 208600.0                                                                                     
+   327    20220049 10300.0 209000.0                                                                                     
+   328    20220050 10393.0 208900.0                                                                                     
+   329    20220051 10546.0 208100.0                                                                                     
+   330    20220052 10570.5 209000.0                                                                                     
+   331    20220053 10581.0 208500.0                                                                                     
+   332    20220054 10747.5 208700.0                                                                                     
+   333    20220055 10843.5 208300.0                                                                                     
+   334    20220056 10844.0 208800.0                                                                                     
+   335    20220057 11195.5 208200.0                                                                                     
+   336    20220058 11643.0 208000.0                                                                                     
+   337    20220059 11696.0 208400.0                                                                                     
+   338    20220060 11944.5 208000.0                                                                                     
+   339    20220061 12091.0 207700.0                                                                                     
+   340    20220062 12539.0 207600.0                                                                                     
+   341    20220063 12945.5 207700.0                                                                                     
+   342    20220064 12986.5 207600.0                                                                                     
+   343    20220065 13434.5 207100.0                                                                                     
+   344    20220066 13534.5 207600.0                                                                                     
+   345    20220067 13663.0 207200.0                                                                                     
+   346    20220068 13882.5 206700.0                                                                                     
+   347    20220069 14330.0 206300.0                                                                                     
+   348    20220070 14738.5 205500.0                                                                                     
+   349    20220071 14778.0 205700.0                                                                                     
+   350    20220072 15226.0 205800.0                                                                                     
+   351    20220073 15583.0 205500.0                                                                                     
+   352    20220074 15673.5 205500.0                                                                                     
+   353    20220075 15756.0 205400.0                                                                                     
+   354    20220076 15916.0 205100.0                                                                                     
+   355    20220077 16121.5 205000.0                                                                                     
+   356    20220078 16327.0 204900.0                                                                                     
+   357    20220079 16341.5 204500.0                                                                                     
+   358    20220080 16569.5 204700.0                                                                                     
+   359    20220081 17017.0 204500.0                                                                                     
+   360    20220082 17465.0 204000.0                                                                                     
+   361    20220083 17762.0 203300.0                                                                                     
+   362    20220084 17913.0 203600.0                                                                                     
+   363    20220085 18360.5 203300.0                                                                                     
+   364    20220086 18367.0 203000.0                                                                                     
+   365    20220087 18808.5 203200.0                                                                                     
+   366    20220088 18845.5 203000.0                                                                                     
+   367    20220089 19256.5 202600.0                                                                                     
+   368    20220090 19593.5 202000.0                                                                                     
+   369    20220091 19594.0 202600.0                                                                                     
+   370    20220092 19704.0 202400.0                                                                                     
+   371    20220093 19811.5 202400.0                                                                                     
+   372    20220094 20152.0 201500.0                                                                                     
+   373    20220095 20600.0 200900.0                                                                                     
+   374    20220096 21047.5 201000.0                                                                                     
+   375    20220097 21176.0 200600.0                                                                                     
+   376    20220098 21495.5 201000.0                                                                                     
+   377    20220099 21943.5 200300.0                                                                                     
+   378    *                                                                                                             
+   379    * pressure in RCST                                                                                            
+   380    *                                                                                                             
+   381    20220100 reac-t                                                                                               
+   382    20220101 0.0 195900.0                                                                                         
+   383    20220102 447.5 195900.0                                                                                       
+   384    20220103 895.5 195900.0                                                                                       
+   385    20220104 1343.0 196000.0                                                                                      
+   386    20220105 1736.0 196000.0                                                                                      
+   387    20220106 1791.0 196000.0                                                                                      
+   388    20220107 2239.0 196000.0                                                                                      
+   389    20220108 2686.5 196100.0                                                                                      
+   390    20220109 3134.5 196100.0                                                                                      
+   391    20220110 3582.5 196100.0                                                                                      
+   392    20220111 4030.0 196100.0                                                                                      
+   393    20220112 4046.0 196100.0                                                                                      
+   394    20220113 4382.0 196200.0                                                                                      
+   395    20220114 4382.5 196100.0                                                                                      
+   396    20220115 4398.0 196200.0                                                                                      
+   397    20220116 4400.0 196200.0                                                                                      
+   398    20220117 4409.5 196200.0                                                                                      
+   399    20220118 4411.0 196200.0                                                                                      
+   400    20220119 4414.5 196200.0                                                                                      
+   401    20220120 4416.0 196200.0                                                                                      
+   402    20220121 4418.5 196200.0                                                                                      
+   403    20220122 4422.0 196200.0                                                                                      
+   404    20220123 4422.5 196100.0                                                                                      
+   405    20220124 4423.0 196200.0                                                                                      
+   406    20220125 4425.0 196200.0                                                                                      
+   407    20220126 4432.0 196200.0                                                                                      
+   408    20220127 4436.0 196100.0                                                                                      
+   409    20220128 4437.5 196100.0                                                                                      
+   410    20220129 4438.0 196200.0                                                                                      
+   411    20220130 4465.0 196200.0                                                                                      
+   412    20220131 4478.0 196100.0                                                                                      
+   413    20220132 4926.0 196200.0                                                                                      
+   414    20220133 5373.5 196200.0                                                                                      
+   415    20220134 5821.5 196200.0                                                                                      
+   416    20220135 6086.5 196300.0                                                                                      
+   417    20220136 6269.5 196300.0                                                                                      
+   418    20220137 6717.0 196300.0                                                                                      
+   419    20220138 7165.0 196300.0                                                                                      
+   420    20220139 7613.0 196400.0                                                                                      
+   421    20220140 8060.5 196400.0                                                                                      
+   422    20220141 8339.0 196400.0                                                                                      
+   423    20220142 8340.5 196400.0                                                                                      
+   424    20220143 8344.5 196400.0                                                                                      
+   425    20220144 8356.0 196400.0                                                                                      
+   426    20220145 8508.5 196400.0                                                                                      
+   427    20220146 8956.5 196500.0                                                                                      
+   428    20220147 9404.0 196500.0                                                                                      
+   429    20220148 9852.0 196500.0                                                                                      
+   430    20220149 10300.0 196600.0                                                                                     
+   431    20220150 10445.5 196600.0                                                                                     
+   432    20220151 10460.5 196600.0                                                                                     
+   433    20220152 10747.5 196600.0                                                                                     
+   434    20220153 11195.5 196600.0                                                                                     
+   435    20220154 11643.0 196700.0                                                                                     
+   436    20220155 12091.0 196700.0                                                                                     
+   437    20220156 12367.5 196700.0                                                                                     
+   438    20220157 12369.5 196700.0                                                                                     
+   439    20220158 12373.5 196700.0                                                                                     
+   440    20220159 12377.0 196700.0                                                                                     
+   441    20220160 12388.0 196700.0                                                                                     
+   442    20220161 12389.5 196700.0                                                                                     
+   443    20220162 12539.0 196700.0                                                                                     
+   444    20220163 12986.5 196800.0                                                                                     
+   445    20220164 13434.5 196800.0                                                                                     
+   446    20220165 13882.5 196800.0                                                                                     
+   447    20220166 14330.0 196900.0                                                                                     
+   448    20220167 14778.0 196900.0                                                                                     
+   449    20220168 15226.0 196900.0                                                                                     
+   450    20220169 15673.5 197000.0                                                                                     
+   451    20220170 16121.5 197000.0                                                                                     
+   452    20220171 16569.5 197000.0                                                                                     
+   453    20220172 17017.0 197100.0                                                                                     
+   454    20220173 17465.0 197100.0                                                                                     
+   455    20220174 17913.0 197100.0                                                                                     
+   456    20220175 18360.5 197200.0                                                                                     
+   457    20220176 18808.5 197200.0                                                                                     
+   458    20220177 19256.5 197200.0                                                                                     
+   459    20220178 19657.0 197300.0                                                                                     
+   460    20220179 19671.0 197200.0                                                                                     
+   461    20220180 19671.5 197300.0                                                                                     
+   462    20220181 19676.0 197300.0                                                                                     
+   463    20220182 19679.0 197300.0                                                                                     
+   464    20220183 19679.5 197200.0                                                                                     
+   465    20220184 19680.0 197300.0                                                                                     
+   466    20220185 19682.5 197300.0                                                                                     
+   467    20220186 19684.5 197300.0                                                                                     
+   468    20220187 19692.5 197300.0                                                                                     
+   469    20220188 19696.0 197300.0                                                                                     
+   470    20220189 19698.0 197300.0                                                                                     
+   471    20220190 19702.0 197300.0                                                                                     
+   472    20220191 19704.0 197300.0                                                                                     
+   473    20220192 19727.0 197300.0                                                                                     
+   474    20220193 19732.5 197300.0                                                                                     
+   475    20220194 19735.5 197300.0                                                                                     
+   476    20220195 20152.0 197300.0                                                                                     
+   477    20220196 20600.0 197300.0                                                                                     
+   478    20220197 21047.5 197300.0                                                                                     
+   479    20220198 21495.5 197400.0                                                                                     
+   480    20220199 21943.5 197400.0                                                                                     
+   481    *                                                                                                             
+   482    * Core delta T measured                                                                                       
+   483    20222000 reac-t                                                                                               
+   484    20222001 0.0 220.76165555555517                                                                               
+   485    20222002 447.5 220.76165555555517                                                                             
+   486    20222003 895.5 220.76165555555517                                                                             
+   487    20222004 900.0 220.75339444444404                                                                             
+   488    20222005 900.5 220.76165555555517                                                                             
+   489    20222006 954.5 221.6704888888885                                                                              
+   490    20222007 1343.0 223.78119999999885                                                                            
+   491    20222008 1791.0 224.91817777777695                                                                            
+   492    20222009 2239.0 225.72552777777668                                                                            
+   493    20222010 2686.5 226.11400555555434                                                                            
+   494    20222011 3134.5 226.4182833333323                                                                             
+   495    20222012 3582.5 226.6851111111098                                                                             
+   496    20222013 3778.5 226.76802777777698                                                                            
+   497    20222014 4030.0 226.8890944444433                                                                             
+   498    20222015 4478.0 227.10474444444384                                                                            
+   499    20222016 4826.5 227.22904444444376                                                                            
+   500    20222017 4926.0 227.24970555555512                                                                            
+   501    20222018 5373.5 227.32569444444357                                                                            
+   502    20222019 5761.5 227.4185055555548                                                                             
+   503    20222020 5821.5 227.4301277777768                                                                             
+   504    20222021 6269.5 228.01603888888778                                                                            
+   505    20222022 6287.0 228.1076722222211                                                                             
+   506    20222023 6689.0 230.629116666665                                                                              
+   507    20222024 6717.0 230.82593333333165                                                                            
+   508    20222025 7165.0 233.17255555555377                                                                            
+   509    20222026 7613.0 233.17346666666617                                                                            
+   510    20222027 8060.5 232.36298888888865                                                                            
+   511    20222028 8258.5 231.74102222222197                                                                            
+   512    20222029 8332.5 231.51696666666646                                                                            
+   513    20222030 8508.5 231.15211666666642                                                                            
+   514    20222031 8956.5 230.93952777777758                                                                            
+   515    20222032 9404.0 230.54564999999945                                                                            
+   516    20222033 9852.0 228.49126111111002                                                                            
+   517    20222034 9948.5 227.90168888888755                                                                            
+   518    20222035 10300.0 225.67764444444313                                                                           
+   519    20222036 10732.0 222.80219444444307                                                                           
+   520    20222037 10747.5 222.6890111111098                                                                            
+   521    20222038 11195.5 219.58334999999917                                                                           
+   522    20222039 11476.0 217.7663444444437                                                                            
+   523    20222040 11643.0 216.78753333333282                                                                           
+   524    20222041 11779.0 215.99048888888814                                                                           
+   525    20222042 12017.5 214.6037777777764                                                                            
+   526    20222043 12091.0 214.16930555555444                                                                           
+   527    20222044 12274.5 213.1090111111106                                                                            
+   528    20222045 12509.5 212.67323888888833                                                                           
+   529    20222046 12539.0 212.72083333333282                                                                           
+   530    20222047 12571.5 212.7805277777774                                                                            
+   531    20222048 12986.5 213.6395722222215                                                                            
+   532    20222049 13053.0 213.75061111111                                                                              
+   533    20222050 13086.5 213.80276111111007                                                                           
+   534    20222051 13434.5 212.89803888888736                                                                           
+   535    20222052 13471.5 212.6118888888873                                                                            
+   536    20222053 13689.5 210.79544444444318                                                                           
+   537    20222054 13854.5 209.46149999999886                                                                           
+   538    20222055 13882.5 209.25166666666556                                                                           
+   539    20222056 13939.5 208.86099999999908                                                                           
+   540    20222057 14330.0 207.03890555555463                                                                           
+   541    20222058 14778.0 204.79312222222129                                                                           
+   542    20222059 14927.5 203.45484444444355                                                                           
+   543    20222060 15169.5 200.69359444444365                                                                           
+   544    20222061 15184.5 200.50599999999918                                                                           
+   545    20222062 15226.0 199.99627777777695                                                                           
+   546    20222063 15673.5 194.72794444444386                                                                           
+   547    20222064 15796.5 193.4621111111103                                                                            
+   548    20222065 15870.0 192.7341666666659                                                                            
+   549    20222066 16121.5 190.36544444444357                                                                           
+   550    20222067 16569.5 186.50144444444337                                                                           
+   551    20222068 16580.5 186.41211111110997                                                                           
+   552    20222069 17017.0 182.83199999999943                                                                           
+   553    20222070 17204.0 181.32016666666638                                                                           
+   554    20222071 17465.0 179.2293333333327                                                                            
+   555    20222072 17554.0 178.50983333333292                                                                           
+   556    20222073 17913.0 175.61705555555528                                                                           
+   557    20222074 18133.0 173.84699999999992                                                                           
+   558    20222075 18344.0 172.16050000000018                                                                           
+   559    20222076 18360.5 172.01700000000025                                                                           
+   560    20222077 18493.0 170.78911111111125                                                                           
+   561    20222078 18808.5 167.54638888888894                                                                           
+   562    20222079 18811.5 167.51344444444456                                                                           
+   563    20222080 18847.5 167.12711111111093                                                                           
+   564    20222081 19045.0 164.85716666666625                                                                           
+   565    20222082 19175.0 163.26466666666616                                                                           
+   566    20222083 19205.5 162.90877777777732                                                                           
+   567    20222084 19256.5 162.3176666666661                                                                            
+   568    20222085 19340.0 161.37883333333286                                                                           
+   569    20222086 19519.5 159.4462777777772                                                                            
+   570    20222087 19704.0 157.55727777777727                                                                           
+   571    20222088 19883.0 155.82305555555476                                                                           
+   572    20222089 19945.0 155.27566666666584                                                                           
+   573    20222090 20000.0 154.83416666666577                                                                           
+   574    20222091 20036.5 154.5613888888881                                                                            
+   575    20222092 20114.5 154.0592222222212                                                                            
+   576    20222093 20152.0 153.86716666666587                                                                           
+   577    20222094 20526.0 152.69983333333192                                                                           
+   578    20222095 20549.5 152.64094444444297                                                                           
+   579    20222096 20600.0 152.49405555555404                                                                           
+   580    20222097 21047.5 149.87133333333202                                                                           
+   581    20222098 21495.5 143.99061111111018                                                                           
+   582    20222099 21943.5 138.39199999999894                                                                           
+   583    *                                                                                                             
+   584    * power in heater 101                                                                                         
+   585    *                                                                                                             
+   586    20290100  power                                                                                               
+   587    20290101 0.0 0.0                                                                                              
+   588    *                                                                                                             
+   589    * power in heater 102                                                                                         
+   590    *                                                                                                             
+   591    20290200  power                                                                                               
+   592    20290201 0.0 0.0                                                                                              
+   593    *                                                                                                             
+   594    * power in heater 103                                                                                         
+   595    *                                                                                                             
+   596    20290300  power                                                                                               
+   597    20290301 0.0 0.0                                                                                              
+   598    *                                                                                                             
+   599    * power in heater 104                                                                                         
+   600    *                                                                                                             
+   601    20290400  power                                                                                               
+   602    20290401 0.0 0.0                                                                                              
+   603    *                                                                                                             
+   604    * power in heater 105                                                                                         
+   605    *                                                                                                             
+   606    20290500  power                                                                                               
+   607    20290501 0.0 0.0                                                                                              
+   608    *                                                                                                             
+   609    * power in heater 106                                                                                         
+   610    *                                                                                                             
+   611    20290600  power                                                                                               
+   612    20290601 0.0 0.0                                                                                              
+   613    *                                                                                                             
+   614    * power in heater 107                                                                                         
+   615    *                                                                                                             
+   616    20290700 power                                                                                                
+   617    20290701 0.0 24234.75714                                                                                      
+   618    20290702 275.5 23779.17889                                                                                    
+   619    20290703 278.5 23756.1736                                                                                     
+   620    20290704 457.0 23679.98641                                                                                    
+   621    20290705 497.0 23848.08416                                                                                    
+   622    20290706 536.5 23919.41013                                                                                    
+   623    20290707 914.0 23701.36449                                                                                    
+   624    20290708 1065.5 23799.42146                                                                                   
+   625    20290709 1098.5 23951.54817                                                                                   
+   626    20290710 1115.5 24060.94939                                                                                   
+   627    20290711 1371.0 24450.15727                                                                                   
+   628    20290712 1543.0 23852.81494                                                                                   
+   629    20290713 1727.5 23769.33623                                                                                   
+   630    20290714 1808.5 23673.02429                                                                                   
+   631    20290715 1828.5 23611.62575                                                                                   
+   632    20290716 1898.0 23686.76038                                                                                   
+   633    20290717 1967.5 23801.20677                                                                                   
+   634    20290718 2081.0 23656.16601                                                                                   
+   635    20290719 2121.0 23683.88765                                                                                   
+   636    20290720 2285.5 24074.93254                                                                                   
+   637    20290721 2742.5 23561.55343                                                                                   
+   638    20290722 2836.0 23613.34254                                                                                   
+   639    20290723 3200.0 24095.83754                                                                                   
+   640    20290724 3657.0 23929.98135                                                                                   
+   641    20290725 3817.0 23540.02087                                                                                   
+   642    20290726 4114.0 23730.32443                                                                                   
+   643    20290727 4571.5 23544.15053                                                                                   
+   644    20290728 4943.5 23908.21495                                                                                   
+   645    20290729 5007.5 23930.85056                                                                                   
+   646    20290730 5028.5 24173.89419                                                                                   
+   647    20290731 5406.0 23867.11608                                                                                   
+   648    20290732 5458.5 23819.83294                                                                                   
+   649    20290733 5476.0 23580.47775                                                                                   
+   650    20290734 5485.5 23753.30207                                                                                   
+   651    20290735 5943.0 23492.27246                                                                                   
+   652    20290736 6319.5 23602.69077                                                                                   
+   653    20290737 6400.0 23225.65548                                                                                   
+   654    20290738 6857.0 23204.93683                                                                                   
+   655    20290739 7314.5 23676.06714                                                                                   
+   656    20290740 7771.5 23559.41947                                                                                   
+   657    20290741 8228.5 23419.93542                                                                                   
+   658    20290742 8685.5 23081.58732                                                                                   
+   659    20290743 9143.0 23049.8911                                                                                    
+   660    20290744 9207.5 23019.89724                                                                                   
+   661    20290745 9227.5 22706.27843                                                                                   
+   662    20290746 9228.0 22831.35014                                                                                   
+   663    20290747 9600.0 22828.32352                                                                                   
+   664    20290748 10057.0 22990.96555                                                                                  
+   665    20290749 10514.5 22853.27583                                                                                  
+   666    20290750 10971.5 22709.18363                                                                                  
+   667    20290751 11286.0 22933.46103                                                                                  
+   668    20290752 11428.5 22462.17143                                                                                  
+   669    20290753 11545.0 22720.61985                                                                                  
+   670    20290754 11546.0 22483.49119                                                                                  
+   671    20290755 11576.5 22887.86582                                                                                  
+   672    20290756 11775.5 22730.44989                                                                                  
+   673    20290757 11886.0 22708.40278                                                                                  
+   674    20290758 11989.0 22814.45458                                                                                  
+   675    20290759 12343.0 23229.85006                                                                                  
+   676    20290760 12800.0 22799.77895                                                                                  
+   677    20290761 13257.5 22702.90017                                                                                  
+   678    20290762 13697.5 22532.44604                                                                                  
+   679    20290763 13714.5 22565.73101                                                                                  
+   680    20290764 14171.5 22567.3949                                                                                   
+   681    20290765 14578.5 22535.61512                                                                                  
+   682    20290766 14588.0 22473.73629                                                                                  
+   683    20290767 14590.5 22391.71648                                                                                  
+   684    20290768 14629.0 22858.84576                                                                                  
+   685    20290769 14716.5 22503.00521                                                                                  
+   686    20290770 14755.5 22839.23257                                                                                  
+   687    20290771 15086.0 23071.59859                                                                                  
+   688    20290772 15543.0 22707.29432                                                                                  
+   689    20290773 16000.0 23276.76112                                                                                  
+   690    20290774 16457.5 23387.9723                                                                                   
+   691    20290775 16914.5 23204.30506                                                                                  
+   692    20290776 17371.5 23264.75143                                                                                  
+   693    20290777 17829.0 23394.88994                                                                                  
+   694    20290778 18286.0 23556.6345                                                                                   
+   695    20290779 18604.0 23293.186                                                                                    
+   696    20290780 18743.0 23388.50008                                                                                  
+   697    20290781 19199.0 22935.77533                                                                                  
+   698    20290782 19200.5 23114.16117                                                                                  
+   699    20290783 19307.5 22985.70338                                                                                  
+   700    20290784 19364.0 23122.29246                                                                                  
+   701    20290785 19431.0 23052.45125                                                                                  
+   702    20290786 19657.5 23205.94009                                                                                  
+   703    20290787 20114.5 22807.49487                                                                                  
+   704    20290788 20161.0 22973.70512                                                                                  
+   705    20290789 20318.5 23163.71774                                                                                  
+   706    20290790 20572.0 22742.32974                                                                                  
+   707    20290791 20620.5 22905.25008                                                                                  
+   708    20290792 20643.0 23098.99563                                                                                  
+   709    20290793 21029.0 23442.41113                                                                                  
+   710    20290794 21486.0 23416.56496                                                                                  
+   711    20290795 21665.5 23366.30329                                                                                  
+   712    20290796 21666.0 23273.1941                                                                                   
+   713    20290797 21943.5 22922.24963                                                                                  
+   714    *                                                                                                             
+   715    * power in heater 108                                                                                         
+   716    *                                                                                                             
+   717    20290800  power                                                                                               
+   718    20290801 0.0 0.0                                                                                              
+   719    *                                                                                                             
+   720    * power in heater 109                                                                                         
+   721    *                                                                                                             
+   722    20290900  power                                                                                               
+   723    20290901 0.0 0.0                                                                                              
+   724    *                                                                                                             
+   725    * power in heater 110                                                                                         
+   726    *                                                                                                             
+   727    20291000  power                                                                                               
+   728    20291001 0.0 0.0                                                                                              
+   729    *                                                                                                             
+   730    .                                                                                                             
+0RELAP5-3D/Ver:4.3.4      Reactor Excursion Leak Analysis Program
+ base_2018-05-30QA.i HTTF system model                                            21/12/12     09:26:49      
+1RELAP5-3D/Ver:4.3.4      Reactor Excursion Leak Analysis Program
+ base_2018-05-30QA.i HTTF system model                                            21/12/12     09:26:49      
+0Processing type is restart 
++                                       problem option is transnt 
+0inp-chk, run option is run.    
+0Desired restart number is LAST.
+0Binary plot file is assumed.
+0Plot file name changed to: restrt.plt                                                                      
+0Restart name changed to: restrt.r                                                                        
+0******** Open failure number       29 on file restrt.r                                                                         perhaps file is not available.
+0Restart and plot files will be written.
+0Plot file format is XDR (machine-INdep binary)
+0Option control numbers entered are:
+    8   12   54
+0current change options:
+    1  F    2  F    3  F    4  F    5  F    6  F    7  F    8  T    9  F   10  F
+   11  F   12  T   13  F   14  F   15  F   16  F   17  F   18  F   19  F   20  F
+   21  F   22  F   23  F   24  F   25  F   26  F   27  F   28  F   29  F   30  F
+   31  F   32  F   33  F   34  F   35  F   36  F   37  F   38  F   39  F   40  F
+   41  F   42  F   43  F   44  F   45  F   46  F   47  F   48  F   49  F   50  F
+   51  F   52  F   53  F   54  T   55  F   56  F   57  F   58  F   59  F   60  F
+   61  F   62  F   63  F   64  F   65  F   66  F   67  F   68  F   69  F   70  F
+   71  F   72  F   73  F   74  F   75  F   76  F   77  F   78  F   79  F   80  F
+   81  F   82  F   83  F   84  F   85  F   86  F   87  F   88  F   89  F   90  F
+   91  F   92  F   93  F   94  F   95  F   96  F   97  F   98  F   99  F  100  T
+0Option 8 is void dependent time step control.
+0Option 12 is water packer based on interphase drag.
+0Option 54 does not toss out small amount of water in eqfinl (helps with mass error in containment).
+0Option 100 is an option which is always defined and can be used to activate coding which is being tested by a developer.
+0Input units are assumed si           output units are si      
+0******** Problem being terminated because of errors with restart file listed above.
+0******** Errors detected during input processing.

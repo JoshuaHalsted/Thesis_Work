@@ -1,0 +1,4407 @@
+div.Title, caption.Title
+{
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 18pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 18pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Body, caption.Body
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Table_Cell, caption.Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-indent: 0em;
+}
+
+div.List_1, caption.List_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.35in;
+}
+
+div.Table_Footnote, caption.Table_Footnote
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Body_1, caption.Body_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.newpage, caption.newpage
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Child_Topics_Open, caption.Child_Topics_Open
+{
+  border-bottom-color: Black;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-top-style: none;
+  border-top-width: thin;
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Child_Topic, caption.Child_Topic
+{
+  color: Blue;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+  text-transform: none;
+}
+
+div.Heading_1, caption.Heading_1
+{
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 18pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 18pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Section, caption.Section
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Section_Title, caption.Section_Title
+{
+  border-top-color: #003366;
+  border-top-style: solid;
+  border-top-width: 1pt;
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_2, caption.List_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.35in;
+}
+
+div.List_3, caption.List_3
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.2in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.35in;
+}
+
+div.List_4, caption.List_4
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.45in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Parent_Topic, caption.Parent_Topic
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_5, caption.List_5
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.8in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_1_Continued, caption.List_1_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0in;
+}
+
+div.Heading_2, caption.Heading_2
+{
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 15pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 18pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_6, caption.List_6
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_2_Continued, caption.List_2_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_3_Continued, caption.List_3_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.2in;
+  margin-right: 0pt;
+  margin-top: 0em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Short_Description, caption.Short_Description
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Prerequisite, caption.Prerequisite
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Context, caption.Context
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Step_1, caption.Step_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.35in;
+}
+
+div.Step_1_Continued, caption.Step_1_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Choice_2, caption.Choice_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.35in;
+}
+
+div.stepresult_1, caption.stepresult_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.info_1, caption.info_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Table_Cell_Head, caption.Table_Cell_Head
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Numbered_1, caption.Numbered_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.35in;
+}
+
+div.Numbered_1_Continued, caption.Numbered_1_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Step_Section_1, caption.Step_Section_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Example, caption.Example
+{
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 18pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Example_Title, caption.Example_Title
+{
+  border-top-color: #003366;
+  border-top-style: solid;
+  border-top-width: 1pt;
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term, caption.Definition_Term
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description, caption.Definition_Description
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.1in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Table_Title, caption.Table_Title
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Note, caption.Note
+{
+  background-image: url("../images/note.png");
+  background-position: left center;
+  background-repeat: no-repeat;
+  border-bottom-color: Black;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-top-color: Black;
+  border-top-style: solid;
+  border-top-width: thin;
+  display: block;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0px;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 10px;
+  padding-left: 38px;
+  padding-right: 0pt;
+  padding-top: 10px;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_2, caption.List_in_Definition_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.45in;
+  margin-right: 0pt;
+  margin-top: 0.25em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.25in;
+}
+
+div.Definition_Term1, caption.Definition_Term1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description1, caption.Definition_Description1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.5in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_3, caption.List_in_Definition_3
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.7in;
+  margin-right: 0pt;
+  margin-top: 0.25em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.25in;
+}
+
+div.Heading_3, caption.Heading_3
+{
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 12pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 18pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Preformatted_1, caption.Preformatted_1
+{
+  font-family: Monospace;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+  white-space: pre;
+}
+
+div.Preformatted, caption.Preformatted
+{
+  font-family: Monospace;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+  white-space: pre;
+}
+
+div.Choice_2_Continued, caption.Choice_2_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Result, caption.Result
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Heading_4, caption.Heading_4
+{
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 12pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 18pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Related_Topics_Open, caption.Related_Topics_Open
+{
+  border-bottom-color: Black;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-top-style: none;
+  border-top-width: thin;
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Related_Topic, caption.Related_Topic
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Numbered_3, caption.Numbered_3
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.2in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.35in;
+}
+
+div.Numbered_3_Continued, caption.Numbered_3_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.2in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.caution, caption.caution
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.warning, caption.warning
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Note_1, caption.Note_1
+{
+  background-image: url("../images/note.png");
+  background-position: left center;
+  background-repeat: no-repeat;
+  border-bottom-color: Black;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-left-style: none;
+  border-right-style: none;
+  border-top-color: Black;
+  border-top-style: solid;
+  border-top-width: thin;
+  display: block;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 10px;
+  padding-left: 38px;
+  padding-right: 0pt;
+  padding-top: 10px;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Figure_imagemap, caption.Figure_imagemap
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Note_3, caption.Note_3
+{
+  background-image: url("../images/note.png");
+  background-position: left center;
+  background-repeat: no-repeat;
+  border-bottom-color: Black;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-left-style: none;
+  border-right-style: none;
+  border-top-color: Black;
+  border-top-style: solid;
+  border-top-width: thin;
+  display: block;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 10px;
+  padding-left: 38px;
+  padding-right: 0pt;
+  padding-top: 10px;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Heading_5, caption.Heading_5
+{
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 18pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Section_Division, caption.Section_Division
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term_Property_Name, caption.Definition_Term_Property_Name
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.caution_2, caption.caution_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Simple_Table_Cell_Head__Property, caption.Simple_Table_Cell_Head__Property
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Simple_Table_Cell_Head_, caption.Simple_Table_Cell_Head_
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Simple_Table_Cell, caption.Simple_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term_Table_Cell, caption.Definition_Term_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description_Table_Cell, caption.Definition_Description_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.1in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term_Property_Name_Table_Cell, caption.Definition_Term_Property_Name_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Equation_Block, caption.Equation_Block
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Figure_equation-display, caption.Figure_equation-display
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: center;
+  text-indent: 0em;
+}
+
+div.Equation_Title, caption.Equation_Title
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 1em;
+  padding-top: 0pt;
+  position: static;
+  text-align: right;
+  text-indent: 0em;
+}
+
+div.Equation_Block_1, caption.Equation_Block_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Numbered_2, caption.Numbered_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.35in;
+}
+
+div.Substep_2, caption.Substep_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.35in;
+}
+
+div.Substep_2_Continued, caption.Substep_2_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.info_2, caption.info_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Note_2, caption.Note_2
+{
+  background-image: url("../images/note.png");
+  background-position: left center;
+  background-repeat: no-repeat;
+  border-bottom-color: Black;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-left-style: none;
+  border-right-style: none;
+  border-top-color: Black;
+  border-top-style: solid;
+  border-top-width: thin;
+  display: block;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 10px;
+  padding-left: 38px;
+  padding-right: 0pt;
+  padding-top: 10px;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Numbered_2_Continued, caption.Numbered_2_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Simple_List_in_Table__1, caption.Simple_List_in_Table__1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.1in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_3_Continued, caption.List_in_Definition_3_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.7in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_4, caption.List_in_Definition_4
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.95in;
+  margin-right: 0pt;
+  margin-top: 0.25em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.25in;
+}
+
+div.List_in_Definition_4_Continued, caption.List_in_Definition_4_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.95in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_2_Continued, caption.List_in_Definition_2_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.45in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Preformatted_2, caption.Preformatted_2
+{
+  font-family: Monospace;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+  white-space: pre;
+}
+
+div.stepxmp_1, caption.stepxmp_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.stepxmp_2, caption.stepxmp_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Reference_Syntax, caption.Reference_Syntax
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Postrequisite, caption.Postrequisite
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.stepresult_2, caption.stepresult_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Body_2, caption.Body_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Citation, caption.Citation
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.6in;
+}
+
+div.Preformatted_3, caption.Preformatted_3
+{
+  font-family: Monospace;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.2in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+  white-space: pre;
+}
+
+div.Choice_Table_Option_Head, caption.Choice_Table_Option_Head
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Choice_Table_Description_Head, caption.Choice_Table_Description_Head
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Choice_Table_Option, caption.Choice_Table_Option
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Choice_Table_Description, caption.Choice_Table_Description
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Heading_6, caption.Heading_6
+{
+  color: #4F91BD;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Related_Concept, caption.Related_Concept
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.tutorialinfo_2, caption.tutorialinfo_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Equation_Block_2, caption.Equation_Block_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Simple_List_2, caption.Simple_List_2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Simple_List_3, caption.Simple_List_3
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.warning_1, caption.warning_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Related_Reference, caption.Related_Reference
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.tutorialinfo_1, caption.tutorialinfo_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Numbered_4, caption.Numbered_4
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Numbered_4_Continued, caption.Numbered_4_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term1_Property_Name, caption.Definition_Term1_Property_Name
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term2, caption.Definition_Term2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description2, caption.Definition_Description2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.9in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term1_Condition_Node, caption.Definition_Term1_Condition_Node
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term_Value_Node, caption.Definition_Term_Value_Node
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term_Value_Node_Table_Cell, caption.Definition_Term_Value_Node_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Child_Topic_Sequence, caption.Child_Topic_Sequence
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Related_Task, caption.Related_Task
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term2_Property_Name, caption.Definition_Term2_Property_Name
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Abstract, caption.Abstract
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term_Condition_Node, caption.Definition_Term_Condition_Node
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.tip_1, caption.tip_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Unordered_Step_1, caption.Unordered_Step_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Unordered_Step_1_Continued, caption.Unordered_Step_1_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term3, caption.Definition_Term3
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description3, caption.Definition_Description3
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_1, caption.List_in_Definition_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_1_Continued, caption.List_in_Definition_1_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term_Condition_Node_Table_Cell, caption.Definition_Term_Condition_Node_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term1_Value_Node_Table_Cell, caption.Definition_Term1_Value_Node_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description1_Table_Cell, caption.Definition_Description1_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term1_Property_Name_Table_Cell, caption.Definition_Term1_Property_Name_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term1_Value_Node, caption.Definition_Term1_Value_Node
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Equation-Figure, caption.Equation-Figure
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Simple_List_in_Table__2, caption.Simple_List_in_Table__2
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.25in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Simple_List_1, caption.Simple_List_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term2_Condition_Node, caption.Definition_Term2_Condition_Node
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Lines, caption.Lines
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+  white-space: pre;
+}
+
+div.Lines_1, caption.Lines_1
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+  white-space: pre;
+}
+
+div.Definition_Term1_Table_Cell, caption.Definition_Term1_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term2_Table_Cell, caption.Definition_Term2_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description2_Table_Cell, caption.Definition_Description2_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term1_Condition_Node_Table_Cell, caption.Definition_Term1_Condition_Node_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term3_Property_Name, caption.Definition_Term3_Property_Name
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_5, caption.List_in_Definition_5
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.2in;
+  margin-right: 0pt;
+  margin-top: 0.25em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: -0.25in;
+}
+
+div.Definition_Term3_Property_Name_Table_Cell, caption.Definition_Term3_Property_Name_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description3_Table_Cell, caption.Definition_Description3_Table_Cell
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_5_Continued, caption.List_in_Definition_5_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.2in;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_4_Continued, caption.List_4_Continued
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term2_Value_Node, caption.Definition_Term2_Value_Node
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0.8in;
+  margin-right: 0pt;
+  margin-top: 6pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_6, caption.List_in_Definition_6
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term4, caption.Definition_Term4
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description4, caption.Definition_Description4
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term5, caption.Definition_Term5
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description5, caption.Definition_Description5
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term6, caption.Definition_Term6
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description6, caption.Definition_Description6
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term7_Property_Name, caption.Definition_Term7_Property_Name
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Description7, caption.Definition_Description7
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Body_8, caption.Body_8
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.List_in_Definition_7, caption.List_in_Definition_7
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Note_8, caption.Note_8
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Definition_Term5_Property_Name, caption.Definition_Term5_Property_Name
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Equation_Block_3, caption.Equation_Block_3
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.tip, caption.tip
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Simple_List_4, caption.Simple_List_4
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 1.4in;
+  margin-right: 0pt;
+  margin-top: 0.5em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.title, caption.title
+{
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 21pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 18pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+div.Table_Description, caption.Table_Description
+{
+  color: #003366;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+  left: 0em;
+  line-height: 1.5em;
+  margin-bottom: 0pt;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 18pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  position: static;
+  text-align: left;
+  text-indent: 0em;
+}
+
+span.msgph
+{
+  font-family: Verdana, Sans-Serif;
+  font-variant: normal;
+}
+
+span.Bold
+{
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+}
+
+span.Link_Text
+{
+  color: MediumBlue;
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.ideaStorm
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.Italic
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.filepath
+{
+  font-family: Monospace;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.IdeaStorm
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.xref
+{
+  color: MediumBlue;
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.wintitle
+{
+  font-family: Verdana, Sans-Serif;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.uicontrol
+{
+  color: Black;
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+}
+
+span.ph
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.Subscript
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  vertical-align: sub;
+}
+
+span.userinput
+{
+  font-family: Monospace;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.Command
+{
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.cmdname
+{
+  border-bottom-color: Gray;
+  border-bottom-style: dotted;
+  border-bottom-width: 1pt;
+  border-left-color: Gray;
+  border-left-style: dotted;
+  border-left-width: 1pt;
+  border-right-color: Gray;
+  border-right-style: dotted;
+  border-right-width: 1pt;
+  border-top-color: Gray;
+  border-top-style: dotted;
+  border-top-width: 1pt;
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.Property_Name_Term
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: bold;
+}
+
+span.term
+{
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+}
+
+span.codeph
+{
+  font-family: Monospace;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.systemoutput
+{
+  font-family: Monospace;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+}
+
+span.Keyword
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.coords
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.Superscript
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  vertical-align: super;
+}
+
+span.Underline
+{
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  text-decoration: underline;
+}
+
+span.Citation
+{
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.apiname
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.option
+{
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+}
+
+span.varname
+{
+  font-family: Verdana, Sans-Serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+}
+
+span.Importance__0028default_0029
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.N12pt
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 12pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.N14pt
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 14pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.N10pt
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.N14pt
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 14pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.N10pt
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.N10pt
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 10pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.N12pt
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 12pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.N12pt
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 12pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+span.N14pt
+{
+  font-family: Verdana, Sans-Serif;
+  font-size: 14pt;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+table.Default
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  overflow: scroll;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.Indented_Table_1
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 1em;
+  overflow: scroll;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.Simple1
+{
+  border-bottom-color: #C0C0FF;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-collapse: collapse;
+  border-left-color: #C0C0FF;
+  border-left-style: solid;
+  border-left-width: thin;
+  border-right-color: #C0C0FF;
+  border-right-style: solid;
+  border-right-width: thin;
+  border-spacing: 0pt;
+  border-top-color: #C0C0FF;
+  border-top-style: solid;
+  border-top-width: thin;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+}
+
+table.Equation_Display
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0em;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 2em;
+  padding-right: 0em;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+  width: 100%;
+}
+
+table.Simple
+{
+  border-bottom-color: #C0C0FF;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-collapse: collapse;
+  border-left-color: #C0C0FF;
+  border-left-style: solid;
+  border-left-width: thin;
+  border-right-color: #C0C0FF;
+  border-right-style: solid;
+  border-right-width: thin;
+  border-spacing: 0pt;
+  border-top-color: #C0C0FF;
+  border-top-style: solid;
+  border-top-width: thin;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+}
+
+table.Choice
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0.4in;
+  margin-right: 0pt;
+  margin-top: 1em;
+  overflow: scroll;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.Equation_Display_1
+{
+  border-collapse: separate;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0em;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 5em;
+  padding-right: 0em;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+  width: 100%;
+}
+
+table.Simple2
+{
+  border-bottom-color: #C0C0FF;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  border-collapse: collapse;
+  border-left-color: #C0C0FF;
+  border-left-style: solid;
+  border-left-width: thin;
+  border-right-color: #C0C0FF;
+  border-right-style: solid;
+  border-right-width: thin;
+  border-spacing: 0pt;
+  border-top-color: #C0C0FF;
+  border-top-style: solid;
+  border-top-width: thin;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0.75in;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+}
+
+table.Indented_Table_2
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0.75in;
+  margin-right: 0pt;
+  margin-top: 1em;
+  overflow: scroll;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.Equation_Display_2
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+}
+
+table.Equation_Display_3
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+}
+
+table.Simple3
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+}
+
+table.Simple8
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+}
+
+table.Simple6
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+}
+
+table.Simple7
+{
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  margin-bottom: 1em;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  margin-top: 1em;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+  padding-top: 0pt;
+  table-layout: auto;
+  text-align: left;
+}
+
+img.Default
+{
+  margin-top: 0.5em;
+  padding-bottom: 0%;
+  padding-left: 0%;
+  padding-right: 0%;
+  padding-top: 0%;
+}
+
+img.equation-inline
+{
+  float: none;
+  padding-bottom: 0%;
+  padding-left: 0%;
+  padding-right: 0%;
+  padding-top: 0%;
+}
+
+img.Equation-Block
+{
+  float: none;
+  margin-top: 0.5em;
+  padding-bottom: 0%;
+  padding-left: 0%;
+  padding-right: 0%;
+  padding-top: 0%;
+}
+
+img.Equation-Display
+{
+  float: none;
+  margin-top: 0em;
+  padding-bottom: 0%;
+  padding-left: 1em;
+  padding-right: 0%;
+  padding-top: 0%;
+}
+

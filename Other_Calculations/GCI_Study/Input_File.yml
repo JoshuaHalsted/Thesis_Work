@@ -1,0 +1,23 @@
+Analysis:
+  Fluid_Volume: 0.359392
+  Simulation1:
+      Name: 'Fine'
+      Sim_File_Location: ''
+      Number_Cells: 17561115.0
+      Variable_of_Interest:
+          Name: Pressure
+          Value: 3010736.35 
+  Simulation2:
+      Name: 'Medium'
+      Sim_File_Location: ''
+      Number_Cells: 12864691.0
+      Variable_of_Interest:
+          Name: Pressure
+          Value: 3010536.35 
+  Simulation3:
+      Name: 'Coarse'
+      Sim_File_Location: ''
+      Number_Cells: 8606941.0
+      Variable_of_Interest:
+          Name: Pressure
+          Value: 3000936.35 

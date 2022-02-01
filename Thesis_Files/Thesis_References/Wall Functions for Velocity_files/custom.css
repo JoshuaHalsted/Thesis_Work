@@ -1,0 +1,39 @@
+img.EquationGraphic
+{
+  vertical-align: middle;
+}
+
+.popUp 
+{ 
+
+text-align: center; 
+padding: 5px; 
+border: solid 3pt blue; 
+background: #669966; 
+}
+
+table.SimpleTableExtra
+{
+width: 100%;
+}
+
+img.RightJustifyIcon
+{
+text-align: right;
+}
+
+
+div.Simple_Table_Cell_Head__Property > span.WebWorks_Number > span > img,
+div.Definition_Term_Property_Name > span.WebWorks_Number > span > img,
+div.Definition_Term_Value_Node_Table_Cell > span.WebWorks_Number > span > img,
+div.Definition_Term1_Value_Node > span.WebWorks_Number > span > img,
+div.Definition_Term_Value_Node > span.WebWorks_Number > span > img,
+div.Definition_Term_Condition_Node > span.WebWorks_Number > span > img,
+div.Definition_Term1_Condition_Node > span.WebWorks_Number > span > img,
+div.Definition_Term_Condition_Node_Table_Cell > span.WebWorks_Number > span > img,
+div.Definition_Term_Property_Name_Table_Cell > span.WebWorks_Number > span > img
+{
+width: 0.18in;
+height: 0.18in;
+vertical-align: middle;
+}

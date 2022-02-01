@@ -1,0 +1,55 @@
+R5_Analysis:
+    Instrument_Map_File: "instrumentationmap2018-09-28.csv"
+    PG_28:
+        Experimental_Data_Quality: "PG28_Data_Quality.csv"
+        Experimental_Data_Trend: "PG28_Data_Trend.csv"
+        w_SG:
+            Test1:
+                Flow_Rate:
+                Input_File:
+                Instrument_Plots:
+                    Line:
+                        Name: "Steam Generator Level"
+                        Instruments:
+                          - "LF-5002"
+                        Name: "Steam Generator Pressure"
+                        Instruments:
+                          - "PT-5001"
+                        Name: "Steam Generator Inlet Temperature"
+                        Instruments:
+                          - "TF-5001"
+                        Name: "Circulator Differential Pressure"
+                        Instruments:
+                          - "DIFFERENCE(PT-6202,PT-6201)"
+                        Name: "Core Differential Pressure"
+                        Instruments:
+                          - "DP-3001"
+                        Name: "Core Differential Pressure"
+                        Instruments:
+                          - "DP-3001"
+                        Name: "Inner Core Block 5 Average Temperature Absolute Differences"
+                        Instruments:
+                          - "AVERAGE(TF-1504,TF-1518,TF-1532)"
+                        Name: "Middle Core Block 5 Average Temperature Absolute Differences"
+                        Instruments:
+                          - "AVERAGE(TF-1506,TF-1520,TF-1534)"
+                        Name: "Outer Core Block 5 Average Temperature Absolute Differences"
+                        Instruments:
+                          - "AVERAGE(TF-1508,TF-1522,TF-1536)"
+                        Name: "Outer Ring, Core Block 5 Temperature Absolute Difference"
+                        Instruments:
+                          - "TF-1532"
+                          - "TF-1520"
+                          - "TF-1536"
+                    Scatter:
+                    Bar:
+                    Table:
+        no_SG:
+            Test1:
+                Flow_Rate:
+                Input_File:
+                Instrument_Plots:
+                    Line:
+                    Scatter:
+                    Bar:
+                    Table:

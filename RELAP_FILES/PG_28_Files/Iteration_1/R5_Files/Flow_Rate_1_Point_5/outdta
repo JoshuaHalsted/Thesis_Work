@@ -1,0 +1,1179 @@
+1RELAP5-3D/Ver:4.3.4      Reactor Excursion Leak Analysis Program
+0               __________________________ 
+               |                          |
+               |         COPYRIGHT        |
+               | Battelle Energy Alliance |
+               |           2012           |
+               |    All Rights Reserved   |
+               |__________________________|
+
+                __________________________ 
+               |                          |
+               |     EXPORT CONTROLLED    |
+               |        INFORMATION       |
+               |  Contains technical data |
+               |     whose export is      |
+               |  restricted by statute.  |
+               |  Violations may result   |
+               |    in administrative,    |
+               |    civil, or criminal    |
+               |        penalties.        |
+               |__________________________|
+
+                __________________________ 
+               |                          |
+               |          NOFORN          |
+               | This document is subject |
+               |    to special export     |
+               |    controls and each     |
+               |  transmittal to foreign  |
+               |  governments or foreign  |
+               |  nationals may be made   |
+               |   only with the prior    |
+               |    approval of the       |
+               |        U.S. DOE.         |
+               |__________________________|
+
+               Copyright 2012 Battelle Energy Alliance, LLC
+                           ALL RIGHTS RESERVED             
+                                                           
+                Prepared by Battelle Energy Alliance, LLC  
+                  under Contract No. DE-AC07-05ID14517     
+                  with the U. S. Department of Energy      
+
+   NOTICE: This computer software, RELAP5-3D, was prepared by     
+   Battelle Energy Alliance, LLC, hereinafter the Contractor,     
+   under Contract No. AC07-05ID14517 with the United States       
+   (U. S.) Department of Energy (DOE). For five years from        
+   April 10, 2012, the Government is granted for itself and others
+   acting on its behalf a nonexclusive, paid-up, irrevocable      
+   worldwide license in this data to reproduce, prepare derivative
+   works, and perform publicly and display publicly, by or on     
+   behalf of the Government. There is provision for the possible  
+   extension of the term of this license. Subsequent to that      
+   period or any extension granted, the Government is granted for 
+   itself and others acting on its behalf a nonexclusive, paid-up,
+   irrevocable worldwide license in this data to reproduce,       
+   prepare derivative works, distribute copies to the public,     
+   perform publicly and display publicly, and to permit others to 
+   do so. The specific term of the license can be identified by   
+   inquiry made to Contractor or DOE. NEITHER THE UNITED STATES   
+   NOR THE UNITED STATES DEPARTMENT OF ENERGY, NOR CONTRACTOR     
+   MAKES ANY WARRANTY, EXPRESS OR IMPLIED, OR ASSUMES ANY         
+   LIABILITY OR RESPONSIBILITY FOR THE USE, ACCURACY,             
+   COMPLETENESS, OR USEFULNESS OR ANY INFORMATION, APPARATUS,     
+   PRODUCT, OR PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE WOULD
+   NOT INFRINGE PRIVATELY OWNED RIGHTS.                           
+                                                                  
+   EXPORT RESTRICTIONS: The provider of this computer software and
+   its employees and its agents are subject to U.S. export control
+   laws that prohibit or restrict (i) transactions with certain   
+   parties, and (ii) the type and level of technologies and       
+   services that may be exported. You agree to comply fully with  
+   all laws and regulations of the United States and other        
+   countries (Export Laws) to assure that neither this computer   
+   software, nor any direct products thereof are (1) exported,    
+   directly or indirectly, in violation of Export Laws, or (2) are
+   used for any purpose prohibited by Export Laws, including,     
+   without limitation, nuclear, chemical, or biological weapons   
+   proliferation.                                                 
+                                                                  
+   None of this computer software or underlying information or    
+   technology may be downloaded or otherwise exported or          
+   re-exported (i) into (or to a national or resident of) Cuba,   
+   North Korea, Iran, Sudan, Syria or any other country to which  
+   the U.S. has embargoed goods; or (ii) to anyone on the U.S.    
+   Treasury Department's List of Specially Designated Nationals   
+   or the U.S. Commerce Department's Denied Persons List,         
+   Unverified List, Entity List, Nonproliferation Sanctions or    
+   General Orders. By downloading or using this computer software,
+   you are agreeing to the foregoing and you are representing and 
+   warranting that you are not located in, under the control of,  
+   or a national or resident of any such country or on any such   
+   list, and that you acknowledge you are responsible to obtain   
+   any necessary U.S. government authorization to ensure          
+   compliance with U.S. law.                                      
+
+0Execute file: /nfs/stak/users/halstedj/RELAP5_3D_Files/relap5.x                               
+0Effective command line parameters:
+    -f    ftb1                                                                                    
+    -i    Strip.i                                                                                 
+    -o    outdta                                                                                  
+    -p    plotfl                                                                                  
+    -r    [restrt]                                                                                
+    -s    stripf                                                                                  
+    -j    jbinfo                                                                                  
+    -n    null                                                                                    
+    -c    cdffile                                                                                 
+    -a    coupfl                                                                                  
+    -X                                                                                            
+    -C    0                                                                                       
+    -A    dumpfil1                                                                                
+    -B    dumpfil2                                                                                
+    -R    verify                                                                                  
+    -N                                                                                            
+    -F    r5-r5f                                                                                  
+    -P                                                                                            
+    -stat statfl                                                                                  
+    -O    (see option -o)                                                                         
+    -w    tpfh2o                                                                                  
+    -d    tpfd2o                                                                                  
+    -h    tpfh2                                                                                   
+    -l    tpfli                                                                                   
+    -k    tpfk                                                                                    
+    -b    tpfhe                                                                                   
+    -e    tpfn2                                                                                   
+    -m    tpfna                                                                                   
+    -q    tpfnak                                                                                  
+    -t    tpflipb                                                                                 
+    -u    tpfnh3                                                                                  
+    -W    tpfh2on                                                                                 
+    -g    tpfglyc                                                                                 
+    -H    tpfblood                                                                                
+    -L    tpfbipb                                                                                 
+    -T    tpfh2o                                                                                  
+    -D    tpfd2o                                                                                  
+    -S    tpfh2o95                                                                                
+    -G    tpfco2                                                                                  
+    -M    tpfhen                                                                                  
+    -E    tpfxen                                                                                  
+    -J    tpfhenxen                                                                               
+    -U    tpfms1                                                                                  
+    -V    tpfms2                                                                                  
+    -Y    tpfms3                                                                                  
+    -Z    tpfms4                                                                                  
+    -x    tpfdowa                                                                                 
+    -y    tpfr134a                                                                                
+    -Q    tpfpb                                                                                   
+    -v    tpfvertrel                                                                              
+    -rgtest <not active>
+
+    -tpfdir 
+
+    [] = tentative file name (may be overridden by input data)
+
+0Environmental library version number is: envr434 .
+0Table of update define values
+ adflimit off         apollo   off         astra    off         athena   on          bicub    off
+ blkdta   off         boront   on          bufr     off         calstrat off         card1    off
+ change5  off         cmdarg   on          cmprs    off         cooper   off         cprdbg   off
+ cprsai   off         ctss     off         dbdoekin off         dbgilu   off         dbgkin   off
+ dbgkxsec off         dbgnem   off         dbgnode  off         dbgplm1  off         dbgplm2  off
+ dbgpls   off         dbgpvm   off         decalpha off         doeitr   on          doesolvr on 
+ doption  on          dssbordn off         dvalue   on          everdone off         exjn20   off
+ expnum   off         extjun   off         extsys   off         extvol   off         exvn100  off
+ exvn20   off         f90      on          f90mod   off         fourbyt  off         fptran   off
+ g77      off         glrnode  off         hp       off         hp90     off         int32    off
+ leveltrk on          license  on          lin      on          linux    on          makemap  off
+ mmfld    off         msnt     off         nanscr   off         ndbgkry  off         newnrc   on 
+ newwtrp  on          nnkm     on          nopen    off         npa      off         openmp   off
+ parallel off         partser  off         pgmrs2   off         pvmcoupl on          pvmdbg   off
+ r5force  off         rbmkfb   on          readnonb off         rgui     off         rjw      off
+ rodcusp  off         selap    off         simair   on          simlev   on          simsolv  on 
+ simvisc  on          snap     off         snapwin  off         testing  off         testpvm1 off
+ testpvm2 off         testpvm3 off         testpvm4 off         testpvm6 off         testpvm7 off
+ testpvm8 off         testpvm9 off         thfront  on          threed   on          tmpjet   off
+ tstcprss off         tstpvm10 off         tststrph off         vam      off         vargrav  on 
+ vectoryz off
+0Table of print control options
+ accum    on          brntrn   on          ccfl     on          chfcal   on          conden   on 
+ dittus   on          eqfinl   on          fwdrag   on          ht1tdp   on          ht2tdp   on 
+ htadv    on          htfilm   on          htfinl   on          htrc1    on          htrcn2   on 
+ hydro    on          icompt   on          istate   on          jchoke   on          jprop    on 
+ noncnd   on          phantj   on          phantv   on          pimplt   on          pintfc   on 
+ prednb   on          preseq   on          pstdnb   on          qfmove   on          simplt   on 
+ sstchk   on          stacc    on          state    on          statep   on          suboil   on 
+ sysitr   on          syssol   on          tstate   on          valve    on          vexplt   on 
+ vfinl    on          vimplt   on          vlvela   on          volvel   on          trip     on 
+ power    on          volume   on          junction on          heatstr  on          radht    on 
+ reflood  on          fsnprdtr on          control  on          input    on          miedit   on 
+ zoneth   on          xsect    on          cntlrods on          nodprdst on          radnucld on 
+ detectr  on 
+ Listing of input data for case  1                                                                                      
+                                                                                                                        
+     1    =CSV strip input for HTTF                                                                                     
+     2    * Strip the needed data into a CSV                                                                            
+     3    100 strip fmtout                                                                                              
+     4    103 0 binary plotfl                                                                                           
+     5    104 csv                                                                                                       
+     6    *                                                                                                             
+     7    * Variables                                                                                                   
+     8    1001 httemp 130001401                                                                                         
+     9    1002 tempg 164140000                                                                                          
+    10    1003 httemp 130001201                                                                                         
+    11    1004 httemp 130001301                                                                                         
+    12    1005 htvat 1660012                                                                                            
+    13    1006 htvat 1660013                                                                                            
+    14    1007 tempg 164120000                                                                                          
+    15    1008 tempg 164130000                                                                                          
+    16    1009 htvat 1660013                                                                                            
+    17    1010 httemp 130001101                                                                                         
+    18    1011 httemp 130001201                                                                                         
+    19    1012 httemp 134001101                                                                                         
+    20    1013 httemp 134001201                                                                                         
+    21    1014 htvat 1340011                                                                                            
+    22    1015 htvat 1340012                                                                                            
+    23    1016 htvat 1401009                                                                                            
+    24    1017 htvat 1401010                                                                                            
+    25    1018 tempg 140110000                                                                                          
+    26    1019 tempg 140120000                                                                                          
+    27    1020 htvat 1451009                                                                                            
+    28    1021 htvat 1451010                                                                                            
+    29    1022 tempg 145110000                                                                                          
+    30    1023 tempg 145120000                                                                                          
+    31    1024 htvat 1501009                                                                                            
+    32    1025 htvat 1501010                                                                                            
+    33    1026 tempg 150110000                                                                                          
+    34    1027 tempg 150120000                                                                                          
+    35    1028 httemp 160001101                                                                                         
+    36    1029 httemp 160001201                                                                                         
+    37    1030 htvat 1600011                                                                                            
+    38    1031 htvat 1600012                                                                                            
+    39    1032 httemp 140300901                                                                                         
+    40    1033 httemp 140301001                                                                                         
+    41    1034 httemp 150300901                                                                                         
+    42    1035 httemp 150301001                                                                                         
+    43    1036 tempg 164110000                                                                                          
+    44    1037 tempg 164120000                                                                                          
+    45    1038 tempg 164120000                                                                                          
+    46    1039 tempg 164120000                                                                                          
+    47    1040 htvat 1340012                                                                                            
+    48    1041 htvat 1401010                                                                                            
+    49    1042 tempg 140120000                                                                                          
+    50    1043 htvat 1451010                                                                                            
+    51    1044 tempg 145120000                                                                                          
+    52    1045 htvat 1501010                                                                                            
+    53    1046 tempg 150120000                                                                                          
+    54    1047 httemp 160001201                                                                                         
+    55    1048 htvat 1600011                                                                                            
+    56    1049 htvat 1600012                                                                                            
+    57    1050 httemp 140301001                                                                                         
+    58    1051 httemp 150301001                                                                                         
+    59    1052 tempg 164120000                                                                                          
+    60    1053 tempg 164120000                                                                                          
+    61    1054 tempg 164120000                                                                                          
+    62    1055 quala 140110000                                                                                          
+    63    1056 quala 140120000                                                                                          
+    64    1057 quala 140120000                                                                                          
+    65    1058 httemp 130001001                                                                                         
+    66    1059 httemp 130001101                                                                                         
+    67    1060 tempg 164100000                                                                                          
+    68    1061 tempg 164110000                                                                                          
+    69    1062 quala 150100000                                                                                          
+    70    1063 quala 150110000                                                                                          
+    71    1064 httemp 130000901                                                                                         
+    72    1065 httemp 130001001                                                                                         
+    73    1066 httemp 134000901                                                                                         
+    74    1067 httemp 134001001                                                                                         
+    75    1068 htvat 1340009                                                                                            
+    76    1069 htvat 1340010                                                                                            
+    77    1070 htvat 1401007                                                                                            
+    78    1071 htvat 1401008                                                                                            
+    79    1072 tempg 140090000                                                                                          
+    80    1073 tempg 140100000                                                                                          
+    81    1074 htvat 1451007                                                                                            
+    82    1075 htvat 1451008                                                                                            
+    83    1076 tempg 145090000                                                                                          
+    84    1077 tempg 145100000                                                                                          
+    85    1078 htvat 1501007                                                                                            
+    86    1079 htvat 1501008                                                                                            
+    87    1080 tempg 150090000                                                                                          
+    88    1081 tempg 150100000                                                                                          
+    89    1082 httemp 160000901                                                                                         
+    90    1083 httemp 160001001                                                                                         
+    91    1084 htvat 1600009                                                                                            
+    92    1085 htvat 1600010                                                                                            
+    93    1086 htvat 1660009                                                                                            
+    94    1087 htvat 1660010                                                                                            
+    95    1088 httemp 140300701                                                                                         
+    96    1089 httemp 140300801                                                                                         
+    97    1090 httemp 150300701                                                                                         
+    98    1091 httemp 150300801                                                                                         
+    99    1092 tempg 164090000                                                                                          
+   100    1093 tempg 164100000                                                                                          
+   101    1094 tempg 164100000                                                                                          
+   102    1095 tempg 164100000                                                                                          
+   103    1096 htvat 1340010                                                                                            
+   104    1097 htvat 1401008                                                                                            
+   105    1098 tempg 140100000                                                                                          
+   106    1099 htvat 1451008                                                                                            
+   107    1100 tempg 145100000                                                                                          
+   108    1101 htvat 1501008                                                                                            
+   109    1102 tempg 150100000                                                                                          
+   110    1103 httemp 160001001                                                                                         
+   111    1104 htvat 1600009                                                                                            
+   112    1105 htvat 1600010                                                                                            
+   113    1106 htvat 1660010                                                                                            
+   114    1107 httemp 140300801                                                                                         
+   115    1108 httemp 150300801                                                                                         
+   116    1109 tempg 164100000                                                                                          
+   117    1110 tempg 164100000                                                                                          
+   118    1111 tempg 164100000                                                                                          
+   119    1112 httemp 132000906                                                                                         
+   120    1113 httemp 132001006                                                                                         
+   121    1114 htvat 1320009                                                                                            
+   122    1115 htvat 1320010                                                                                            
+   123    1116 htvat 1401008                                                                                            
+   124    1117 tempg 140100000                                                                                          
+   125    1118 htvat 1451008                                                                                            
+   126    1119 tempg 145100000                                                                                          
+   127    1120 htvat 1501008                                                                                            
+   128    1121 tempg 150100000                                                                                          
+   129    1122 httemp 160001001                                                                                         
+   130    1123 htvat 1600009                                                                                            
+   131    1124 htvat 1600010                                                                                            
+   132    1125 httemp 166000901                                                                                         
+   133    1126 httemp 166001001                                                                                         
+   134    1127 httemp 140300801                                                                                         
+   135    1128 httemp 145300701                                                                                         
+   136    1129 httemp 145300801                                                                                         
+   137    1130 httemp 150300701                                                                                         
+   138    1131 httemp 150300801                                                                                         
+   139    1132 tempg 164100000                                                                                          
+   140    1133 tempg 164100000                                                                                          
+   141    1134 tempg 164100000                                                                                          
+   142    1135 quala 140090000                                                                                          
+   143    1136 quala 140100000                                                                                          
+   144    1137 quala 140100000                                                                                          
+   145    1138 httemp 130000801                                                                                         
+   146    1139 httemp 130000901                                                                                         
+   147    1140 tempg 164080000                                                                                          
+   148    1141 tempg 164090000                                                                                          
+   149    1142 quala 150080000                                                                                          
+   150    1143 quala 150090000                                                                                          
+   151    1144 httemp 130000701                                                                                         
+   152    1145 httemp 130000801                                                                                         
+   153    1146 httemp 134000701                                                                                         
+   154    1147 httemp 134000801                                                                                         
+   155    1148 htvat 1340007                                                                                            
+   156    1149 htvat 1340008                                                                                            
+   157    1150 htvat 1401005                                                                                            
+   158    1151 htvat 1401006                                                                                            
+   159    1152 tempg 140070000                                                                                          
+   160    1153 tempg 140080000                                                                                          
+   161    1154 htvat 1451005                                                                                            
+   162    1155 htvat 1451006                                                                                            
+   163    1156 tempg 145070000                                                                                          
+   164    1157 tempg 145080000                                                                                          
+   165    1158 htvat 1501005                                                                                            
+   166    1159 htvat 1501006                                                                                            
+   167    1160 tempg 150070000                                                                                          
+   168    1161 tempg 150080000                                                                                          
+   169    1162 httemp 160000701                                                                                         
+   170    1163 httemp 160000801                                                                                         
+   171    1164 htvat 1600007                                                                                            
+   172    1165 htvat 1600008                                                                                            
+   173    1166 htvat 1660007                                                                                            
+   174    1167 htvat 1660008                                                                                            
+   175    1168 httemp 140300501                                                                                         
+   176    1169 httemp 140300601                                                                                         
+   177    1170 httemp 150300501                                                                                         
+   178    1171 httemp 150300601                                                                                         
+   179    1172 tempg 164070000                                                                                          
+   180    1173 tempg 164080000                                                                                          
+   181    1174 tempg 164080000                                                                                          
+   182    1175 tempg 164080000                                                                                          
+   183    1176 htvat 1340008                                                                                            
+   184    1177 htvat 1401006                                                                                            
+   185    1178 tempg 140080000                                                                                          
+   186    1179 htvat 1451006                                                                                            
+   187    1180 tempg 145080000                                                                                          
+   188    1181 htvat 1501006                                                                                            
+   189    1182 tempg 150080000                                                                                          
+   190    1183 httemp 160000801                                                                                         
+   191    1184 htvat 1600007                                                                                            
+   192    1185 htvat 1600008                                                                                            
+   193    1186 htvat 1660008                                                                                            
+   194    1187 httemp 140300601                                                                                         
+   195    1188 httemp 150300601                                                                                         
+   196    1189 tempg 164080000                                                                                          
+   197    1190 tempg 164080000                                                                                          
+   198    1191 tempg 164080000                                                                                          
+   199    1192 httemp 132000706                                                                                         
+   200    1193 httemp 132000806                                                                                         
+   201    1194 htvat 1320007                                                                                            
+   202    1195 htvat 1320008                                                                                            
+   203    1196 htvat 1401006                                                                                            
+   204    1197 tempg 140080000                                                                                          
+   205    1198 htvat 1451006                                                                                            
+   206    1199 tempg 145080000                                                                                          
+   207    1200 htvat 1501006                                                                                            
+   208    1201 tempg 150080000                                                                                          
+   209    1202 httemp 160000801                                                                                         
+   210    1203 htvat 1600007                                                                                            
+   211    1204 htvat 1600008                                                                                            
+   212    1205 httemp 166000701                                                                                         
+   213    1206 httemp 166000801                                                                                         
+   214    1207 httemp 140300601                                                                                         
+   215    1208 httemp 145300501                                                                                         
+   216    1209 httemp 145300601                                                                                         
+   217    1210 httemp 150300501                                                                                         
+   218    1211 httemp 150300601                                                                                         
+   219    1212 tempg 164080000                                                                                          
+   220    1213 tempg 164080000                                                                                          
+   221    1214 tempg 164080000                                                                                          
+   222    1215 quala 140070000                                                                                          
+   223    1216 quala 140080000                                                                                          
+   224    1217 quala 140080000                                                                                          
+   225    1218 httemp 130000601                                                                                         
+   226    1219 httemp 130000701                                                                                         
+   227    1220 tempg 164060000                                                                                          
+   228    1221 tempg 164070000                                                                                          
+   229    1222 quala 150060000                                                                                          
+   230    1223 quala 150070000                                                                                          
+   231    1224 httemp 130000501                                                                                         
+   232    1225 httemp 130000601                                                                                         
+   233    1226 httemp 134000501                                                                                         
+   234    1227 httemp 134000601                                                                                         
+   235    1228 htvat 1340005                                                                                            
+   236    1229 htvat 1340006                                                                                            
+   237    1230 htvat 1401003                                                                                            
+   238    1231 htvat 1401004                                                                                            
+   239    1232 tempg 140050000                                                                                          
+   240    1233 tempg 140060000                                                                                          
+   241    1234 htvat 1451003                                                                                            
+   242    1235 htvat 1451004                                                                                            
+   243    1236 tempg 145050000                                                                                          
+   244    1237 tempg 145060000                                                                                          
+   245    1238 htvat 1501003                                                                                            
+   246    1239 htvat 1501004                                                                                            
+   247    1240 tempg 150050000                                                                                          
+   248    1241 tempg 150060000                                                                                          
+   249    1242 httemp 160000501                                                                                         
+   250    1243 httemp 160000601                                                                                         
+   251    1244 htvat 1600005                                                                                            
+   252    1245 htvat 1600006                                                                                            
+   253    1246 htvat 1660005                                                                                            
+   254    1247 htvat 1660006                                                                                            
+   255    1248 httemp 140300301                                                                                         
+   256    1249 httemp 140300401                                                                                         
+   257    1250 httemp 150300301                                                                                         
+   258    1251 httemp 150300401                                                                                         
+   259    1252 tempg 164050000                                                                                          
+   260    1253 tempg 164060000                                                                                          
+   261    1254 tempg 164060000                                                                                          
+   262    1255 tempg 164060000                                                                                          
+   263    1256 htvat 1340006                                                                                            
+   264    1257 htvat 1401004                                                                                            
+   265    1258 tempg 140060000                                                                                          
+   266    1259 htvat 1451004                                                                                            
+   267    1260 tempg 145060000                                                                                          
+   268    1261 htvat 1501004                                                                                            
+   269    1262 tempg 150060000                                                                                          
+   270    1263 httemp 160000601                                                                                         
+   271    1264 htvat 1600005                                                                                            
+   272    1265 htvat 1600006                                                                                            
+   273    1266 htvat 1660006                                                                                            
+   274    1267 httemp 140300401                                                                                         
+   275    1268 httemp 150300401                                                                                         
+   276    1269 tempg 164060000                                                                                          
+   277    1270 tempg 164060000                                                                                          
+   278    1271 tempg 164060000                                                                                          
+   279    1272 httemp 132000506                                                                                         
+   280    1273 httemp 132000606                                                                                         
+   281    1274 htvat 1320005                                                                                            
+   282    1275 htvat 1320006                                                                                            
+   283    1276 htvat 1401004                                                                                            
+   284    1277 tempg 140060000                                                                                          
+   285    1278 htvat 1451004                                                                                            
+   286    1279 tempg 145060000                                                                                          
+   287    1280 htvat 1501004                                                                                            
+   288    1281 tempg 150060000                                                                                          
+   289    1282 httemp 160000601                                                                                         
+   290    1283 htvat 1600005                                                                                            
+   291    1284 htvat 1600006                                                                                            
+   292    1285 httemp 166000501                                                                                         
+   293    1286 httemp 166000601                                                                                         
+   294    1287 httemp 140300401                                                                                         
+   295    1288 httemp 145300301                                                                                         
+   296    1289 httemp 145300501                                                                                         
+   297    1290 httemp 150300301                                                                                         
+   298    1291 httemp 150300401                                                                                         
+   299    1292 tempg 164060000                                                                                          
+   300    1293 tempg 164060000                                                                                          
+   301    1294 tempg 164060000                                                                                          
+   302    1295 quala 140050000                                                                                          
+   303    1296 quala 140060000                                                                                          
+   304    1297 quala 140060000                                                                                          
+   305    1298 httemp 130000401                                                                                         
+   306    1299 httemp 130000501                                                                                         
+   307    1300 tempg 164040000                                                                                          
+   308    1301 tempg 164050000                                                                                          
+   309    1302 quala 150040000                                                                                          
+   310    1303 quala 150050000                                                                                          
+   311    1304 httemp 130000301                                                                                         
+   312    1305 httemp 130000401                                                                                         
+   313    1306 httemp 134000301                                                                                         
+   314    1307 httemp 134000401                                                                                         
+   315    1308 htvat 1340003                                                                                            
+   316    1309 htvat 1340004                                                                                            
+   317    1310 htvat 1401001                                                                                            
+   318    1311 htvat 1401002                                                                                            
+   319    1312 tempg 140030000                                                                                          
+   320    1313 tempg 140040000                                                                                          
+   321    1314 htvat 1451001                                                                                            
+   322    1315 htvat 1451002                                                                                            
+   323    1316 tempg 145030000                                                                                          
+   324    1317 tempg 145040000                                                                                          
+   325    1318 htvat 1501001                                                                                            
+   326    1319 htvat 1501002                                                                                            
+   327    1320 tempg 150030000                                                                                          
+   328    1321 tempg 150040000                                                                                          
+   329    1322 httemp 160000301                                                                                         
+   330    1323 httemp 160000401                                                                                         
+   331    1324 htvat 1600003                                                                                            
+   332    1325 htvat 1600004                                                                                            
+   333    1326 htvat 1660003                                                                                            
+   334    1327 htvat 1660004                                                                                            
+   335    1328 httemp 140300101                                                                                         
+   336    1329 httemp 140300201                                                                                         
+   337    1330 httemp 150300101                                                                                         
+   338    1331 httemp 150300201                                                                                         
+   339    1332 tempg 164030000                                                                                          
+   340    1333 tempg 164040000                                                                                          
+   341    1334 tempg 164040000                                                                                          
+   342    1335 tempg 164040000                                                                                          
+   343    1336 htvat 1340004                                                                                            
+   344    1337 htvat 1401002                                                                                            
+   345    1338 tempg 140040000                                                                                          
+   346    1339 htvat 1451002                                                                                            
+   347    1340 tempg 145040000                                                                                          
+   348    1341 htvat 1501002                                                                                            
+   349    1342 tempg 150040000                                                                                          
+   350    1343 httemp 160000401                                                                                         
+   351    1344 htvat 1600003                                                                                            
+   352    1345 htvat 1600004                                                                                            
+   353    1346 htvat 1660004                                                                                            
+   354    1347 httemp 140300201                                                                                         
+   355    1348 httemp 150300201                                                                                         
+   356    1349 tempg 164040000                                                                                          
+   357    1350 tempg 164040000                                                                                          
+   358    1351 tempg 164040000                                                                                          
+   359    1352 quala 140030000                                                                                          
+   360    1353 quala 140040000                                                                                          
+   361    1354 quala 140040000                                                                                          
+   362    1355 httemp 130000201                                                                                         
+   363    1356 httemp 130000301                                                                                         
+   364    1357 tempg 164020000                                                                                          
+   365    1358 tempg 164030000                                                                                          
+   366    1359 httemp 130000101                                                                                         
+   367    1360 httemp 134000101                                                                                         
+   368    1361 htvat 1340001                                                                                            
+   369    1362 htvat 1400001                                                                                            
+   370    1363 tempg 140010000                                                                                          
+   371    1364 htvat 1450001                                                                                            
+   372    1365 tempg 145010000                                                                                          
+   373    1366 htvat 1500001                                                                                            
+   374    1367 tempg 150010000                                                                                          
+   375    1368 httemp 160000107                                                                                         
+   376    1369 httemp 162000107                                                                                         
+   377    1370 htvat 1620001                                                                                            
+   378    1371 htvat 1660001                                                                                            
+   379    1372 quala 150010000                                                                                          
+   380    1373 tempg 145140000                                                                                          
+   381    1374 tempg 183040000                                                                                          
+   382    1375 tempg 183020000                                                                                          
+   383    1376 httemp 175000101                                                                                         
+   384    1377 tempg 183010000                                                                                          
+   385    1378 tempg 150140000                                                                                          
+   386    1379 tempg 183010000                                                                                          
+   387    1380 tempg 183010000                                                                                          
+   388    1381 tempg 183010000                                                                                          
+   389    1382 tempg 183010000                                                                                          
+   390    1383 tempg 185010000                                                                                          
+   391    1384 tempg 180010000                                                                                          
+   392    1385 tempg 175010000                                                                                          
+   393    1386 tempg 175010000                                                                                          
+   394    1387 tempg 183010000                                                                                          
+   395    1388 tempg 140140000                                                                                          
+   396    1389 tempg 183010000                                                                                          
+   397    1390 tempg 183010000                                                                                          
+   398    1391 tempg 183010000                                                                                          
+   399    1392 tempg 183010000                                                                                          
+   400    1393 quala 183040000                                                                                          
+   401    1394 quala 183020000                                                                                          
+   402    1395 quala 185010000                                                                                          
+   403    1396 htvat 1660015                                                                                            
+   404    1397 tempg 120010000                                                                                          
+   405    1398 httemp 100100101                                                                                         
+   406    1399 httemp 100100114                                                                                         
+   407    1400 quala 120010000                                                                                          
+   408    1401 httemp 115000405                                                                                         
+   409    1402 httemp 115000705                                                                                         
+   410    1403 httemp 115000905                                                                                         
+   411    1404 httemp 115001105                                                                                         
+   412    1405 httemp 115001405                                                                                         
+   413    1406 tempg 115040000                                                                                          
+   414    1407 tempg 115070000                                                                                          
+   415    1408 tempg 115090000                                                                                          
+   416    1409 tempg 115110000                                                                                          
+   417    1410 tempg 115140000                                                                                          
+   418    1411 quala 115040000                                                                                          
+   419    1412 quala 115080000                                                                                          
+   420    1413 quala 115100000                                                                                          
+   421    1414 quala 115140000                                                                                          
+   422    1415 httemp 100000701                                                                                         
+   423    1416 httemp 100000901                                                                                         
+   424    1417 httemp 100001101                                                                                         
+   425    1418 httemp 100000406                                                                                         
+   426    1419 httemp 100000706                                                                                         
+   427    1420 httemp 100000906                                                                                         
+   428    1421 httemp 100001106                                                                                         
+   429    1422 httemp 100001406                                                                                         
+   430    1423 tempg 206070000                                                                                          
+   431    1424 tempg 200010000                                                                                          
+   432    1425 tempg 206070000                                                                                          
+   433    1426 tempg 206010000                                                                                          
+   434    1427 tempg 200070000                                                                                          
+   435    1428 tempg 206010000                                                                                          
+   436    1429 quala 206070000                                                                                          
+   437    1430 quala 200010000                                                                                          
+   438    1431 quala 206070000                                                                                          
+   439    1432 quala 206010000                                                                                          
+   440    1433 quala 200070000                                                                                          
+   441    1434 quala 206010000                                                                                          
+   442    1435 tempg 270040000                                                                                          
+   443    1436 tempg 258010000                                                                                          
+   444    1437 quala 270040000                                                                                          
+   445    1438 quala 258010000                                                                                          
+   446    1439 tempg 280010000                                                                                          
+   447    1440 tempg 280020000                                                                                          
+   448    1441 quala 280010000                                                                                          
+   449    1442 quala 280020000                                                                                          
+   450    1443 tempg 900010000                                                                                          
+   451    1444 tempf 945010000                                                                                          
+   452    1445 tempf 950190000                                                                                          
+   453    1446 cntrlvar 501                                                                                             
+   454    1447 cntrlvar 506                                                                                             
+   455    1448 cntrlvar 503                                                                                             
+   456    1449 cntrlvar 504                                                                                             
+   457    1450 cntrlvar 505                                                                                             
+   458    1451 cntrlvar 502                                                                                             
+   459    1452 p 270040000                                                                                              
+   460    1453 p 280020000                                                                                              
+   461    1454 cntrlvar 507                                                                                             
+   462    1455 tempf 450030000                                                                                          
+   463    1456 tempg 200020000                                                                                          
+   464    1457 tempg 270030000                                                                                          
+   465    1458 tempg 230010000                                                                                          
+   466    1459 tempg 240010000                                                                                          
+   467    1460 tempf 330010000                                                                                          
+   468    1461 p 200020000                                                                                              
+   469    1462 p 270030000                                                                                              
+   470    1463 p 230010000                                                                                              
+   471    1464 p 240010000                                                                                              
+   472    1465 p 355010000                                                                                              
+   473    1466 cntrlvar 355                                                                                             
+   474    1467 mflowj 320000000                                                                                         
+   475    1468 mflowj 410000000                                                                                         
+   476                                                                                                                  
+   477    * Some additional variable requests                                                                           
+   478    * not automatically added by the generation script                                                            
+   479    1500 mflowj 270020000                                                                                         
+   480    1501 mflowj 200020000                                                                                         
+   481    1502 mflowj 206050000                                                                                         
+   482    1503 mflowj 237000000                                                                                         
+   483    1504 mflowj 920000000                                                                                         
+   484    1505 tempf 955010000                                                                                          
+   485    1506 cntrlvar 911                                                                                             
+   486    1507 cntrlvar 95                                                                                              
+   487    1508 cntrlvar 1446                                                                                            
+   488    1509 cntrlvar 31                                                                                              
+   489    .                                                                                                             
+0RELAP5-3D/Ver:4.3.4      Reactor Excursion Leak Analysis Program
+ CSV strip input for HTTF                                                         21/07/06     22:27:44      
+1RELAP5-3D/Ver:4.3.4      Reactor Excursion Leak Analysis Program
+ CSV strip input for HTTF                                                         21/07/06     22:27:44      
+0Processing type is strip   
++                                       problem option is fmtout  
+0inp-chk, run option is run.    
+0$$$$$$$$ XDR input plot file is assumed.
+0From 103 card, plot file name changed to: plotfl
+ Process 104 card
+0$$$$$$$$ Output Strip file name: stripf
+          assumed to have format: CSV (comma separated values)
+Process 1001-series
+0         Strip variable requests
+ req.num.    variable code    parameter
+      1001   httemp         130001401
+      1002   tempg          164140000
+      1003   httemp         130001201
+      1004   httemp         130001301
+      1005   htvat            1660012
+      1006   htvat            1660013
+      1007   tempg          164120000
+      1008   tempg          164130000
+      1009   htvat            1660013
+      1010   httemp         130001101
+      1011   httemp         130001201
+      1012   httemp         134001101
+      1013   httemp         134001201
+      1014   htvat            1340011
+      1015   htvat            1340012
+      1016   htvat            1401009
+      1017   htvat            1401010
+      1018   tempg          140110000
+      1019   tempg          140120000
+      1020   htvat            1451009
+      1021   htvat            1451010
+      1022   tempg          145110000
+      1023   tempg          145120000
+      1024   htvat            1501009
+      1025   htvat            1501010
+      1026   tempg          150110000
+      1027   tempg          150120000
+      1028   httemp         160001101
+      1029   httemp         160001201
+      1030   htvat            1600011
+      1031   htvat            1600012
+      1032   httemp         140300901
+      1033   httemp         140301001
+      1034   httemp         150300901
+      1035   httemp         150301001
+      1036   tempg          164110000
+      1037   tempg          164120000
+      1038   tempg          164120000
+      1039   tempg          164120000
+      1040   htvat            1340012
+      1041   htvat            1401010
+      1042   tempg          140120000
+      1043   htvat            1451010
+      1044   tempg          145120000
+      1045   htvat            1501010
+      1046   tempg          150120000
+      1047   httemp         160001201
+      1048   htvat            1600011
+      1049   htvat            1600012
+      1050   httemp         140301001
+      1051   httemp         150301001
+      1052   tempg          164120000
+      1053   tempg          164120000
+      1054   tempg          164120000
+      1055   quala          140110000
+      1056   quala          140120000
+      1057   quala          140120000
+      1058   httemp         130001001
+      1059   httemp         130001101
+      1060   tempg          164100000
+      1061   tempg          164110000
+      1062   quala          150100000
+      1063   quala          150110000
+      1064   httemp         130000901
+      1065   httemp         130001001
+      1066   httemp         134000901
+      1067   httemp         134001001
+      1068   htvat            1340009
+      1069   htvat            1340010
+      1070   htvat            1401007
+      1071   htvat            1401008
+      1072   tempg          140090000
+      1073   tempg          140100000
+      1074   htvat            1451007
+      1075   htvat            1451008
+      1076   tempg          145090000
+      1077   tempg          145100000
+      1078   htvat            1501007
+      1079   htvat            1501008
+      1080   tempg          150090000
+      1081   tempg          150100000
+      1082   httemp         160000901
+      1083   httemp         160001001
+      1084   htvat            1600009
+      1085   htvat            1600010
+      1086   htvat            1660009
+      1087   htvat            1660010
+      1088   httemp         140300701
+      1089   httemp         140300801
+      1090   httemp         150300701
+      1091   httemp         150300801
+      1092   tempg          164090000
+      1093   tempg          164100000
+      1094   tempg          164100000
+      1095   tempg          164100000
+      1096   htvat            1340010
+      1097   htvat            1401008
+      1098   tempg          140100000
+      1099   htvat            1451008
+      1100   tempg          145100000
+      1101   htvat            1501008
+      1102   tempg          150100000
+      1103   httemp         160001001
+      1104   htvat            1600009
+      1105   htvat            1600010
+      1106   htvat            1660010
+      1107   httemp         140300801
+      1108   httemp         150300801
+      1109   tempg          164100000
+      1110   tempg          164100000
+      1111   tempg          164100000
+      1112   httemp         132000906
+      1113   httemp         132001006
+      1114   htvat            1320009
+      1115   htvat            1320010
+      1116   htvat            1401008
+      1117   tempg          140100000
+      1118   htvat            1451008
+      1119   tempg          145100000
+      1120   htvat            1501008
+      1121   tempg          150100000
+      1122   httemp         160001001
+      1123   htvat            1600009
+      1124   htvat            1600010
+      1125   httemp         166000901
+      1126   httemp         166001001
+      1127   httemp         140300801
+      1128   httemp         145300701
+      1129   httemp         145300801
+      1130   httemp         150300701
+      1131   httemp         150300801
+      1132   tempg          164100000
+      1133   tempg          164100000
+      1134   tempg          164100000
+      1135   quala          140090000
+      1136   quala          140100000
+      1137   quala          140100000
+      1138   httemp         130000801
+      1139   httemp         130000901
+      1140   tempg          164080000
+      1141   tempg          164090000
+      1142   quala          150080000
+      1143   quala          150090000
+      1144   httemp         130000701
+      1145   httemp         130000801
+      1146   httemp         134000701
+      1147   httemp         134000801
+      1148   htvat            1340007
+      1149   htvat            1340008
+      1150   htvat            1401005
+      1151   htvat            1401006
+      1152   tempg          140070000
+      1153   tempg          140080000
+      1154   htvat            1451005
+      1155   htvat            1451006
+      1156   tempg          145070000
+      1157   tempg          145080000
+      1158   htvat            1501005
+      1159   htvat            1501006
+      1160   tempg          150070000
+      1161   tempg          150080000
+      1162   httemp         160000701
+      1163   httemp         160000801
+      1164   htvat            1600007
+      1165   htvat            1600008
+      1166   htvat            1660007
+      1167   htvat            1660008
+      1168   httemp         140300501
+      1169   httemp         140300601
+      1170   httemp         150300501
+      1171   httemp         150300601
+      1172   tempg          164070000
+      1173   tempg          164080000
+      1174   tempg          164080000
+      1175   tempg          164080000
+      1176   htvat            1340008
+      1177   htvat            1401006
+      1178   tempg          140080000
+      1179   htvat            1451006
+      1180   tempg          145080000
+      1181   htvat            1501006
+      1182   tempg          150080000
+      1183   httemp         160000801
+      1184   htvat            1600007
+      1185   htvat            1600008
+      1186   htvat            1660008
+      1187   httemp         140300601
+      1188   httemp         150300601
+      1189   tempg          164080000
+      1190   tempg          164080000
+      1191   tempg          164080000
+      1192   httemp         132000706
+      1193   httemp         132000806
+      1194   htvat            1320007
+      1195   htvat            1320008
+      1196   htvat            1401006
+      1197   tempg          140080000
+      1198   htvat            1451006
+      1199   tempg          145080000
+      1200   htvat            1501006
+      1201   tempg          150080000
+      1202   httemp         160000801
+      1203   htvat            1600007
+      1204   htvat            1600008
+      1205   httemp         166000701
+      1206   httemp         166000801
+      1207   httemp         140300601
+      1208   httemp         145300501
+      1209   httemp         145300601
+      1210   httemp         150300501
+      1211   httemp         150300601
+      1212   tempg          164080000
+      1213   tempg          164080000
+      1214   tempg          164080000
+      1215   quala          140070000
+      1216   quala          140080000
+      1217   quala          140080000
+      1218   httemp         130000601
+      1219   httemp         130000701
+      1220   tempg          164060000
+      1221   tempg          164070000
+      1222   quala          150060000
+      1223   quala          150070000
+      1224   httemp         130000501
+      1225   httemp         130000601
+      1226   httemp         134000501
+      1227   httemp         134000601
+      1228   htvat            1340005
+      1229   htvat            1340006
+      1230   htvat            1401003
+      1231   htvat            1401004
+      1232   tempg          140050000
+      1233   tempg          140060000
+      1234   htvat            1451003
+      1235   htvat            1451004
+      1236   tempg          145050000
+      1237   tempg          145060000
+      1238   htvat            1501003
+      1239   htvat            1501004
+      1240   tempg          150050000
+      1241   tempg          150060000
+      1242   httemp         160000501
+      1243   httemp         160000601
+      1244   htvat            1600005
+      1245   htvat            1600006
+      1246   htvat            1660005
+      1247   htvat            1660006
+      1248   httemp         140300301
+      1249   httemp         140300401
+      1250   httemp         150300301
+      1251   httemp         150300401
+      1252   tempg          164050000
+      1253   tempg          164060000
+      1254   tempg          164060000
+      1255   tempg          164060000
+      1256   htvat            1340006
+      1257   htvat            1401004
+      1258   tempg          140060000
+      1259   htvat            1451004
+      1260   tempg          145060000
+      1261   htvat            1501004
+      1262   tempg          150060000
+      1263   httemp         160000601
+      1264   htvat            1600005
+      1265   htvat            1600006
+      1266   htvat            1660006
+      1267   httemp         140300401
+      1268   httemp         150300401
+      1269   tempg          164060000
+      1270   tempg          164060000
+      1271   tempg          164060000
+      1272   httemp         132000506
+      1273   httemp         132000606
+      1274   htvat            1320005
+      1275   htvat            1320006
+      1276   htvat            1401004
+      1277   tempg          140060000
+      1278   htvat            1451004
+      1279   tempg          145060000
+      1280   htvat            1501004
+      1281   tempg          150060000
+      1282   httemp         160000601
+      1283   htvat            1600005
+      1284   htvat            1600006
+      1285   httemp         166000501
+      1286   httemp         166000601
+      1287   httemp         140300401
+      1288   httemp         145300301
+      1289   httemp         145300501
+      1290   httemp         150300301
+      1291   httemp         150300401
+      1292   tempg          164060000
+      1293   tempg          164060000
+      1294   tempg          164060000
+      1295   quala          140050000
+      1296   quala          140060000
+      1297   quala          140060000
+      1298   httemp         130000401
+      1299   httemp         130000501
+      1300   tempg          164040000
+      1301   tempg          164050000
+      1302   quala          150040000
+      1303   quala          150050000
+      1304   httemp         130000301
+      1305   httemp         130000401
+      1306   httemp         134000301
+      1307   httemp         134000401
+      1308   htvat            1340003
+      1309   htvat            1340004
+      1310   htvat            1401001
+      1311   htvat            1401002
+      1312   tempg          140030000
+      1313   tempg          140040000
+      1314   htvat            1451001
+      1315   htvat            1451002
+      1316   tempg          145030000
+      1317   tempg          145040000
+      1318   htvat            1501001
+      1319   htvat            1501002
+      1320   tempg          150030000
+      1321   tempg          150040000
+      1322   httemp         160000301
+      1323   httemp         160000401
+      1324   htvat            1600003
+      1325   htvat            1600004
+      1326   htvat            1660003
+      1327   htvat            1660004
+      1328   httemp         140300101
+      1329   httemp         140300201
+      1330   httemp         150300101
+      1331   httemp         150300201
+      1332   tempg          164030000
+      1333   tempg          164040000
+      1334   tempg          164040000
+      1335   tempg          164040000
+      1336   htvat            1340004
+      1337   htvat            1401002
+      1338   tempg          140040000
+      1339   htvat            1451002
+      1340   tempg          145040000
+      1341   htvat            1501002
+      1342   tempg          150040000
+      1343   httemp         160000401
+      1344   htvat            1600003
+      1345   htvat            1600004
+      1346   htvat            1660004
+      1347   httemp         140300201
+      1348   httemp         150300201
+      1349   tempg          164040000
+      1350   tempg          164040000
+      1351   tempg          164040000
+      1352   quala          140030000
+      1353   quala          140040000
+      1354   quala          140040000
+      1355   httemp         130000201
+      1356   httemp         130000301
+      1357   tempg          164020000
+      1358   tempg          164030000
+      1359   httemp         130000101
+      1360   httemp         134000101
+      1361   htvat            1340001
+      1362   htvat            1400001
+      1363   tempg          140010000
+      1364   htvat            1450001
+      1365   tempg          145010000
+      1366   htvat            1500001
+      1367   tempg          150010000
+      1368   httemp         160000107
+      1369   httemp         162000107
+      1370   htvat            1620001
+      1371   htvat            1660001
+      1372   quala          150010000
+      1373   tempg          145140000
+      1374   tempg          183040000
+      1375   tempg          183020000
+      1376   httemp         175000101
+      1377   tempg          183010000
+      1378   tempg          150140000
+      1379   tempg          183010000
+      1380   tempg          183010000
+      1381   tempg          183010000
+      1382   tempg          183010000
+      1383   tempg          185010000
+      1384   tempg          180010000
+      1385   tempg          175010000
+      1386   tempg          175010000
+      1387   tempg          183010000
+      1388   tempg          140140000
+      1389   tempg          183010000
+      1390   tempg          183010000
+      1391   tempg          183010000
+      1392   tempg          183010000
+      1393   quala          183040000
+      1394   quala          183020000
+      1395   quala          185010000
+      1396   htvat            1660015
+      1397   tempg          120010000
+      1398   httemp         100100101
+      1399   httemp         100100114
+      1400   quala          120010000
+      1401   httemp         115000405
+      1402   httemp         115000705
+      1403   httemp         115000905
+      1404   httemp         115001105
+      1405   httemp         115001405
+      1406   tempg          115040000
+      1407   tempg          115070000
+      1408   tempg          115090000
+      1409   tempg          115110000
+      1410   tempg          115140000
+      1411   quala          115040000
+      1412   quala          115080000
+      1413   quala          115100000
+      1414   quala          115140000
+      1415   httemp         100000701
+      1416   httemp         100000901
+      1417   httemp         100001101
+      1418   httemp         100000406
+      1419   httemp         100000706
+      1420   httemp         100000906
+      1421   httemp         100001106
+      1422   httemp         100001406
+      1423   tempg          206070000
+      1424   tempg          200010000
+      1425   tempg          206070000
+      1426   tempg          206010000
+      1427   tempg          200070000
+      1428   tempg          206010000
+      1429   quala          206070000
+      1430   quala          200010000
+      1431   quala          206070000
+      1432   quala          206010000
+      1433   quala          200070000
+      1434   quala          206010000
+      1435   tempg          270040000
+      1436   tempg          258010000
+      1437   quala          270040000
+      1438   quala          258010000
+      1439   tempg          280010000
+      1440   tempg          280020000
+      1441   quala          280010000
+      1442   quala          280020000
+      1443   tempg          900010000
+      1444   tempf          945010000
+      1445   tempf          950190000
+      1446   cntrlvar             501
+      1447   cntrlvar             506
+      1448   cntrlvar             503
+      1449   cntrlvar             504
+      1450   cntrlvar             505
+      1451   cntrlvar             502
+      1452   p              270040000
+      1453   p              280020000
+      1454   cntrlvar             507
+      1455   tempf          450030000
+      1456   tempg          200020000
+      1457   tempg          270030000
+      1458   tempg          230010000
+      1459   tempg          240010000
+      1460   tempf          330010000
+      1461   p              200020000
+      1462   p              270030000
+      1463   p              230010000
+      1464   p              240010000
+      1465   p              355010000
+      1466   cntrlvar             355
+      1467   mflowj         320000000
+      1468   mflowj         410000000
+      1500   mflowj         270020000
+      1501   mflowj         200020000
+      1502   mflowj         206050000
+      1503   mflowj         237000000
+      1504   mflowj         920000000
+      1505   tempf          955010000
+      1506   cntrlvar             911
+      1507   cntrlvar              95
+      1508   cntrlvar            1446
+      1509   cntrlvar              31
+0$$$$$$$$ Input processing completed successfully.
+Opening input plot file plotfl
+0******** Error plot file does not exist: plotfl
+0******** Cannot open plotfile, plotfl

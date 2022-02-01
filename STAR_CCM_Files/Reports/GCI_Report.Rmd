@@ -1,0 +1,48 @@
+---
+title: "OSU HTTF Lower Plenum Grid Convergence Study"
+author: "Joshua Halsted"
+date: "1/29/2022"
+output: 
+  pdf_document:
+  keep_tex: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+
+```{r cars}
+math = 2 + 2
+```
+
+## Materials and Methods
+
+### General Workflow
+
+### RELAP Modelling
+
+### STAR Modelling
+
+
+## Discussion
+
+### CFD Results
+
+### GCI Calculations
+
+
+
+### Conclusions
+
+## References
+
+\clearpage
+
+## Appendix
+
+
+
+
