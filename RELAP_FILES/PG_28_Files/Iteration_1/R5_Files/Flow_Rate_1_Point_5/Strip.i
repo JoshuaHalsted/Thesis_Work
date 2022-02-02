@@ -1,7 +1,7 @@
 =CSV strip input for HTTF
 * Strip the needed data into a CSV
 100 strip fmtout
-103 0 binary restart_Point_5.plt
+103 0 binary plotfl
 104 csv
 *
 * Variables
