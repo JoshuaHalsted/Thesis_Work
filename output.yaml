@@ -1,0 +1,734 @@
+'#2 RPV':
+  'Primary Sector, Core Block #3':
+    TS-7301: httemp-100000701
+  'Primary Sector, Core Block #5':
+    TS-7302: httemp-100000901
+  'Primary Sector, Core Block #7':
+    TS-7303: httemp-100001101
+'Core Block #1':
+  'Primary Sector, #1':
+    TS-1107: httemp-130001101, httemp-130001201
+  'Primary Sector, #10':
+    TF-1114: tempg-150110000, tempg-150120000
+  'Primary Sector, #12':
+    TS-1117: httemp-150300901, httemp-150301001
+  'Primary Sector, #13':
+    TS-1115: httemp-160001101, httemp-160001201, htvat-1600011, htvat-1600012
+  'Primary Sector, #15':
+    TS-1118: tempg-164110000, tempg-164120000
+  'Primary Sector, #16':
+    TS-1119: tempg-164110000, tempg-164120000
+  'Primary Sector, #17':
+    TS-1120: tempg-164110000, tempg-164120000
+  'Primary Sector, #2':
+    TS-1108: httemp-134001101, httemp-134001201, htvat-1340011, htvat-1340012
+  'Primary Sector, #3':
+    TS-1116: httemp-140300901, httemp-140301001
+  'Primary Sector, #5':
+    TS-1109: htvat-1401009, htvat-1401010
+  'Primary Sector, #6':
+    TF-1110: tempg-140110000, tempg-140120000
+  'Primary Sector, #7':
+    TS-1111: htvat-1451009, htvat-1451010
+  'Primary Sector, #8':
+    TF-1112: tempg-145110000, tempg-145120000
+  'Primary Sector, #9':
+    TS-1113: htvat-1501009, htvat-1501010
+  'Secondary Sector, #10':
+    TF-1127: tempg-150110000, tempg-150120000
+  'Secondary Sector, #12':
+    TS-1130: httemp-150300901, httemp-150301001
+  'Secondary Sector, #13':
+    TS-1128: httemp-160001101, httemp-160001201, htvat-1600011, htvat-1600012
+  'Secondary Sector, #15':
+    TS-1131: tempg-164110000, tempg-164120000
+  'Secondary Sector, #16':
+    TS-1132: tempg-164110000, tempg-164120000
+  'Secondary Sector, #17':
+    TS-1133: tempg-164110000, tempg-164120000
+  'Secondary Sector, #2':
+    TS-1121: htvat-1340011, htvat-1340012
+  'Secondary Sector, #3':
+    TS-1129: httemp-140300901, httemp-140301001
+  'Secondary Sector, #5':
+    TS-1122: htvat-1401009, htvat-1401010
+  'Secondary Sector, #6':
+    TF-1123: tempg-140110000, tempg-140120000
+  'Secondary Sector, #7':
+    TS-1124: htvat-1451009, htvat-1451010
+  'Secondary Sector, #8':
+    TF-1125: tempg-145110000, tempg-145120000
+  'Secondary Sector, #9':
+    TS-1126: htvat-1501009, htvat-1501010
+'Core Block #10':
+  'Secondary Sector, #1':
+    TS-1001: httemp-130000201, httemp-130000301
+  'Secondary Sector, #16':
+    TS-1002: tempg-164020000, tempg-164030000
+'Core Block #2':
+  'Primary Sector, #1':
+    TS-1201: httemp-130001001, httemp-130001101
+  'Primary Sector, #16':
+    TS-1202: tempg-164100000, tempg-164110000
+'Core Block #3':
+  'Primary Sector, #1':
+    TS-1301: httemp-130000901, httemp-130001001
+  'Primary Sector, #10':
+    TF-1308: tempg-150090000, tempg-150100000
+  'Primary Sector, #12':
+    TS-1312: httemp-150300701, httemp-150300801
+  'Primary Sector, #13':
+    TS-1309: httemp-160000901, httemp-160001001, htvat-1600009, htvat-1600010
+  'Primary Sector, #15':
+    TS-1313: tempg-164090000, tempg-164100000
+  'Primary Sector, #16':
+    TS-1314: tempg-164090000, tempg-164100000
+  'Primary Sector, #17':
+    TS-1315: tempg-164090000, tempg-164100000
+  'Primary Sector, #18':
+    TS-1310: htvat-1660009, htvat-1660010
+  'Primary Sector, #2':
+    TS-1302: httemp-134000901, httemp-134001001, htvat-1340009, htvat-1340010
+  'Primary Sector, #3':
+    TS-1311: httemp-140300701, httemp-140300801
+  'Primary Sector, #5':
+    TS-1303: htvat-1401007, htvat-1401008
+  'Primary Sector, #6':
+    TF-1304: tempg-140090000, tempg-140100000
+  'Primary Sector, #7':
+    TS-1305: htvat-1451007, htvat-1451008
+  'Primary Sector, #8':
+    TF-1306: tempg-145090000, tempg-145100000
+  'Primary Sector, #9':
+    TS-1307: htvat-1501007, htvat-1501008
+  'Secondary Sector, #10':
+    TF-1322: tempg-150090000, tempg-150100000
+  'Secondary Sector, #12':
+    TS-1326: httemp-150300701, httemp-150300801
+  'Secondary Sector, #13':
+    TS-1323: httemp-160000901, httemp-160001001, htvat-1600009, htvat-1600010
+  'Secondary Sector, #15':
+    TS-1327: tempg-164090000, tempg-164100000
+  'Secondary Sector, #16':
+    TS-1328: tempg-164090000, tempg-164100000
+  'Secondary Sector, #17':
+    TS-1329: tempg-164090000, tempg-164100000
+  'Secondary Sector, #18':
+    TS-1324: htvat-1660009, htvat-1660010
+  'Secondary Sector, #2':
+    TS-1316: htvat-1340009, htvat-1340010
+  'Secondary Sector, #3':
+    TS-1325: httemp-140300701, httemp-140300801
+  'Secondary Sector, #5':
+    TS-1317: htvat-1401007, htvat-1401008
+  'Secondary Sector, #6':
+    TF-1318: tempg-140090000, tempg-140100000
+  'Secondary Sector, #7':
+    TS-1319: htvat-1451007, htvat-1451008
+  'Secondary Sector, #8':
+    TF-1320: tempg-145090000, tempg-145100000
+  'Secondary Sector, #9':
+    TS-1321: htvat-1501007, htvat-1501008
+  'Tertiary Sector, #10':
+    TF-1336: tempg-150090000, tempg-150100000
+  'Tertiary Sector, #12':
+    TS-1340: httemp-145300701, httemp-145300801, httemp-150300701, httemp-150300801
+  'Tertiary Sector, #13':
+    TS-1337: httemp-160000901, httemp-160001001, htvat-1600009, htvat-1600010
+  'Tertiary Sector, #15':
+    TS-1341: tempg-164090000, tempg-164100000
+  'Tertiary Sector, #16':
+    TS-1342: tempg-164090000, tempg-164100000
+  'Tertiary Sector, #17':
+    TS-1343: tempg-164090000, tempg-164100000
+  'Tertiary Sector, #18':
+    TS-1338: httemp-166000901, httemp-166001001
+  'Tertiary Sector, #2':
+    TS-1330: httemp-132000906, httemp-132001006, htvat-1320009, htvat-1320010
+  'Tertiary Sector, #3':
+    TS-1339: httemp-140300701, httemp-140300801
+  'Tertiary Sector, #5':
+    TS-1331: htvat-1401007, htvat-1401008
+  'Tertiary Sector, #6':
+    TF-1332: tempg-140090000, tempg-140100000
+  'Tertiary Sector, #7':
+    TS-1333: htvat-1451007, htvat-1451008
+  'Tertiary Sector, #8':
+    TF-1334: tempg-145090000, tempg-145100000
+  'Tertiary Sector, #9':
+    TS-1335: htvat-1501007, htvat-1501008
+'Core Block #4':
+  'Primary Sector, #1':
+    TS-1401: httemp-130000801, httemp-130000901
+  'Primary Sector, #16':
+    TS-1402: tempg-164080000, tempg-164090000
+'Core Block #5':
+  'Primary Sector, #1':
+    TS-1501: httemp-130000701, httemp-130000801
+  'Primary Sector, #10':
+    TF-1508: tempg-150070000, tempg-150080000
+  'Primary Sector, #12':
+    TS-1512: httemp-150300501, httemp-150300601
+  'Primary Sector, #13':
+    TS-1509: httemp-160000701, httemp-160000801, htvat-1600007, htvat-1600008
+  'Primary Sector, #15':
+    TS-1513: tempg-164070000, tempg-164080000
+  'Primary Sector, #16':
+    TS-1514: tempg-164070000, tempg-164080000
+  'Primary Sector, #17':
+    TS-1515: tempg-164070000, tempg-164080000
+  'Primary Sector, #18':
+    TS-1510: htvat-1660007, htvat-1660008
+  'Primary Sector, #2':
+    TS-1502: httemp-134000701, httemp-134000801, htvat-1340007, htvat-1340008
+  'Primary Sector, #3':
+    TS-1511: httemp-140300501, httemp-140300601
+  'Primary Sector, #5':
+    TS-1503: htvat-1401005, htvat-1401006
+  'Primary Sector, #6':
+    TF-1504: tempg-140070000, tempg-140080000
+  'Primary Sector, #7':
+    TS-1505: htvat-1451005, htvat-1451006
+  'Primary Sector, #8':
+    TF-1506: tempg-145070000, tempg-145080000
+  'Primary Sector, #9':
+    TS-1507: htvat-1501005, htvat-1501006
+  'Secondary Sector, #10':
+    TF-1522: tempg-150070000, tempg-150080000
+  'Secondary Sector, #12':
+    TS-1526: httemp-150300501, httemp-150300601
+  'Secondary Sector, #13':
+    TS-1523: httemp-160000701, httemp-160000801, htvat-1600007, htvat-1600008
+  'Secondary Sector, #15':
+    TS-1527: tempg-164070000, tempg-164080000
+  'Secondary Sector, #16':
+    TS-1528: tempg-164070000, tempg-164080000
+  'Secondary Sector, #17':
+    TS-1529: tempg-164070000, tempg-164080000
+  'Secondary Sector, #18':
+    TS-1524: htvat-1660007, htvat-1660008
+  'Secondary Sector, #2':
+    TS-1516: htvat-1340007, htvat-1340008
+  'Secondary Sector, #3':
+    TS-1525: httemp-140300501, httemp-140300601
+  'Secondary Sector, #5':
+    TS-1517: htvat-1401005, htvat-1401006
+  'Secondary Sector, #6':
+    TF-1518: tempg-140070000, tempg-140080000
+  'Secondary Sector, #7':
+    TS-1519: htvat-1451005, htvat-1451006
+  'Secondary Sector, #8':
+    TF-1520: tempg-145070000, tempg-145080000
+  'Secondary Sector, #9':
+    TS-1521: htvat-1501005, htvat-1501006
+  'Tertiary Sector, #10':
+    TF-1536: tempg-150070000, tempg-150080000
+  'Tertiary Sector, #12':
+    TS-1540: httemp-145300501, httemp-145300601, httemp-150300501, httemp-150300601
+  'Tertiary Sector, #13':
+    TS-1537: httemp-160000701, httemp-160000801, htvat-1600007, htvat-1600008
+  'Tertiary Sector, #15':
+    TS-1541: tempg-164070000, tempg-164080000
+  'Tertiary Sector, #16':
+    TS-1542: tempg-164070000, tempg-164080000
+  'Tertiary Sector, #17':
+    TS-1543: tempg-164070000, tempg-164080000
+  'Tertiary Sector, #18':
+    TS-1538: httemp-166000701, httemp-166000801
+  'Tertiary Sector, #2':
+    TS-1530: httemp-132000706, httemp-132000806, htvat-1320007, htvat-1320008
+  'Tertiary Sector, #3':
+    TS-1539: httemp-140300501, httemp-140300601
+  'Tertiary Sector, #5':
+    TS-1531: htvat-1401005, htvat-1401006
+  'Tertiary Sector, #6':
+    TF-1532: tempg-140070000, tempg-140080000
+  'Tertiary Sector, #7':
+    TS-1533: htvat-1451005, htvat-1451006
+  'Tertiary Sector, #8':
+    TF-1534: tempg-145070000, tempg-145080000
+  'Tertiary Sector, #9':
+    TS-1535: htvat-1501005, htvat-1501006
+'Core Block #6':
+  'Primary Sector, #1':
+    TS-1601: httemp-130000601, httemp-130000701
+  'Primary Sector, #16':
+    TS-1602: tempg-164060000, tempg-164070000
+'Core Block #7':
+  'Primary Sector, #1':
+    TS-1701: httemp-130000501, httemp-130000601
+  'Primary Sector, #10':
+    TF-1708: tempg-150050000, tempg-150060000
+  'Primary Sector, #12':
+    TS-1712: httemp-150300301, httemp-150300401
+  'Primary Sector, #13':
+    TS-1709: httemp-160000501, httemp-160000601, htvat-1600005, htvat-1600006
+  'Primary Sector, #15':
+    TS-1713: tempg-164050000, tempg-164060000
+  'Primary Sector, #16':
+    TS-1714: tempg-164050000, tempg-164060000
+  'Primary Sector, #17':
+    TS-1715: tempg-164050000, tempg-164060000
+  'Primary Sector, #18':
+    TS-1710: htvat-1660005, htvat-1660006
+  'Primary Sector, #2':
+    TS-1702: httemp-134000501, httemp-134000601, htvat-1340005, htvat-1340006
+  'Primary Sector, #3':
+    TS-1711: httemp-140300301, httemp-140300401
+  'Primary Sector, #5':
+    TS-1703: htvat-1401003, htvat-1401004
+  'Primary Sector, #6':
+    TF-1704: tempg-140050000, tempg-140060000
+  'Primary Sector, #7':
+    TS-1705: htvat-1451003, htvat-1451004
+  'Primary Sector, #8':
+    TF-1706: tempg-145050000, tempg-145060000
+  'Primary Sector, #9':
+    TS-1707: htvat-1501003, htvat-1501004
+  'Secondary Sector, #10':
+    TF-1722: tempg-150050000, tempg-150060000
+  'Secondary Sector, #12':
+    TS-1726: httemp-150300301, httemp-150300401
+  'Secondary Sector, #13':
+    TS-1723: httemp-160000501, httemp-160000601, htvat-1600005, htvat-1600006
+  'Secondary Sector, #15':
+    TS-1727: tempg-164050000, tempg-164060000
+  'Secondary Sector, #16':
+    TS-1728: tempg-164050000, tempg-164060000
+  'Secondary Sector, #17':
+    TS-1729: tempg-164050000, tempg-164060000
+  'Secondary Sector, #18':
+    TS-1724: htvat-1660005, htvat-1660006
+  'Secondary Sector, #2':
+    TS-1716: htvat-1340005, htvat-1340006
+  'Secondary Sector, #3':
+    TS-1725: httemp-140300301, httemp-140300401
+  'Secondary Sector, #5':
+    TS-1717: htvat-1401003, htvat-1401004
+  'Secondary Sector, #6':
+    TF-1718: tempg-140050000, tempg-140060000
+  'Secondary Sector, #7':
+    TS-1719: htvat-1451003, htvat-1451004
+  'Secondary Sector, #8':
+    TF-1720: tempg-145050000, tempg-145060000
+  'Secondary Sector, #9':
+    TS-1721: htvat-1501003, htvat-1501004
+  'Tertiary Sector, #10':
+    TF-1736: tempg-150050000, tempg-150060000
+  'Tertiary Sector, #12':
+    TS-1740: httemp-145300301, httemp-145300501, httemp-150300301, httemp-150300401
+  'Tertiary Sector, #13':
+    TS-1737: httemp-160000501, httemp-160000601, htvat-1600005, htvat-1600006
+  'Tertiary Sector, #15':
+    TS-1741: tempg-164050000, tempg-164060000
+  'Tertiary Sector, #16':
+    TS-1742: tempg-164050000, tempg-164060000
+  'Tertiary Sector, #17':
+    TS-1743: tempg-164050000, tempg-164060000
+  'Tertiary Sector, #18':
+    TS-1738: httemp-166000501, httemp-166000601
+  'Tertiary Sector, #2':
+    TS-1730: httemp-132000506, httemp-132000606, htvat-1320005, htvat-1320006
+  'Tertiary Sector, #3':
+    TS-1739: httemp-140300301, httemp-140300401
+  'Tertiary Sector, #5':
+    TS-1731: htvat-1401003, htvat-1401004
+  'Tertiary Sector, #6':
+    TF-1732: tempg-140050000, tempg-140060000
+  'Tertiary Sector, #7':
+    TS-1733: htvat-1451003, htvat-1451004
+  'Tertiary Sector, #8':
+    TF-1734: tempg-145050000, tempg-145060000
+  'Tertiary Sector, #9':
+    TS-1735: htvat-1501003, htvat-1501004
+'Core Block #8':
+  'Primary Sector, #1':
+    TS-1801: httemp-130000401, httemp-130000501
+  'Primary Sector, #16':
+    TS-1802: tempg-164040000, tempg-164050000
+'Core Block #9':
+  'Primary Sector, #1':
+    TS-1901: httemp-130000301, httemp-130000401
+  'Primary Sector, #10':
+    TF-1908: tempg-150030000, tempg-150040000
+  'Primary Sector, #12':
+    TS-1912: httemp-150300101, httemp-150300201
+  'Primary Sector, #13':
+    TS-1909: httemp-160000301, httemp-160000401, htvat-1600003, htvat-1600004
+  'Primary Sector, #15':
+    TS-1913: tempg-164030000, tempg-164040000
+  'Primary Sector, #16':
+    TS-1914: tempg-164030000, tempg-164040000
+  'Primary Sector, #17':
+    TS-1915: tempg-164030000, tempg-164040000
+  'Primary Sector, #18':
+    TS-1910: htvat-1660003, htvat-1660004
+  'Primary Sector, #2':
+    TS-1902: httemp-134000301, httemp-134000401, htvat-1340003, htvat-1340004
+  'Primary Sector, #3':
+    TS-1911: httemp-140300101, httemp-140300201
+  'Primary Sector, #5':
+    TS-1903: htvat-1401001, htvat-1401002
+  'Primary Sector, #6':
+    TF-1904: tempg-140030000, tempg-140040000
+  'Primary Sector, #7':
+    TS-1905: htvat-1451001, htvat-1451002
+  'Primary Sector, #8':
+    TF-1906: tempg-145030000, tempg-145040000
+  'Primary Sector, #9':
+    TS-1907: htvat-1501001, htvat-1501002
+  'Secondary Sector, #10':
+    TF-1922: tempg-150030000, tempg-150040000
+  'Secondary Sector, #12':
+    TS-1926: httemp-150300101, httemp-150300201
+  'Secondary Sector, #13':
+    TS-1923: httemp-160000301, httemp-160000401, htvat-1600003, htvat-1600004
+  'Secondary Sector, #15':
+    TS-1927: tempg-164030000, tempg-164040000
+  'Secondary Sector, #16':
+    TS-1928: tempg-164030000, tempg-164040000
+  'Secondary Sector, #17':
+    TS-1929: tempg-164030000, tempg-164040000
+  'Secondary Sector, #18':
+    TS-1924: htvat-1660003, htvat-1660004
+  'Secondary Sector, #2':
+    TS-1916: htvat-1340003, htvat-1340004
+  'Secondary Sector, #3':
+    TS-1925: httemp-140300101, httemp-140300201
+  'Secondary Sector, #5':
+    TS-1917: htvat-1401001, htvat-1401002
+  'Secondary Sector, #6':
+    TF-1918: tempg-140030000, tempg-140040000
+  'Secondary Sector, #7':
+    TS-1919: htvat-1451001, htvat-1451002
+  'Secondary Sector, #8':
+    TF-1920: tempg-145030000, tempg-145040000
+  'Secondary Sector, #9':
+    TS-1921: htvat-1501001, htvat-1501002
+Inlet Duct:
+  'Rake #1, lower':
+    TF-6101: tempg-270040000
+  'Rake #1, upper':
+    TF-6102: tempg-270040000
+  'Rake #3, lower':
+    TF-6301: tempg-258010000
+  'Rake #3, upper':
+    TF-6302: tempg-258010000
+Lower Plenum:
+  Post 106, floor:
+    TS-2112: httemp-175000101, tempg-183010000
+  Post 106, gas inlet:
+    TF-2412: tempg-145140000
+  Post 106, lower:
+    TF-2212: tempg-183020000
+  Post 106, upper:
+    TF-2312: tempg-183040000
+  Post 118, floor:
+    TS-2113: httemp-175000101, tempg-183010000
+  Post 118, gas inlet:
+    TF-2413: tempg-145140000
+  Post 118, lower:
+    TF-2213: tempg-183020000
+  Post 118, upper:
+    TF-2313: tempg-183040000
+  Post 147, floor:
+    TS-2114: httemp-175000101, tempg-183010000
+  Post 147, gas inlet:
+    TF-2414: tempg-150140000
+  Post 147, lower:
+    TF-2214: tempg-183020000
+  Post 147, upper:
+    TF-2314: tempg-183040000
+  Post 148, lower:
+    TF-2215: tempg-183020000
+  Post 148, upper:
+    TF-2315: tempg-183040000
+  Post 16, floor:
+    TS-2102: httemp-175000101, tempg-183010000
+  Post 16, gas inlet:
+    TF-2402: tempg-150140000
+  Post 16, lower:
+    TF-2202: tempg-183020000
+  Post 16, upper:
+    TF-2302: tempg-183040000
+  Post 162, lower:
+    TF-2216: tempg-183020000
+  Post 162, upper:
+    TF-2316: tempg-183040000
+  Post 2, lower:
+    TF-2201: tempg-183020000
+  Post 2, upper:
+    TF-2301: tempg-183040000
+  Post 30, floor:
+    TS-2103: httemp-175000101, tempg-183010000
+  Post 30, gas inlet:
+    TF-2403: tempg-145140000
+  Post 30, lower:
+    TF-2203: tempg-183020000
+  Post 30, upper:
+    TF-2303: tempg-183040000
+  Post 32, floor:
+    TS-2104: httemp-175000101, tempg-183010000
+  Post 32, gas inlet:
+    TF-2404: tempg-150140000
+  Post 32, lower:
+    TF-2204: tempg-183020000
+  Post 32, upper:
+    TF-2304: tempg-183040000
+  Post 43, floor:
+    TS-2105: httemp-175000101, tempg-183010000
+  Post 43, gas inlet:
+    TF-2405: tempg-145140000
+  Post 43, lower:
+    TF-2205: tempg-183020000
+  Post 43, upper:
+    TF-2305: tempg-183040000
+  Post 46, floor:
+    TS-2106: httemp-175000101, tempg-183010000
+  Post 46, gas inlet:
+    TF-2406: tempg-145140000
+  Post 46, lower:
+    TF-2206: tempg-183020000
+  Post 46, upper:
+    TF-2306: tempg-183040000
+  Post 62, floor:
+    TS-2107: httemp-175000101, tempg-175010000
+  Post 62, gas inlet:
+    TF-2407: tempg-150140000
+  Post 62, lower:
+    TF-2207: tempg-180010000
+  Post 62, upper:
+    TF-2307: tempg-185010000
+  Post 82, lower:
+    TF-2208: tempg-183020000
+  Post 82, upper:
+    TF-2308: tempg-183040000
+  Post 87, floor:
+    TS-2109: httemp-175000101, tempg-183010000
+  Post 87, gas inlet:
+    TF-2409: tempg-150140000
+  Post 87, lower:
+    TF-2209: tempg-183020000
+  Post 87, upper:
+    TF-2309: tempg-183040000
+  Post 88, floor:
+    TS-2110: httemp-175000101, tempg-183010000
+  Post 88, gas inlet:
+    TF-2410: tempg-140140000
+  Post 88, lower:
+    TF-2210: tempg-183020000
+  Post 88, upper:
+    TF-2310: tempg-183040000
+  Post 92, floor:
+    TS-2111: httemp-175000101, tempg-175010000
+  Post 92, gas inlet:
+    TF-2411: tempg-150140000
+  Post 92, lower:
+    TF-2211: tempg-180010000
+  Post 92, upper:
+    TF-2311: tempg-185010000
+'Lower Reflector #1':
+  'Primary Sector, #1':
+    TS-1101: httemp-130001401
+  'Primary Sector, #16':
+    TS-1102: tempg-164140000
+'Lower Reflector #3':
+  'Primary Sector, #1':
+    TS-1103: httemp-130001201, httemp-130001301
+  'Primary Sector, #17':
+    TS-1105: tempg-164120000, tempg-164130000
+  'Primary Sector, #18':
+    TS-1104: htvat-1660012, htvat-1660013
+  'Secondary Sector, #18':
+    TS-1106: htvat-1660012, htvat-1660013
+Lower Vessel:
+  Side reflector, 1:
+    TS-2501: htvat-1660015
+  Side reflector, 2:
+    TS-2502: htvat-1660015
+Outer Core Barrel:
+  'Primary Sector, Core Block #10':
+    TS-7105: httemp-115001405
+  'Primary Sector, Core Block #3':
+    TS-7102: httemp-115000705
+  'Primary Sector, Core Block #5':
+    TS-7103: httemp-115000905
+  'Primary Sector, Core Block #7':
+    TS-7104: httemp-115001105
+  'Primary Sector, Lower Reflector #3':
+    TS-7101: httemp-115000405
+Outer RPV:
+  'Primary Sector, Core Block #10':
+    TS-7405: httemp-100001406
+  'Primary Sector, Core Block #3':
+    TS-7402: httemp-100000706
+  'Primary Sector, Core Block #5':
+    TS-7403: httemp-100000906
+  'Primary Sector, Core Block #7':
+    TS-7404: httemp-100001106
+  'Primary Sector, Lower Reflector #3':
+    TS-7401: httemp-100000406
+Outlet Duct:
+  'Rake #1, lower':
+    TF-3101: tempg-206070000
+  'Rake #1, middle':
+    TF-3102: tempg-200010000, tempg-206070000
+  'Rake #1, upper':
+    TF-3103: tempg-200010000
+  'Rake #2, lower':
+    TF-3201: tempg-206010000
+  'Rake #2, middle':
+    TF-3202: tempg-200070000, tempg-206010000
+  'Rake #2, upper':
+    TF-3203: tempg-200070000
+RCCS:
+  Cavity space, 1:
+    TF-9102: tempg-900010000
+  Cavity space, 2:
+    TF-9202: tempg-900010000
+  Cavity space, 3:
+    TF-9302: tempg-900010000
+  Cavity space, 4:
+    TF-9402: tempg-900010000
+  Ceiling, 1:
+    TF-9101: tempg-900010000
+  Ceiling, 2:
+    TF-9201: tempg-900010000
+  Ceiling, 3:
+    TF-9301: tempg-900010000
+  Ceiling, 4:
+    TF-9401: tempg-900010000
+  'Door #1, inlet':
+    TF-9103: tempf-945010000
+  'Door #1, outlet':
+    TF-9104: tempf-950190000
+  'Door #2, inlet':
+    TF-9105: tempf-945010000
+  'Door #2, outlet':
+    TF-9106: tempf-950190000
+  'Door #3, inlet':
+    TF-9203: tempf-945010000
+  'Door #3, outlet':
+    TF-9204: tempf-950190000
+  'Door #4, inlet':
+    TF-9205: tempf-945010000
+  'Door #4, outlet':
+    TF-9206: tempf-950190000
+  'Door #5, inlet':
+    TF-9303: tempf-945010000
+  'Door #5, outlet':
+    TF-9304: tempf-950190000
+  'Door #6, inlet':
+    TF-9305: tempf-945010000
+  'Door #6, outlet':
+    TF-9306: tempf-950190000
+  'Door #7, inlet':
+    TF-9403: tempf-945010000
+  'Door #7, outlet':
+    TF-9404: tempf-950190000
+  'Door #8, inlet':
+    TF-9405: tempf-945010000
+  'Door #8, outlet':
+    TF-9406: tempf-950190000
+RCST:
+  High:
+    TF-4401: tempg-280020000
+  Low:
+    TF-4101: tempg-280010000
+  Middle:
+    TF-4301: tempg-280020000
+Upcomer:
+  'Primary Sector, Core Block #10':
+    TF-7205: tempg-115140000
+  'Primary Sector, Core Block #3':
+    TF-7202: tempg-115070000
+  'Primary Sector, Core Block #5':
+    TF-7203: tempg-115090000
+  'Primary Sector, Core Block #7':
+    TF-7204: tempg-115110000
+  'Primary Sector, Lower Reflector #3':
+    TF-7201: tempg-115040000
+Upper Plenum:
+  Control Rod Drive 1, lower:
+    TF-8101: tempg-120010000
+  Control Rod Drive 1, upper:
+    TF-8201: tempg-120010000
+  Control Rod Drive 10, lower:
+    TF-8110: tempg-120010000
+  Control Rod Drive 10, upper:
+    TF-8210: tempg-120010000
+  Control Rod Drive 11, lower:
+    TF-8111: tempg-120010000
+  Control Rod Drive 11, upper:
+    TF-8211: tempg-120010000
+  Control Rod Drive 12, lower:
+    TF-8112: tempg-120010000
+  Control Rod Drive 12, upper:
+    TF-8212: tempg-120010000
+  Control Rod Drive 2, lower:
+    TF-8102: tempg-120010000
+  Control Rod Drive 2, upper:
+    TF-8202: tempg-120010000
+  Control Rod Drive 3, lower:
+    TF-8103: tempg-120010000
+  Control Rod Drive 3, upper:
+    TF-8203: tempg-120010000
+  Control Rod Drive 4, lower:
+    TF-8104: tempg-120010000
+  Control Rod Drive 4, upper:
+    TF-8204: tempg-120010000
+  Control Rod Drive 5, lower:
+    TF-8105: tempg-120010000
+  Control Rod Drive 5, upper:
+    TF-8205: tempg-120010000
+  Control Rod Drive 6, lower:
+    TF-8106: tempg-120010000
+  Control Rod Drive 6, upper:
+    TF-8206: tempg-120010000
+  Control Rod Drive 7, lower:
+    TF-8107: tempg-120010000
+  Control Rod Drive 7, upper:
+    TF-8207: tempg-120010000
+  Control Rod Drive 8, lower:
+    TF-8108: tempg-120010000
+  Control Rod Drive 8, upper:
+    TF-8208: tempg-120010000
+  Control Rod Drive 9, lower:
+    TF-8109: tempg-120010000
+  Control Rod Drive 9, upper:
+    TF-8209: tempg-120010000
+Upper Plenum Shroud:
+  H=33%:
+    TS-8113: httemp-100100101
+  H=66%:
+    TS-8213: httemp-100100101
+  Top:
+    TS-8013: httemp-100100101
+Upper Plenum Vessel:
+  H=33%:
+    TS-8114: httemp-100100114
+  H=66%:
+    TS-8214: httemp-100100114
+  Top:
+    TS-8014: httemp-100100114
+'Upper Reflector #2':
+  'Primary Sector, #1':
+    TS-1003: httemp-130000101
+  'Primary Sector, #10':
+    TF-1010: tempg-150010000
+  'Primary Sector, #13':
+    TS-1011: httemp-160000107, httemp-162000107, htvat-1620001
+  'Primary Sector, #18':
+    TS-1012: htvat-1660001
+  'Primary Sector, #2':
+    TS-1004: httemp-134000101, htvat-1340001
+  'Primary Sector, #5':
+    TS-1005: htvat-1400001
+  'Primary Sector, #6':
+    TF-1006: tempg-140010000
+  'Primary Sector, #7':
+    TS-1007: htvat-1450001
+  'Primary Sector, #8':
+    TF-1008: tempg-145010000
+  'Primary Sector, #9':
+    TS-1009: htvat-1500001

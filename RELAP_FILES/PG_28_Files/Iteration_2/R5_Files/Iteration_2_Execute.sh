@@ -1,9 +1,6 @@
 #!/bin/sh
-#case_array=(Point_625 Point_5625 Point_5 Point_4375 Point_375 Point_3125 Point_25)
-#case_array=(Point_4375 Point_375 Point_3125 Point_25)
-case_array=(Point_5625)
-properties_array=(tpfh2o tpfhen tpfn2)
-cd PG_28_Tests/
+case_array=(Point_625 Point_5625 Point_5 Point_4375 Point_375 Point_3125 Point_25)
+cd R5_Files
 for path in ${case_array[@]}
     do
         echo "${path}"

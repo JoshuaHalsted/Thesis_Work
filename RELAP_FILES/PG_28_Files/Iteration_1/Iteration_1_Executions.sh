@@ -5,7 +5,6 @@ for path in ${case_array[@]}
     do
         cd Flow_Rate_"$path"/
         ~/RELAP5_3D_Files/relap5.x -i PG28_filled_"$path".i -O PG28_filled_"$path".o -r restart_"$path".r
-        #rm outdta.o
         rm restart_"$path".r
         ~/RELAP5_3D_Files/relap5.x -i Strip.i -O ooo
         rm ooo
