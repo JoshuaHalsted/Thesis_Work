@@ -54,8 +54,8 @@ def CSV2Dataframe(CSVFile):
     df = pd.read_csv(CSVFile, delimiter = ' ')    
     return df
 
-def ChangeMFR(dataframe):
-    dataframe['Gas_MFR'] = dataframe['Gas_MFR']*0.75
+def ChangeMFR(dataframe, factor):
+    dataframe['Gas_MFR'] = dataframe['Gas_MFR']*factor
     return dataframe
 
 
@@ -117,19 +117,21 @@ class Analysis():
 class Subanalysis(Analysis):
   def __init__(self, analysis_dict, sub_name):
     super().__init__(analysis_dict)
-    self._dict = analysis_dict['Iteration_1']
+    self._dict = analysis_dict['Subanalysis'][sub_name]
 
 class Test(Subanalysis):
   def __init__(self, analysis_dict, sub_name, test_name):
     super().__init__(analysis_dict, sub_name)
     self._analysis_dict = analysis_dict
-    self._subanalysis_dict = self._analysis_dict[sub_name]
+    self._subanalysis_dict = self._analysis_dict['Subanalysis'][sub_name]
     self._test_dict = self._subanalysis_dict[test_name]
     self._initial_condition = self._test_dict['Initial_Time']
     self._test_name = test_name
     self._test_directory = os.path.join(self._analysis_dict['Directory'], '%s\\R5_Files\\'%(sub_name) + self._test_name)
     self._r5_template_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Template_File'])
     self._r5_filled_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Filled_File'])
+    print(self._r5_template_file)
+    print(self._r5_filled_file)
     self._r5_strip_input = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Input'])
     self._r5_strip_output = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Output'])
     self._init_cond_file = os.path.join(self._test_directory, self._test_dict['Files']['Initial_Cond_File'])
@@ -206,7 +208,7 @@ class Test(Subanalysis):
 
   def InputMassFlowRate(self):
       Old_MFR_DF = CSV2Dataframe(NOMINAL_MFR_CSV)
-      New_MFR_DF = ChangeMFR(Old_MFR_DF)
+      New_MFR_DF = ChangeMFR(Old_MFR_DF, self._subanalysis_dict[self._test_name]['Actions']['Input']['write_input_file']['write_mfr']['Factor'])
       string = New_MFR_DF.to_string(index = False, header = False)
       data = ReadFile(self._r5_template_file, string)
       WriteFile(self._r5_filled_file, data)
@@ -235,7 +237,6 @@ class Test(Subanalysis):
         if to_be_replaced not in Mapping.RELAP_channel.values:
           #print("For the variable on the line above, there is no rule in " + IInitial_Cond_File )
           quit()
-        print(to_be_replaced)
         rep_rule = Mapping.loc[Mapping['RELAP_channel'] == to_be_replaced, 'Source_formula'].iloc[0] 
         # find needed data in Measured data
         MyVars_in_formula = {}
@@ -275,7 +276,7 @@ class Test(Subanalysis):
       #print("Used heatres specified in Heaters_used")
       count = 0
       for heater in range(10):
-        print(heater)
+        #print(heater)
         if (heater+1) in Heaters_used:
           #print("Updating heater " + str(heater+1))
           if heater+1 == 10:
@@ -307,12 +308,12 @@ class Test(Subanalysis):
           anf = 0
           end = 10000
           count += 1
-          print('**************************************')
+          #print('**************************************')
           POW_SMA[anf:end] = POW[anf:end]
 
           #print(POW_SMA)
-          print('Loop count is: %s' %count)
-          print('**************************************')
+          #print('Loop count is: %s' %count)
+          #print('**************************************')
 
           # Select 99 points for RELAP5: Not just random sampling, 
           #                              49 pts maximum change in slope (max gradient change), and 49 pts uniform 
@@ -371,7 +372,7 @@ class Test(Subanalysis):
           R5outTxt = R5outTxt.replace("2029" + str(heater_corr[heater+1]).zfill(2) + "00  power\n"   ,heaterString)
       
       # Primary pressure 
-      print("Updating primary and RCST pressures")
+      #print("Updating primary and RCST pressures")
       Press_Prim =  Measured['PT-6001'] * 1000
       Press_RCST =  Measured['PT-4001'] * 1000
 
@@ -432,7 +433,7 @@ class Test(Subanalysis):
       R5outTxt = R5outTxt.replace("20220100 reac-t\n" ,pressString)
 
       # RCCS BCs (inlet temperature and mass flow)
-      print("Updating RCCS inlte temperature and mass flow")
+      #print("Updating RCCS inlte temperature and mass flow")
       # Read Measured trend data
       Measured_trend = self._measured_data_trend
       # MASS FLOW RATE
@@ -577,9 +578,9 @@ class Test(Subanalysis):
     # This writes the RELAP5 input file
     # 1. Reads the RELAP5 template input file and identifies initial and boundary conditions to be replaced 
     # 2. Reads the test data file and identifies the data to be put in the RELAP5 input file
-
-    InputMFRBoolean = self._subanalysis_dict[self._test_name]['Actions']['Input']['write_input_file']['write_mfr']
-    InputInitialConditionsBoolean = self._subanalysis_dict[self._test_name]['Actions']['Input']['write_input_file']['write_initial_conditions']
+    Input_Dict = self._subanalysis_dict[self._test_name]['Actions']['Input']
+    InputMFRBoolean = Input_Dict['write_input_file']['write_mfr']['Boolean']
+    InputInitialConditionsBoolean = Input_Dict['write_input_file']['write_initial_conditions']['Boolean']
     if InputMFRBoolean and InputInitialConditionsBoolean:
       self.InputMassFlowRate()
       self.InputInitialConditions(self._r5_filled_file)
@@ -1955,7 +1956,9 @@ class Test(Subanalysis):
 
 def main():
   Input_File_YAML = YAML2Dict()
-  Instance = Test(Input_File_YAML['Analysis'], 'Iteration_1', 'Flow_Rate_1')
+  for subanalysis in Input_File_YAML['Analysis']['Subanalysis']:
+    for test in Input_File_YAML['Analysis']['Subanalysis'][subanalysis]:
+      Instance = Test(Input_File_YAML['Analysis'], subanalysis, test)
 main()
 
 # Some additional inputs....
