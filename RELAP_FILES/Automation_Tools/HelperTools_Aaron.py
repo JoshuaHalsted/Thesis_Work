@@ -20,8 +20,48 @@ os.system('cls' if os.name == 'nt' else 'clear')
 # This will crash if something unexpected happens.
 #
 
-path = pathlib.Path(__file__).parent.resolve()
-os.chdir(path)
+# Global variables
+
+SEARCH_TEXT = "&&&INSERT MFR HERE&&&"
+NOMINAL_MFR_CSV = "C:\\Users\\17577\\Thesis_Work\\RELAP_FILES\\PG_28_Files\\Nominal_MFR.csv"
+# Global functions
+
+def ReadFile(InputFile, replace_text):
+    #define text file to open
+    with open(InputFile, 'r') as file:
+    
+        # Reading the content of the file
+        # using the read() function and storing
+        # them in a new variable
+        data = file.read()
+    
+        # Searching and replacing the text
+        # using the replace() function
+        data = data.replace(SEARCH_TEXT, replace_text)
+    return data
+
+def WriteFile(OutputFile, data):
+    with open(OutputFile, 'w') as file:
+        # Writing the replaced data in our
+        # text file
+        file.write(data)
+
+def SearchNReplace(InputFile, replace_text, OutputFile):
+    data = ReadFile(InputFile, replace_text)
+    WriteFile(OutputFile, data)
+
+def CSV2Dataframe(CSVFile):
+    df = pd.read_csv(CSVFile, delimiter = ' ')    
+    return df
+
+def ChangeMFR(dataframe):
+    dataframe['Gas_MFR'] = dataframe['Gas_MFR']*0.75
+    return dataframe
+
+
+CURRENT_FILE_PATH = pathlib.Path(__file__).parent.resolve()
+print(CURRENT_FILE_PATH)
+os.chdir(CURRENT_FILE_PATH)
 
 def YAML2Dict():
   with open("PG_26_Input_File.yml", 'r') as stream:
@@ -41,6 +81,8 @@ def InitializePlot():
     ax = fig.add_subplot(111)
     return None
 
+# Classes
+
 class Plots():
   def __init__(self, plot_dict):
     self._plot_dict = plot_dict
@@ -48,7 +90,7 @@ class Plots():
     self._types = plot_dict['Types']
     self._instruments = plot_dict['Instruments']
     self._r5_channel = plot_dict['R5_Channel']
-    self._make_plot = self.GeneratePlot()
+    #self._make_plot = self.GeneratePlot()
   
   def InitializePlot(self):
       #Set figure size
@@ -59,13 +101,12 @@ class Plots():
       ax = fig.add_subplot(111)
       return fig, ax
 
-  def GeneratePlot(self):
-    for Line in self._types:
-      fig, ax = self.InitializePlot()
-      if len(self._instruments) > 1:
-        scat = plt.plot(Measured['Run_Time'], [self._instruments],  'c4-' , markevery=13000, label=self._title = plot_dict['Title'], markersize=10)
-    #InitializePlot()
-    pass
+  # def GeneratePlot(self):
+  #   for Line in self._types:
+  #     fig, ax = self.InitializePlot()
+  #     if len(self._instruments) > 1:
+  #       scat = plt.plot(Measured['Run_Time'], [self._instruments],  'c4-' , markevery=13000, label=self._title = plot_dict['Title'], markersize=10)
+  #   #InitializePlot()
 
 class Analysis():
   def __init__(self, analysis_dict):
@@ -77,7 +118,6 @@ class Subanalysis(Analysis):
   def __init__(self, analysis_dict, sub_name):
     super().__init__(analysis_dict)
     self._dict = analysis_dict['Iteration_1']
-    self._sub_name = sub_name
 
 class Test(Subanalysis):
   def __init__(self, analysis_dict, sub_name, test_name):
@@ -86,7 +126,6 @@ class Test(Subanalysis):
     self._subanalysis_dict = self._analysis_dict[sub_name]
     self._test_dict = self._subanalysis_dict[test_name]
     self._initial_condition = self._test_dict['Initial_Time']
-    self._sub_name = sub_name
     self._test_name = test_name
     self._test_directory = os.path.join(self._analysis_dict['Directory'], '%s\\R5_Files\\'%(sub_name) + self._test_name)
     self._r5_template_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Template_File'])
@@ -95,21 +134,19 @@ class Test(Subanalysis):
     self._r5_strip_output = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Output'])
     self._init_cond_file = os.path.join(self._test_directory, self._test_dict['Files']['Initial_Cond_File'])
     self._inst_map_file = os.path.join(self._test_directory, self._test_dict['Files']['Instrument_Map_File'])
-    self._measured_data_quality = os.path.join(self._test_directory, self._test_dict['Files']['Measured_Data_Quality'])
-    self._measured_data_trend = os.path.join(self._test_directory, self._test_dict['Files']['Measured_Data_Trend'])
-    self._generate_list_of_replecements = self.GenerateListofReplacements()
-    self._check_if_channels_are_in_file = self.CheckChannelsinFile()
-    self._write_input_file = self.WriteInputFile()
+    self._measured_data_quality = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Quality']))
+    self._measured_data_trend = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Trend']))
+    self._write_input = self.ProcessInputFile()
     self._write_strip_file = self.WriteStripFile()
     self._make_plots = self._test_dict['Actions']['Figures']['make_plots']
     self._allPlots = self._test_dict['Actions']['Figures']['allPlots']
     self._printTitles = self._test_dict['Actions']['Figures']['printTitles']
     self._print_value_tables = self._test_dict['Actions']['Figures']['print_value_tables']
     
-    self._test_function = self.MakePlotInstances()
+    #self._test_function = self.MakePlotInstances()
 
   def GenerateListofReplacements(self):
-    if self._subanalysis_dict[self._test_name]['Actions']['generate_list_of_replecements'] is True:
+    if self._subanalysis_dict[self._test_name]['Actions']['Input']['generate_list_of_replecements'] is True:
       varlist = []
       with open(self._r5_template_file) as R5in:
         for l in R5in:
@@ -129,8 +166,7 @@ class Test(Subanalysis):
   # It also indicates if instruments in the data file are not in the mapping.
   # It also indicates which RELAP channels in the input are in the mapping and which are not
   def CheckChannelsinFile(self):
-    if self._subanalysis_dict[self._test_name]['Actions']['check_if_channels_are_in_file']:
-      R5vars = pd.read_csv(self._init_cond_file)
+    if self._subanalysis_dict[self._test_name]['Actions']['Input']['check_if_channels_are_in_file']:
       instruments = pd.read_csv(self._inst_map_file, encoding = "UTF-8")
       # drop empty lines (rows)
       instruments.dropna(subset=['Tag_Number'], inplace=True)
@@ -157,6 +193,7 @@ class Test(Subanalysis):
       #print('List of data NOT in instrument map: ' )
       printcount = 0
       totcount = 0
+      print(Measured.columns.difference(instruments['Tag_Number']))
       for elem in Measured.columns.difference(instruments['Tag_Number']):
     #    if elem not in instruments['Tag_Number'][:]:
         #print(elem, end=' ')
@@ -167,22 +204,16 @@ class Test(Subanalysis):
           printcount = 0
       print('\nNumber of data NOT in instrument map: ' + str(totcount))
 
-  def WriteInputFile(self):
-    # write_input_file
-    # ----------------------------------------------------------------
-    # This writes the RELAP5 input file
-    # 1. Reads the RELAP5 template input file and identifies initial and boundary conditions to be replaced 
-    # 2. Reads the test data file and identifies the data to be put in the RELAP5 input file
-    if self._subanalysis_dict[self._test_name]['Actions']['write_input_file']:
-      # Read RELAP input file and get list of variables to be replaced
-      # This is also the template file for replacements
+  def InputMassFlowRate(self):
+      Old_MFR_DF = CSV2Dataframe(NOMINAL_MFR_CSV)
+      New_MFR_DF = ChangeMFR(Old_MFR_DF)
+      string = New_MFR_DF.to_string(index = False, header = False)
+      data = ReadFile(self._r5_template_file, string)
+      WriteFile(self._r5_filled_file, data)
 
-      # INSERT INITIAL CONDITIONS
-      # = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
-      #print("Treating initial conditions")
-      #print("==========================================")
+  def InputInitialConditions(self, InputFile):
       varlist = []
-      with open(self._r5_template_file) as R5in:
+      with open(InputFile) as R5in:
         R5temp = string.Template(R5in.read())
         R5in.seek(0) # rewind the file
         for l in R5in:
@@ -191,7 +222,7 @@ class Test(Subanalysis):
               if "$" in elem:
                 varlist.append(elem.split('$')[-1])
       # Read data file
-      Measured = pd.read_csv(self._measured_data_quality)
+      Measured = self._measured_data_quality
       # Read mapping (RELAP input channel to Measured data instrument)
       Mapping = pd.read_csv(self._init_cond_file)
       #print(Mapping)
@@ -208,7 +239,7 @@ class Test(Subanalysis):
         rep_rule = Mapping.loc[Mapping['RELAP_channel'] == to_be_replaced, 'Source_formula'].iloc[0] 
         # find needed data in Measured data
         MyVars_in_formula = {}
-        for look_for_this in re.findall(r'\w\w\d\d\d\d' ,rep_rule):
+        for look_for_this in re.findall(r'\w\w\d\d\d\d', rep_rule):
           print(look_for_this)
           look_for_this.strip()
           # already found? Formulas may use the same variable multiple times
@@ -403,7 +434,7 @@ class Test(Subanalysis):
       # RCCS BCs (inlet temperature and mass flow)
       print("Updating RCCS inlte temperature and mass flow")
       # Read Measured trend data
-      Measured_trend = pd.read_csv(self._measured_data_trend)
+      Measured_trend = self._measured_data_trend
       # MASS FLOW RATE
       RCCS_mDot =  Measured_trend['FT-9001'] / 60.0
       RCCS_mDot_SMA = RCCS_mDot.rolling(window=1800).mean().fillna(0)
@@ -540,6 +571,31 @@ class Test(Subanalysis):
       with open(self._r5_filled_file, 'w') as R5out:
         R5out.write(R5outTxt)
 
+  def WriteInputFile(self):
+    # write_input_file
+    # ----------------------------------------------------------------
+    # This writes the RELAP5 input file
+    # 1. Reads the RELAP5 template input file and identifies initial and boundary conditions to be replaced 
+    # 2. Reads the test data file and identifies the data to be put in the RELAP5 input file
+
+    InputMFRBoolean = self._subanalysis_dict[self._test_name]['Actions']['Input']['write_input_file']['write_mfr']
+    InputInitialConditionsBoolean = self._subanalysis_dict[self._test_name]['Actions']['Input']['write_input_file']['write_initial_conditions']
+    if InputMFRBoolean and InputInitialConditionsBoolean:
+      self.InputMassFlowRate()
+      self.InputInitialConditions(self._r5_filled_file)
+    elif InputMFRBoolean:
+      self.InputMassFlowRate()
+    elif InputInitialConditionsBoolean:
+      self.InputInitialConditions(self._r5_template_file)
+
+      # Read RELAP input file and get list of variables to be replaced
+      # This is also the template file for replacements
+
+      # INSERT INITIAL CONDITIONS
+      # = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+      #print("Treating initial conditions")
+      #print("==========================================")
+
   def WriteStripFile(self):
       # # write_strip_file
     # ----------------------------------------------------------------
@@ -547,7 +603,7 @@ class Test(Subanalysis):
     #    RELAP binary output file
     # 1. Read the HTTF instrunments vs. RELAP5 channels mapping file
     # 2. Extract all needed RELAP5 channels and write RELAp strip file
-    if self._subanalysis_dict[self._test_name]['Actions']['write_strip_file']:
+    if self._subanalysis_dict[self._test_name]['Actions']['Input']['write_strip_file']:
       # Read mapping file
       instruments = pd.read_csv(self._inst_map_file)
       # drop empty lines (rows)
@@ -575,6 +631,13 @@ class Test(Subanalysis):
           counter += 1
         R5strip.write('.\n')
     pass
+
+  def ProcessInputFile(self):
+    if self._subanalysis_dict[self._test_name]['Actions']['Input']['Create_Input_File']:
+      self.GenerateListofReplacements()
+      self.CheckChannelsinFile()
+      self.WriteInputFile()
+
 
   def MakePlotInstances(self):
     for instance in self._test_dict['Actions']['Figures']['Instance']:
@@ -641,9 +704,9 @@ class Test(Subanalysis):
       instruments.dropna(subset=['Tag_Number'], inplace=True)
 
       # Read Measured quality data file
-      Measured = pd.read_csv(self._measured_data_quality)
+      Measured = self._measured_data_quality
       # Read Measured trend data
-      Measured_trend = pd.read_csv(self._measured_data_trend)
+      Measured_trend = self._measured_data_trend
 
       # Read RELAP5 output data
       # -----------------------------------

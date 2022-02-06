@@ -8,17 +8,21 @@ Analysis:
         Flow_Rate_1:
             Initial_Time: 179500.0
             Files:
-                R5_Template_File: "PG26_not_filled.i"
+                R5_Template_File: "PG26_noSG_not_filled_no_MFR.i"
                 R5_Filled_File: "PG26_filled_new.i"
                 R5_Strip_Input: "Strip.i"
                 R5_Strip_Output: "the_strip_file"
                 Initial_Cond_File: "R5_initial_cond_list"
                 Instrument_Map_File: "instrumentationmap2018-09-28.csv"
             Actions:
-                generate_list_of_replecements: False
-                check_if_channels_are_in_file: False
-                write_input_file: False
-                write_strip_file: False
+                Input:
+                  Create_Input_File: True
+                  generate_list_of_replecements: False
+                  check_if_channels_are_in_file: False
+                  write_input_file: 
+                      write_initial_conditions: True
+                      write_mfr: True
+                  write_strip_file: False
                 Figures:
                     make_plots: False
                     allPlots: False
