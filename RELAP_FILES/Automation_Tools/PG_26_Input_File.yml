@@ -23,6 +23,8 @@ Analysis:
                       write_input_file: 
                           write_initial_conditions:
                               Boolean: True
+                          write_boundary_conditions:
+                              Boolean: True
                           write_mfr: 
                               Boolean: True
                               Factor: 1.0
@@ -105,6 +107,8 @@ Analysis:
                       check_if_channels_are_in_file: False
                       write_input_file: 
                           write_initial_conditions:
+                              Boolean: True
+                          write_boundary_conditions:
                               Boolean: True
                           write_mfr: 
                               Boolean: True

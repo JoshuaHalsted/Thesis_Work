@@ -108,6 +108,9 @@ class Plots():
   #       scat = plt.plot(Measured['Run_Time'], [self._instruments],  'c4-' , markevery=13000, label=self._title = plot_dict['Title'], markersize=10)
   #   #InitializePlot()
 
+def GetSecondDerivative():
+  pass
+
 class Analysis():
   def __init__(self, analysis_dict):
     self._dict = analysis_dict
@@ -214,6 +217,10 @@ class Test(Subanalysis):
       WriteFile(self._r5_filled_file, data)
 
   def InputInitialConditions(self, InputFile):
+      # INSERT INITIAL CONDITIONS
+      # = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+      #print("Treating initial conditions")
+      #print("==========================================")
       varlist = []
       with open(InputFile) as R5in:
         R5temp = string.Template(R5in.read())
@@ -260,13 +267,16 @@ class Test(Subanalysis):
 
       # Substitute values
       R5outTxt = R5temp.substitute(Mappingdict) 
+      return R5outTxt
 
+  def InputBoundaryConditions(self, R5outTxt):
       # INSERT BOUNDARY CONDITIONS
       # = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
       #print("Treating boundary conditions")
       #print("==========================================")
 
       # Heater powers
+      Measured = self._measured_data_quality
       Heaters_used = [4]
       # The heaters have been renumbered between the creation of the input deck and the test
       # new to old number
@@ -581,21 +591,19 @@ class Test(Subanalysis):
     Input_Dict = self._subanalysis_dict[self._test_name]['Actions']['Input']
     InputMFRBoolean = Input_Dict['write_input_file']['write_mfr']['Boolean']
     InputInitialConditionsBoolean = Input_Dict['write_input_file']['write_initial_conditions']['Boolean']
-    if InputMFRBoolean and InputInitialConditionsBoolean:
+    InputBoundaryConditionsBoolean = Input_Dict['write_input_file']['write_boundary_conditions']['Boolean']
+    if InputMFRBoolean and InputInitialConditionsBoolean and InputBoundaryConditionsBoolean:
       self.InputMassFlowRate()
-      self.InputInitialConditions(self._r5_filled_file)
+      R5_String = self.InputInitialConditions(self._r5_filled_file)
+      self.InputBoundaryConditions(R5_String)
     elif InputMFRBoolean:
       self.InputMassFlowRate()
-    elif InputInitialConditionsBoolean:
-      self.InputInitialConditions(self._r5_template_file)
+    elif InputInitialConditionsBoolean and InputBoundaryConditionsBoolean:
+      R5_String = self.InputInitialConditions(self._r5_template_file)
+      self.InputBoundaryConditions(R5_String)
 
       # Read RELAP input file and get list of variables to be replaced
       # This is also the template file for replacements
-
-      # INSERT INITIAL CONDITIONS
-      # = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
-      #print("Treating initial conditions")
-      #print("==========================================")
 
   def WriteStripFile(self):
       # # write_strip_file
