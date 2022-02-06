@@ -11,6 +11,22 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r Load_Experimental_Data}
+#PG_28_Data_Quality <-read.csv("C:/Users/17577/Thesis_Work/RELAP_FILES/PG_28_Files/PG28_Data_Quality.csv")
+#PG_28_Data_Trend <-read.csv("C:/Users/17577/Thesis_Work/RELAP_FILES/PG_28_Files/PG28_Data_Trend.csv")
+```
+
+```{r Load_File_List}
+myData = read.delim("C:/Users/17577/Thesis_Work/RELAP_FILES/Automation_Tools/CSV_Files.txt", header = FALSE)
+test_data = read.csv(myData$V1[1])
+for(i in 1:nrow(myData)) {
+  print(myData$V1[i])
+  
+  
+}
+```
+
+
 ## Introduction
 
 
@@ -24,6 +40,13 @@ math = 2 + 2
 ## Discussion
 
 ### Results
+
+
+```{r Iteration_4}
+reticulate::source_python("C:/Users/17577/Thesis_Work/RELAP_FILES/Automation_Tools/Strip2CSV.py")
+read.csv("C:/Users/17577/Thesis_Work/RELAP_FILES/PG_28_Files/Iteration_4/Workbooks/Output_Flow_Rate_Point_4.csv")
+```
+
 
 ### Conclusions
 

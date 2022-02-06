@@ -1,0 +1,174 @@
+Analysis:
+    Name: "PG_26"
+    Experimental_Data:
+        Measured_Data_Quality: "PG26_Data_Quality.csv"
+        Measured_Data_Trend: "PG26_Data_Trend.csv"
+    Directory: "C:\\Users\\17577\\Thesis_Work\\RELAP_FILES\\PG_26_Files"
+    Subanalysis:
+        Iteration_1:
+            Flow_Rate_1:
+                Initial_Time: 179500.0
+                Files:
+                    R5_Template_File: "PG26_noSG_not_filled_no_MFR.i"
+                    R5_Filled_File: "PG26_filled_new.i"
+                    R5_Strip_Input: "Strip.i"
+                    R5_Strip_Output: "the_strip_file"
+                    Initial_Cond_File: "R5_initial_cond_list"
+                    Instrument_Map_File: "instrumentationmap2018-09-28.csv"
+                Actions:
+                    Input:
+                      Create_Input_File: True
+                      generate_list_of_replecements: False
+                      check_if_channels_are_in_file: False
+                      write_input_file: 
+                          write_initial_conditions:
+                              Boolean: True
+                          write_mfr: 
+                              Boolean: True
+                              Factor: 1.0
+                      write_strip_file: False
+                    Figures:
+                        make_plots: False
+                        allPlots: False
+                        printTitles: False
+                        print_value_tables: False
+                        Instance:
+                            Plot1:
+                                Title: "Upper Plenum Temperatures"
+                                Types:
+                                  -  'Average'
+                                  -  'Minimum'
+                                  -  'Maximum'
+                                Instruments:
+                                  -  'TF-8201'
+                                  -  'TF-8202'
+                                  -  'TF-8203'
+                                  -  'TF-8204'
+                                  -  'TF-8206'
+                                  -  'TF-8207'
+                                  -  'TF-8208'
+                                  -  'TF-8209'
+                                  -  'TF-8210'
+                                  -  'TF-8211'
+                                  -  'TF-8212'
+                                  -  'TF-8102'
+                                  -  'TF-8103'
+                                  -  'TF-8105'
+                                  -  'TF-8107'
+                                  -  'TF-8108'
+                                  -  'TF-8109'
+                                  -  'TF-8110'
+                                  -  'TF-8111'
+                                  -  'TF-8112'
+                                R5_Channel: 'tempg-120010000'
+                            Plot2:
+                                Title: "Upper Plenum Temperatures"
+                                Types:
+                                  -  'Average'
+                                  -  'Minimum'
+                                  -  'Maximum'
+                                Instruments:
+                                  -  'TF-8201'
+                                  -  'TF-8202'
+                                  -  'TF-8203'
+                                  -  'TF-8204'
+                                  -  'TF-8206'
+                                  -  'TF-8207'
+                                  -  'TF-8208'
+                                  -  'TF-8209'
+                                  -  'TF-8210'
+                                  -  'TF-8211'
+                                  -  'TF-8212'
+                                  -  'TF-8102'
+                                  -  'TF-8103'
+                                  -  'TF-8105'
+                                  -  'TF-8107'
+                                  -  'TF-8108'
+                                  -  'TF-8109'
+                                  -  'TF-8110'
+                                  -  'TF-8111'
+                                  -  'TF-8112'
+                                R5_Channel: 'tempg-120010000'
+            Flow_Rate_1_Point_5:
+                Initial_Time: 179500.0
+                Files:
+                    R5_Template_File: "PG26_noSG_not_filled_no_MFR.i"
+                    R5_Filled_File: "PG26_filled_new.i"
+                    R5_Strip_Input: "Strip.i"
+                    R5_Strip_Output: "the_strip_file"
+                    Initial_Cond_File: "R5_initial_cond_list"
+                    Instrument_Map_File: "instrumentationmap2018-09-28.csv"
+                Actions:
+                    Input:
+                      Create_Input_File: True
+                      generate_list_of_replecements: False
+                      check_if_channels_are_in_file: False
+                      write_input_file: 
+                          write_initial_conditions:
+                              Boolean: True
+                          write_mfr: 
+                              Boolean: True
+                              Factor: 1.5
+                      write_strip_file: False
+                    Figures:
+                        make_plots: False
+                        allPlots: False
+                        printTitles: False
+                        print_value_tables: False
+                        Instance:
+                            Plot1:
+                                Title: "Upper Plenum Temperatures"
+                                Types:
+                                  -  'Average'
+                                  -  'Minimum'
+                                  -  'Maximum'
+                                Instruments:
+                                  -  'TF-8201'
+                                  -  'TF-8202'
+                                  -  'TF-8203'
+                                  -  'TF-8204'
+                                  -  'TF-8206'
+                                  -  'TF-8207'
+                                  -  'TF-8208'
+                                  -  'TF-8209'
+                                  -  'TF-8210'
+                                  -  'TF-8211'
+                                  -  'TF-8212'
+                                  -  'TF-8102'
+                                  -  'TF-8103'
+                                  -  'TF-8105'
+                                  -  'TF-8107'
+                                  -  'TF-8108'
+                                  -  'TF-8109'
+                                  -  'TF-8110'
+                                  -  'TF-8111'
+                                  -  'TF-8112'
+                                R5_Channel: 'tempg-120010000'
+                            Plot2:
+                                Title: "Upper Plenum Temperatures"
+                                Types:
+                                  -  'Average'
+                                  -  'Minimum'
+                                  -  'Maximum'
+                                Instruments:
+                                  -  'TF-8201'
+                                  -  'TF-8202'
+                                  -  'TF-8203'
+                                  -  'TF-8204'
+                                  -  'TF-8206'
+                                  -  'TF-8207'
+                                  -  'TF-8208'
+                                  -  'TF-8209'
+                                  -  'TF-8210'
+                                  -  'TF-8211'
+                                  -  'TF-8212'
+                                  -  'TF-8102'
+                                  -  'TF-8103'
+                                  -  'TF-8105'
+                                  -  'TF-8107'
+                                  -  'TF-8108'
+                                  -  'TF-8109'
+                                  -  'TF-8110'
+                                  -  'TF-8111'
+                                  -  'TF-8112'
+                                R5_Channel: 'tempg-120010000'
