@@ -23,11 +23,13 @@ Analysis:
                       write_input_file: 
                           write_initial_conditions:
                               Boolean: True
+                          write_boundary_conditions:
+                              Boolean: True
                           write_mfr: 
                               Boolean: True
                               Factor: 1.0
                       write_strip_file: False
-                    Figures:
+                    Plots:
                         make_plots: False
                         allPlots: False
                         printTitles: False
@@ -105,6 +107,8 @@ Analysis:
                       check_if_channels_are_in_file: False
                       write_input_file: 
                           write_initial_conditions:
+                              Boolean: True
+                          write_boundary_conditions:
                               Boolean: True
                           write_mfr: 
                               Boolean: True

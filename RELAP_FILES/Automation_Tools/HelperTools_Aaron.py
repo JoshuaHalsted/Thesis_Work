@@ -9,6 +9,7 @@ import os
 import sys
 import pathlib
 import yaml
+import random
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -83,23 +84,6 @@ def InitializePlot():
 
 # Classes
 
-class Plots():
-  def __init__(self, plot_dict):
-    self._plot_dict = plot_dict
-    self._title = plot_dict['Title']
-    self._types = plot_dict['Types']
-    self._instruments = plot_dict['Instruments']
-    self._r5_channel = plot_dict['R5_Channel']
-    #self._make_plot = self.GeneratePlot()
-  
-  def InitializePlot(self):
-      #Set figure size
-      figA = 10
-      figB = 5
-
-      fig = plt.figure(figsize=(figA,figB))
-      ax = fig.add_subplot(111)
-      return fig, ax
 
   # def GeneratePlot(self):
   #   for Line in self._types:
@@ -107,6 +91,46 @@ class Plots():
   #     if len(self._instruments) > 1:
   #       scat = plt.plot(Measured['Run_Time'], [self._instruments],  'c4-' , markevery=13000, label=self._title = plot_dict['Title'], markersize=10)
   #   #InitializePlot()
+
+def GetSecondDerivative(StepValue, Columns):
+    dColumn = Columns.diff().fillna(0)
+    FirstDerivative = dColumn / StepValue
+    ddColumn = FirstDerivative.diff().fillna(0)
+    SecondDerivative = ddColumn / StepValue
+    SortSecondDerivative = SecondDerivative.abs().sort_values(ascending=False)
+    return SortSecondDerivative
+
+def SelectPoints(Columns, SecondDerivative, IndependentVariableColumn):
+    NumberPoints = random.randint(50,75)
+    SecondDerivativeIndexes = SecondDerivative[:NumberPoints].index
+    SecondDerivativeIndexes = SecondDerivativeIndexes.append(pd.Index(np.linspace(0, len(IndependentVariableColumn)-1, (96-NumberPoints-2)).astype(int)))
+    Ntime = [0.0]
+    Nval  = [0.0]
+    for point in SecondDerivativeIndexes.sort_values():
+    # Construct new Series
+      Ntime.append(IndependentVariableColumn[point])
+      Nval.append(Columns[point])
+    Ntime_Prim = pd.Series(Ntime)
+    Nval_Prim  = pd.Series(Nval)
+    Nval_Prim[0] = Nval_Prim[1]
+    return Ntime_Prim, Nval_Prim
+
+def SelectPointsSecondDerivative(StepValue, Columns, IndependentVariableColumn):
+    SecondDerivative = GetSecondDerivative(StepValue, Columns)
+    Ntime, Nval = SelectPoints(Columns, SecondDerivative, IndependentVariableColumn)
+    return Ntime, Nval
+
+def WriteBCs2RELAP(SearchString, ReplaceString, TimeArray, ValueArray, R5outTxt):
+    OriginalString = SearchString
+    for entry in range(len(TimeArray)-1):
+        SearchString = SearchString + ReplaceString + str(entry+1).zfill(2) + " " + str(TimeArray[entry+1]) + " " + str(ValueArray[entry+1]) + "\n"
+    R5outTxt = R5outTxt.replace(OriginalString, SearchString)
+    return R5outTxt
+
+def ImplementBoundaryConditions(StepValue, Columns, IndependentVariableColumn, SearchString, ReplaceString, R5outTxt):
+    Ntime, Nval = SelectPointsSecondDerivative(StepValue, Columns, IndependentVariableColumn)
+    R5outTxt = WriteBCs2RELAP(SearchString, ReplaceString, Ntime, Nval, R5outTxt)
+    return R5outTxt
 
 class Analysis():
   def __init__(self, analysis_dict):
@@ -130,8 +154,6 @@ class Test(Subanalysis):
     self._test_directory = os.path.join(self._analysis_dict['Directory'], '%s\\R5_Files\\'%(sub_name) + self._test_name)
     self._r5_template_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Template_File'])
     self._r5_filled_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Filled_File'])
-    print(self._r5_template_file)
-    print(self._r5_filled_file)
     self._r5_strip_input = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Input'])
     self._r5_strip_output = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Output'])
     self._init_cond_file = os.path.join(self._test_directory, self._test_dict['Files']['Initial_Cond_File'])
@@ -140,10 +162,6 @@ class Test(Subanalysis):
     self._measured_data_trend = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Trend']))
     self._write_input = self.ProcessInputFile()
     self._write_strip_file = self.WriteStripFile()
-    self._make_plots = self._test_dict['Actions']['Figures']['make_plots']
-    self._allPlots = self._test_dict['Actions']['Figures']['allPlots']
-    self._printTitles = self._test_dict['Actions']['Figures']['printTitles']
-    self._print_value_tables = self._test_dict['Actions']['Figures']['print_value_tables']
     
     #self._test_function = self.MakePlotInstances()
 
@@ -214,6 +232,10 @@ class Test(Subanalysis):
       WriteFile(self._r5_filled_file, data)
 
   def InputInitialConditions(self, InputFile):
+      # INSERT INITIAL CONDITIONS
+      # = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+      #print("Treating initial conditions")
+      #print("==========================================")
       varlist = []
       with open(InputFile) as R5in:
         R5temp = string.Template(R5in.read())
@@ -241,7 +263,6 @@ class Test(Subanalysis):
         # find needed data in Measured data
         MyVars_in_formula = {}
         for look_for_this in re.findall(r'\w\w\d\d\d\d', rep_rule):
-          print(look_for_this)
           look_for_this.strip()
           # already found? Formulas may use the same variable multiple times
           if look_for_this in MyVars_in_formula:
@@ -260,13 +281,16 @@ class Test(Subanalysis):
 
       # Substitute values
       R5outTxt = R5temp.substitute(Mappingdict) 
+      return R5outTxt
 
+  def InputBoundaryConditions(self, R5outTxt):
       # INSERT BOUNDARY CONDITIONS
       # = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
       #print("Treating boundary conditions")
       #print("==========================================")
 
       # Heater powers
+      Measured = self._measured_data_quality
       Heaters_used = [4]
       # The heaters have been renumbered between the creation of the input deck and the test
       # new to old number
@@ -373,64 +397,27 @@ class Test(Subanalysis):
       
       # Primary pressure 
       #print("Updating primary and RCST pressures")
-      Press_Prim =  Measured['PT-6001'] * 1000
-      Press_RCST =  Measured['PT-4001'] * 1000
 
       dt = Measured['Run_Time'].diff().fillna(1)
 
-      dPress_Prim = Press_Prim.diff().fillna(0)
-      dPress_Prim_dt = dPress_Prim / dt
-      ddPress_Prim = dPress_Prim_dt.diff().fillna(0)
-      ddPress_Prim_dt2 = ddPress_Prim / dt
+      R5outTxt = ImplementBoundaryConditions(dt, Measured['PT-6001'] * 1000, Measured['Run_Time'], "20220000 reac-t\n", "202200", R5outTxt)
 
-      dPress_RCST = Press_RCST.diff().fillna(0)
-      dPress_RCST_dt = dPress_RCST / dt
-      ddPress_RCST = dPress_RCST_dt.diff().fillna(0)
-      ddPress_RCST_dt2 = ddPress_RCST / dt
+      R5outTxt = ImplementBoundaryConditions(dt, Measured['PT-4001'] * 1000, Measured['Run_Time'], "20220100 reac-t\n", "202201", R5outTxt)
 
-      # Select points
-      sort_val_Press_Prim = ddPress_Prim_dt2.abs().sort_values(ascending=False)
-      sort_val_Press_RCST = ddPress_RCST_dt2.abs().sort_values(ascending=False)
-      sort_val_indexes_Prim = sort_val_Press_Prim[:49].index
-      sort_val_indexes_RCST = sort_val_Press_RCST[:49].index
+      RCCS_T = Measured['TF-9003'] + 273.15
+      RCCS_T_SMA = RCCS_T.rolling(window=1800).mean().fillna(0)
+      RCCS_T_SMA[0:1800] = RCCS_T_SMA[1801]
+      dt = Measured['Run_Time'].diff().fillna(1)
 
-      sort_val_indexes_Prim = sort_val_indexes_Prim.append(pd.Index(np.linspace(0, len(Measured['Run_Time'])-1, 47).astype(int)))
-      #sort_val_indexes_Prim = sort_val_indexes_Prim.append(pd.Index([179950*2, 180100*2, 180300*2]))
-      sort_val_indexes_RCST = sort_val_indexes_RCST.append(pd.Index(np.linspace(0, len(Measured['Run_Time'])-1, 47).astype(int)))
-      #sort_val_indexes_RCST = sort_val_indexes_RCST.append(pd.Index([179950*2, 180100*2, 180300*2]))
-
-      # Primary pressure
-      Ntime = [0.0]
-      Nval  = [0.0]
-      for point in sort_val_indexes_Prim.sort_values():
-      # Construct new Series
-        Ntime.append(Measured['Run_Time'][point])
-        Nval.append(Press_Prim[point])
-      Ntime_Prim = pd.Series(Ntime)
-      Nval_Prim  = pd.Series(Nval)
-      Nval_Prim[0] = Nval_Prim[1]
-
-      # RCST pressure
-      Ntime = [0.0]
-      Nval  = [0.0]
-      for point in sort_val_indexes_RCST.sort_values():
-        Ntime.append(Measured['Run_Time'][point])
-        Nval.append(Press_RCST[point])
-      Ntime_RCST = pd.Series(Ntime)
-      Nval_RCST  = pd.Series(Nval)
-      Nval_RCST[0] = Nval_RCST[1]
+      Ntime_RCCS_T, Nval_RCCS_T = SelectPointsSecondDerivative(dt, RCCS_T_SMA, Measured['Run_Time'])
 
       # Write primary into relap input
-      pressString = "20220000 reac-t\n"
-      for i in range(len(Ntime_Prim)-1):
-        pressString = pressString + "202200" + str(i+1).zfill(2) + " " + str(Ntime_Prim[i+1]) + " " + str(Nval_Prim[i+1]) + "\n"
-      R5outTxt = R5outTxt.replace("20220000 reac-t\n" ,pressString)
+      pressStringR = "9150201 0.0 0.0 0.0\n"
+      pressString = ""
+      for i in range(len(Ntime_RCCS_T)-1):
+        pressString = pressString + "91502" + str(i+1).zfill(2) + " " + str(Ntime_RCCS_T[i+1]) + " 1.0e5 " + str(Nval_RCCS_T[i+1]) + "\n"
+      R5outTxt = R5outTxt.replace(pressStringR ,pressString)
 
-      # Write RCST into relap input
-      pressString = "20220100 reac-t\n"
-      for i in range(len(Ntime_RCST)-1):
-        pressString = pressString + "202201" + str(i+1).zfill(2) + " " + str(Ntime_RCST[i+1]) + " " + str(Nval_RCST[i+1]) + "\n"
-      R5outTxt = R5outTxt.replace("20220100 reac-t\n" ,pressString)
 
       # RCCS BCs (inlet temperature and mass flow)
       #print("Updating RCCS inlte temperature and mass flow")
@@ -442,64 +429,18 @@ class Test(Subanalysis):
       RCCS_mDot_SMA[RCCS_mDot_SMA < 0.0] = 0.0
       dt = Measured_trend['Run_Time'].diff().fillna(1)
 
-      dRCCS_mDot = RCCS_mDot_SMA.diff().fillna(0)
-      dRCCS_mDot_dt = dRCCS_mDot / dt
-      ddRCCS_mDot = dRCCS_mDot_dt.diff().fillna(0)
-      ddRCCS_mDot_dt2 = ddRCCS_mDot / dt
+      Ntime_RCCS_mDot, Nval_RCCS_mDot = SelectPointsSecondDerivative(dt, RCCS_mDot_SMA, Measured_trend['Run_Time'])
 
-      # Select points
-      sort_val_RCCS_mDot = ddRCCS_mDot_dt2.abs().sort_values(ascending=False)
-      sort_val_indexes_RCCS_mDot = sort_val_RCCS_mDot[:49].index
-
-      sort_val_indexes_RCCS_mDot = sort_val_indexes_RCCS_mDot.append(pd.Index(np.linspace(0, len(Measured_trend['Run_Time'])-1, 47).astype(int)))
-      # RCCS m_dot
-      Ntime = [0.0]
-      Nval  = [0.0]
-      for point in sort_val_indexes_RCCS_mDot.sort_values():
-      # Construct new Series
-        Ntime.append(Measured_trend['Run_Time'][point])
-        Nval.append(RCCS_mDot_SMA[point])
-      Ntime_RCCS_mDot = pd.Series(Ntime)
-      Nval_RCCS_mDot  = pd.Series(Nval)
-      Nval_RCCS_mDot[0] = Nval_RCCS_mDot[1]
       # Write primary into relap input
       pressStringR = "9200201  0.0  0.0  0.0  0.0\n"
       pressString = ""
+      print(len(Ntime_RCCS_mDot))
       for i in range(len(Ntime_RCCS_mDot)-1):
         pressString = pressString + "92002" + str(i+1).zfill(2) + " " + str(Ntime_RCCS_mDot[i+1]) + " " + str(Nval_RCCS_mDot[i+1]) + " 0.0 0.0\n"
+        #print(pressString)
       R5outTxt = R5outTxt.replace(pressStringR ,pressString)
+
       # TEMPRATURE
-      RCCS_T = Measured['TF-9003'] + 273.15
-      RCCS_T_SMA = RCCS_T.rolling(window=1800).mean().fillna(0)
-      RCCS_T_SMA[0:1800] = RCCS_T_SMA[1801]
-      dt = Measured['Run_Time'].diff().fillna(1)
-
-      dRCCS_T = RCCS_T_SMA.diff().fillna(0)
-      dRCCS_T_dt = dRCCS_T / dt
-      ddRCCS_T = dRCCS_T_dt.diff().fillna(0)
-      ddRCCS_T_dt2 = ddRCCS_T / dt
-
-      # Select points
-      sort_val_RCCS_T = ddRCCS_T_dt2.abs().sort_values(ascending=False)
-      sort_val_indexes_RCCS_T = sort_val_RCCS_T[:49].index
-
-      sort_val_indexes_RCCS_T = sort_val_indexes_RCCS_T.append(pd.Index(np.linspace(0, len(Measured['Run_Time'])-1, 47).astype(int)))
-      # RCCS T
-      Ntime = [0.0]
-      Nval  = [0.0]
-      for point in sort_val_indexes_RCCS_T.sort_values():
-      # Construct new Series
-        Ntime.append(Measured['Run_Time'][point])
-        Nval.append(RCCS_T_SMA[point])
-      Ntime_RCCS_T = pd.Series(Ntime)
-      Nval_RCCS_T = pd.Series(Nval)
-      Nval_RCCS_T[0] = Nval_RCCS_T[1]
-      # Write primary into relap input
-      pressStringR = "9150201 0.0 0.0 0.0\n"
-      pressString = ""
-      for i in range(len(Ntime_RCCS_T)-1):
-        pressString = pressString + "91502" + str(i+1).zfill(2) + " " + str(Ntime_RCCS_T[i+1]) + " 1.0e5 " + str(Nval_RCCS_T[i+1]) + "\n"
-      R5outTxt = R5outTxt.replace(pressStringR ,pressString)
 
       # CORE DT
       Core_DT = Measured['TF-2311'] - Measured['TF-6101']
@@ -507,33 +448,7 @@ class Test(Subanalysis):
       Core_DT_SMA[0:1800] = Core_DT_SMA[1801]
       dt = Measured['Run_Time'].diff().fillna(1)
 
-      dCore_DT = Core_DT_SMA.diff().fillna(0)
-      dCore_DT_dt = dCore_DT / dt
-      ddCore_DT = dCore_DT_dt.diff().fillna(0)
-      ddCore_DT_dt2 = ddCore_DT / dt
-
-      # Select points
-      sort_val_Core_DT = ddCore_DT_dt2.abs().sort_values(ascending=False)
-      sort_val_indexes_Core_DT = sort_val_Core_DT[:49].index
-
-      sort_val_indexes_Core_DT = sort_val_indexes_Core_DT.append(pd.Index(np.linspace(0, len(Measured['Run_Time'])-1, 47).astype(int)))
-      #sort_val_indexes_Core_DT = sort_val_indexes_Core_DT.append(pd.Index([179950*2, 180100*2]))
-      # 
-      Ntime = [0.0]
-      Nval  = [0.0]
-      for point in sort_val_indexes_Core_DT.sort_values():
-      # Construct new Series
-        Ntime.append(Measured['Run_Time'][point])
-        Nval.append(Core_DT_SMA[point])
-      Ntime_Core_DT = pd.Series(Ntime)
-      Nval_Core_DT  = pd.Series(Nval)
-      Nval_Core_DT[0] = Nval_Core_DT[1]
-      # Write into relap input
-      pressStringR = "20222000 reac-t\n"
-      pressString = pressStringR
-      for i in range(len(Ntime_Core_DT)-1):
-        pressString = pressString + "202220" + str(i+1).zfill(2) + " " + str(Ntime_Core_DT[i+1]) + " " + str(Nval_Core_DT[i+1]) + "\n"
-      R5outTxt = R5outTxt.replace(pressStringR ,pressString)
+      R5outTxt = ImplementBoundaryConditions(dt, Core_DT_SMA, Measured['Run_Time'], "20222000 reac-t\n", "202220", R5outTxt)
 
       # CORE inlet temperature
       Core_T = Measured['TF-6202'] + 273.15
@@ -541,32 +456,7 @@ class Test(Subanalysis):
       Core_T_SMA[0:1800] = Core_T_SMA[1801]
       dt = Measured['Run_Time'].diff().fillna(1)
 
-      dCore_T = Core_T_SMA.diff().fillna(0)
-      dCore_T_dt = dCore_T / dt
-      ddCore_T = dCore_T_dt.diff().fillna(0)
-      ddCore_T_dt2 = ddCore_T / dt
-
-      # Select points
-      sort_val_Core_T = ddCore_T_dt2.abs().sort_values(ascending=False)
-      sort_val_indexes_Core_T = sort_val_Core_T[:49].index
-
-      sort_val_indexes_Core_T = sort_val_indexes_Core_T.append(pd.Index(np.linspace(0, len(Measured['Run_Time'])-1, 47).astype(int)))
-      # 
-      Ntime = [0.0]
-      Nval  = [0.0]
-      for point in sort_val_indexes_Core_T.sort_values():
-      # Construct new Series
-        Ntime.append(Measured['Run_Time'][point])
-        Nval.append(Core_T_SMA[point])
-      Ntime_Core_T = pd.Series(Ntime)
-      Nval_Core_T  = pd.Series(Nval)
-      Nval_Core_T[0] = Nval_Core_T[1]
-      # Write into relap input
-      pressStringR = "20223000 reac-t\n"
-      pressString = pressStringR
-      for i in range(len(Ntime_Core_T)-1):
-        pressString = pressString + "202230" + str(i+1).zfill(2) + " " + str(Ntime_Core_T[i+1]) + " " + str(Nval_Core_T[i+1]) + "\n"
-      R5outTxt = R5outTxt.replace(pressStringR ,pressString)
+      R5outTxt = ImplementBoundaryConditions(dt, Core_T_SMA, Measured['Run_Time'], "20223000 reac-t\n", "202230", R5outTxt)
 
       # write the output file back
       with open(self._r5_filled_file, 'w') as R5out:
@@ -581,21 +471,19 @@ class Test(Subanalysis):
     Input_Dict = self._subanalysis_dict[self._test_name]['Actions']['Input']
     InputMFRBoolean = Input_Dict['write_input_file']['write_mfr']['Boolean']
     InputInitialConditionsBoolean = Input_Dict['write_input_file']['write_initial_conditions']['Boolean']
-    if InputMFRBoolean and InputInitialConditionsBoolean:
+    InputBoundaryConditionsBoolean = Input_Dict['write_input_file']['write_boundary_conditions']['Boolean']
+    if InputMFRBoolean and InputInitialConditionsBoolean and InputBoundaryConditionsBoolean:
       self.InputMassFlowRate()
-      self.InputInitialConditions(self._r5_filled_file)
+      R5_String = self.InputInitialConditions(self._r5_filled_file)
+      self.InputBoundaryConditions(R5_String)
     elif InputMFRBoolean:
       self.InputMassFlowRate()
-    elif InputInitialConditionsBoolean:
-      self.InputInitialConditions(self._r5_template_file)
+    elif InputInitialConditionsBoolean and InputBoundaryConditionsBoolean:
+      R5_String = self.InputInitialConditions(self._r5_template_file)
+      self.InputBoundaryConditions(R5_String)
 
       # Read RELAP input file and get list of variables to be replaced
       # This is also the template file for replacements
-
-      # INSERT INITIAL CONDITIONS
-      # = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
-      #print("Treating initial conditions")
-      #print("==========================================")
 
   def WriteStripFile(self):
       # # write_strip_file
@@ -639,6 +527,28 @@ class Test(Subanalysis):
       self.CheckChannelsinFile()
       self.WriteInputFile()
 
+class Plots():
+  def __init__(self, plot_dict, plot_number):
+    self._plot_dict = plot_dict
+    self._plot_number = plot_number
+    self._title = plot_dict[plot_number]['Title']
+    self._types = plot_dict[plot_number]['Types']
+    self._instruments = plot_dict[plot_number]['Instruments']
+    self._r5_channel = plot_dict[plot_number]['R5_Channel']
+    # self._make_plots = self._test_dict['Actions']['Figures']['make_plots']
+    # self._allPlots = self._test_dict['Actions']['Figures']['allPlots']
+    # self._printTitles = self._test_dict['Actions']['Figures']['printTitles']
+    # self._print_value_tables = self._test_dict['Actions']['Figures']['print_value_tables']
+    #self._make_plot = self.GeneratePlot()
+  
+  def InitializePlot(self):
+      #Set figure size
+      figA = 10
+      figB = 5
+
+      fig = plt.figure(figsize=(figA,figB))
+      ax = fig.add_subplot(111)
+      return fig, ax
 
   def MakePlotInstances(self):
     for instance in self._test_dict['Actions']['Figures']['Instance']:
@@ -1952,18 +1862,12 @@ class Test(Subanalysis):
         plt.show()
 
 
-
-
 def main():
   Input_File_YAML = YAML2Dict()
   for subanalysis in Input_File_YAML['Analysis']['Subanalysis']:
     for test in Input_File_YAML['Analysis']['Subanalysis'][subanalysis]:
       Instance = Test(Input_File_YAML['Analysis'], subanalysis, test)
-main()
+      for plot in Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance']:
+          PlotInstance = Plots(Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance'], plot)
 
-# Some additional inputs....
-# Takes the measured value  from this time stamp in the data file
-#At which transient time should the ss be?
-# => After the last valve movement befeor the blower is shut down (MS-6201)
-# and the transient is started (SV-6001)
-# => at 6/1/19 at 8:10:40pm => 179500.0 s
+main()
