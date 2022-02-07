@@ -10,8 +10,13 @@ import sys
 import pathlib
 import yaml
 import random
+import logging
 
 os.system('cls' if os.name == 'nt' else 'clear')
+
+CURRENT_FILE_PATH = pathlib.Path(__file__).parent.resolve()
+print(CURRENT_FILE_PATH)
+os.chdir(CURRENT_FILE_PATH)
 
 #
 # This is an undocumented, unofficial collection of subroiutines that helps
@@ -25,6 +30,18 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 SEARCH_TEXT = "&&&INSERT MFR HERE&&&"
 NOMINAL_MFR_CSV = "C:\\Users\\17577\\Thesis_Work\\RELAP_FILES\\PG_28_Files\\Nominal_MFR.csv"
+
+EXECUTION_STATUS_LOG_FILE = os.path.join(CURRENT_FILE_PATH, "MainExecutionLog.log")
+
+# Create and configure logger
+EXECUTION_LOG_FORMAT = "%(levelname)s %(asctime)s - %(message)s"
+
+logging.basicConfig(filename = os.path.join(CURRENT_FILE_PATH, EXECUTION_STATUS_LOG_FILE),
+                    level = logging.DEBUG,
+                    format = EXECUTION_LOG_FORMAT,
+                    filemode = 'w')
+EXECUTION_LOG = logging.getLogger()
+
 # Global functions
 
 def ReadFile(InputFile, replace_text):
@@ -60,9 +77,6 @@ def ChangeMFR(dataframe, factor):
     return dataframe
 
 
-CURRENT_FILE_PATH = pathlib.Path(__file__).parent.resolve()
-print(CURRENT_FILE_PATH)
-os.chdir(CURRENT_FILE_PATH)
 
 def YAML2Dict():
   with open("PG_26_Input_File.yml", 'r') as stream:
@@ -167,18 +181,22 @@ class Test(Subanalysis):
 
   def GenerateListofReplacements(self):
     if self._subanalysis_dict[self._test_name]['Actions']['Input']['generate_list_of_replecements'] is True:
+      EXECUTION_LOG.info("Scanning for $variables$ in R5 template file %s"%(self._r5_template_file))
       varlist = []
-      with open(self._r5_template_file) as R5in:
-        for l in R5in:
-          if "$" in l:
-            for elem in l.split():
-              if "$" in elem:
-                varlist.append(elem)
-      with open(self._init_cond_file,'w') as VLin:
-        VLin.write("RELAP_channel,Source_formula\n")
-        for elem in varlist:
-          print(elem)
-          VLin.write(elem[1:] + '\n')
+      try:
+        with open(self._r5_template_file) as R5in:
+          for l in R5in:
+            if "$" in l:
+              for elem in l.split():
+                if "$" in elem:
+                  varlist.append(elem)
+        with open(self._init_cond_file,'w') as VLin:
+          VLin.write("RELAP_channel,Source_formula\n")
+          for elem in varlist:
+            print(elem)
+            VLin.write(elem[1:] + '\n')
+      except:
+        EXECUTION_LOG.error("Could not generate list of $variables from R5")
 
   # check_if_channels_are_in_file
   # ----------------------------------------------------------------
@@ -187,6 +205,9 @@ class Test(Subanalysis):
   # It also indicates which RELAP channels in the input are in the mapping and which are not
   def CheckChannelsinFile(self):
     if self._subanalysis_dict[self._test_name]['Actions']['Input']['check_if_channels_are_in_file']:
+
+      EXECUTION_LOG.info("Checking if R5 variables denoted by $VAR$ in R5 template file %s are in the mapping file %s. If channels are not in the mapping file, they are printed to this file. If the data from %s are not paired to a R5 channel, they are also written to this logging file."%(self._inst_map_file, self._inst_map_file, self._analysis_dict['Experimental_Data']['Measured_Data_Quality']))
+
       instruments = pd.read_csv(self._inst_map_file, encoding = "UTF-8")
       # drop empty lines (rows)
       instruments.dropna(subset=['Tag_Number'], inplace=True)
@@ -1863,11 +1884,29 @@ class Plots():
 
 
 def main():
-  Input_File_YAML = YAML2Dict()
-  for subanalysis in Input_File_YAML['Analysis']['Subanalysis']:
-    for test in Input_File_YAML['Analysis']['Subanalysis'][subanalysis]:
-      Instance = Test(Input_File_YAML['Analysis'], subanalysis, test)
-      for plot in Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance']:
-          PlotInstance = Plots(Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance'], plot)
+  EXECUTION_LOG.info("Opening input YAML file %s to read into dictionary"%("PG_26_Input_File.yml"))
+  try:
+    Input_File_YAML = YAML2Dict()
+    EXECUTION_LOG.info("YAML file successfully loaded and created into dictionary.")
+    EXECUTION_LOG.info("Iterating over subanalyses in analysis %s."%(Input_File_YAML['Analysis']['Name']))
+    try:
+      for subanalysis in Input_File_YAML['Analysis']['Subanalysis']:
+        EXECUTION_LOG.info("Iterating over tests in subanalysis %s."%(subanalysis))
+        try:
+          for test in Input_File_YAML['Analysis']['Subanalysis'][subanalysis]:
+            EXECUTION_LOG.info("Instantiating test class instance.")
+            Instance = Test(Input_File_YAML['Analysis'], subanalysis, test)
+            EXECUTION_LOG.info("Iterating over plot instances in test %s."%(test))
+            try:
+              for plot in Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance']:
+                  PlotInstance = Plots(Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance'], plot)
+            except:
+                EXECUTION_LOG.error("YAML file not structured properly; proceeding to next test instance.\nPlease format the YAML file such that it is structured accordingly:\nAnalysis:\n\tSubanalysis:\n\t\t'Test_Name':\n\t\t\tActions:\n\t\t\t\tPlots")
+        except:
+            EXECUTION_LOG.error("YAML file not structured properly, proceeding to next subanalysis because %s is not properly formatted.\nPlease format the YAML file such that it is structured accordingly:\nAnalysis:\n\t\tSubanalysis:\n\t\t\t'Test_Name':"%(test))
+    except:
+      EXECUTION_LOG.error("YAML file not structured properly, proceeding to next analysis.\nPlease format the YAML file such that it is structured accordingly:\nAnalysis:\n\tSubanalysis:\n")
+  except:
+    EXECUTION_LOG.error("No YAML file could be found. Terminating execution.")
 
 main()
