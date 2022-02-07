@@ -17,16 +17,16 @@ Analysis:
                     Instrument_Map_File: "instrumentationmap2018-09-28.csv"
                 Actions:
                     Input:
-                      Create_Input_File: True
+                      Create_Input_File: False
                       generate_list_of_replecements: False
-                      check_if_channels_are_in_file: False
+                      check_if_channels_are_in_file: True
                       write_input_file: 
                           write_initial_conditions:
-                              Boolean: True
+                              Boolean: False
                           write_boundary_conditions:
-                              Boolean: True
+                              Boolean: False
                           write_mfr: 
-                              Boolean: True
+                              Boolean: False
                               Factor: 1.0
                       write_strip_file: False
                     Plots:
@@ -102,16 +102,16 @@ Analysis:
                     Instrument_Map_File: "instrumentationmap2018-09-28.csv"
                 Actions:
                     Input:
-                      Create_Input_File: True
+                      Create_Input_File: False
                       generate_list_of_replecements: False
-                      check_if_channels_are_in_file: False
+                      check_if_channels_are_in_file: True
                       write_input_file: 
                           write_initial_conditions:
-                              Boolean: True
+                              Boolean: False
                           write_boundary_conditions:
-                              Boolean: True
+                              Boolean: False
                           write_mfr: 
-                              Boolean: True
+                              Boolean: False
                               Factor: 1.5
                       write_strip_file: False
                     Figures:
