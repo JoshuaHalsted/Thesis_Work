@@ -84,23 +84,6 @@ def InitializePlot():
 
 # Classes
 
-class Plots():
-  def __init__(self, plot_dict):
-    self._plot_dict = plot_dict
-    self._title = plot_dict['Title']
-    self._types = plot_dict['Types']
-    self._instruments = plot_dict['Instruments']
-    self._r5_channel = plot_dict['R5_Channel']
-    #self._make_plot = self.GeneratePlot()
-  
-  def InitializePlot(self):
-      #Set figure size
-      figA = 10
-      figB = 5
-
-      fig = plt.figure(figsize=(figA,figB))
-      ax = fig.add_subplot(111)
-      return fig, ax
 
   # def GeneratePlot(self):
   #   for Line in self._types:
@@ -179,10 +162,6 @@ class Test(Subanalysis):
     self._measured_data_trend = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Trend']))
     self._write_input = self.ProcessInputFile()
     self._write_strip_file = self.WriteStripFile()
-    self._make_plots = self._test_dict['Actions']['Figures']['make_plots']
-    self._allPlots = self._test_dict['Actions']['Figures']['allPlots']
-    self._printTitles = self._test_dict['Actions']['Figures']['printTitles']
-    self._print_value_tables = self._test_dict['Actions']['Figures']['print_value_tables']
     
     #self._test_function = self.MakePlotInstances()
 
@@ -548,6 +527,28 @@ class Test(Subanalysis):
       self.CheckChannelsinFile()
       self.WriteInputFile()
 
+class Plots():
+  def __init__(self, plot_dict, plot_number):
+    self._plot_dict = plot_dict
+    self._plot_number = plot_number
+    self._title = plot_dict[plot_number]['Title']
+    self._types = plot_dict[plot_number]['Types']
+    self._instruments = plot_dict[plot_number]['Instruments']
+    self._r5_channel = plot_dict[plot_number]['R5_Channel']
+    # self._make_plots = self._test_dict['Actions']['Figures']['make_plots']
+    # self._allPlots = self._test_dict['Actions']['Figures']['allPlots']
+    # self._printTitles = self._test_dict['Actions']['Figures']['printTitles']
+    # self._print_value_tables = self._test_dict['Actions']['Figures']['print_value_tables']
+    #self._make_plot = self.GeneratePlot()
+  
+  def InitializePlot(self):
+      #Set figure size
+      figA = 10
+      figB = 5
+
+      fig = plt.figure(figsize=(figA,figB))
+      ax = fig.add_subplot(111)
+      return fig, ax
 
   def MakePlotInstances(self):
     for instance in self._test_dict['Actions']['Figures']['Instance']:
@@ -1866,5 +1867,7 @@ def main():
   for subanalysis in Input_File_YAML['Analysis']['Subanalysis']:
     for test in Input_File_YAML['Analysis']['Subanalysis'][subanalysis]:
       Instance = Test(Input_File_YAML['Analysis'], subanalysis, test)
+      for plot in Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance']:
+          PlotInstance = Plots(Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance'], plot)
 
 main()

@@ -29,7 +29,7 @@ Analysis:
                               Boolean: True
                               Factor: 1.0
                       write_strip_file: False
-                    Figures:
+                    Plots:
                         make_plots: False
                         allPlots: False
                         printTitles: False
