@@ -1,6 +1,7 @@
 
 *.SLDPRT
-RELAP_FILES/Automation_Tools/Experimental_Data
+RELAP_FILES/Automation_Tools/Experimental_Data/PG_26
+RELAP_FILES/Automation_Tools/Experimental_Data/PG_28
 RELAP_FILES/PG_26_Files/PG26_Data_Quality.csv
 RELAP_FILES/PG_26_Files/PG26_Data_Trend.csv
 RELAP_FILES/PG_28_Files/PG28_Data_Quality.csv
