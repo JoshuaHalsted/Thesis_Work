@@ -17,7 +17,7 @@ Analysis:
                     Instrument_Map_File: "instrumentationmap2018-09-28.csv"
                 Actions:
                     Input:
-                      Create_Input_File: False
+                      Create_Input_File: True
                       generate_list_of_replecements: False
                       check_if_channels_are_in_file: True
                       write_input_file: 
