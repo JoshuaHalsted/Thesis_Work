@@ -109,10 +109,13 @@ class Plot(DefaultSettings):
 
     def InputDatapoints(self, ax, property_index):
         for location in self._instr_locations:
-            instrument = self._dict['Instruments'][location][self._properties[property_index]]['Label']
-            color = self._dict['Instruments'][location][self._properties[property_index]]['Color']
-            X, Y = self.MakeSpline(Measured['Run_Time'], Measured[instrument])
-            ax.plot(X, Y, color=color, label = instrument)
+            try:
+                instrument = self._dict['Instruments'][location][self._properties[property_index]]['Label']
+                color = self._dict['Instruments'][location][self._properties[property_index]]['Color']
+                X, Y = self.MakeSpline(Measured['Run_Time'], Measured[instrument])
+                ax.plot(X, Y, color=color, label = instrument)
+            except:
+                pass
         return ax
 
     def MakePlot(self):
