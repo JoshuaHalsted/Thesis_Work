@@ -5,25 +5,13 @@ from scipy.interpolate import make_interp_spline
 import os
 import pathlib
 import yaml
+import ModifyYAML
 
 os.system('cls' if os.name == 'nt' else 'clear')
 CURRENT_FILE_PATH = pathlib.Path(__file__).parent.resolve()
-print(CURRENT_FILE_PATH)
 os.chdir(CURRENT_FILE_PATH)
 
 path = r"C:\\Users\\17577\\Thesis_Work\\RELAP_FILES\\Automation_Tools\\Experimental_Data\\PG_28"
-
-def YAML2Dict():
-  with open(os.path.join(path, "Plot_Input.yml"), 'r') as stream:
-      try:
-          Input_File_YAML=yaml.safe_load(stream)
-      except yaml.YAMLError as exc:
-          print(exc)
-  return Input_File_YAML
-
-
-Print_Value_Tables = True
-savefigures = True
 
 lfontsize= 13
 lfontsizeSmall= 11
@@ -34,27 +22,40 @@ BorderTop = 0.94
 
 xlimites1 = [0.0, 21943.5]
 
-
-
 Measured = pd.read_csv(r'C:/Users/17577/Thesis_Work/RELAP_FILES\Automation_Tools/Experimental_Data/PG_28/PG28_Data_Quality.csv')
+
+for (colname,colval) in Measured.iteritems():
+    if "DP" in colname:
+        Measured[colname] = colval.values * 1000.0
+    elif "PT" in colname:
+        Measured[colname] = colval.values * 1000.0
+    elif "TF" or "TS" in colname:
+         Measured[colname] = colval.values + 273.15
+
+def MakeDir(FullPath):
+    try:
+        os.mkdir(FullPath)
+    except:
+        pass
+    return FullPath
 
 class DefaultSettings():
     def __init__(self, DefaultSettingsDict):
         self._def_set_dict = DefaultSettingsDict
 
 class Plot(DefaultSettings):
-    def __init__(self, DefaultSettingsDict, plot_dict, plot_name):
+    def __init__(self, DefaultSettingsDict, plot_dict, region, plot_name):
         super().__init__(DefaultSettingsDict)
         self._name = plot_name
         self._dict = plot_dict
-        self._title = plot_dict['Title']
-        self._instruments = self.DetermineInstruments()
+        #self._region = region
+        self._directory = MakeDir(path + '/Plots/' + '%s'%(region))
         self._def_set_dict = DefaultSettingsDict
+        self._settings_dict = self.GetSettings()
         self._instr_locations = self.GetLocations()
         self._properties = self.GetProperties()
+        self._instruments = self.DetermineInstruments()
         self._make_plot = self.MakePlot()
-        self._settings = self.GetSettings()
-        #print(self._instruments)
 
     def GetLocations(self):
         LocationList = []
@@ -71,18 +72,17 @@ class Plot(DefaultSettings):
         return PropertyList
 
     def DetermineInstruments(self):
-        Locations = self.GetLocations()
-        Properties = self.GetProperties()
         InstrumentList = []
-        for location in Locations:
-            for properties in Properties:
+        for location in  self._instr_locations:
+            for properties in self._properties:
                 InstrumentList.append(self._dict['Instruments'][location][properties]['Label'])
         return InstrumentList
 
     def GetSettings(self):
-        for key in self._def_set_dict.keys():
-            pass
-            #print(key)
+        settings_dict = {}
+        for key, value in self._def_set_dict.items(): 
+            settings_dict[key] = value
+        return settings_dict
 
     def MakeSpline(self, X_Column, Y_Column):
 
@@ -123,21 +123,25 @@ class Plot(DefaultSettings):
             if property==0:
                 fig, ax1 = self.InitializeYAxis(self._properties[property])
                 ax1 = self.InputDatapoints(ax1, property)
-                leg = ax1.legend(bbox_to_anchor=(0.5, 1.02), fontsize=self._def_set_dict['lfontsizeSmall'])
+                leg = ax1.legend(bbox_to_anchor=(0.5, 1.02), fontsize=self._settings_dict['lfontsizeSmall'])
             else:
                 fig2, ax2 = self.InitializeYAxis(self._properties[property], ax1)
                 ax2 = self.InputDatapoints(ax2, property)
-                leg = ax2.legend(loc='center', bbox_to_anchor=(0.75, 1.02), fontsize=self._def_set_dict['lfontsizeSmall'])
+                leg = ax2.legend(loc='center', bbox_to_anchor=(0.75, 1.02), fontsize=self._settings_dict['lfontsizeSmall'])
             fig.tight_layout()
-            plt.title(self._title, fontsize=20)
-            fig.savefig(path + '/Plots/' + '%s.png'%(self._name))
+            plt.title(self._dict['Title'], fontsize=16)
+            fig.savefig(self._directory + '/%s.png'%(self._name))
+            plt.close()
+            #close(fig)
 
 
 def main():
-    Input_File_YAML = YAML2Dict()
+    ModifyYAML.UpdateYAML(os.path.join(path, "IntoThis.yml"), "UpdatedYAML.yml")
+    Input_File_YAML = ModifyYAML.YAML2Dict(os.path.join(path, "UpdatedYAML.yml"))
     Default_Settings_Dict = Input_File_YAML['Experimental_Data']['PG_28']['Default_Settings']
-    SettingsInstance = DefaultSettings(Default_Settings_Dict)
-    for plot in Input_File_YAML['Experimental_Data']['PG_28']['Plots']:
-        PlotInstance = Plot(Default_Settings_Dict, Input_File_YAML['Experimental_Data']['PG_28']['Plots'][plot], plot)
+    Test_Dict = Input_File_YAML['Experimental_Data']['PG_28']
+    for region in Test_Dict['Plots']:
+        for plot in Test_Dict['Plots'][region]:
+            PlotInstance = Plot(Default_Settings_Dict, Test_Dict['Plots'][region][plot], region, plot)
 
 main()
