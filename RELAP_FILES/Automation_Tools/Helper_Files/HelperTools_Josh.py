@@ -10,8 +10,13 @@ import sys
 import pathlib
 import yaml
 import random
+import logging
 
 os.system('cls' if os.name == 'nt' else 'clear')
+
+CURRENT_FILE_PATH = pathlib.Path(__file__).parent.resolve()
+print(CURRENT_FILE_PATH)
+os.chdir(CURRENT_FILE_PATH)
 
 #
 # This is an undocumented, unofficial collection of subroiutines that helps
@@ -25,7 +30,34 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 SEARCH_TEXT = "&&&INSERT MFR HERE&&&"
 NOMINAL_MFR_CSV = "C:\\Users\\17577\\Thesis_Work\\RELAP_FILES\\PG_28_Files\\Nominal_MFR.csv"
+
+
 # Global functions
+
+EXECUTION_STATUS_LOG_FILE = os.path.join(CURRENT_FILE_PATH, "MainExecutionLog.log")
+
+# Create and configure logger
+EXECUTION_LOG_FORMAT = "%(levelname)s %(asctime)s - %(message)s"
+
+logging.basicConfig(filename = os.path.join(CURRENT_FILE_PATH, EXECUTION_STATUS_LOG_FILE),
+                    level = logging.DEBUG,
+                    format = EXECUTION_LOG_FORMAT,
+                    filemode = 'w')
+MAIN_EXECUTION_LOG = logging.getLogger()
+
+def MakeLoggingFile(filepath):
+    print(filepath)
+    # Create and configure logger
+    log_format = "%(levelname)s %(asctime)s - %(message)s"
+
+    logging.basicConfig(filename = filepath,
+                        level = logging.DEBUG,
+                        format = log_format,
+                        filemode = 'w')
+    log_object = logging.getLogger()
+    log_object.info("Instantiation")
+    print(log_object)
+    return log_object
 
 def ReadFile(InputFile, replace_text):
     #define text file to open
@@ -59,11 +91,6 @@ def ChangeMFR(dataframe, factor):
     dataframe['Gas_MFR'] = dataframe['Gas_MFR']*factor
     return dataframe
 
-
-CURRENT_FILE_PATH = pathlib.Path(__file__).parent.resolve()
-print(CURRENT_FILE_PATH)
-os.chdir(CURRENT_FILE_PATH)
-
 def YAML2Dict():
   with open("PG_26_Input_File.yml", 'r') as stream:
       try:
@@ -82,15 +109,6 @@ def InitializePlot():
     ax = fig.add_subplot(111)
     return None
 
-# Classes
-
-
-  # def GeneratePlot(self):
-  #   for Line in self._types:
-  #     fig, ax = self.InitializePlot()
-  #     if len(self._instruments) > 1:
-  #       scat = plt.plot(Measured['Run_Time'], [self._instruments],  'c4-' , markevery=13000, label=self._title = plot_dict['Title'], markersize=10)
-  #   #InitializePlot()
 
 def GetSecondDerivative(StepValue, Columns):
     dColumn = Columns.diff().fillna(0)
@@ -132,6 +150,8 @@ def ImplementBoundaryConditions(StepValue, Columns, IndependentVariableColumn, S
     R5outTxt = WriteBCs2RELAP(SearchString, ReplaceString, Ntime, Nval, R5outTxt)
     return R5outTxt
 
+# Classes
+
 class Analysis():
   def __init__(self, analysis_dict):
     self._dict = analysis_dict
@@ -152,14 +172,19 @@ class Test(Subanalysis):
     self._initial_condition = self._test_dict['Initial_Time']
     self._test_name = test_name
     self._test_directory = os.path.join(self._analysis_dict['Directory'], '%s\\R5_Files\\'%(sub_name) + self._test_name)
-    self._r5_template_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Template_File'])
-    self._r5_filled_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Filled_File'])
-    self._r5_strip_input = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Input'])
-    self._r5_strip_output = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Output'])
-    self._init_cond_file = os.path.join(self._test_directory, self._test_dict['Files']['Initial_Cond_File'])
-    self._inst_map_file = os.path.join(self._test_directory, self._test_dict['Files']['Instrument_Map_File'])
-    self._measured_data_quality = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Quality']))
-    self._measured_data_trend = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Trend']))
+    self._logging_object = MakeLoggingFile(os.path.join(self._test_directory, "%s_Logging.log"%(self._test_name)))
+    self._logging_object.info("Hi")
+    try:
+      self._r5_template_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Template_File'])
+      self._r5_filled_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Filled_File'])
+      self._r5_strip_input = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Input'])
+      self._r5_strip_output = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Output'])
+      self._init_cond_file = os.path.join(self._test_directory, self._test_dict['Files']['Initial_Cond_File'])
+      self._inst_map_file = os.path.join(self._test_directory, self._test_dict['Files']['Instrument_Map_File'])
+      self._measured_data_quality = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Quality']))
+      self._measured_data_trend = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Trend']))
+    except:
+      pass
     self._write_input = self.ProcessInputFile()
     self._write_strip_file = self.WriteStripFile()
     #self._r5_csv_file = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Trend']))
@@ -168,18 +193,22 @@ class Test(Subanalysis):
 
   def GenerateListofReplacements(self):
     if self._subanalysis_dict[self._test_name]['Actions']['Input']['generate_list_of_replecements'] is True:
+      self._logging_object.info("Scanning for $variables$ in R5 template file %s"%(self._r5_template_file))
       varlist = []
-      with open(self._r5_template_file) as R5in:
-        for l in R5in:
-          if "$" in l:
-            for elem in l.split():
-              if "$" in elem:
-                varlist.append(elem)
-      with open(self._init_cond_file,'w') as VLin:
-        VLin.write("RELAP_channel,Source_formula\n")
-        for elem in varlist:
-          print(elem)
-          VLin.write(elem[1:] + '\n')
+      try:
+        with open(self._r5_template_file) as R5in:
+          for l in R5in:
+            if "$" in l:
+              for elem in l.split():
+                if "$" in elem:
+                  varlist.append(elem)
+        with open(self._init_cond_file,'w') as VLin:
+          VLin.write("RELAP_channel,Source_formula\n")
+          for elem in varlist:
+            print(elem)
+            VLin.write(elem[1:] + '\n')
+      except:
+        self._logging_object.error("Could not generate list of $variables from R5")
 
   # check_if_channels_are_in_file
   # ----------------------------------------------------------------
@@ -188,6 +217,9 @@ class Test(Subanalysis):
   # It also indicates which RELAP channels in the input are in the mapping and which are not
   def CheckChannelsinFile(self):
     if self._subanalysis_dict[self._test_name]['Actions']['Input']['check_if_channels_are_in_file']:
+
+      self._logging_object.info("Checking if R5 variables denoted by $VAR$ in R5 template file %s are in the mapping file %s. If channels are not in the mapping file, they are printed to this file. If the data from %s are not paired to a R5 channel, they are also written to this logging file."%(self._inst_map_file, self._inst_map_file, self._analysis_dict['Experimental_Data']['Measured_Data_Quality']))
+
       instruments = pd.read_csv(self._inst_map_file, encoding = "UTF-8")
       # drop empty lines (rows)
       instruments.dropna(subset=['Tag_Number'], inplace=True)
@@ -469,10 +501,12 @@ class Test(Subanalysis):
     # This writes the RELAP5 input file
     # 1. Reads the RELAP5 template input file and identifies initial and boundary conditions to be replaced 
     # 2. Reads the test data file and identifies the data to be put in the RELAP5 input file
+    print('z')
     Input_Dict = self._subanalysis_dict[self._test_name]['Actions']['Input']
     InputMFRBoolean = Input_Dict['write_input_file']['write_mfr']['Boolean']
     InputInitialConditionsBoolean = Input_Dict['write_input_file']['write_initial_conditions']['Boolean']
     InputBoundaryConditionsBoolean = Input_Dict['write_input_file']['write_boundary_conditions']['Boolean']
+    self._logging_object.info("Writing input file")
     if InputMFRBoolean and InputInitialConditionsBoolean and InputBoundaryConditionsBoolean:
       self.InputMassFlowRate()
       R5_String = self.InputInitialConditions(self._r5_filled_file)
@@ -524,6 +558,8 @@ class Test(Subanalysis):
 
   def ProcessInputFile(self):
     if self._subanalysis_dict[self._test_name]['Actions']['Input']['Create_Input_File']:
+      print('z')
+      self._logging_object.info("Writing input file")
       self.GenerateListofReplacements()
       self.CheckChannelsinFile()
       self.WriteInputFile()
@@ -1883,11 +1919,33 @@ class Plots():
 
 
 def main():
-  Input_File_YAML = YAML2Dict()
-  for subanalysis in Input_File_YAML['Analysis']['Subanalysis']:
-    for test in Input_File_YAML['Analysis']['Subanalysis'][subanalysis]:
-      Instance = Test(Input_File_YAML['Analysis'], subanalysis, test)
-      for plot in Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance']:
-          PlotInstance = Plots(Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance'], plot)
+  MAIN_EXECUTION_LOG.info("Opening input YAML file %s to read into dictionary"%("PG_26_Input_File.yml"))
+  try:
+    Input_File_YAML = YAML2Dict()
+    MAIN_EXECUTION_LOG.info("YAML file successfully loaded and created into dictionary.")
+    MAIN_EXECUTION_LOG.info("Iterating over subanalyses in analysis %s."%(Input_File_YAML['Analysis']['Name']))
+    try:
+      for subanalysis in Input_File_YAML['Analysis']['Subanalysis']:
+        MAIN_EXECUTION_LOG.info("Subanalysis %s found in YAML file; subanalysis logging file can be found at %s."%(subanalysis, "%s_Logging.log"%(subanalysis)))
+        MAIN_EXECUTION_LOG.info("Iterating over tests in subanalysis %s."%(subanalysis))
+        try:
+          for test in Input_File_YAML['Analysis']['Subanalysis'][subanalysis]:
+            MAIN_EXECUTION_LOG.info("Test %s found in YAML file; test logging file can be found at %s."%(test, "%s_Logging.log"%(test)))
+            MAIN_EXECUTION_LOG.info("Instantiating Test() class instance.")
+            Instance = Test(Input_File_YAML['Analysis'], subanalysis, test)
+            MAIN_EXECUTION_LOG.info("Iterating over plot instances in test %s."%(test))
+            try:
+              for plot in Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance']:
+                  MAIN_EXECUTION_LOG.info("Plot instance %s found in YAML file; plot logging file can be found at %s."%(plot, "%s_Logging.log"%(plot)))
+                  MAIN_EXECUTION_LOG.info("Instantiating Plot() class instance.")
+                  PlotInstance = Plots(Input_File_YAML['Analysis']['Subanalysis'][subanalysis][test]['Actions']['Plots']['Instance'], plot)
+            except:
+                MAIN_EXECUTION_LOG.error("YAML file not structured properly; proceeding to next test instance.\nPlease format the YAML file such that it is structured accordingly:\nAnalysis:\n\tSubanalysis:\n\t\t%s:\n\t\t\tActions:\n\t\t\t\tPlots"%(test))
+        except:
+            MAIN_EXECUTION_LOG.error("YAML file not structured properly, proceeding to next subanalysis because %s is not properly formatted.\nPlease format the YAML file such that it is structured accordingly:\nAnalysis:\n\t\tSubanalysis:\n\t\t\t'Test_Name':"%(test))
+    except:
+      MAIN_EXECUTION_LOG.error("YAML file not structured properly, proceeding to next analysis.\nPlease format the YAML file such that it is structured accordingly:\nAnalysis:\n\tSubanalysis:\n")
+  except:
+    MAIN_EXECUTION_LOG.error("No YAML file could be found. Terminating execution.")
 
 main()
