@@ -564,43 +564,17 @@ class Test(Subanalysis):
       self.CheckChannelsinFile()
       self.WriteInputFile()
 
-class Plots():
-  def __init__(self, plot_dict, plot_number):
-    self._plot_dict = plot_dict
-    self._plot_number = plot_number
-    self._title = plot_dict[plot_number]['Title']
-    self._types = plot_dict[plot_number]['Types']
-    self._instruments = plot_dict[plot_number]['Instruments']
-    self._r5_channel = plot_dict[plot_number]['R5_Channel']
-    # self._make_plots = self._test_dict['Actions']['Figures']['make_plots']
-    # self._allPlots = self._test_dict['Actions']['Figures']['allPlots']
-    # self._printTitles = self._test_dict['Actions']['Figures']['printTitles']
-    # self._print_value_tables = self._test_dict['Actions']['Figures']['print_value_tables']
-    #self._make_plot = self.GeneratePlot()
-  
-  def InitializePlot(self):
-      #Set figure size
-      figA = 10
-      figB = 5
-
-      fig = plt.figure(figsize=(figA,figB))
-      ax = fig.add_subplot(111)
-      return fig, ax
-
-  def MakePlotInstances(self):
-    for instance in self._test_dict['Actions']['Figures']['Instance']:
-        PlotInstance = Plots(self._test_dict['Actions']['Figures']['Instance'][instance])
-        for i, _ in enumerate(PlotInstance._instruments):
-          pass
-        #print(PlotInstance._instruments)
-    print('z')
-
+class Tables():
   def MakeTables(self):
     if self._make_tables:
       Measured = self._measured_data_quality
       # Read Measured trend data
       Measured_trend = self._measured_data_trend
       # Initialise dictionalries for Table outputs
+
+    def InitializeDict(dictName):
+      dictName = {}
+
       C = {} # Calcaulted values
       C['SST'] = {}
       C['MAX'] = {}
@@ -782,6 +756,38 @@ class Plots():
             for kkk in C[k][kk].keys(): # loop RI, FU, RO
               print(k, kk, kkk, C[k][kk][kkk], E[k][kk][kkk], C[k][kk][kkk] - E[k][kk][kkk], C[k][kk][kkk] / E[k][kk][kkk]) 
 
+
+
+class Plots():
+  def __init__(self, plot_dict, plot_number):
+    self._plot_dict = plot_dict
+    self._plot_number = plot_number
+    self._title = plot_dict[plot_number]['Title']
+    self._types = plot_dict[plot_number]['Types']
+    self._instruments = plot_dict[plot_number]['Instruments']
+    self._r5_channel = plot_dict[plot_number]['R5_Channel']
+    # self._make_plots = self._test_dict['Actions']['Figures']['make_plots']
+    # self._allPlots = self._test_dict['Actions']['Figures']['allPlots']
+    # self._printTitles = self._test_dict['Actions']['Figures']['printTitles']
+    # self._print_value_tables = self._test_dict['Actions']['Figures']['print_value_tables']
+    #self._make_plot = self.GeneratePlot()
+  
+  def InitializePlot(self):
+      #Set figure size
+      figA = 10
+      figB = 5
+
+      fig = plt.figure(figsize=(figA,figB))
+      ax = fig.add_subplot(111)
+      return fig, ax
+
+  def MakePlotInstances(self):
+    for instance in self._test_dict['Actions']['Figures']['Instance']:
+        PlotInstance = Plots(self._test_dict['Actions']['Figures']['Instance'][instance])
+        for i, _ in enumerate(PlotInstance._instruments):
+          pass
+        #print(PlotInstance._instruments)
+    print('z')
 
   def MakePlots(self):
       # # make_plots
