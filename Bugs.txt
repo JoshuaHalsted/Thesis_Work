@@ -1,3 +1,0 @@
-Bugs
-
-Need to delete the "filled" output file so that it doesn't accidentally get overwritten.
