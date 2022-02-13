@@ -21,7 +21,7 @@ PG_28_Data <- read.csv("C:/Users/17577/Thesis_Work/RELAP_FILES/PG_28_Files/PG28_
 pt_6002 <- PG_28_Data[, c('Run_Time',  'PT.6002', 'PT.3001')]
 d <- melt(pt_6002, id.vars='Run_Time')
 
-RPV_Readings <- ggplot(d, aes(Run_Time,value, col=variable)) + geom_line() + ylab("Temperature (C)") + xlab("Time after Circulator Shutoff (s)") + ggtitle("PG-29 Core Inlet Coolant Temps") + theme(plot.title = element_text(hjust = 0.5))
+RPV_Readings <- ggplot(d, aes(Run_Time,value, col=variable)) + geom_line() + ylab("Temperature (C)") + xlab("Time after Circulator Shutoff (s)") + ggtitle("RPV Inlet/Outlet States") + theme(plot.title = element_text(hjust = 0.5))
 
 RPV_Readings
 ```
