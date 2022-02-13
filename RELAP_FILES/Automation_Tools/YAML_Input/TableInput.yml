@@ -1,0 +1,17 @@
+Table1:
+    Name: "Core Solid Temperature Differences"
+    Regions:
+        Block_7:
+            Inner_Ring:
+                R5_Channels:
+                Instruments:
+            Middle_Ring:
+                R5_Channels:
+                  -  'TS-1703'
+                  -  'TS-1717'
+                  -  'TS-1731'
+                Instruments:
+                  
+            Outer_Ring:
+                R5_Channels:
+                Instruments:

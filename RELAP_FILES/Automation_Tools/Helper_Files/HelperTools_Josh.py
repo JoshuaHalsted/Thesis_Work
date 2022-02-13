@@ -571,7 +571,7 @@ class Tables():
       # Read Measured trend data
       Measured_trend = self._measured_data_trend
       # Initialise dictionalries for Table outputs
-
+    runtime_for_initial_cond = 5000.0
     def InitializeDict(dictName):
       dictName = {}
 
@@ -587,174 +587,175 @@ class Tables():
           C[k][kk]['RI'] = np.zeros(2)
           C[k][kk]['FU'] = np.zeros(2)
           C[k][kk]['RO'] = np.zeros(2)
+      return C
 
-      CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      C['SST']['TOP']['RI'][0] = R5data['httemp-130000601'][CIndex]
-      C['SST']['TOP']['RI'][1] = R5data['htvat-1340006'][CIndex]
-      C['MAX']['TOP']['RI'][0] = R5data['httemp-130000601'].max()
-      C['MAX']['TOP']['RI'][1] = R5data['htvat-1340006'].max()
-      C['DCC']['TOP']['RI'][0] = C['MAX']['TOP']['RI'][0] - R5data['httemp-130000601'].iloc[-1]
-      C['DCC']['TOP']['RI'][1] = C['MAX']['TOP']['RI'][1] - R5data['htvat-1340006'].iloc[-1]
+    CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    C['SST']['TOP']['RI'][0] = R5data['httemp-130000601'][CIndex]
+    C['SST']['TOP']['RI'][1] = R5data['htvat-1340006'][CIndex]
+    C['MAX']['TOP']['RI'][0] = R5data['httemp-130000601'].max()
+    C['MAX']['TOP']['RI'][1] = R5data['htvat-1340006'].max()
+    C['DCC']['TOP']['RI'][0] = C['MAX']['TOP']['RI'][0] - R5data['httemp-130000601'].iloc[-1]
+    C['DCC']['TOP']['RI'][1] = C['MAX']['TOP']['RI'][1] - R5data['htvat-1340006'].iloc[-1]
 
-      CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      C['SST']['TOP']['FU'][0] = R5data['htvat-1401004'][CIndex]
-      C['SST']['TOP']['FU'][1] = R5data['htvat-1501004'][CIndex]
-      C['MAX']['TOP']['FU'][0] = R5data['htvat-1401004'].max()
-      C['MAX']['TOP']['FU'][1] = R5data['htvat-1501004'].max()
-      C['DCC']['TOP']['FU'][0] = C['MAX']['TOP']['FU'][0] - R5data['htvat-1401004'].iloc[-1]
-      C['DCC']['TOP']['FU'][1] = C['MAX']['TOP']['FU'][1] - R5data['htvat-1501004'].iloc[-1]
+    CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    C['SST']['TOP']['FU'][0] = R5data['htvat-1401004'][CIndex]
+    C['SST']['TOP']['FU'][1] = R5data['htvat-1501004'][CIndex]
+    C['MAX']['TOP']['FU'][0] = R5data['htvat-1401004'].max()
+    C['MAX']['TOP']['FU'][1] = R5data['htvat-1501004'].max()
+    C['DCC']['TOP']['FU'][0] = C['MAX']['TOP']['FU'][0] - R5data['htvat-1401004'].iloc[-1]
+    C['DCC']['TOP']['FU'][1] = C['MAX']['TOP']['FU'][1] - R5data['htvat-1501004'].iloc[-1]
 
-      CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      C['SST']['TOP']['RO'][0] = R5data['htvat-1600006'][CIndex]
-      C['SST']['TOP']['RO'][1] = R5data['htvat-1660006'][CIndex]
-      C['MAX']['TOP']['RO'][0] = R5data['htvat-1600006'].max()
-      C['MAX']['TOP']['RO'][1] = R5data['htvat-1660006'].max()
-      C['DCC']['TOP']['RO'][0] = C['MAX']['TOP']['RO'][0] - R5data['htvat-1600006'].iloc[-1]
-      C['DCC']['TOP']['RO'][1] = C['MAX']['TOP']['RO'][1] - R5data['htvat-1660006'].iloc[-1]
+    CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    C['SST']['TOP']['RO'][0] = R5data['htvat-1600006'][CIndex]
+    C['SST']['TOP']['RO'][1] = R5data['htvat-1660006'][CIndex]
+    C['MAX']['TOP']['RO'][0] = R5data['htvat-1600006'].max()
+    C['MAX']['TOP']['RO'][1] = R5data['htvat-1660006'].max()
+    C['DCC']['TOP']['RO'][0] = C['MAX']['TOP']['RO'][0] - R5data['htvat-1600006'].iloc[-1]
+    C['DCC']['TOP']['RO'][1] = C['MAX']['TOP']['RO'][1] - R5data['htvat-1660006'].iloc[-1]
 
-      CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      C['SST']['MID']['RI'][0] = R5data['httemp-130000801'][CIndex]
-      C['SST']['MID']['RI'][1] = R5data['htvat-1340008'][CIndex]
-      C['MAX']['MID']['RI'][0] = R5data['httemp-130000801'].max()
-      C['MAX']['MID']['RI'][1] = R5data['htvat-1340008'].max()
-      C['DCC']['MID']['RI'][0] = C['MAX']['MID']['RI'][0] - R5data['httemp-130000801'].iloc[-1]
-      C['DCC']['MID']['RI'][1] = C['MAX']['MID']['RI'][1] - R5data['htvat-1340008'].iloc[-1]
+    CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    C['SST']['MID']['RI'][0] = R5data['httemp-130000801'][CIndex]
+    C['SST']['MID']['RI'][1] = R5data['htvat-1340008'][CIndex]
+    C['MAX']['MID']['RI'][0] = R5data['httemp-130000801'].max()
+    C['MAX']['MID']['RI'][1] = R5data['htvat-1340008'].max()
+    C['DCC']['MID']['RI'][0] = C['MAX']['MID']['RI'][0] - R5data['httemp-130000801'].iloc[-1]
+    C['DCC']['MID']['RI'][1] = C['MAX']['MID']['RI'][1] - R5data['htvat-1340008'].iloc[-1]
 
-      CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      C['SST']['MID']['FU'][0] = R5data['htvat-1401006'][CIndex]
-      C['SST']['MID']['FU'][1] = R5data['htvat-1501006'][CIndex]
-      C['MAX']['MID']['FU'][0] = R5data['htvat-1401006'].max()
-      C['MAX']['MID']['FU'][1] = R5data['htvat-1501006'].max()
-      C['DCC']['MID']['FU'][0] = C['MAX']['MID']['FU'][0] - R5data['htvat-1401006'].iloc[-1]
-      C['DCC']['MID']['FU'][1] = C['MAX']['MID']['FU'][1] - R5data['htvat-1501006'].iloc[-1]
+    CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    C['SST']['MID']['FU'][0] = R5data['htvat-1401006'][CIndex]
+    C['SST']['MID']['FU'][1] = R5data['htvat-1501006'][CIndex]
+    C['MAX']['MID']['FU'][0] = R5data['htvat-1401006'].max()
+    C['MAX']['MID']['FU'][1] = R5data['htvat-1501006'].max()
+    C['DCC']['MID']['FU'][0] = C['MAX']['MID']['FU'][0] - R5data['htvat-1401006'].iloc[-1]
+    C['DCC']['MID']['FU'][1] = C['MAX']['MID']['FU'][1] - R5data['htvat-1501006'].iloc[-1]
 
-      CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      C['SST']['MID']['RO'][0] = R5data['htvat-1600008'][CIndex]
-      C['SST']['MID']['RO'][1] = R5data['htvat-1660008'][CIndex]
-      C['MAX']['MID']['RO'][0] = R5data['htvat-1600008'].max()
-      C['MAX']['MID']['RO'][1] = R5data['htvat-1660008'].max()
-      C['DCC']['MID']['RO'][0] = C['MAX']['MID']['RO'][0] - R5data['htvat-1600008'].iloc[-1]
-      C['DCC']['MID']['RO'][1] = C['MAX']['MID']['RO'][1] - R5data['htvat-1660008'].iloc[-1]
-      
-      CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      C['SST']['LOW']['RI'][0] = R5data['httemp-130001001'][CIndex]
-      C['SST']['LOW']['RI'][1] = R5data['htvat-1340010'][CIndex]
-      C['MAX']['LOW']['RI'][0] = R5data['httemp-130001001'].max()
-      C['MAX']['LOW']['RI'][1] = R5data['htvat-1340010'].max()
-      C['DCC']['LOW']['RI'][0] = C['MAX']['LOW']['RI'][0] - R5data['httemp-130001001'].iloc[-1]
-      C['DCC']['LOW']['RI'][1] = C['MAX']['LOW']['RI'][1] - R5data['htvat-1340010'].iloc[-1]      
+    CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    C['SST']['MID']['RO'][0] = R5data['htvat-1600008'][CIndex]
+    C['SST']['MID']['RO'][1] = R5data['htvat-1660008'][CIndex]
+    C['MAX']['MID']['RO'][0] = R5data['htvat-1600008'].max()
+    C['MAX']['MID']['RO'][1] = R5data['htvat-1660008'].max()
+    C['DCC']['MID']['RO'][0] = C['MAX']['MID']['RO'][0] - R5data['htvat-1600008'].iloc[-1]
+    C['DCC']['MID']['RO'][1] = C['MAX']['MID']['RO'][1] - R5data['htvat-1660008'].iloc[-1]
+    
+    CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    C['SST']['LOW']['RI'][0] = R5data['httemp-130001001'][CIndex]
+    C['SST']['LOW']['RI'][1] = R5data['htvat-1340010'][CIndex]
+    C['MAX']['LOW']['RI'][0] = R5data['httemp-130001001'].max()
+    C['MAX']['LOW']['RI'][1] = R5data['htvat-1340010'].max()
+    C['DCC']['LOW']['RI'][0] = C['MAX']['LOW']['RI'][0] - R5data['httemp-130001001'].iloc[-1]
+    C['DCC']['LOW']['RI'][1] = C['MAX']['LOW']['RI'][1] - R5data['htvat-1340010'].iloc[-1]      
 
-      CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      C['SST']['LOW']['FU'][0] = R5data['htvat-1401008'][CIndex]
-      C['SST']['LOW']['FU'][1] = R5data['htvat-1501008'][CIndex]
-      C['MAX']['LOW']['FU'][0] = R5data['htvat-1401008'].max()
-      C['MAX']['LOW']['FU'][1] = R5data['htvat-1501008'].max()
-      C['DCC']['LOW']['FU'][0] = C['MAX']['LOW']['FU'][0] - R5data['htvat-1401008'].iloc[-1]
-      C['DCC']['LOW']['FU'][1] = C['MAX']['LOW']['FU'][1] - R5data['htvat-1501008'].iloc[-1]
+    CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    C['SST']['LOW']['FU'][0] = R5data['htvat-1401008'][CIndex]
+    C['SST']['LOW']['FU'][1] = R5data['htvat-1501008'][CIndex]
+    C['MAX']['LOW']['FU'][0] = R5data['htvat-1401008'].max()
+    C['MAX']['LOW']['FU'][1] = R5data['htvat-1501008'].max()
+    C['DCC']['LOW']['FU'][0] = C['MAX']['LOW']['FU'][0] - R5data['htvat-1401008'].iloc[-1]
+    C['DCC']['LOW']['FU'][1] = C['MAX']['LOW']['FU'][1] - R5data['htvat-1501008'].iloc[-1]
 
-      CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      C['SST']['LOW']['RO'][0] = R5data['htvat-1600010'][CIndex]
-      C['SST']['LOW']['RO'][1] = R5data['htvat-1660010'][CIndex]
-      C['MAX']['LOW']['RO'][0] = R5data['htvat-1600010'].max()
-      C['MAX']['LOW']['RO'][1] = R5data['htvat-1660010'].max()
-      C['DCC']['LOW']['RO'][0] = C['MAX']['LOW']['RO'][0] - R5data['htvat-1600010'].iloc[-1]
-      C['DCC']['LOW']['RO'][1] = C['MAX']['LOW']['RO'][1] - R5data['htvat-1660010'].iloc[-1]
+    CIndex = R5data['time-0'].iloc[(R5data['time-0'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    C['SST']['LOW']['RO'][0] = R5data['htvat-1600010'][CIndex]
+    C['SST']['LOW']['RO'][1] = R5data['htvat-1660010'][CIndex]
+    C['MAX']['LOW']['RO'][0] = R5data['htvat-1600010'].max()
+    C['MAX']['LOW']['RO'][1] = R5data['htvat-1660010'].max()
+    C['DCC']['LOW']['RO'][0] = C['MAX']['LOW']['RO'][0] - R5data['htvat-1600010'].iloc[-1]
+    C['DCC']['LOW']['RO'][1] = C['MAX']['LOW']['RO'][1] - R5data['htvat-1660010'].iloc[-1]
 
-      # Get table data
+    # Get table data
 
-      E = {} # Experimental values
-      E['SST'] = {}
-      E['MAX'] = {}
-      E['DCC'] = {}
-      for k in C.keys():
-        E[k]['TOP'] = {}
-        E[k]['MID'] = {}
-        E[k]['LOW'] = {}
-        for kk in C[k].keys():
-          E[k][kk]['RI'] = np.zeros(2)
-          E[k][kk]['FU'] = np.zeros(2)
-          E[k][kk]['RO'] = np.zeros(2)
+    E = {} # Experimental values
+    E['SST'] = {}
+    E['MAX'] = {}
+    E['DCC'] = {}
+    for k in C.keys():
+      E[k]['TOP'] = {}
+      E[k]['MID'] = {}
+      E[k]['LOW'] = {}
+      for kk in C[k].keys():
+        E[k][kk]['RI'] = np.zeros(2)
+        E[k][kk]['FU'] = np.zeros(2)
+        E[k][kk]['RO'] = np.zeros(2)
 
-      EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      E['SST']['TOP']['FU'][0] = Measured[['TS-1703', 'TS-1717', 'TS-1731']].mean(axis=1)[EIndex] + 273.15
-      E['SST']['TOP']['FU'][1] = Measured[['TS-1735', 'TS-1707']].mean(axis=1)[EIndex] + 273.15
-      E['MAX']['TOP']['FU'][0] = Measured[['TS-1703', 'TS-1717', 'TS-1731']].mean(axis=1).max() + 273.15
-      E['MAX']['TOP']['FU'][1] = Measured[['TS-1735', 'TS-1707']].mean(axis=1).max() + 273.15
-      E['DCC']['TOP']['FU'][0] = E['MAX']['TOP']['FU'][0] - (Measured[['TS-1703', 'TS-1717', 'TS-1731']].mean(axis=1).iloc[-1] + 273.15)
-      E['DCC']['TOP']['FU'][1] = E['MAX']['TOP']['FU'][1] - (Measured[['TS-1735', 'TS-1707']].mean(axis=1).iloc[-1] + 273.15)
+    EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    E['SST']['TOP']['FU'][0] = Measured[['TS-1703', 'TS-1717', 'TS-1731']].mean(axis=1)[EIndex] + 273.15
+    E['SST']['TOP']['FU'][1] = Measured[['TS-1735', 'TS-1707']].mean(axis=1)[EIndex] + 273.15
+    E['MAX']['TOP']['FU'][0] = Measured[['TS-1703', 'TS-1717', 'TS-1731']].mean(axis=1).max() + 273.15
+    E['MAX']['TOP']['FU'][1] = Measured[['TS-1735', 'TS-1707']].mean(axis=1).max() + 273.15
+    E['DCC']['TOP']['FU'][0] = E['MAX']['TOP']['FU'][0] - (Measured[['TS-1703', 'TS-1717', 'TS-1731']].mean(axis=1).iloc[-1] + 273.15)
+    E['DCC']['TOP']['FU'][1] = E['MAX']['TOP']['FU'][1] - (Measured[['TS-1735', 'TS-1707']].mean(axis=1).iloc[-1] + 273.15)
 
 
-      EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      E['SST']['TOP']['RI'][0] = Measured['TS-1701'][EIndex] + 273.15
-      E['SST']['TOP']['RI'][1] = Measured['TS-1702'][EIndex] + 273.15
-      E['MAX']['TOP']['RI'][0] = Measured['TS-1701'].max() + 273.15
-      E['MAX']['TOP']['RI'][1] = Measured['TS-1702'].max() + 273.15
-      E['DCC']['TOP']['RI'][0] = E['MAX']['TOP']['RI'][0] - (Measured['TS-1701'].iloc[-1] + 273.15)
-      E['DCC']['TOP']['RI'][1] = E['MAX']['TOP']['RI'][1] - (Measured['TS-1702'].iloc[-1] + 273.15)
+    EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    E['SST']['TOP']['RI'][0] = Measured['TS-1701'][EIndex] + 273.15
+    E['SST']['TOP']['RI'][1] = Measured['TS-1702'][EIndex] + 273.15
+    E['MAX']['TOP']['RI'][0] = Measured['TS-1701'].max() + 273.15
+    E['MAX']['TOP']['RI'][1] = Measured['TS-1702'].max() + 273.15
+    E['DCC']['TOP']['RI'][0] = E['MAX']['TOP']['RI'][0] - (Measured['TS-1701'].iloc[-1] + 273.15)
+    E['DCC']['TOP']['RI'][1] = E['MAX']['TOP']['RI'][1] - (Measured['TS-1702'].iloc[-1] + 273.15)
 
-      EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      E['SST']['TOP']['RO'][0] = Measured[['TS-1709', 'TS-1723', 'TS-1737']].mean(axis=1)[EIndex] + 273.15
-      E['SST']['TOP']['RO'][1] = Measured[['TS-1710', 'TS-1724', 'TS-1738']].mean(axis=1)[EIndex] + 273.15
-      E['MAX']['TOP']['RO'][0] = Measured[['TS-1709', 'TS-1723', 'TS-1737']].mean(axis=1).max() + 273.15
-      E['MAX']['TOP']['RO'][1] = Measured[['TS-1710', 'TS-1724', 'TS-1738']].mean(axis=1).max() + 273.15
-      E['DCC']['TOP']['RO'][0] = E['MAX']['TOP']['RO'][0] - (Measured[['TS-1709', 'TS-1723', 'TS-1737']].mean(axis=1).iloc[-1] + 273.15)
-      E['DCC']['TOP']['RO'][1] = E['MAX']['TOP']['RO'][1] - (Measured[['TS-1710', 'TS-1724', 'TS-1738']].mean(axis=1).iloc[-1] + 273.15)
+    EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    E['SST']['TOP']['RO'][0] = Measured[['TS-1709', 'TS-1723', 'TS-1737']].mean(axis=1)[EIndex] + 273.15
+    E['SST']['TOP']['RO'][1] = Measured[['TS-1710', 'TS-1724', 'TS-1738']].mean(axis=1)[EIndex] + 273.15
+    E['MAX']['TOP']['RO'][0] = Measured[['TS-1709', 'TS-1723', 'TS-1737']].mean(axis=1).max() + 273.15
+    E['MAX']['TOP']['RO'][1] = Measured[['TS-1710', 'TS-1724', 'TS-1738']].mean(axis=1).max() + 273.15
+    E['DCC']['TOP']['RO'][0] = E['MAX']['TOP']['RO'][0] - (Measured[['TS-1709', 'TS-1723', 'TS-1737']].mean(axis=1).iloc[-1] + 273.15)
+    E['DCC']['TOP']['RO'][1] = E['MAX']['TOP']['RO'][1] - (Measured[['TS-1710', 'TS-1724', 'TS-1738']].mean(axis=1).iloc[-1] + 273.15)
 
-      EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      E['SST']['MID']['RI'][0] = Measured['TS-1501'][EIndex] + 273.15
-      E['SST']['MID']['RI'][1] = Measured['TS-1502'][EIndex] + 273.15
-      E['MAX']['MID']['RI'][0] = Measured['TS-1501'].max() + 273.15
-      E['MAX']['MID']['RI'][1] = Measured['TS-1502'].max() + 273.15
-      E['DCC']['MID']['RI'][0] = E['MAX']['MID']['RI'][0] - (Measured['TS-1501'].iloc[-1] + 273.15)
-      E['DCC']['MID']['RI'][1] = E['MAX']['MID']['RI'][1] - (Measured['TS-1502'].iloc[-1] + 273.15)
+    EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    E['SST']['MID']['RI'][0] = Measured['TS-1501'][EIndex] + 273.15
+    E['SST']['MID']['RI'][1] = Measured['TS-1502'][EIndex] + 273.15
+    E['MAX']['MID']['RI'][0] = Measured['TS-1501'].max() + 273.15
+    E['MAX']['MID']['RI'][1] = Measured['TS-1502'].max() + 273.15
+    E['DCC']['MID']['RI'][0] = E['MAX']['MID']['RI'][0] - (Measured['TS-1501'].iloc[-1] + 273.15)
+    E['DCC']['MID']['RI'][1] = E['MAX']['MID']['RI'][1] - (Measured['TS-1502'].iloc[-1] + 273.15)
 
-      EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      E['SST']['MID']['FU'][0] = Measured[['TS-1503', 'TS-1517']].mean(axis=1)[EIndex] + 273.15
-      E['SST']['MID']['FU'][1] = Measured[['TS-1535', 'TS-1507', 'TS-1521']].mean(axis=1)[EIndex] + 273.15
-      E['MAX']['MID']['FU'][0] = Measured[['TS-1503', 'TS-1517']].mean(axis=1).max() + 273.15
-      E['MAX']['MID']['FU'][1] = Measured[['TS-1535', 'TS-1507', 'TS-1521']].mean(axis=1).max() + 273.15
-      E['DCC']['MID']['FU'][0] = E['MAX']['MID']['FU'][0] - (Measured[['TS-1503', 'TS-1517']].mean(axis=1).iloc[-1] + 273.15)
-      E['DCC']['MID']['FU'][1] = E['MAX']['MID']['FU'][1] - (Measured[['TS-1535', 'TS-1507', 'TS-1521']].mean(axis=1).iloc[-1] + 273.15)
+    EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    E['SST']['MID']['FU'][0] = Measured[['TS-1503', 'TS-1517']].mean(axis=1)[EIndex] + 273.15
+    E['SST']['MID']['FU'][1] = Measured[['TS-1535', 'TS-1507', 'TS-1521']].mean(axis=1)[EIndex] + 273.15
+    E['MAX']['MID']['FU'][0] = Measured[['TS-1503', 'TS-1517']].mean(axis=1).max() + 273.15
+    E['MAX']['MID']['FU'][1] = Measured[['TS-1535', 'TS-1507', 'TS-1521']].mean(axis=1).max() + 273.15
+    E['DCC']['MID']['FU'][0] = E['MAX']['MID']['FU'][0] - (Measured[['TS-1503', 'TS-1517']].mean(axis=1).iloc[-1] + 273.15)
+    E['DCC']['MID']['FU'][1] = E['MAX']['MID']['FU'][1] - (Measured[['TS-1535', 'TS-1507', 'TS-1521']].mean(axis=1).iloc[-1] + 273.15)
 
-      EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      E['SST']['MID']['RO'][0] = Measured[['TS-1509', 'TS-1523', 'TS-1537']].mean(axis=1)[EIndex] + 273.15
-      E['SST']['MID']['RO'][1] = Measured[['TS-1510', 'TS-1524', 'TS-1538']].mean(axis=1)[EIndex] + 273.15
-      E['MAX']['MID']['RO'][0] = Measured[['TS-1509', 'TS-1523', 'TS-1537']].mean(axis=1).max() + 273.15
-      E['MAX']['MID']['RO'][1] = Measured[['TS-1510', 'TS-1524', 'TS-1538']].mean(axis=1).max() + 273.15
-      E['DCC']['MID']['RO'][0] = E['MAX']['MID']['RO'][0] - (Measured[['TS-1509', 'TS-1523', 'TS-1537']].mean(axis=1).iloc[-1] + 273.15)
-      E['DCC']['MID']['RO'][1] = E['MAX']['MID']['RO'][1] - (Measured[['TS-1510', 'TS-1524', 'TS-1538']].mean(axis=1).iloc[-1] + 273.15)
+    EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    E['SST']['MID']['RO'][0] = Measured[['TS-1509', 'TS-1523', 'TS-1537']].mean(axis=1)[EIndex] + 273.15
+    E['SST']['MID']['RO'][1] = Measured[['TS-1510', 'TS-1524', 'TS-1538']].mean(axis=1)[EIndex] + 273.15
+    E['MAX']['MID']['RO'][0] = Measured[['TS-1509', 'TS-1523', 'TS-1537']].mean(axis=1).max() + 273.15
+    E['MAX']['MID']['RO'][1] = Measured[['TS-1510', 'TS-1524', 'TS-1538']].mean(axis=1).max() + 273.15
+    E['DCC']['MID']['RO'][0] = E['MAX']['MID']['RO'][0] - (Measured[['TS-1509', 'TS-1523', 'TS-1537']].mean(axis=1).iloc[-1] + 273.15)
+    E['DCC']['MID']['RO'][1] = E['MAX']['MID']['RO'][1] - (Measured[['TS-1510', 'TS-1524', 'TS-1538']].mean(axis=1).iloc[-1] + 273.15)
 
-      EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      E['SST']['LOW']['RI'][0] = Measured['TS-1301'][EIndex] + 273.15
-      E['SST']['LOW']['RI'][1] = Measured['TS-1302'][EIndex] + 273.15
-      E['MAX']['LOW']['RI'][0] = Measured['TS-1301'].max() + 273.15
-      E['MAX']['LOW']['RI'][1] = Measured['TS-1302'].max() + 273.15
-      E['DCC']['LOW']['RI'][0] = E['MAX']['LOW']['RI'][0] - (Measured['TS-1301'].iloc[-1] + 273.15)
-      E['DCC']['LOW']['RI'][1] = E['MAX']['LOW']['RI'][1] - (Measured['TS-1302'].iloc[-1] + 273.15)
+    EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    E['SST']['LOW']['RI'][0] = Measured['TS-1301'][EIndex] + 273.15
+    E['SST']['LOW']['RI'][1] = Measured['TS-1302'][EIndex] + 273.15
+    E['MAX']['LOW']['RI'][0] = Measured['TS-1301'].max() + 273.15
+    E['MAX']['LOW']['RI'][1] = Measured['TS-1302'].max() + 273.15
+    E['DCC']['LOW']['RI'][0] = E['MAX']['LOW']['RI'][0] - (Measured['TS-1301'].iloc[-1] + 273.15)
+    E['DCC']['LOW']['RI'][1] = E['MAX']['LOW']['RI'][1] - (Measured['TS-1302'].iloc[-1] + 273.15)
 
-      EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      E['SST']['LOW']['FU'][0] = Measured[['TS-1303', 'TS-1317', 'TS-1331']].mean(axis=1)[EIndex] + 273.15
-      E['SST']['LOW']['FU'][1] = Measured[['TS-1307', 'TS-1321']].mean(axis=1)[EIndex] + 273.15
-      E['MAX']['LOW']['FU'][0] = Measured[['TS-1303', 'TS-1317', 'TS-1331']].mean(axis=1).max() + 273.15
-      E['MAX']['LOW']['FU'][1] = Measured[['TS-1307', 'TS-1321']].mean(axis=1).max() + 273.15
-      E['DCC']['LOW']['FU'][0] = E['MAX']['LOW']['FU'][0] - (Measured[['TS-1303', 'TS-1317', 'TS-1331']].mean(axis=1).iloc[-1] + 273.15)
-      E['DCC']['LOW']['FU'][1] = E['MAX']['LOW']['FU'][1] - (Measured[['TS-1307', 'TS-1321']].mean(axis=1).iloc[-1] + 273.15)
+    EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    E['SST']['LOW']['FU'][0] = Measured[['TS-1303', 'TS-1317', 'TS-1331']].mean(axis=1)[EIndex] + 273.15
+    E['SST']['LOW']['FU'][1] = Measured[['TS-1307', 'TS-1321']].mean(axis=1)[EIndex] + 273.15
+    E['MAX']['LOW']['FU'][0] = Measured[['TS-1303', 'TS-1317', 'TS-1331']].mean(axis=1).max() + 273.15
+    E['MAX']['LOW']['FU'][1] = Measured[['TS-1307', 'TS-1321']].mean(axis=1).max() + 273.15
+    E['DCC']['LOW']['FU'][0] = E['MAX']['LOW']['FU'][0] - (Measured[['TS-1303', 'TS-1317', 'TS-1331']].mean(axis=1).iloc[-1] + 273.15)
+    E['DCC']['LOW']['FU'][1] = E['MAX']['LOW']['FU'][1] - (Measured[['TS-1307', 'TS-1321']].mean(axis=1).iloc[-1] + 273.15)
 
-      EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
-      E['SST']['LOW']['RO'][0] = Measured[['TS-1309', 'TS-1323', 'TS-1337']].mean(axis=1)[EIndex] + 273.15
-      E['SST']['LOW']['RO'][1] = Measured[['TS-1310', 'TS-1324', 'TS-1338']].mean(axis=1)[EIndex] + 273.15
-      E['MAX']['LOW']['RO'][0] = Measured[['TS-1309', 'TS-1323', 'TS-1337']].mean(axis=1).max() + 273.15
-      E['MAX']['LOW']['RO'][1] = Measured[['TS-1310', 'TS-1324', 'TS-1338']].mean(axis=1).max() + 273.15
-      E['DCC']['LOW']['RO'][0] = E['MAX']['LOW']['RO'][0] - (Measured[['TS-1309', 'TS-1323', 'TS-1337']].mean(axis=1).iloc[-1] + 273.15)
-      E['DCC']['LOW']['RO'][1] = E['MAX']['LOW']['RO'][1] - (Measured[['TS-1310', 'TS-1324', 'TS-1338']].mean(axis=1).iloc[-1] + 273.15)
+    EIndex = Measured['Run_Time'].iloc[(Measured['Run_Time'] - runtime_for_initial_cond).abs().argsort()[:2]].index[0]
+    E['SST']['LOW']['RO'][0] = Measured[['TS-1309', 'TS-1323', 'TS-1337']].mean(axis=1)[EIndex] + 273.15
+    E['SST']['LOW']['RO'][1] = Measured[['TS-1310', 'TS-1324', 'TS-1338']].mean(axis=1)[EIndex] + 273.15
+    E['MAX']['LOW']['RO'][0] = Measured[['TS-1309', 'TS-1323', 'TS-1337']].mean(axis=1).max() + 273.15
+    E['MAX']['LOW']['RO'][1] = Measured[['TS-1310', 'TS-1324', 'TS-1338']].mean(axis=1).max() + 273.15
+    E['DCC']['LOW']['RO'][0] = E['MAX']['LOW']['RO'][0] - (Measured[['TS-1309', 'TS-1323', 'TS-1337']].mean(axis=1).iloc[-1] + 273.15)
+    E['DCC']['LOW']['RO'][1] = E['MAX']['LOW']['RO'][1] - (Measured[['TS-1310', 'TS-1324', 'TS-1338']].mean(axis=1).iloc[-1] + 273.15)
 
-      if self._print_value_tables:
-        print("========== C-E and C/E Table  ===========")
-        print("C       E       C-E      C/E ")
-        for k in C.keys(): #loop SST, MAX, DCC
-          for kk in C[k].keys(): #loop TOP, MID, LOW
-            for kkk in C[k][kk].keys(): # loop RI, FU, RO
-              print(k, kk, kkk, C[k][kk][kkk], E[k][kk][kkk], C[k][kk][kkk] - E[k][kk][kkk], C[k][kk][kkk] / E[k][kk][kkk]) 
+    if self._print_value_tables:
+      print("========== C-E and C/E Table  ===========")
+      print("C       E       C-E      C/E ")
+      for k in C.keys(): #loop SST, MAX, DCC
+        for kk in C[k].keys(): #loop TOP, MID, LOW
+          for kkk in C[k][kk].keys(): # loop RI, FU, RO
+            print(k, kk, kkk, C[k][kk][kkk], E[k][kk][kkk], C[k][kk][kkk] - E[k][kk][kkk], C[k][kk][kkk] / E[k][kk][kkk]) 
 
 
 
