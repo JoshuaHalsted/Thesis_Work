@@ -1,0 +1,256 @@
+Mesh_Setting_1:
+	TF-2201:
+		PG-28 result: 447.05 Kelvin
+		STAR result: 518.0785 Kelvin
+		Absolute difference is -71.0285 Kelvin
+		Relative difference is 15.8883 percent
+	TF-2202:
+		PG-28 result: 483.75 Kelvin
+		STAR result: 518.2001 Kelvin
+		Absolute difference is -34.4501 Kelvin
+		Relative difference is 7.1215 percent
+	TF-2203:
+		PG-28 result: 590.45 Kelvin
+		STAR result: 518.3434 Kelvin
+		Absolute difference is 72.1066 Kelvin
+		Relative difference is 12.2121 percent
+	TF-2204:
+		PG-28 result: 576.25 Kelvin
+		STAR result: 518.7452 Kelvin
+		Absolute difference is 57.5048 Kelvin
+		Relative difference is 9.9791 percent
+	TF-2205:
+		PG-28 result: 456.75 Kelvin
+		STAR result: 520.2715 Kelvin
+		Absolute difference is -63.5215 Kelvin
+		Relative difference is 13.9073 percent
+	TF-2206:
+		PG-28 result: 605.45 Kelvin
+		STAR result: 519.3111 Kelvin
+		Absolute difference is 86.1389 Kelvin
+		Relative difference is 14.2273 percent
+	TF-2207:
+		PG-28 result: 588.15 Kelvin
+		STAR result: 518.4048 Kelvin
+		Absolute difference is 69.7452 Kelvin
+		Relative difference is 11.8584 percent
+	TF-2208:
+		PG-28 result: 337.22 Kelvin
+		STAR result: 518.5198 Kelvin
+		Absolute difference is -181.2998 Kelvin
+		Relative difference is 53.7631 percent
+	TF-2209:
+		PG-28 result: 473.25 Kelvin
+		STAR result: 518.1324 Kelvin
+		Absolute difference is -44.8824 Kelvin
+		Relative difference is 9.4839 percent
+	TF-2210:
+		PG-28 result: 573.05 Kelvin
+		STAR result: 518.3647 Kelvin
+		Absolute difference is 54.6853 Kelvin
+		Relative difference is 9.5428 percent
+	TF-2211:
+		PG-28 result: 587.05 Kelvin
+		STAR result: 519.7779 Kelvin
+		Absolute difference is 67.2721 Kelvin
+		Relative difference is 11.4593 percent
+	TF-2212:
+		PG-28 result: 608.75 Kelvin
+		STAR result: 518.3882 Kelvin
+		Absolute difference is 90.3618 Kelvin
+		Relative difference is 14.8438 percent
+	TF-2214:
+		PG-28 result: 498.15 Kelvin
+		STAR result: 518.1307 Kelvin
+		Absolute difference is -19.9807 Kelvin
+		Relative difference is 4.011 percent
+	TF-2215:
+		PG-28 result: 493.95 Kelvin
+		STAR result: 518.2019 Kelvin
+		Absolute difference is -24.2519 Kelvin
+		Relative difference is 4.9098 percent
+	TF-2216:
+		PG-28 result: 429.25 Kelvin
+		STAR result: 516.6614 Kelvin
+		Absolute difference is -87.4114 Kelvin
+		Relative difference is 20.3638 percent
+	TF-2301:
+		PG-28 result: 486.95 Kelvin
+		STAR result: 518.1362 Kelvin
+		Absolute difference is -31.1862 Kelvin
+		Relative difference is 6.4044 percent
+	TF-2302:
+		PG-28 result: 525.75 Kelvin
+		STAR result: 518.2347 Kelvin
+		Absolute difference is 7.5153 Kelvin
+		Relative difference is 1.4294 percent
+	TF-2303:
+		PG-28 result: 691.55 Kelvin
+		STAR result: 518.2618 Kelvin
+		Absolute difference is 173.2882 Kelvin
+		Relative difference is 25.0579 percent
+	TF-2304:
+		PG-28 result: 609.85 Kelvin
+		STAR result: 518.1996 Kelvin
+		Absolute difference is 91.6504 Kelvin
+		Relative difference is 15.0284 percent
+	TF-2305:
+		PG-28 result: 686.95 Kelvin
+		STAR result: 518.0293 Kelvin
+		Absolute difference is 168.9207 Kelvin
+		Relative difference is 24.59 percent
+	TF-2306:
+		PG-28 result: 714.75 Kelvin
+		STAR result: 518.6661 Kelvin
+		Absolute difference is 196.0839 Kelvin
+		Relative difference is 27.4339 percent
+	TF-2307:
+		PG-28 result: 403.85 Kelvin
+		STAR result: 518.3168 Kelvin
+		Absolute difference is -114.4668 Kelvin
+		Relative difference is 28.3439 percent
+	TF-2308:
+		PG-28 result: 652.45 Kelvin
+		STAR result: 518.3276 Kelvin
+		Absolute difference is 134.1224 Kelvin
+		Relative difference is 20.5567 percent
+	TF-2309:
+		PG-28 result: 773.35 Kelvin
+		STAR result: 518.2418 Kelvin
+		Absolute difference is 255.1082 Kelvin
+		Relative difference is 32.9874 percent
+	TF-2310:
+		PG-28 result: 684.35 Kelvin
+		STAR result: 518.4264 Kelvin
+		Absolute difference is 165.9236 Kelvin
+		Relative difference is 24.2454 percent
+	TF-2311:
+		PG-28 result: 601.65 Kelvin
+		STAR result: 520.7701 Kelvin
+		Absolute difference is 80.8799 Kelvin
+		Relative difference is 13.443 percent
+	TF-2312:
+		PG-28 result: 631.85 Kelvin
+		STAR result: 518.4818 Kelvin
+		Absolute difference is 113.3682 Kelvin
+		Relative difference is 17.9423 percent
+	TF-2314:
+		PG-28 result: 561.05 Kelvin
+		STAR result: 518.202 Kelvin
+		Absolute difference is 42.848 Kelvin
+		Relative difference is 7.6371 percent
+	TF-2315:
+		PG-28 result: 507.15 Kelvin
+		STAR result: 518.2391 Kelvin
+		Absolute difference is -11.0891 Kelvin
+		Relative difference is 2.1866 percent
+	TF-2316:
+		PG-28 result: 447.45 Kelvin
+		STAR result: 517.6003 Kelvin
+		Absolute difference is -70.1503 Kelvin
+		Relative difference is 15.6778 percent
+	TF-2402:
+		PG-28 result: 701.75 Kelvin
+		STAR result: 564.7863 Kelvin
+		Absolute difference is 136.9637 Kelvin
+		Relative difference is 19.5174 percent
+	TF-2403:
+		PG-28 result: 368.37 Kelvin
+		STAR result: 565.1431 Kelvin
+		Absolute difference is -196.7731 Kelvin
+		Relative difference is 53.4172 percent
+	TF-2404:
+		PG-28 result: 593.35 Kelvin
+		STAR result: 565.2493 Kelvin
+		Absolute difference is 28.1007 Kelvin
+		Relative difference is 4.7359 percent
+	TF-2405:
+		PG-28 result: 927.75 Kelvin
+		STAR result: 565.1694 Kelvin
+		Absolute difference is 362.5806 Kelvin
+		Relative difference is 39.0817 percent
+	TF-2406:
+		PG-28 result: 751.65 Kelvin
+		STAR result: 564.7991 Kelvin
+		Absolute difference is 186.8509 Kelvin
+		Relative difference is 24.8588 percent
+	TF-2407:
+		PG-28 result: 479.55 Kelvin
+		STAR result: 564.7307 Kelvin
+		Absolute difference is -85.1807 Kelvin
+		Relative difference is 17.7626 percent
+	TF-2409:
+		PG-28 result: 299.31 Kelvin
+		STAR result: 564.7414 Kelvin
+		Absolute difference is -265.4314 Kelvin
+		Relative difference is 88.6811 percent
+	TF-2410:
+		PG-28 result: 842.25 Kelvin
+		STAR result: 564.7906 Kelvin
+		Absolute difference is 277.4594 Kelvin
+		Relative difference is 32.9426 percent
+	TF-2411:
+		PG-28 result: 475.95 Kelvin
+		STAR result: 564.722 Kelvin
+		Absolute difference is -88.772 Kelvin
+		Relative difference is 18.6515 percent
+	TF-2412:
+		PG-28 result: 565.65 Kelvin
+		STAR result: 564.9307 Kelvin
+		Absolute difference is 0.7193 Kelvin
+		Relative difference is 0.1272 percent
+	TF-2414:
+		PG-28 result: 636.85 Kelvin
+		STAR result: 564.7858 Kelvin
+		Absolute difference is 72.0642 Kelvin
+		Relative difference is 11.3157 percent
+	TS-2103:
+		PG-28 result: 499.25 Kelvin
+		STAR result: 477.5904 Kelvin
+		Absolute difference is 21.6596 Kelvin
+		Relative difference is 4.3384 percent
+	TS-2104:
+		PG-28 result: 380.95 Kelvin
+		STAR result: 477.1916 Kelvin
+		Absolute difference is -96.2416 Kelvin
+		Relative difference is 25.2636 percent
+	TS-2105:
+		PG-28 result: 362.32 Kelvin
+		STAR result: 477.3101 Kelvin
+		Absolute difference is -114.9901 Kelvin
+		Relative difference is 31.7372 percent
+	TS-2106:
+		PG-28 result: 526.55 Kelvin
+		STAR result: 478.0494 Kelvin
+		Absolute difference is 48.5006 Kelvin
+		Relative difference is 9.211 percent
+	TS-2107:
+		PG-28 result: 530.65 Kelvin
+		STAR result: 477.495 Kelvin
+		Absolute difference is 53.155 Kelvin
+		Relative difference is 10.017 percent
+	TS-2109:
+		PG-28 result: 455.95 Kelvin
+		STAR result: 477.5401 Kelvin
+		Absolute difference is -21.5901 Kelvin
+		Relative difference is 4.7352 percent
+	TS-2110:
+		PG-28 result: 500.55 Kelvin
+		STAR result: 477.571 Kelvin
+		Absolute difference is 22.979 Kelvin
+		Relative difference is 4.5908 percent
+	TS-2111:
+		PG-28 result: 542.75 Kelvin
+		STAR result: 478.0763 Kelvin
+		Absolute difference is 64.6737 Kelvin
+		Relative difference is 11.9159 percent
+	TS-2112:
+		PG-28 result: 551.05 Kelvin
+		STAR result: 477.5752 Kelvin
+		Absolute difference is 73.4748 Kelvin
+		Relative difference is 13.3336 percent
+	TS-2114:
+		PG-28 result: 472.95 Kelvin
+		STAR result: 477.6513 Kelvin
+		Absolute difference is -4.7013 Kelvin
+		Relative difference is 0.994 percent

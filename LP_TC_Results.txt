@@ -1,0 +1,154 @@
+Mesh_Setting_1:
+	TF-2201:
+		Absolute difference is -71.0285 Kelvin
+		Relative difference is 15.8883 percent
+	TF-2202:
+		Absolute difference is -34.4501 Kelvin
+		Relative difference is 7.1215 percent
+	TF-2203:
+		Absolute difference is 72.1066 Kelvin
+		Relative difference is 12.2121 percent
+	TF-2204:
+		Absolute difference is 57.5048 Kelvin
+		Relative difference is 9.9791 percent
+	TF-2205:
+		Absolute difference is -63.5215 Kelvin
+		Relative difference is 13.9073 percent
+	TF-2206:
+		Absolute difference is 86.1389 Kelvin
+		Relative difference is 14.2273 percent
+	TF-2207:
+		Absolute difference is 69.7452 Kelvin
+		Relative difference is 11.8584 percent
+	TF-2208:
+		Absolute difference is -181.2998 Kelvin
+		Relative difference is 53.7631 percent
+	TF-2209:
+		Absolute difference is -44.8824 Kelvin
+		Relative difference is 9.4839 percent
+	TF-2210:
+		Absolute difference is 54.6853 Kelvin
+		Relative difference is 9.5428 percent
+	TF-2211:
+		Absolute difference is 67.2721 Kelvin
+		Relative difference is 11.4593 percent
+	TF-2212:
+		Absolute difference is 90.3618 Kelvin
+		Relative difference is 14.8438 percent
+	TF-2214:
+		Absolute difference is -19.9807 Kelvin
+		Relative difference is 4.011 percent
+	TF-2215:
+		Absolute difference is -24.2519 Kelvin
+		Relative difference is 4.9098 percent
+	TF-2216:
+		Absolute difference is -87.4114 Kelvin
+		Relative difference is 20.3638 percent
+	TF-2301:
+		Absolute difference is -31.1862 Kelvin
+		Relative difference is 6.4044 percent
+	TF-2302:
+		Absolute difference is 7.5153 Kelvin
+		Relative difference is 1.4294 percent
+	TF-2303:
+		Absolute difference is 173.2882 Kelvin
+		Relative difference is 25.0579 percent
+	TF-2304:
+		Absolute difference is 91.6504 Kelvin
+		Relative difference is 15.0284 percent
+	TF-2305:
+		Absolute difference is 168.9207 Kelvin
+		Relative difference is 24.59 percent
+	TF-2306:
+		Absolute difference is 196.0839 Kelvin
+		Relative difference is 27.4339 percent
+	TF-2307:
+		Absolute difference is -114.4668 Kelvin
+		Relative difference is 28.3439 percent
+	TF-2308:
+		Absolute difference is 134.1224 Kelvin
+		Relative difference is 20.5567 percent
+	TF-2309:
+		Absolute difference is 255.1082 Kelvin
+		Relative difference is 32.9874 percent
+	TF-2310:
+		Absolute difference is 165.9236 Kelvin
+		Relative difference is 24.2454 percent
+	TF-2311:
+		Absolute difference is 80.8799 Kelvin
+		Relative difference is 13.443 percent
+	TF-2312:
+		Absolute difference is 113.3682 Kelvin
+		Relative difference is 17.9423 percent
+	TF-2314:
+		Absolute difference is 42.848 Kelvin
+		Relative difference is 7.6371 percent
+	TF-2315:
+		Absolute difference is -11.0891 Kelvin
+		Relative difference is 2.1866 percent
+	TF-2316:
+		Absolute difference is -70.1503 Kelvin
+		Relative difference is 15.6778 percent
+	TF-2402:
+		Absolute difference is 136.9637 Kelvin
+		Relative difference is 19.5174 percent
+	TF-2403:
+		Absolute difference is -196.7731 Kelvin
+		Relative difference is 53.4172 percent
+	TF-2404:
+		Absolute difference is 28.1007 Kelvin
+		Relative difference is 4.7359 percent
+	TF-2405:
+		Absolute difference is 362.5806 Kelvin
+		Relative difference is 39.0817 percent
+	TF-2406:
+		Absolute difference is 186.8509 Kelvin
+		Relative difference is 24.8588 percent
+	TF-2407:
+		Absolute difference is -85.1807 Kelvin
+		Relative difference is 17.7626 percent
+	TF-2409:
+		Absolute difference is -265.4314 Kelvin
+		Relative difference is 88.6811 percent
+	TF-2410:
+		Absolute difference is 277.4594 Kelvin
+		Relative difference is 32.9426 percent
+	TF-2411:
+		Absolute difference is -88.772 Kelvin
+		Relative difference is 18.6515 percent
+	TF-2412:
+		Absolute difference is 0.7193 Kelvin
+		Relative difference is 0.1272 percent
+	TF-2414:
+		Absolute difference is 72.0642 Kelvin
+		Relative difference is 11.3157 percent
+	TS-2103:
+		Absolute difference is 21.6596 Kelvin
+		Relative difference is 4.3384 percent
+	TS-2104:
+		Absolute difference is -96.2416 Kelvin
+		Relative difference is 25.2636 percent
+	TS-2105:
+		Absolute difference is -114.9901 Kelvin
+		Relative difference is 31.7372 percent
+	TS-2106:
+		Absolute difference is 48.5006 Kelvin
+		Relative difference is 9.211 percent
+	TS-2107:
+		Absolute difference is 53.155 Kelvin
+		Relative difference is 10.017 percent
+	TS-2109:
+		Absolute difference is -21.5901 Kelvin
+		Relative difference is 4.7352 percent
+	TS-2110:
+		Absolute difference is 22.979 Kelvin
+		Relative difference is 4.5908 percent
+	TS-2111:
+		Absolute difference is 64.6737 Kelvin
+		Relative difference is 11.9159 percent
+	TS-2112:
+		Absolute difference is 73.4748 Kelvin
+		Relative difference is 13.3336 percent
+	TS-2114:
+		Absolute difference is -4.7013 Kelvin
+		Relative difference is 0.994 percent
