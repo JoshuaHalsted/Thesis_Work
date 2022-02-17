@@ -1,23 +1,65 @@
-Analysis:
-  Fluid_Volume: 0.359392
+C_2_RCST_Analysis:
+  Fluid_Volume: 0.14371
   Simulation1:
-      Name: 'Fine'
-      Sim_File_Location: ''
-      Number_Cells: 17561115.0
-      Variable_of_Interest:
-          Name: Pressure
-          Value: 3010736.35 
-  Simulation2:
       Name: 'Medium'
       Sim_File_Location: ''
-      Number_Cells: 12864691.0
+      Number_Cells: 2.590910e+05
       Variable_of_Interest:
           Name: Pressure
           Value: 3010536.35 
-  Simulation3:
-      Name: 'Coarse'
+  Simulation2:
+      Name: 'Fine'
       Sim_File_Location: ''
-      Number_Cells: 8606941.0
+      Number_Cells: 5.538700e+04
       Variable_of_Interest:
           Name: Pressure
-          Value: 3000936.35 
+          Value: 3010736.35 
+Hot_Duct:
+  Fluid_Volume: 0.045842
+  Simulation1:
+      Name: 'Medium'
+      Sim_File_Location: ''
+      Number_Cells: 4.101703e+06
+      Variable_of_Interest:
+          Name: Pressure
+          Value: 3010536.35 
+  Simulation2:
+      Name: 'Fine'
+      Sim_File_Location: ''
+      Number_Cells: 1.688867e+06
+      Variable_of_Interest:
+          Name: Pressure
+          Value: 3010736.35
+
+Lower_Plenum:
+  Fluid_Volume: 0.18621
+  Simulation1:
+      Name: 'Medium'
+      Sim_File_Location: ''
+      Number_Cells: 1.455185e+07
+      Variable_of_Interest:
+          Name: Pressure
+          Value: 3010536.35 
+  Simulation2:
+      Name: 'Fine'
+      Sim_File_Location: ''
+      Number_Cells: 1.448379e+07
+      Variable_of_Interest:
+          Name: Pressure
+          Value: 3010736.35 
+Tee:
+  Fluid_Volume: 0.13730
+  Simulation1:
+      Name: 'Medium'
+      Sim_File_Location: ''
+      Number_Cells: 1.804575e+06
+      Variable_of_Interest:
+          Name: Pressure
+          Value: 3010536.35 
+  Simulation2:
+      Name: 'Fine'
+      Sim_File_Location: ''
+      Number_Cells: 2.721870e+05
+      Variable_of_Interest:
+          Name: Pressure
+          Value: 3010736.35 
