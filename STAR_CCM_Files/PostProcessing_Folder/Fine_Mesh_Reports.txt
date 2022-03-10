@@ -1,0 +1,254 @@
+	Element Count
+
+Part                          	Element Count 
+------------------------------	-------------
+Connection_2_RCST             	 5.974010e+05 cells
+Hot_Duct                      	 2.112526e+07 cells
+Lower_Plenum                  	 2.330264e+07 cells
+Tee                           	 1.133766e+06 cells
+                              	-------------
+                         Total:	 4.615908e+07 element
+
+	Maximum of Temperature on Volume Mesh
+
+Part          Value (K)
+-------    ------------
+TF-2102    4.780666e+02
+TF-2201    5.177236e+02
+TF-2202    5.182474e+02
+TF-2203    5.182739e+02
+TF-2204    5.188802e+02
+TF-2205    5.209601e+02
+TF-2206    5.199283e+02
+TF-2207    5.183662e+02
+TF-2208    5.184504e+02
+TF-2209    5.182338e+02
+TF-2210    5.183178e+02
+TF-2211    5.210746e+02
+TF-2212    5.185462e+02
+TF-2213    5.182590e+02
+TF-2214    5.182289e+02
+TF-2215    5.182515e+02
+TF-2216    5.177436e+02
+TF-2301    5.179867e+02
+TF-2302    5.182505e+02
+TF-2303    5.182592e+02
+TF-2304    5.182210e+02
+TF-2305    5.181436e+02
+TF-2306    5.189932e+02
+TF-2307    5.182657e+02
+TF-2308    5.183237e+02
+TF-2309    5.182567e+02
+TF-2310    5.184854e+02
+TF-2311    5.216224e+02
+TF-2312    5.186288e+02
+TF-2313    5.182590e+02
+TF-2314    5.181260e+02
+TF-2315    5.182255e+02
+TF-2316    5.176147e+02
+TF-2402    5.641891e+02
+TF-2403    5.642501e+02
+TF-2404    5.649150e+02
+TF-2405    5.656790e+02
+TF-2406    5.656790e+02
+TF-2407    5.642190e+02
+TF-2409    5.656790e+02
+TF-2410    5.641299e+02
+TF-2411    5.656790e+02
+TF-2412    5.644351e+02
+TF-2413    5.656790e+02
+TF-2414    5.656790e+02
+-------    ------------
+ Total:    5.656790e+02
+
+	Mass Flow
+
+Part                   Value (kg/s)
+------------------    -------------
+Region: 170-010100    -6.508850e-04
+Region: 170-010200    -4.919400e-03
+Region: 170-010300    -7.423440e-03
+Region: 170-010400    -7.703710e-03
+Region: 170-010500    -2.336490e-03
+------------------    -------------
+            Total:    -2.303393e-02
+Zero-area face(s); area adjusted for 3 faces in Region
+
+	Maximum of Mach Number on Volume Mesh
+
+Part                                   Value
+----------------------------    ------------
+Connection_2_RCST               2.042940e-02
+Connection_2_RCST.2000-001      1.218085e-03
+Connection_2_RCST.RCST_Valve    2.042940e-02
+Hot_Duct                        8.084671e-03
+Hot_Duct.2000-001               1.612443e-03
+Hot_Duct.Rakes                  2.042063e-04
+Lower_Plenum                    5.758871e-03
+Lower_Plenum.170-010100         8.800351e-04
+Lower_Plenum.170-010200         1.354780e-03
+Lower_Plenum.170-010300         1.435822e-03
+Lower_Plenum.170-010400         5.013805e-04
+Lower_Plenum.170-010500         5.173983e-04
+Lower_Plenum.1320-014           2.544020e-04
+Lower_Plenum.1660-015           2.394315e-03
+Lower_Plenum.1750-001           8.581381e-04
+Lower_Plenum.1751-001           1.504643e-03
+Lower_Plenum.Front_LP_Top       1.521196e-03
+Lower_Plenum.Inner_Bypass       3.605565e-04
+Lower_Plenum.Outer_Bypass       7.874458e-04
+Lower_Plenum.Ring_2             3.491411e-04
+Lower_Plenum.Ring_3             3.749480e-04
+Lower_Plenum.Ring_4             2.273758e-04
+Tee                             3.577893e-03
+Tee.215-010000                  1.775261e-03
+Tee.2000-001                    5.897845e-04
+Tee.2150-001                    3.213731e-04
+----------------------------    ------------
+                      Total:    2.042940e-02
+
+	Maximum of Wall Y+ on Volume Mesh
+
+Part                                     Value    Errors                         
+----------------------------    --------------    -------------------------------
+Connection_2_RCST.2000-001        1.711846e+00                                   
+Connection_2_RCST.RCST_Valve      3.510470e-02                                   
+Hot_Duct.2000-001                 1.406957e+01                                   
+Hot_Duct.Rakes                    5.473053e-03                                   
+Lower_Plenum.170-010100         -1.797693e+308    no data, incomplete computation
+Lower_Plenum.170-010200         -1.797693e+308    no data, incomplete computation
+Lower_Plenum.170-010300         -1.797693e+308    no data, incomplete computation
+Lower_Plenum.170-010400         -1.797693e+308    no data, incomplete computation
+Lower_Plenum.170-010500         -1.797693e+308    no data, incomplete computation
+Lower_Plenum.1320-014             2.385481e-04                                   
+Lower_Plenum.1660-015             1.136007e+01                                   
+Lower_Plenum.1750-001             2.915643e+00                                   
+Lower_Plenum.1751-001             1.372110e+01                                   
+Lower_Plenum.Front_LP_Top         1.957989e+01                                   
+Lower_Plenum.Inner_Bypass         2.631045e-05                                   
+Lower_Plenum.Outer_Bypass         1.256448e+00                                   
+Lower_Plenum.Ring_2               9.423997e-06                                   
+Lower_Plenum.Ring_3               1.087582e-05                                   
+Lower_Plenum.Ring_4               3.052743e-06                                   
+Tee.215-010000                  -1.797693e+308    no data, incomplete computation
+Tee.2000-001                      2.941527e+00                                   
+Tee.2150-001                      1.171395e-01                                   
+----------------------------    --------------    -------------------------------
+                      Total:      1.957989e+01    incomplete computation         
+
+	Maximum of Cell Size * Pressure Gradient on Volume Mesh
+
+Part                                                      Value
+-----------------------------------------------    ------------
+Region                                             3.477848e+05
+Region: 170-010100                                 8.052468e-01
+Region: 170-010200                                 1.510825e+00
+Region: 170-010300                                 1.598132e+00
+Region: 170-010400                                 2.382798e-01
+Region: 170-010500                                 4.671364e-01
+Region: 215-010000                                 2.017184e+00
+Region: 1320-014                                   1.703816e+00
+Region: 1660-015                                   1.929246e+02
+Region: 1750-001                                   4.968337e+01
+Region: 1751-001                                   1.368555e+02
+Region: 2000-001                                   2.906832e+02
+Region: 2150-001                                   9.487443e+00
+Region: Hot_Duct_Connection/LP_Connection [0]      2.830051e+04
+Region: Hot_Duct_Connection/LP_Connection [1]      2.830051e+04
+Region: Interfaces                                 6.100305e+03
+Region: Rakes                                      3.472845e-01
+Region: RCST_Valve                                 2.767350e+03
+Region: Tee_Connection/Hot_Duct_Connection [0]     9.723562e+02
+Region: Tee_Connection/Hot_Duct_Connection [1]     9.723562e+02
+Region: Tee_Connection/RCCS_Pipe_Connection [0]    1.408559e+04
+Region: Tee_Connection/RCCS_Pipe_Connection [1]    1.408559e+04
+Region: Unheated_Walls                             8.096955e+02
+-----------------------------------------------    ------------
+                                         Total:    3.477848e+05
+
+	Maximum of Absolute Pressure on Volume Mesh
+
+Part        Value (Pa)
+------    ------------
+Region    2.191109e+05
+------    ------------
+Total:    2.191109e+05
+
+abs(${Outlet_MFR})-abs(${Inlet_MFR}) =  8.411262e-05  (kg/s)	
+
+	Minimum of Absolute Pressure on Volume Mesh
+
+Part        Value (Pa)
+------    ------------
+Region    2.105267e+05
+------    ------------
+Total:    2.105267e+05
+
+	Mass Flow
+
+Part                  Value (kg/s)
+------------------    ------------
+Region: 215-010000    2.311804e-02
+------------------    ------------
+            Total:    2.311804e-02
+
+${Maximum_Pressure}-${Minimum_Pressure} =  8.584227e+03  (Pa)	
+
+	Maximum of Absolute Pressure on Volume Mesh
+
+Part         Value (Pa)
+-------    ------------
+DP-2001    2.118061e+05
+PT-3001    2.118034e+05
+PT-3002    2.117986e+05
+-------    ------------
+ Total:    2.118061e+05
+
+	Maximum of Temperature on Volume Mesh
+
+Part          Value (K)
+-------    ------------
+TS-2103    4.780022e+02
+TS-2104    4.774327e+02
+TS-2105    4.776609e+02
+TS-2106    4.786168e+02
+TS-2107    4.779673e+02
+TS-2109    4.779701e+02
+TS-2110    4.781587e+02
+TS-2111    4.789387e+02
+TS-2112    4.779489e+02
+TS-2113    4.768810e+02
+TS-2114    4.780807e+02
+-------    ------------
+ Total:    4.789387e+02
+
+	Surface Average of Wall Y+ on Volume Mesh
+
+Part                                                                          Value    Errors                                          
+-------------------------------------------------------------------    ------------    ------------------------------------------------
+Connection_2_RCST.2000-001                                             2.598917e-03                                                    
+Connection_2_RCST.RCST_Valve                                           3.026818e-04                                                    
+Hot_Duct.2000-001                                                      2.270928e-02                                                    
+Hot_Duct.Rakes                                                         8.929155e-05                                                    
+Lower_Plenum.170-010100                                                0.000000e+00    no data, incomplete computation, undefined ratio
+Lower_Plenum.170-010200                                                0.000000e+00    no data, incomplete computation, undefined ratio
+Lower_Plenum.170-010300                                                0.000000e+00    no data, incomplete computation, undefined ratio
+Lower_Plenum.170-010400                                                0.000000e+00    no data, incomplete computation, undefined ratio
+Lower_Plenum.170-010500                                                0.000000e+00    no data, incomplete computation, undefined ratio
+Lower_Plenum.1320-014                                                  1.067195e-06                                                    
+Lower_Plenum.1660-015                                                  7.807802e-03                                                    
+Lower_Plenum.1750-001                                                  1.204845e-03                                                    
+Lower_Plenum.1751-001                                                  2.303391e-03                                                    
+Lower_Plenum.Front_LP_Top                                              4.478433e-01                                                    
+Lower_Plenum.Hot_Duct_Connection[Hot_Duct_Connection/LP_Connection]    0.000000e+00    no data, incomplete computation, undefined ratio
+Lower_Plenum.Hot_Duct_Connection[rem]                                  5.593201e+02                                                    
+Lower_Plenum.Inner_Bypass                                              2.414245e-06                                                    
+Lower_Plenum.Outer_Bypass                                              4.706648e-04                                                    
+Lower_Plenum.Ring_2                                                    4.602155e-06                                                    
+Lower_Plenum.Ring_3                                                    5.416802e-06                                                    
+Lower_Plenum.Ring_4                                                    1.018606e-06                                                    
+Tee.215-010000                                                         0.000000e+00    no data, incomplete computation, undefined ratio
+Tee.2000-001                                                           1.430036e-02                                                    
+Tee.2150-001                                                           6.017201e-04                                                    
+-------------------------------------------------------------------    ------------    ------------------------------------------------
+                                                             Total:    8.900666e-03    incomplete computation
