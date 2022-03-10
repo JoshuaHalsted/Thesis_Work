@@ -1,11 +1,19 @@
 import os
 import sys
 import yaml
+import numpy as np
 
 print(chr(27) + "[2J")
 
-STAR_RESULTS_YAML = 'C:\\Users\\17577\Thesis_Work\\Other_Calculations\GCI_Study\\Input_File.yml'
+import os
+directory_path = os.getcwd()
+os.chdir(directory_path)
+folder_name = os.path.basename(directory_path)
+
+STAR_RESULTS_YAML = os.path.join(directory_path,'Input_File.yml')
 TOTAL_SIM_VOLUME = 0.359392
+GCI_RESULTS_YAML = os.path.join(directory_path,'GCI_Results.yml')
+GCI_LOG_FILE = os.path.join(directory_path,'GCI_Results.log')
 
 class Simulation():
     def __init__(self, sim_dict):
