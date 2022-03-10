@@ -14,6 +14,7 @@ RELAP_FILES/PG_28_Files/Iteration_3/R5_Files/Flow_Rate_Point_375/restart_Point_3
 RELAP_FILES/PG_28_Files/Iteration_3/R5_Files/Flow_Rate_Point_5/restart_Point_5.r
 RELAP_FILES/PG_28_Files/Iteration_3/R5_Files/Flow_Rate_Point_5/restart_Point_5_SS_drain_1.plt
 RELAP_FILES/PG_28_Files/Iteration_3/R5_Files/Flow_Rate_Point_5/restart_Point_5_SS_drain_1.r
+STAR_CCM_Files/PostProcessing_Folder/HTTF_R5_File_Prisms.zip
 *.pdf
 *.sim
 *.sim~
