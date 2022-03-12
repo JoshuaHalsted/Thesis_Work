@@ -132,6 +132,7 @@ def BuildExperimentalPlots():
         Radii = []
         Theta = []
         temps = []
+        temps_diff = []
         for TC in data[Height].keys():          
             try:
                 TC_new = TC.split("_")[0] + '-' + TC.split("_")[1]
@@ -139,8 +140,9 @@ def BuildExperimentalPlots():
                 temps.append(some_column.iloc[10001])
                 Radii.append(data[Height][TC]['Location']['Radius'])
                 Theta.append(data[Height][TC]['Location']['Theta'])
+                temps_diff.append(100*np.abs(some_column.iloc[10001]-data[Height][TC]['Results']['Medium'])/some_column.iloc[10001])
             except:
                 print("Could not find %s"%(TC))
         MakeContourPlot(Theta, Radii, pd.Series(temps), Height)
-
+        MakeContourPlot(Theta, Radii, pd.Series(temps), "%s_Rel_Diff"%(Height))
 BuildExperimentalPlots()
