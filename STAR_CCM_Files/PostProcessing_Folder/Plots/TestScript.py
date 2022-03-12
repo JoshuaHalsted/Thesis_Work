@@ -5,7 +5,11 @@ import math
 import matplotlib.pyplot as plt
 from matplotlib.patches import Wedge
 import os
+import pandas as pd
 
+
+Data_File = r"C:/Users/17577/Thesis_Work/RELAP_FILES/Automation_Tools/Experimental_Data/PG_28/PG28_Data_Quality.csv"
+Base_Directory = r'C:/Users/17577/Thesis_Work/RELAP_FILES/Automation_Tools/Thermocouple_Locations'
 CURRENT_DIRECTORY = os.getcwd()
 Plot_Path = os.path.join(CURRENT_DIRECTORY,"STAR_CCM_Files/PostProcessing_Folder/Plots/LP")
 
@@ -66,22 +70,22 @@ def GetTheta(x, y):
             return 0.0
 
 def MakeContourPlot(theta, r, colors, name):
-    fig = plt.figure(figsize=(15,10))
+    fig = plt.figure(figsize=(10,4),tight_layout=False)
     ax = fig.add_subplot(111, projection='polar')
     ax.add_artist(Wedge((0.5,0.5), 0.53, 150,210, width=0.2, transform=ax.transAxes, color='blue',alpha=0.5, zorder=0))  # I had problems that the color wedges always appeared ON TOP of the data points. The 'zorder' attribute makes sure they are always UNDER the data points.
     ax.add_artist(Wedge((0.5,0.5), 0.53, 30,90, width=0.2, transform=ax.transAxes, color='green',alpha=0.5, zorder=0))
     ax.add_artist(Wedge((0.5,0.5), 0.53, 330,30, width=0.2, transform=ax.transAxes, color='brown',alpha=0.5, zorder=0))
     ax.set_yticklabels([])
     sectors = ["Primary\nSector", "Secondary\nSector", "Tertiary\nSector"]
-    lines, labels = plt.thetagrids([180,60,0],(sectors), fontsize=15, fontweight='bold')
-    ax.set_title('LP (STAR Sim) %s @ 5000 seconds'%(name),fontsize=30,fontweight='bold')
-    c = ax.scatter(theta, r, c=colors, s=500,cmap='Reds',alpha=1.0, vmin=np.min(colors), vmax=np.max(colors))
+    lines, labels = plt.thetagrids([180,60,0],(sectors), fontsize=8, fontweight='bold')
+    ax.set_title('LP (Experimental) %s @ 5000 seconds'%(name),fontsize=15,fontweight='bold')
+    c = ax.scatter(theta, r, c=colors, edgecolors='black', s=100,cmap='Reds',alpha=1.0, vmin=np.min(colors), vmax=np.max(colors))
 
-    cbar1 = plt.colorbar(c, shrink=0.5, orientation='horizontal', use_gridspec=False, anchor=(0.5, 0.5), ticks=[np.min(colors), (np.max(colors)+np.min(colors))/2, np.max(colors)])
-    cbar1.ax.tick_params(labelsize=25)
+    cbar1 = plt.colorbar(c, shrink=0.25, orientation='horizontal', use_gridspec=False, anchor=(0.5, -0.625), ticks=[np.min(colors), (np.max(colors)+(np.min(colors)))/2, np.max(colors)])
+    cbar1.ax.tick_params(labelsize=10)
     plt.tight_layout()
-    ax.set_rgrids(np.arange(0,0.8,0.1),fontsize=20,fontweight='bold')
-    plt.savefig(os.path.join(Plot_Path,"LP_Temps_STAR_%s"%name+'.png'),dpi=300,format='png',transparent=True)
+    ax.set_rgrids(np.arange(0,0.8,0.1),fontsize=10,fontweight='bold')
+    plt.savefig(os.path.join(Plot_Path,"LP_Temps_Experimental_%s"%name+'.png'),dpi=300,format='png',transparent=True)
     plt.close()
     pass
 
@@ -103,7 +107,40 @@ for Height in data.keys():
         Radii.append(data[Height][TC]['Location']['Radius'])
         Theta.append(data[Height][TC]['Location']['Theta'])
         iteration += 1
-    MakeContourPlot(np.array(Theta), np.array(Radii), np.array(temps), Height)
+    #MakeContourPlot(np.array(Theta), np.array(Radii), np.array(temps), Height)
 
 with open(os.path.join(CURRENT_DIRECTORY, 'STAR_CCM_Files/PostProcessing_Folder/Plots/TC_info.yml'), 'w') as f:
-    data = yaml.dump(data, f, sort_keys=False, default_flow_style=False)
+    new_data = yaml.dump(data, f, sort_keys=False, default_flow_style=False)
+
+def ImportStuff(filename):
+    import_df = pd.read_csv(filename)
+    return import_df
+
+def DataUnitConversions(Measured):
+    for (colname,colval) in Measured.iteritems():
+        if "DP" in colname:
+            Measured[colname] = colval.values * 1000.0
+        elif "PT" in colname:
+            Measured[colname] = colval.values * 1000.0
+        elif "TF" or "TS" in colname:
+            Measured[colname] = colval.values + 273.15
+    return Measured
+
+def BuildExperimentalPlots():
+    experimental_Data = DataUnitConversions(ImportStuff(Data_File))
+    for Height in data.keys():
+        Radii = []
+        Theta = []
+        temps = []
+        for TC in data[Height].keys():          
+            try:
+                TC_new = TC.split("_")[0] + '-' + TC.split("_")[1]
+                some_column = experimental_Data['%s'%(TC_new)]
+                temps.append(some_column.iloc[10001])
+                Radii.append(data[Height][TC]['Location']['Radius'])
+                Theta.append(data[Height][TC]['Location']['Theta'])
+            except:
+                print("Could not find %s"%(TC))
+        MakeContourPlot(Theta, Radii, pd.Series(temps), Height)
+
+BuildExperimentalPlots()
