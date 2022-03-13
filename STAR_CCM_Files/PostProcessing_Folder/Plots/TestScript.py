@@ -78,7 +78,8 @@ def MakeContourPlot(theta, r, colors, name):
     ax.set_yticklabels([])
     sectors = ["Primary\nSector", "Secondary\nSector", "Tertiary\nSector"]
     lines, labels = plt.thetagrids([180,60,0],(sectors), fontsize=8, fontweight='bold')
-    ax.set_title('LP (Experimental) %s @ 5000 seconds'%(name),fontsize=15,fontweight='bold')
+    ax.set_title('LP %s'%(name),fontsize=15,fontweight='bold')
+    #print(colors)
     c = ax.scatter(theta, r, c=colors, edgecolors='black', s=100,cmap='Reds',alpha=1.0, vmin=np.min(colors), vmax=np.max(colors))
 
     cbar1 = plt.colorbar(c, shrink=0.25, orientation='horizontal', use_gridspec=False, anchor=(0.5, -0.625), ticks=[np.min(colors), (np.max(colors)+(np.min(colors)))/2, np.max(colors)])
@@ -93,7 +94,7 @@ iteration = 0
 for Height in data.keys():
     Radii = []
     Theta = []
-    temps = []
+    temps_inst = []
     for TC in data[Height]:
         data[Height][TC]['Location']['x'] = xcoord[iteration]
         data[Height][TC]['Location']['y'] = ycoord[iteration]
@@ -103,14 +104,11 @@ for Height in data.keys():
         data[Height][TC]['Results']['Coarse'] = SearchforTemp(coarse_lines, TC)
         data[Height][TC]['Results']['Medium'] = SearchforTemp(medium_lines, TC)
         data[Height][TC]['Results']['Fine'] = SearchforTemp(fine_lines, TC)
-        temps.append((data[Height][TC]['Results']['Coarse'] + data[Height][TC]['Results']['Medium'] + data[Height][TC]['Results']['Fine'])/3)
+        temps_inst.append((data[Height][TC]['Results']['Coarse'] + data[Height][TC]['Results']['Medium'] + data[Height][TC]['Results']['Fine'])/3)
         Radii.append(data[Height][TC]['Location']['Radius'])
         Theta.append(data[Height][TC]['Location']['Theta'])
         iteration += 1
-    #MakeContourPlot(np.array(Theta), np.array(Radii), np.array(temps), Height)
-
-with open(os.path.join(CURRENT_DIRECTORY, 'STAR_CCM_Files/PostProcessing_Folder/Plots/TC_info.yml'), 'w') as f:
-    new_data = yaml.dump(data, f, sort_keys=False, default_flow_style=False)
+    #MakeContourPlot(np.array(Theta), np.array(Radii), np.array(temps_inst), Height)
 
 def ImportStuff(filename):
     import_df = pd.read_csv(filename)
@@ -132,7 +130,8 @@ def BuildExperimentalPlots():
         Radii = []
         Theta = []
         temps = []
-        temps_diff = []
+        rel_temps_diff = []
+        abs_rel_diff = []
         for TC in data[Height].keys():          
             try:
                 TC_new = TC.split("_")[0] + '-' + TC.split("_")[1]
@@ -140,9 +139,35 @@ def BuildExperimentalPlots():
                 temps.append(some_column.iloc[10001])
                 Radii.append(data[Height][TC]['Location']['Radius'])
                 Theta.append(data[Height][TC]['Location']['Theta'])
-                temps_diff.append(100*np.abs(some_column.iloc[10001]-data[Height][TC]['Results']['Medium'])/some_column.iloc[10001])
+                rel_temps_diff.append(100*(some_column.iloc[10001]-(data[Height][TC]['Results']['Coarse'] + data[Height][TC]['Results']['Medium'] + data[Height][TC]['Results']['Fine'])/3)/some_column.iloc[10001])
+                abs_rel_diff.append((some_column.iloc[10001]-(data[Height][TC]['Results']['Coarse'] + data[Height][TC]['Results']['Medium'] + data[Height][TC]['Results']['Fine'])/3))
+                data[Height][TC]['Reading'] = float(np.abs(some_column.iloc[10001]))
+                data[Height][TC]['Results']['Absolute_Error'] = float((some_column.iloc[10001]-(data[Height][TC]['Results']['Coarse'] + data[Height][TC]['Results']['Medium'] + data[Height][TC]['Results']['Fine'])/3))
+                data[Height][TC]['Results']['Relative_Error'] = float(100*(some_column.iloc[10001]-(data[Height][TC]['Results']['Coarse'] + data[Height][TC]['Results']['Medium'] + data[Height][TC]['Results']['Fine'])/3)/some_column.iloc[10001])
             except:
                 print("Could not find %s"%(TC))
-        MakeContourPlot(Theta, Radii, pd.Series(temps), Height)
-        MakeContourPlot(Theta, Radii, pd.Series(temps), "%s_Rel_Diff"%(Height))
+        #MakeContourPlot(Theta, Radii, pd.Series(temps), Height)
+        MakeContourPlot(Theta, Radii, pd.Series(rel_temps_diff), "%s Relative Diff"%(Height))
+        MakeContourPlot(Theta, Radii, pd.Series(abs_rel_diff), "%s Absolute Diff"%(Height))
+
 BuildExperimentalPlots()
+
+with open(os.path.join(CURRENT_DIRECTORY, 'STAR_CCM_Files/PostProcessing_Folder/Plots/TC_info.yml'), 'w') as f:
+    new_data = yaml.dump(data, f, sort_keys=False, default_flow_style=False)
+
+def MakeOverleafTable():
+    string_list = []
+    for Height in data.keys():
+        for TC in data[Height].keys():
+            try:
+                string_list.append("%s & %s & %s & %s &%s & %s & %s & \\"%(TC, round(data[Height][TC]['Reading'],2), round(data[Height][TC]['Results']['Coarse'],2), round(data[Height][TC]['Results']['Medium'],2), round(data[Height][TC]['Results']['Fine'],2), round(data[Height][TC]['Results']['Absolute_Error'],2), round(data[Height][TC]['Results']['Relative_Error'],2)))
+            except KeyError:
+                print("%s does not have a thermocouple reading"%TC)
+    with open(os.path.join(Plot_Path, "Overleaf_Table.txt"),'w') as file:
+        for element in string_list:
+            file.write(element)
+            file.write('\n')
+    file.close()
+    pass
+
+#MakeOverleafTable()
