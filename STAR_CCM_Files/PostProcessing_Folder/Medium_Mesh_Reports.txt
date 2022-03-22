@@ -223,11 +223,6 @@ Connection_2_RCST.2000-001      2.700152e-03
 Connection_2_RCST.RCST_Valve    1.472765e-02                                                    
 Hot_Duct.2000-001               2.305197e-02                                                    
 Hot_Duct.Rakes                  9.477513e-05                                                    
-Lower_Plenum.170-010100         0.000000e+00    no data, incomplete computation, undefined ratio
-Lower_Plenum.170-010200         0.000000e+00    no data, incomplete computation, undefined ratio
-Lower_Plenum.170-010300         0.000000e+00    no data, incomplete computation, undefined ratio
-Lower_Plenum.170-010400         0.000000e+00    no data, incomplete computation, undefined ratio
-Lower_Plenum.170-010500         0.000000e+00    no data, incomplete computation, undefined ratio
 Lower_Plenum.1320-014           1.071377e-06                                                    
 Lower_Plenum.1660-015           7.400114e-03                                                    
 Lower_Plenum.1750-001           1.258039e-03                                                    
@@ -238,8 +233,20 @@ Lower_Plenum.Outer_Bypass       4.925441e-04
 Lower_Plenum.Ring_2             4.773046e-06                                                    
 Lower_Plenum.Ring_3             5.631359e-06                                                    
 Lower_Plenum.Ring_4             1.018608e-06                                                    
-Tee.215-010000                  0.000000e+00    no data, incomplete computation, undefined ratio
 Tee.2000-001                    1.434351e-02                                                    
 Tee.2150-001                    6.026612e-04                                                    
 ----------------------------    ------------    ------------------------------------------------
                       Total:    5.936712e-03    incomplete computation 
+
+
+
+Maximum of Temperature on Volume Mesh
+
+Part          Value (K)
+-------    ------------
+TF-3001    4.664048e+02
+TF-3101    4.616062e+02
+TF-3102    4.677816e+02
+TF-3103    4.667334e+02
+-------    ------------
+ Total:    4.677816e+02

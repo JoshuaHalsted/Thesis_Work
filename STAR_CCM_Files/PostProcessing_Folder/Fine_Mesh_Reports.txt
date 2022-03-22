@@ -115,11 +115,6 @@ Connection_2_RCST.2000-001        1.711846e+00
 Connection_2_RCST.RCST_Valve      3.510470e-02                                   
 Hot_Duct.2000-001                 1.406957e+01                                   
 Hot_Duct.Rakes                    5.473053e-03                                   
-Lower_Plenum.170-010100         -1.797693e+308    no data, incomplete computation
-Lower_Plenum.170-010200         -1.797693e+308    no data, incomplete computation
-Lower_Plenum.170-010300         -1.797693e+308    no data, incomplete computation
-Lower_Plenum.170-010400         -1.797693e+308    no data, incomplete computation
-Lower_Plenum.170-010500         -1.797693e+308    no data, incomplete computation
 Lower_Plenum.1320-014             2.385481e-04                                   
 Lower_Plenum.1660-015             1.136007e+01                                   
 Lower_Plenum.1750-001             2.915643e+00                                   
@@ -130,7 +125,6 @@ Lower_Plenum.Outer_Bypass         1.256448e+00
 Lower_Plenum.Ring_2               9.423997e-06                                   
 Lower_Plenum.Ring_3               1.087582e-05                                   
 Lower_Plenum.Ring_4               3.052743e-06                                   
-Tee.215-010000                  -1.797693e+308    no data, incomplete computation
 Tee.2000-001                      2.941527e+00                                   
 Tee.2150-001                      1.171395e-01                                   
 ----------------------------    --------------    -------------------------------
@@ -230,25 +224,29 @@ Connection_2_RCST.2000-001                                             2.598917e
 Connection_2_RCST.RCST_Valve                                           3.026818e-04                                                    
 Hot_Duct.2000-001                                                      2.270928e-02                                                    
 Hot_Duct.Rakes                                                         8.929155e-05                                                    
-Lower_Plenum.170-010100                                                0.000000e+00    no data, incomplete computation, undefined ratio
-Lower_Plenum.170-010200                                                0.000000e+00    no data, incomplete computation, undefined ratio
-Lower_Plenum.170-010300                                                0.000000e+00    no data, incomplete computation, undefined ratio
-Lower_Plenum.170-010400                                                0.000000e+00    no data, incomplete computation, undefined ratio
-Lower_Plenum.170-010500                                                0.000000e+00    no data, incomplete computation, undefined ratio
 Lower_Plenum.1320-014                                                  1.067195e-06                                                    
 Lower_Plenum.1660-015                                                  7.807802e-03                                                    
 Lower_Plenum.1750-001                                                  1.204845e-03                                                    
 Lower_Plenum.1751-001                                                  2.303391e-03                                                    
-Lower_Plenum.Front_LP_Top                                              4.478433e-01                                                    
-Lower_Plenum.Hot_Duct_Connection[Hot_Duct_Connection/LP_Connection]    0.000000e+00    no data, incomplete computation, undefined ratio
-Lower_Plenum.Hot_Duct_Connection[rem]                                  5.593201e+02                                                    
+Lower_Plenum.Front_LP_Top                                              4.478433e-01                                      
 Lower_Plenum.Inner_Bypass                                              2.414245e-06                                                    
 Lower_Plenum.Outer_Bypass                                              4.706648e-04                                                    
 Lower_Plenum.Ring_2                                                    4.602155e-06                                                    
 Lower_Plenum.Ring_3                                                    5.416802e-06                                                    
 Lower_Plenum.Ring_4                                                    1.018606e-06                                                    
-Tee.215-010000                                                         0.000000e+00    no data, incomplete computation, undefined ratio
 Tee.2000-001                                                           1.430036e-02                                                    
 Tee.2150-001                                                           6.017201e-04                                                    
 -------------------------------------------------------------------    ------------    ------------------------------------------------
                                                              Total:    8.900666e-03    incomplete computation
+
+
+	Maximum of Temperature on Volume Mesh
+
+Part          Value (K)
+-------    ------------
+TF-3001    4.664048e+02
+TF-3101    4.616062e+02
+TF-3102    4.677816e+02
+TF-3103    4.667334e+02
+-------    ------------
+ Total:    4.677816e+02
