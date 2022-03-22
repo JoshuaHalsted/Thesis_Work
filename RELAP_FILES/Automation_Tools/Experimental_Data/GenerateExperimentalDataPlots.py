@@ -6,10 +6,13 @@ import os
 import pathlib
 import yaml
 import ModifyYAML
+#import GlobalPythonFunctions
 
 os.system('cls' if os.name == 'nt' else 'clear')
 CURRENT_FILE_PATH = pathlib.Path(__file__).parent.resolve()
 os.chdir(CURRENT_FILE_PATH)
+
+#GlobalPythonFunctions.ClearTerminal()
 
 path = r"C:\\Users\\17577\\Thesis_Work\\RELAP_FILES\\Automation_Tools\\Experimental_Data\\PG_28"
 
@@ -144,4 +147,4 @@ def main():
         for plot in Test_Dict['Plots'][region]:
             PlotInstance = Plot(Default_Settings_Dict, Test_Dict['Plots'][region][plot], region, plot)
 
-main()
+#main()
