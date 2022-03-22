@@ -1,0 +1,785 @@
+Floor:
+  TF_2102:
+    Location:
+      x: 9.223170549999999
+      y: -9.75
+      z: 15.975
+      Radius: 0.6428640517340353
+      Theta: 1.0471975512108829
+    Results:
+      Coarse: 478.0751
+      Medium: 478.0666
+      Fine: 478.0666
+  TS_2103:
+    Location:
+      x: -2.5118901830000007
+      y: -7.5625
+      z: 22.09572142
+      Radius: 0.7750066798289793
+      Theta: 0.1131962316468107
+    Results:
+      Coarse: 477.9602
+      Medium: 478.0022
+      Fine: 478.0022
+      Absolute_Error: 2.3617999999999597
+      Relative_Error: 0.4916831477047902
+    Reading: 480.34999999999997
+  TS_2104:
+    Location:
+      x: 9.223170549999999
+      y: -7.5625
+      z: 15.975
+      Radius: 0.6428640517340353
+      Theta: 1.0471975512108829
+    Results:
+      Coarse: 477.4249
+      Medium: 477.4327
+      Fine: 477.4327
+      Absolute_Error: -111.13010000000008
+      Relative_Error: -30.338547638547666
+    Reading: 366.29999999999995
+  TS_2105:
+    Location:
+      x: 3.074390183
+      y: -7.5625
+      z: 12.425
+      Radius: 0.44607607959129913
+      Theta: 1.3282324527323832
+    Results:
+      Coarse: 477.6614
+      Medium: 477.6609
+      Fine: 477.6609
+      Absolute_Error: -147.55106666666677
+      Relative_Error: -44.697545262690255
+    Reading: 330.10999999999996
+  TS_2106:
+    Location:
+      x: -8.660670549999999
+      y: -7.5625
+      z: 13.40427858
+      Radius: 0.5561704946730077
+      Theta: 0.5736374261910112
+    Results:
+      Coarse: 478.6004
+      Medium: 478.6168
+      Fine: 478.6168
+      Absolute_Error: 11.93866666666662
+      Relative_Error: 2.4337308463289413
+    Reading: 490.54999999999995
+  TS_2107:
+    Location:
+      x: 10.92067055
+      y: -7.5625
+      z: 7.850721421
+      Radius: 0.4687292267250858
+      Theta: 0.6232892550273625
+    Results:
+      Coarse: 478.0576
+      Medium: 477.9673
+      Fine: 477.9673
+      Absolute_Error: 18.552599999999927
+      Relative_Error: 3.736300473265518
+    Reading: 496.54999999999995
+  TS_2109:
+    Location:
+      x: -6.9631705503042705
+      y: -7.5625
+      z: 8.875
+      Radius: 0.3931335769626198
+      Theta: 0.6652691335202023
+    Results:
+      Coarse: 478.0045
+      Medium: 477.9701
+      Fine: 477.9701
+      Absolute_Error: -23.631566666666686
+      Relative_Error: -5.201181174571737
+    Reading: 454.34999999999997
+  TS_2110:
+    Location:
+      x: -15.371950917173802
+      y: -7.5625
+      z: 5.324999999999999
+      Radius: 0.566952802575216
+      Theta: 1.2373231545430647
+    Results:
+      Coarse: 478.0399
+      Medium: 478.1587
+      Fine: 478.1587
+      Absolute_Error: 11.330900000000042
+      Relative_Error: 2.315027071202379
+    Reading: 489.45
+  TS_2111:
+    Location:
+      x: 0.0
+      y: -7.5625
+      z: 0.0
+      Radius: 0.0
+      Theta: 0.0
+    Results:
+      Coarse: 478.6963
+      Medium: 478.9387
+      Fine: 478.9387
+      Absolute_Error: 37.89210000000003
+      Relative_Error: 7.332772133526856
+    Reading: 516.75
+  TS_2112:
+    Location:
+      x: 17.0694509171738
+      y: -7.5625
+      z: -2.7542785792574898
+      Radius: 0.602573164616735
+      Theta: 4.552410689087165
+    Results:
+      Coarse: 477.9628
+      Medium: 477.9489
+      Fine: 477.9489
+      Absolute_Error: 51.39646666666658
+      Relative_Error: 9.709354239476072
+    Reading: 529.3499999999999
+  TS_2113:
+    Location:
+      x: 9.223170550304271
+      y: -7.5625
+      z: -1.775
+      Radius: 0.3273303531846134
+      Theta: 4.522263377038223
+    Results:
+      Coarse: 476.881
+      Medium: 476.881
+      Fine: 476.881
+      Absolute_Error: -3.0310000000000628
+      Relative_Error: -0.6396538989131715
+    Reading: 473.84999999999997
+  TS_2114:
+    Location:
+      x: -13.1119509171738
+      y: -7.5625
+      z: -1.775
+      Radius: 0.46112597519577947
+      Theta: 3.276147377735746
+    Results:
+      Coarse: 478.1008
+      Medium: 478.0807
+      Fine: 478.0807
+      Absolute_Error: -9.637399999999957
+      Relative_Error: -2.0572953356814936
+    Reading: 468.45
+25_Height:
+  TF_2201:
+    Location:
+      x: -8.660670550304271
+      y: -7.5625
+      z: -6.304278579257489
+      Radius: 0.3733252939065423
+      Theta: 3.770812407995455
+    Results:
+      Coarse: 517.8441
+      Medium: 517.7236
+      Fine: 517.7236
+      Absolute_Error: -70.0137666666667
+      Relative_Error: -15.636798808859117
+    Reading: 447.75
+  TF_2202:
+    Location:
+      x: 12.860060733739001
+      y: -7.5625
+      z: -9.89927857925749
+      Radius: 0.5655847996560963
+      Theta: 4.0563551756090375
+    Results:
+      Coarse: 518.2315
+      Medium: 518.2474
+      Fine: 518.2474
+      Absolute_Error: -43.192100000000096
+      Relative_Error: -9.092116619303253
+    Reading: 475.04999999999995
+  TF_2203:
+    Location:
+      x: -0.8143901834347602
+      y: -7.5625
+      z: -15.975
+      Radius: 0.5574595715408586
+      Theta: 4.661454032940919
+    Results:
+      Coarse: 518.2597
+      Medium: 518.2739
+      Fine: 518.2739
+      Absolute_Error: -6.719166666666638
+      Relative_Error: -1.3134916756263588
+    Reading: 511.54999999999995
+  TF_2204:
+    Location:
+      x: -8.660670550304271
+      y: -7.5625
+      z: -14.9957214207425
+      Radius: 0.6035063481580822
+      Theta: 4.188645838071693
+    Results:
+      Coarse: 518.905
+      Medium: 518.8802
+      Fine: 518.8802
+      Absolute_Error: 7.46153333333325
+      Relative_Error: 1.4175991893860076
+    Reading: 526.3499999999999
+  TF_2205:
+    Location:
+      x: 4.77189018343476
+      y: -7.5625
+      z: -22.0957214207425
+      Radius: 0.7877998412319769
+      Theta: 3.3542904626404684
+    Results:
+      Coarse: 520.1512
+      Medium: 520.9601
+      Fine: 520.9601
+      Absolute_Error: -68.64046666666673
+      Relative_Error: -15.184264277550433
+    Reading: 452.04999999999995
+  TF_2206:
+    Location:
+      x: -2.5118901830000007
+      y: -3.1875
+      z: 22.09572142
+      Radius: 0.7750066798289793
+      Theta: 0.1131962316468107
+    Results:
+      Coarse: 520.0195
+      Medium: 519.9283
+      Fine: 519.9283
+      Absolute_Error: -3.1087000000001126
+      Relative_Error: -0.6014704459708065
+    Reading: 516.8499999999999
+  TF_2207:
+    Location:
+      x: 9.223170549999999
+      y: -3.1875
+      z: 15.975
+      Radius: 0.6428640517340353
+      Theta: 1.0471975512108829
+    Results:
+      Coarse: 518.4185
+      Medium: 518.3662
+      Fine: 518.3662
+      Absolute_Error: 7.566366666666681
+      Relative_Error: 1.4386095002693566
+    Reading: 525.95
+  TF_2208:
+    Location:
+      x: 3.074390183
+      y: -3.1875
+      z: 12.425
+      Radius: 0.44607607959129913
+      Theta: 1.3282324527323832
+    Results:
+      Coarse: 518.3943
+      Medium: 518.4504
+      Fine: 518.4504
+      Absolute_Error: -195.4817
+      Relative_Error: -60.53002012695463
+    Reading: 322.95
+  TF_2209:
+    Location:
+      x: -8.660670549999999
+      y: -3.1875
+      z: 13.40427858
+      Radius: 0.5561704946730077
+      Theta: 0.5736374261910112
+    Results:
+      Coarse: 518.2363
+      Medium: 518.2338
+      Fine: 518.2338
+      Absolute_Error: -48.48463333333336
+      Relative_Error: -10.321369522795822
+    Reading: 469.75
+  TF_2210:
+    Location:
+      x: 10.92067055030427
+      y: -3.1875
+      z: 7.850721420742509
+      Radius: 0.4687292267284578
+      Theta: 0.6232892549986127
+    Results:
+      Coarse: 518.3313
+      Medium: 518.3178
+      Fine: 518.3178
+      Absolute_Error: 3.427699999999959
+      Relative_Error: 0.6569621466219375
+    Reading: 521.75
+  TF_2211:
+    Location:
+      x: -6.9631705503042705
+      y: -3.1875
+      z: 8.875
+      Radius: 0.3931335769626198
+      Theta: 0.6652691335202023
+    Results:
+      Coarse: 519.6165
+      Medium: 521.0746
+      Fine: 521.0746
+      Absolute_Error: 44.26143333333323
+      Relative_Error: 7.835962349886382
+    Reading: 564.8499999999999
+  TF_2212:
+    Location:
+      x: -15.371950917173802
+      y: -3.1875
+      z: 5.324999999999999
+      Radius: 0.566952802575216
+      Theta: 1.2373231545430647
+    Results:
+      Coarse: 518.7794
+      Medium: 518.5462
+      Fine: 518.5462
+      Absolute_Error: 82.82606666666663
+      Relative_Error: 13.771064372211592
+    Reading: 601.45
+  TF_2213:
+    Location:
+      x: 0.0
+      y: -3.1875
+      z: 0.0
+      Radius: 0.0
+      Theta: 0.0
+    Results:
+      Coarse: 518.259
+      Medium: 518.259
+      Fine: 518.259
+      Absolute_Error: -5.808999999999969
+      Relative_Error: -1.1335740072202105
+    Reading: 512.45
+  TF_2214:
+    Location:
+      x: 17.0694509171738
+      y: -3.1875
+      z: -2.7542785792574898
+      Radius: 0.602573164616735
+      Theta: 4.552410689087165
+    Results:
+      Coarse: 518.2759
+      Medium: 518.2289
+      Fine: 518.2289
+      Absolute_Error: -8.194566666666674
+      Relative_Error: -1.6066202659869964
+    Reading: 510.04999999999995
+  TF_2215:
+    Location:
+      x: 9.223170550304271
+      y: -3.1875
+      z: -1.775
+      Radius: 0.3273303531846134
+      Theta: 4.522263377038223
+    Results:
+      Coarse: 518.2876
+      Medium: 518.2515
+      Fine: 518.2515
+      Absolute_Error: -28.113533333333294
+      Relative_Error: -5.735699955795837
+    Reading: 490.15
+  TF_2216:
+    Location:
+      x: -13.1119509171738
+      y: -3.1875
+      z: -1.775
+      Radius: 0.46112597519577947
+      Theta: 3.276147377735746
+    Results:
+      Coarse: 517.8395
+      Medium: 517.7436
+      Fine: 517.7436
+      Absolute_Error: -90.02556666666669
+      Relative_Error: -21.046304305474386
+    Reading: 427.75
+75_Height:
+  TF_2301:
+    Location:
+      x: -8.660670550304271
+      y: -3.1875
+      z: -6.304278579257489
+      Radius: 0.3733252939065423
+      Theta: 3.770812407995455
+    Results:
+      Coarse: 517.9671
+      Medium: 517.9867
+      Fine: 517.9867
+      Absolute_Error: -35.63016666666675
+      Relative_Error: -7.386786911302323
+    Reading: 482.34999999999997
+  TF_2302:
+    Location:
+      x: 12.860060733739001
+      y: -3.1875
+      z: -9.89927857925749
+      Radius: 0.5655847996560963
+      Theta: 4.0563551756090375
+    Results:
+      Coarse: 518.256
+      Medium: 518.2505
+      Fine: 518.2505
+      Absolute_Error: 6.597666666666555
+      Relative_Error: 1.2570575720046788
+    Reading: 524.8499999999999
+  TF_2303:
+    Location:
+      x: -0.8143901834347602
+      y: -3.1875
+      z: -15.975
+      Radius: 0.5574595715408586
+      Theta: 4.661454032940919
+    Results:
+      Coarse: 518.2582
+      Medium: 518.2592
+      Fine: 518.2592
+      Absolute_Error: 111.99113333333332
+      Relative_Error: 17.76931905328573
+    Reading: 630.25
+  TF_2304:
+    Location:
+      x: -8.660670550304271
+      y: -3.1875
+      z: -14.9957214207425
+      Radius: 0.6035063481580822
+      Theta: 4.188645838071693
+    Results:
+      Coarse: 518.1755
+      Medium: 518.221
+      Fine: 518.221
+      Absolute_Error: 77.84416666666664
+      Relative_Error: 13.060006151609201
+    Reading: 596.05
+  TF_2305:
+    Location:
+      x: 4.77189018343476
+      y: -3.1875
+      z: -22.0957214207425
+      Radius: 0.7877998412319769
+      Theta: 3.3542904626404684
+    Results:
+      Coarse: 517.8962
+      Medium: 518.1436
+      Fine: 518.1436
+      Absolute_Error: 91.38886666666679
+      Relative_Error: 14.995301774824313
+    Reading: 609.45
+  TF_2306:
+    Location:
+      x: 9.223170549999999
+      y: -1.0
+      z: 15.975
+      Radius: 0.6428640517340353
+      Theta: 1.0471975512108829
+    Results:
+      Coarse: 519.2535
+      Medium: 518.9932
+      Fine: 518.9932
+      Absolute_Error: 142.27003333333323
+      Relative_Error: 21.51206370807186
+    Reading: 661.3499999999999
+  TF_2307:
+    Location:
+      x: 3.074390183
+      y: -1.0
+      z: 12.425
+      Radius: 0.44607607959129913
+      Theta: 1.3282324527323832
+    Results:
+      Coarse: 518.3861
+      Medium: 518.2657
+      Fine: 518.2657
+      Absolute_Error: -171.05583333333334
+      Relative_Error: -49.2601391888649
+    Reading: 347.25
+  TF_2308:
+    Location:
+      x: -8.660670549999999
+      y: -1.0
+      z: 13.40427858
+      Radius: 0.5561704946730077
+      Theta: 0.5736374261910112
+    Results:
+      Coarse: 518.3035
+      Medium: 518.3237
+      Fine: 518.3237
+      Absolute_Error: 101.23303333333331
+      Relative_Error: 16.33976811126355
+    Reading: 619.55
+  TF_2309:
+    Location:
+      x: 10.92067055030427
+      y: -1.0
+      z: 7.850721420742509
+      Radius: 0.4687292267284578
+      Theta: 0.6232892549986127
+    Results:
+      Coarse: 518.2372
+      Medium: 518.2567
+      Fine: 518.2567
+      Absolute_Error: 144.39980000000003
+      Relative_Error: 21.791262355693057
+    Reading: 662.65
+  TF_2310:
+    Location:
+      x: -6.9631705503042705
+      y: -1.0
+      z: 8.875
+      Radius: 0.3931335769626198
+      Theta: 0.6652691335202023
+    Results:
+      Coarse: 518.5022
+      Medium: 518.4854
+      Fine: 518.4854
+      Absolute_Error: 115.35899999999992
+      Relative_Error: 18.199731797743937
+    Reading: 633.8499999999999
+  TF_2311:
+    Location:
+      x: -15.371950917173802
+      y: -1.0
+      z: 5.324999999999999
+      Radius: 0.566952802575216
+      Theta: 1.2373231545430647
+    Results:
+      Coarse: 520.5291
+      Medium: 521.6224
+      Fine: 521.6224
+      Absolute_Error: 66.49203333333332
+      Relative_Error: 11.312978874237912
+    Reading: 587.75
+  TF_2312:
+    Location:
+      x: 17.0694509171738
+      y: -1.0
+      z: -2.7542785792574898
+      Radius: 0.602573164616735
+      Theta: 4.552410689087165
+    Results:
+      Coarse: 518.6531
+      Medium: 518.6288
+      Fine: 518.6288
+      Absolute_Error: 104.21309999999994
+      Relative_Error: 16.731652885927584
+    Reading: 622.8499999999999
+  TF_2313:
+    Location:
+      x: 9.223170550304271
+      y: -1.0
+      z: -1.775
+      Radius: 0.3273303531846134
+      Theta: 4.522263377038223
+    Results:
+      Coarse: 518.259
+      Medium: 518.259
+      Fine: 518.259
+      Absolute_Error: 64.0909999999999
+      Relative_Error: 11.005580836266834
+    Reading: 582.3499999999999
+  TF_2314:
+    Location:
+      x: -13.1119509171738
+      y: -1.0
+      z: -1.775
+      Radius: 0.46112597519577947
+      Theta: 3.276147377735746
+    Results:
+      Coarse: 518.1619
+      Medium: 518.126
+      Fine: 518.126
+      Absolute_Error: 47.01203333333342
+      Relative_Error: 8.318505411542674
+    Reading: 565.15
+  TF_2315:
+    Location:
+      x: -8.660670550304271
+      y: -1.0
+      z: -6.304278579257489
+      Radius: 0.3733252939065423
+      Theta: 3.770812407995455
+    Results:
+      Coarse: 518.2159
+      Medium: 518.2255
+      Fine: 518.2255
+      Absolute_Error: -4.772299999999973
+      Relative_Error: -0.9294575908072787
+    Reading: 513.45
+  TF_2316:
+    Location:
+      x: 12.860060733739001
+      y: -1.0
+      z: -9.89927857925749
+      Radius: 0.5655847996560963
+      Theta: 4.0563551756090375
+    Results:
+      Coarse: 517.5788
+      Medium: 517.6147
+      Fine: 517.6147
+      Absolute_Error: -71.05273333333332
+      Relative_Error: -15.911484342925391
+    Reading: 446.54999999999995
+Ceiling:
+  TF_2402:
+    Location:
+      x: -0.8143901834347602
+      y: -1.0
+      z: -15.975
+      Radius: 0.5574595715408586
+      Theta: 4.661454032940919
+    Results:
+      Coarse: 564.1838
+      Medium: 564.1891
+      Fine: 564.1891
+      Absolute_Error: 115.1626666666665
+      Relative_Error: 16.951890287284392
+    Reading: 679.3499999999999
+  TF_2403:
+    Location:
+      x: 3.074390183
+      y: -9.75
+      z: 12.425
+      Radius: 0.44607607959129913
+      Theta: 1.3282324527323832
+    Results:
+      Coarse: 564.2221
+      Medium: 564.2501
+      Fine: 564.2501
+      Absolute_Error: -213.6507666666667
+      Relative_Error: -60.94034817498124
+    Reading: 350.59
+  TF_2404:
+    Location:
+      x: -8.660670549999999
+      y: -9.75
+      z: 13.40427858
+      Radius: 0.5561704946730077
+      Theta: 0.5736374261910112
+    Results:
+      Coarse: 564.9223
+      Medium: 564.915
+      Fine: 564.915
+      Absolute_Error: 10.732566666666685
+      Relative_Error: 1.8644257216479954
+    Reading: 575.65
+  TF_2405:
+    Location:
+      x: 10.92067055
+      y: -9.75
+      z: 7.850721421
+      Radius: 0.4687292267250858
+      Theta: 0.6232892550273625
+    Results:
+      Coarse: 565.679
+      Medium: 565.679
+      Fine: 565.679
+      Absolute_Error: 271.17100000000005
+      Relative_Error: 32.40377606500568
+    Reading: 836.85
+  TF_2406:
+    Location:
+      x: -6.9631705503042705
+      y: -9.75
+      z: 8.875
+      Radius: 0.3931335769626198
+      Theta: 0.6652691335202023
+    Results:
+      Coarse: 565.679
+      Medium: 565.679
+      Fine: 565.679
+      Absolute_Error: 179.87099999999998
+      Relative_Error: 24.125947287237608
+    Reading: 745.55
+  TF_2407:
+    Location:
+      x: -15.371950917173802
+      y: -9.75
+      z: 5.324999999999999
+      Radius: 0.566952802575216
+      Theta: 1.2373231545430647
+    Results:
+      Coarse: 564.062
+      Medium: 564.219
+      Fine: 564.219
+      Absolute_Error: -73.01666666666665
+      Relative_Error: -14.866469849672535
+    Reading: 491.15
+  TF_2409:
+    Location:
+      x: 17.0694509171738
+      y: -9.75
+      z: -2.7542785792574898
+      Radius: 0.602573164616735
+      Theta: 4.552410689087165
+    Results:
+      Coarse: 565.679
+      Medium: 565.679
+      Fine: 565.679
+      Absolute_Error: -253.66899999999998
+      Relative_Error: -81.30156084740874
+    Reading: 312.01
+  TF_2410:
+    Location:
+      x: 9.223170550304271
+      y: -9.75
+      z: -1.775
+      Radius: 0.3273303531846134
+      Theta: 4.522263377038223
+    Results:
+      Coarse: 564.0921
+      Medium: 564.1299
+      Fine: 564.1299
+      Absolute_Error: 234.73270000000002
+      Relative_Error: 29.3838267509545
+    Reading: 798.85
+  TF_2411:
+    Location:
+      x: -13.1119509171738
+      y: -9.75
+      z: -1.775
+      Radius: 0.46112597519577947
+      Theta: 3.276147377735746
+    Results:
+      Coarse: 565.679
+      Medium: 565.679
+      Fine: 565.679
+      Absolute_Error: -57.528999999999996
+      Relative_Error: -11.321263406474467
+    Reading: 508.15
+  TF_2412:
+    Location:
+      x: -8.660670550304271
+      y: -9.75
+      z: -6.304278579257489
+      Radius: 0.3733252939065423
+      Theta: 3.770812407995455
+    Results:
+      Coarse: 564.4255
+      Medium: 564.4351
+      Fine: 564.4351
+      Absolute_Error: 30.218099999999936
+      Relative_Error: 5.081661481543755
+    Reading: 594.65
+  TF_2413:
+    Location:
+      x: 12.860060733739001
+      y: -9.75
+      z: -9.89927857925749
+      Radius: 0.5655847996560963
+      Theta: 4.0563551756090375
+    Results:
+      Coarse: 565.679
+      Medium: 565.679
+      Fine: 565.679
+      Absolute_Error: -251.74900000000002
+      Relative_Error: -80.19271812187432
+    Reading: 313.92999999999995
+  TF_2414:
+    Location:
+      x: -0.8143901834347602
+      y: -9.75
+      z: -15.975
+      Radius: 0.5574595715408586
+      Theta: 4.661454032940919
+    Results:
+      Coarse: 565.679
+      Medium: 565.679
+      Fine: 565.679
+      Absolute_Error: 74.87099999999998
+      Relative_Error: 11.688548903286238
+    Reading: 640.55
