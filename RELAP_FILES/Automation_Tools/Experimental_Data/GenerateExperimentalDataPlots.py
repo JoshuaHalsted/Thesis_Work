@@ -75,8 +75,6 @@ class Plot(DefaultSettings):
         InstrumentList = []
         for location in  self._instr_locations:
             for properties in self._properties:
-                #print(properties)
-                #print(self._dict['Instruments'][location][properties.split(" ")[0]]['Label'])
                 InstrumentList.append(self._dict['Instruments'][location][properties.split(" ")[0]]['Label'])
         return InstrumentList
 

@@ -18,9 +18,11 @@ STAR_CCM_Files/PostProcessing_Folder/HTTF_R5_File_Prisms.zip
 *.pdf
 *.sim
 *.sim~
+*.sim~~
 tpf*
 *.rst
 *.r
 *.plt
 plotfl
 rellic.bin
+STAR_CCM_Files/Other_Sims/HTTF_R5_File_Prisms_Coarse_Try_This.sim~~
