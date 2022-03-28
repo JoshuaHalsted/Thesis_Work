@@ -1,7 +1,7 @@
 Hot_Duct:
-  ApparentOrder: 5.945303192379347
+  ApparentOrder: 5.945
   Fluid_Volume: 0.045842
-  GCI_21_Fine: 7.62632371861287e-06
+  GCI_21_Fine: 0.0
   GCI_32_Fine: 0.0
   Simulation1:
     Name: Coarse
@@ -27,11 +27,11 @@ Hot_Duct:
       Name: Pressure
       Tag: PT-3001
       Value: 211803.4
-  error21_a: 0.9172118141076645
-  error21_ext: 6.101096198030533e-06
+  error21_a: 0.917
+  error21_ext: 0.0
   error32_a: 0.0
   error32_ext: 0.0
-  phi21ext: 110474.02598734006
+  phi21ext: 110474.026
   phi32ext: 211803.4
 Lower_Plenum:
   ApparentOrder: .nan
@@ -62,16 +62,16 @@ Lower_Plenum:
       Name: Pressure
       Tag: DP-2001
       Value: 211806.1
-  error21_a: 0.9172067518492639
+  error21_a: 0.917
   error21_ext: .nan
   error32_a: 0.0
   error32_ext: .nan
   phi21ext: .nan
   phi32ext: .nan
 Tee:
-  ApparentOrder: 1.6880248084730172
+  ApparentOrder: 1.688
   Fluid_Volume: 0.1373
-  GCI_21_Fine: 0.2773292721796414
+  GCI_21_Fine: 0.277
   GCI_32_Fine: 0.0
   Simulation1:
     Name: Coarse
@@ -97,9 +97,9 @@ Tee:
       Name: Pressure
       Tag: PT-3002
       Value: 211798.6
-  error21_a: 0.9171197755199023
-  error21_ext: 0.28512143343832663
+  error21_a: 0.917
+  error21_ext: 0.285
   error32_a: 0.0
   error32_ext: 0.0
-  phi21ext: 85966.58426621895
+  phi21ext: 85965.852
   phi32ext: 211798.6

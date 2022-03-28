@@ -6,9 +6,12 @@ import numpy as np
 import glob
 from pathlib import Path
 
+sys.path.insert(1, 'C:\\Users\\17577\\Thesis_Work\\STAR_CCM_Files\\PostProcessing_Folder')
+
+import ProcessSTAROutput
+
 print(chr(27) + "[2J")
 
-import os
 directory_path = os.getcwd()
 os.chdir(directory_path)
 print("My current directory is : " + directory_path)
@@ -39,6 +42,19 @@ def ReadFile2List(Filename):
     data_into_list = data.split("\n")
     return data_into_list
 
+def WriteFile2List(StringList, Filename):
+    with open(Filename, 'w') as my_list_file:
+ 
+    #looping over the each ist element
+    
+        for element in StringList:
+    
+            #writing to file line by line
+    
+            my_list_file.write('%s\n' % element)
+    my_list_file.close()
+
+
 def CreateRatio(Sim1, Sim2):
     return Sim1._char_size/Sim2._char_size
 
@@ -55,44 +71,6 @@ def CompareRatios(Sim_List):
 
 def AccessNestedDictValue(Dict, value):
     return Dict[value]
-
-def WriteOverleafTable(OverleafTableFilename, Dict):
-    try:
-        ListofStrings = ReadFile2List(OverleafTableFilename)
-    except FileNotFoundError:
-        ListofStrings = ReadFile2List(FindFileinDirectory(OverleafTableFilename, '.sty'))
-    
-    def ReplaceDoubleDollarSigns(ListofStrings, Dict):
-        New_Dict = Dict
-        for i, _ in enumerate(ListofStrings):
-            line = ListofStrings[i].split("&")
-            line_start = ListofStrings[i].split("&")[0]
-            New_Line = []
-            New_Line.append(line_start)
-            print(line)
-            for j, _ in enumerate(line):
-                if '$$' in line[j]:
-                    parameter = (line[j].split('$$')[1]).split('$$')[0]
-                    token_list = parameter.split(".")
-                    for k, _ in enumerate(token_list):
-                        try:
-                            #print(AccessNestedDictValue(New_Dict, token_list[k]))
-                            New_Dict = AccessNestedDictValue(New_Dict, token_list[k])
-                        except:
-                            if type(New_Dict) is not dict:
-                                New_Line.append(New_Dict)
-                                New_Dict = Dict
-            print(New_Line)
-            new_string = ''
-            #print(New_Line)
-            #print(len(New_Line))
-            for m, _ in enumerate(New_Line):
-                #print(New_Line[m])
-                new_string += str(New_Line[m]) + ' & '
-            #print(new_string)
-        pass
-
-    ReplaceDoubleDollarSigns(ListofStrings, Dict)
 
 ## Class definitions
 
@@ -137,7 +115,7 @@ class Simulation():
             return Reading
 
         Analysis_Dict['Number_Cells'] = int(float(GetNumberCells(ListofStrings, region)))
-        Analysis_Dict['Variable_of_Interest']['Value'] = float(GetPhi(ListofStrings, Analysis_Dict['Variable_of_Interest']['Tag']))
+        Analysis_Dict['Variable_of_Interest']['Value'] = round(float(GetPhi(ListofStrings, Analysis_Dict['Variable_of_Interest']['Tag'])), 3)
         return Analysis_Dict
 
 class Calculation():
@@ -146,15 +124,15 @@ class Calculation():
         self._ratio_list = ratio_list
         self._epsilon = self.CalculateEpsilon()
         self._analysis_dict = analysis_dict
-        self._analysis_dict[region]['ApparentOrder'] = float((1/np.log(ratio_list[1]))*np.abs(np.abs(self._epsilon[1]/self._epsilon[0])+np.log((ratio_list[0]-1)/(ratio_list[1]-1))))
-        self._analysis_dict[region]['phi21ext'] = float(ratio_list[0]**self._analysis_dict[region]['ApparentOrder'] * self._phi[0]-self._phi[1])/(ratio_list[0]**self._analysis_dict[region]['ApparentOrder'] - 1)
-        self._analysis_dict[region]['phi32ext'] = float(ratio_list[1]**self._analysis_dict[region]['ApparentOrder'] * self._phi[1]-self._phi[2])/(ratio_list[1]**self._analysis_dict[region]['ApparentOrder'] - 1)
-        self._analysis_dict[region]['error21_a'] = float(np.abs((self._phi[0]-self._phi[1])/self._phi[0]))
-        self._analysis_dict[region]['error21_ext'] = float(np.abs((self._analysis_dict[region]['phi21ext']-self._phi[0])/self._analysis_dict[region]['phi21ext']))
-        self._analysis_dict[region]['error32_a'] = float(np.abs((self._phi[1]-self._phi[2])/self._phi[1]))
-        self._analysis_dict[region]['error32_ext'] = float((np.abs((self._analysis_dict[region]['phi32ext']-self._phi[1])/self._analysis_dict[region]['phi32ext'])))
-        self._analysis_dict[region]['GCI_21_Fine'] = float(1.25 * self._analysis_dict[region]['error21_a'] / (ratio_list[0]**self._analysis_dict[region]['ApparentOrder'] - 1))
-        self._analysis_dict[region]['GCI_32_Fine'] = float(1.25 * self._analysis_dict[region]['error32_a'] / (ratio_list[1]**self._analysis_dict[region]['ApparentOrder'] - 1))
+        self._analysis_dict[region]['ApparentOrder'] = round(float((1/np.log(ratio_list[1]))*np.abs(np.abs(self._epsilon[1]/self._epsilon[0])+np.log((ratio_list[0]-1)/(ratio_list[1]-1)))), 3)
+        self._analysis_dict[region]['phi21ext'] = round(float(ratio_list[0]**self._analysis_dict[region]['ApparentOrder'] * self._phi[0]-self._phi[1])/(ratio_list[0]**self._analysis_dict[region]['ApparentOrder'] - 1), 3)
+        self._analysis_dict[region]['phi32ext'] = round(float(ratio_list[1]**self._analysis_dict[region]['ApparentOrder'] * self._phi[1]-self._phi[2])/(ratio_list[1]**self._analysis_dict[region]['ApparentOrder'] - 1), 3)
+        self._analysis_dict[region]['error21_a'] = round(float(np.abs((self._phi[0]-self._phi[1])/self._phi[0])), 3)
+        self._analysis_dict[region]['error21_ext'] = round(float(np.abs((self._analysis_dict[region]['phi21ext']-self._phi[0])/self._analysis_dict[region]['phi21ext'])), 3)
+        self._analysis_dict[region]['error32_a'] = round(float(np.abs((self._phi[1]-self._phi[2])/self._phi[1])), 3)
+        self._analysis_dict[region]['error32_ext'] = round(float((np.abs((self._analysis_dict[region]['phi32ext']-self._phi[1])/self._analysis_dict[region]['phi32ext']))), 3)
+        self._analysis_dict[region]['GCI_21_Fine'] = round(float(1.25 * self._analysis_dict[region]['error21_a'] / (ratio_list[0]**self._analysis_dict[region]['ApparentOrder'] - 1)), 3)
+        self._analysis_dict[region]['GCI_32_Fine'] = round(float(1.25 * self._analysis_dict[region]['error32_a'] / (ratio_list[1]**self._analysis_dict[region]['ApparentOrder'] - 1)), 3)
 
     def CalculateEpsilon(self):
         epsilon = []
@@ -188,6 +166,6 @@ def main():
         Analysis_Dict = Calculation(Phi, ratio_list, Analysis_Dict, region).ReturnDict()
     with open(GCI_RESULTS_YAML, 'w') as file:
         outputs = yaml.dump(Analysis_Dict, file)
-    WriteOverleafTable("Discretization_Error_Table.sty", Analysis_Dict)
+    ProcessSTAROutput.WriteOverleafTable("Discretization_Error_Table.sty", "Discretization_Error_Table_Filled.sty", Analysis_Dict)
 
 main()
