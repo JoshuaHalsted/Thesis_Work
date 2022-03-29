@@ -146,11 +146,11 @@ def WriteOverleafTable(OverleafTableTemplate, OverleafTableFilled, Dict, key_lis
         return NewStringList
 
     
-    #WriteFile2List(ReplaceDoubleDollarSigns(ListofStrings, Dict), FindFileinDirectory(OverleafTableFilled, '.sty'))
+    WriteFile2List(ReplaceDoubleDollarSigns(ListofStrings, Dict), FindFileinDirectory(OverleafTableFilled, '.sty'))
 
-for key in data.keys():
-    instrument_list = []
-    for instrument in data[key].keys():
-        instrument_list.append(instrument)
-    print(instrument_list)
-    WriteOverleafTable("STAR_TC_Error.sty", "STAR_TC_Error_Filled.sty", data[key], key_list = None, Append=True, NumberRepeats = len(instrument_list))
+# for key in data.keys():
+#     instrument_list = []
+#     for instrument in data[key].keys():
+#         instrument_list.append(instrument)
+#     print(instrument_list)
+#     WriteOverleafTable("STAR_TC_Error.sty", "STAR_TC_Error_Filled.sty", data[key], key_list = None, Append=True, NumberRepeats = len(instrument_list))

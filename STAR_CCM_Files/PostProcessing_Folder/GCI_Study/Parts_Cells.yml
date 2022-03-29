@@ -1,0 +1,33 @@
+Coarse:
+    Lower_Plenum:
+        Number_Cells:
+    Hot_Duct:
+        Number_Cells:
+    Refine_This_LP:
+        Number_Cells:
+    Tee:
+        Number_Cells:
+    Connection_2_RCST:
+        Number_Cells:
+Medium:
+    Lower_Plenum:
+        Number_Cells:
+    Hot_Duct:
+        Number_Cells:
+    Refine_This_LP:
+        Number_Cells:
+    Tee:
+        Number_Cells:
+    Connection_2_RCST:
+        Number_Cells:
+Fine:
+    Lower_Plenum:
+        Number_Cells:
+    Hot_Duct:
+        Number_Cells:
+    Refine_This_LP:
+        Number_Cells:
+    Tee:
+        Number_Cells:
+    Connection_2_RCST:
+        Number_Cells:

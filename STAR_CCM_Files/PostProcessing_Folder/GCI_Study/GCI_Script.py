@@ -97,9 +97,7 @@ class Simulation():
             ListofStrings = ReadFile2List(Analysis_Dict['Report_Name'])
         except FileNotFoundError:
             ListofStrings = ReadFile2List(FindFileinDirectory(Analysis_Dict['Report_Name'], '.txt'))
-        
-        def GetFluidVolume(sim):
-            pass
+    
 
         def GetNumberCells(ListofStrings, String):
             for i, _ in enumerate(ListofStrings):
@@ -124,16 +122,24 @@ class Calculation():
         self._ratio_list = ratio_list
         self._epsilon = self.CalculateEpsilon()
         self._analysis_dict = analysis_dict
-        self._analysis_dict[region]['ApparentOrder'] = round(float((1/np.log(ratio_list[1]))*np.abs(np.abs(self._epsilon[1]/self._epsilon[0])+np.log((ratio_list[0]-1)/(ratio_list[1]-1)))), 3)
-        self._analysis_dict[region]['phi21ext'] = round(float(ratio_list[0]**self._analysis_dict[region]['ApparentOrder'] * self._phi[0]-self._phi[1])/(ratio_list[0]**self._analysis_dict[region]['ApparentOrder'] - 1), 3)
-        self._analysis_dict[region]['phi32ext'] = round(float(ratio_list[1]**self._analysis_dict[region]['ApparentOrder'] * self._phi[1]-self._phi[2])/(ratio_list[1]**self._analysis_dict[region]['ApparentOrder'] - 1), 3)
-        self._analysis_dict[region]['error21_a'] = round(float(np.abs((self._phi[0]-self._phi[1])/self._phi[0])), 3)
-        self._analysis_dict[region]['error21_ext'] = round(float(np.abs((self._analysis_dict[region]['phi21ext']-self._phi[0])/self._analysis_dict[region]['phi21ext'])), 3)
-        self._analysis_dict[region]['error32_a'] = round(float(np.abs((self._phi[1]-self._phi[2])/self._phi[1])), 3)
-        self._analysis_dict[region]['error32_ext'] = round(float((np.abs((self._analysis_dict[region]['phi32ext']-self._phi[1])/self._analysis_dict[region]['phi32ext']))), 3)
-        self._analysis_dict[region]['GCI_21_Fine'] = round(float(1.25 * self._analysis_dict[region]['error21_a'] / (ratio_list[0]**self._analysis_dict[region]['ApparentOrder'] - 1)), 3)
-        self._analysis_dict[region]['GCI_32_Fine'] = round(float(1.25 * self._analysis_dict[region]['error32_a'] / (ratio_list[1]**self._analysis_dict[region]['ApparentOrder'] - 1)), 3)
-
+        ApparentOrder = float((1/np.log(ratio_list[1]))*np.abs(np.abs(self._epsilon[1]/self._epsilon[0])+np.log((ratio_list[0]-1)/(ratio_list[1]-1))))
+        self._analysis_dict[region]['ApparentOrder'] = "{:.4e}".format(ApparentOrder)
+        phi21ext = float(ratio_list[0]**ApparentOrder * self._phi[0]-self._phi[1])/(ratio_list[0]**ApparentOrder - 1)
+        self._analysis_dict[region]['phi21ext'] = round(phi21ext, 2)
+        phi32ext = float(ratio_list[1]**ApparentOrder * self._phi[1]-self._phi[2])/(ratio_list[1]**ApparentOrder - 1)
+        self._analysis_dict[region]['phi32ext'] = round(phi32ext,2)
+        error21_a = float(np.abs((self._phi[0]-self._phi[1])/self._phi[0]))
+        self._analysis_dict[region]['error21_a'] = "{:.4e}".format(error21_a)
+        error21_ext = float(np.abs((phi21ext-self._phi[0])/phi21ext))
+        self._analysis_dict[region]['error21_ext'] = "{:.4e}".format(error21_ext)
+        error32_a = float(np.abs((self._phi[1]-self._phi[2])/self._phi[1]))
+        self._analysis_dict[region]['error32_a'] = "{:.4e}".format(error32_a)
+        error32_ext = float((np.abs((phi32ext-self._phi[1])/phi32ext)))
+        self._analysis_dict[region]['error32_ext'] = "{:.4e}".format(error32_ext)
+        GCI_21_Fine = float(1.25 * error21_a / (ratio_list[0]**ApparentOrder - 1))
+        self._analysis_dict[region]['GCI_21_Fine'] = "{:.4e}".format(GCI_21_Fine)
+        GCI_32_Fine = float(1.25 * error32_a / (ratio_list[1]**ApparentOrder - 1))
+        self._analysis_dict[region]['GCI_32_Fine'] = "{:.4e}".format(GCI_32_Fine)
     def CalculateEpsilon(self):
         epsilon = []
         for i, _ in enumerate(self._phi):
@@ -166,6 +172,7 @@ def main():
         Analysis_Dict = Calculation(Phi, ratio_list, Analysis_Dict, region).ReturnDict()
     with open(GCI_RESULTS_YAML, 'w') as file:
         outputs = yaml.dump(Analysis_Dict, file)
+        print(Analysis_Dict)
     ProcessSTAROutput.WriteOverleafTable("Discretization_Error_Table.sty", "Discretization_Error_Table_Filled.sty", Analysis_Dict)
 
 main()
