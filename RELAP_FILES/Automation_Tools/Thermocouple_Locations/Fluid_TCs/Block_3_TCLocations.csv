@@ -1,0 +1,10 @@
+﻿Instrument,Sector,Angle,Location,Number
+TF-1304,Sector#1,156.035,0.338,6
+TF-1306,Sector#1,184.35,0.383,8
+TF-1308,Sector#1,195.124,0.493,10
+TF-1318,Sector#2,36.035,0.338,6
+TF-1320,Sector#2,64.35,0.383,8
+TF-1322,Sector#2,75.124,0.493,10
+TF-1332,Sector#3,-23.965,0.338,6
+TF-1334,Sector#3,4.35,0.383,8
+TF-1336,Sector#3,15.124,0.493,10

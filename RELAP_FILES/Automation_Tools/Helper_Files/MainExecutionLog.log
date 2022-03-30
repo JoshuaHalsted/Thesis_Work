@@ -1,0 +1,2 @@
+INFO 2022-03-29 19:20:04,018 - Opening input YAML file PG_26_Input_File.yml to read into dictionary
+ERROR 2022-03-29 19:20:04,018 - No YAML file could be found. Terminating execution.
