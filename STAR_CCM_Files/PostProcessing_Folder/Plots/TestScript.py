@@ -160,7 +160,7 @@ def MakeOverleafTable():
     for Height in data.keys():
         for TC in data[Height].keys():
             try:
-                string_list.append("%s & %s & %s & %s &%s & %s & %s & \\"%(TC, round(data[Height][TC]['Reading'],2), round(data[Height][TC]['Results']['Coarse'],2), round(data[Height][TC]['Results']['Medium'],2), round(data[Height][TC]['Results']['Fine'],2), round(data[Height][TC]['Results']['Absolute_Error'],2), round(data[Height][TC]['Results']['Relative_Error'],2)))
+                string_list.append("%s & %s & %s & %s & %s & %s & %s & \\"%(TC, round(data[Height][TC]['Reading'],2), round(data[Height][TC]['Results']['Coarse'],2), round(data[Height][TC]['Results']['Medium'],2), round(data[Height][TC]['Results']['Fine'],2), round(data[Height][TC]['Results']['Absolute_Error'],2), round(data[Height][TC]['Results']['Relative_Error'],2)))
             except KeyError:
                 print("%s does not have a thermocouple reading"%TC)
     with open(os.path.join(Plot_Path, "Overleaf_Table.txt"),'w') as file:
