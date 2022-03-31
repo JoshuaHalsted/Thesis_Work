@@ -26,7 +26,7 @@ def DataUnitConversions(Measured):
     return Measured
 
 def MakeContourPlot(theta, r, colors, Plot_Path, name):
-    i = 8000
+    i = 5000
     Location = name.split("_")[:-2]
     Location_String = ''
     for split in Location:
@@ -50,7 +50,7 @@ def MakeContourPlot(theta, r, colors, Plot_Path, name):
     plt.tight_layout()
     ax.set_rgrids(np.arange(0,0.8,0.1),fontsize=10,fontweight='bold')
     TC_type = str(name.split('_')[-1])
-    plt.savefig(os.path.join(Plot_Path, name + str(i) + 'Relap_%s'%(TC_type) + '.png'), dpi=300, format='png', transparent=True)
+    plt.savefig(os.path.join(Plot_Path, name + str(5000) + 'Relap_%s'%(TC_type) + '.png'), dpi=300, format='png', transparent=True, bbox_inches='tight')
     plt.close()
     pass
 
@@ -65,12 +65,9 @@ def main():
                 instrument = row['Instrument']
                 try:
                     TC_Tag = experimental_Data['%s'%(instrument)]
-                    Colors.append(TC_Tag.iloc[16001])
+                    Colors.append(TC_Tag.iloc[10001])
                 except:
-                    print("Could not find %s"%(instrument))
                     TCInformationDF.drop(TCInformationDF[TCInformationDF['Instrument'] == '%s'%(instrument)].index, inplace = True)
-                print(instrument)
-                print(Colors)
             if len(Colors)>0:
                 if folder.split("_")[0] == 'Solid':
                     MakeContourPlot(TCInformationDF.Angle, TCInformationDF.Location, pd.Series(Colors), Solid_Plot_Path, file.split(".")[0] + '_Solid')
