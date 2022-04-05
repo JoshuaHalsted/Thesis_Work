@@ -11,11 +11,12 @@ import pathlib
 import yaml
 import random
 import logging
+from pathlib import Path
+import glob
 
-os.system('cls' if os.name == 'nt' else 'clear')
+#os.system('cls' if os.name == 'nt' else 'clear')
 
 CURRENT_FILE_PATH = pathlib.Path(__file__).parent.resolve()
-print(CURRENT_FILE_PATH)
 os.chdir(CURRENT_FILE_PATH)
 
 #
@@ -46,7 +47,7 @@ logging.basicConfig(filename = os.path.join(CURRENT_FILE_PATH, EXECUTION_STATUS_
 MAIN_EXECUTION_LOG = logging.getLogger()
 
 def MakeLoggingFile(filepath):
-    print(filepath)
+    #print(filepath)
     # Create and configure logger
     log_format = "%(levelname)s %(asctime)s - %(message)s"
 
@@ -56,7 +57,7 @@ def MakeLoggingFile(filepath):
                         filemode = 'w')
     log_object = logging.getLogger()
     log_object.info("Instantiation")
-    print(log_object)
+    #print(log_object)
     return log_object
 
 def ReadFile(InputFile, replace_text):
@@ -91,8 +92,17 @@ def ChangeMFR(dataframe, factor):
     dataframe['Gas_MFR'] = dataframe['Gas_MFR']*factor
     return dataframe
 
+def FindFileinDirectory(filename, extension):
+  pathlist = Path(os.getcwd()).glob('**/*%s'(extension))
+  print('zz')
+  for path in pathlist:
+    if str(os.path.basename(path).strip()) == str(filename):
+      return path
+
 def YAML2Dict():
-  with open("PG_26_Input_File.yml", 'r') as stream:
+  #filepath = str(FindFileinDirectory('PG_28_Input_File', '.yml'))
+  #print(filepath)
+  with open('C:/Users/17577/Thesis_Work/RELAP_FILES/Automation_Tools/YAML_Input/PG_28_Input_File.yml', 'r') as stream:
       try:
           Input_File_YAML=yaml.safe_load(stream)
       except yaml.YAMLError as exc:
@@ -179,10 +189,14 @@ class Test(Subanalysis):
       self._r5_filled_file = os.path.join(self._test_directory, self._test_dict['Files']['R5_Filled_File'])
       self._r5_strip_input = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Input'])
       self._r5_strip_output = os.path.join(self._test_directory, self._test_dict['Files']['R5_Strip_Output'])
-      self._init_cond_file = os.path.join(self._test_directory, self._test_dict['Files']['Initial_Cond_File'])
+      #self._init_cond_file = os.path.join(self._test_directory, self._test_dict['Files']['Initial_Cond_File'])
+      self._init_cond_file = "C:/Users/17577/Thesis_Work/RELAP_FILES/Automation_Tools/Helper_Files/R5_initial_cond_list"
       self._inst_map_file = os.path.join(self._test_directory, self._test_dict['Files']['Instrument_Map_File'])
-      self._measured_data_quality = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Quality']))
-      self._measured_data_trend = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_26\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Trend']))
+      #self._measured_data_quality = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_28\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Quality']))
+      #self._measured_data_trend = pd.read_csv(os.path.join(CURRENT_FILE_PATH, "Experimental_Data\\PG_28\\" + self._analysis_dict['Experimental_Data']['Measured_Data_Trend']))
+    
+      self._measured_data_quality = pd.read_csv(os.path.join("C:/Users/17577/Thesis_Work/RELAP_FILES/Automation_Tools/Experimental_Data/PG_28/", self._analysis_dict['Experimental_Data']['Measured_Data_Quality']))
+      self._measured_data_quality = pd.read_csv(os.path.join("C:/Users/17577/Thesis_Work/RELAP_FILES/Automation_Tools/Experimental_Data/PG_28/", self._analysis_dict['Experimental_Data']['Measured_Data_Trend']))
     except:
       pass
     self._write_input = self.ProcessInputFile()
@@ -205,7 +219,6 @@ class Test(Subanalysis):
         with open(self._init_cond_file,'w') as VLin:
           VLin.write("RELAP_channel,Source_formula\n")
           for elem in varlist:
-            print(elem)
             VLin.write(elem[1:] + '\n')
       except:
         self._logging_object.error("Could not generate list of $variables from R5")
@@ -246,7 +259,7 @@ class Test(Subanalysis):
       #print('List of data NOT in instrument map: ' )
       printcount = 0
       totcount = 0
-      print(Measured.columns.difference(instruments['Tag_Number']))
+      #print(Measured.columns.difference(instruments['Tag_Number']))
       for elem in Measured.columns.difference(instruments['Tag_Number']):
     #    if elem not in instruments['Tag_Number'][:]:
         #print(elem, end=' ')
@@ -255,7 +268,7 @@ class Test(Subanalysis):
         if printcount == 10:
           #print(' ')
           printcount = 0
-      print('\nNumber of data NOT in instrument map: ' + str(totcount))
+      #print('\nNumber of data NOT in instrument map: ' + str(totcount))
 
   def InputMassFlowRate(self):
       Old_MFR_DF = CSV2Dataframe(NOMINAL_MFR_CSV)
@@ -270,6 +283,7 @@ class Test(Subanalysis):
       #print("Treating initial conditions")
       #print("==========================================")
       varlist = []
+      print('2')
       with open(InputFile) as R5in:
         R5temp = string.Template(R5in.read())
         R5in.seek(0) # rewind the file
@@ -281,13 +295,13 @@ class Test(Subanalysis):
       # Read data file
       Measured = self._measured_data_quality
       # Read mapping (RELAP input channel to Measured data instrument)
+      #print(Measured)
       Mapping = pd.read_csv(self._init_cond_file)
       #print(Mapping)
       # Generate the dict with the mappings (the actual numbers to be placed in the RELAP input)
       Mappingdict = {}
       for to_be_replaced in varlist: 
         # find the replacement rule in the mapping file
-        #print(to_be_replaced)
         # check if the variable in the RELAP input has a mapping rule
         if to_be_replaced not in Mapping.RELAP_channel.values:
           #print("For the variable on the line above, there is no rule in " + IInitial_Cond_File )
@@ -304,16 +318,15 @@ class Test(Subanalysis):
           # check if needed data is in Measured values
           if look_for_this_in_data not in Measured.columns:
             print("For the variable on the line above, the requested Measured value " + look_for_this_in_data + " is not in Measured data!")
-            quit()
-
+            break
           data_point =  Measured.loc[Measured['Run_Time'] == self._initial_condition, look_for_this_in_data].iloc[0]
           MyVars_in_formula[look_for_this] = data_point
 
         # evaluate folmula
         Mappingdict[to_be_replaced] = eval(rep_rule, MyVars_in_formula)
-
       # Substitute values
       R5outTxt = R5temp.substitute(Mappingdict) 
+      print(R5outTxt)
       return R5outTxt
 
   def InputBoundaryConditions(self, R5outTxt):
@@ -430,7 +443,6 @@ class Test(Subanalysis):
       
       # Primary pressure 
       #print("Updating primary and RCST pressures")
-
       dt = Measured['Run_Time'].diff().fillna(1)
 
       R5outTxt = ImplementBoundaryConditions(dt, Measured['PT-6001'] * 1000, Measured['Run_Time'], "20220000 reac-t\n", "202200", R5outTxt)
@@ -475,6 +487,8 @@ class Test(Subanalysis):
 
       # TEMPRATURE
 
+      print('adshqpot')
+
       # CORE DT
       Core_DT = Measured['TF-2311'] - Measured['TF-6101']
       Core_DT_SMA = Core_DT.rolling(window=1800).mean().fillna(0)
@@ -501,19 +515,26 @@ class Test(Subanalysis):
     # This writes the RELAP5 input file
     # 1. Reads the RELAP5 template input file and identifies initial and boundary conditions to be replaced 
     # 2. Reads the test data file and identifies the data to be put in the RELAP5 input file
-    print('z')
+    print('j')
     Input_Dict = self._subanalysis_dict[self._test_name]['Actions']['Input']
     InputMFRBoolean = Input_Dict['write_input_file']['write_mfr']['Boolean']
     InputInitialConditionsBoolean = Input_Dict['write_input_file']['write_initial_conditions']['Boolean']
     InputBoundaryConditionsBoolean = Input_Dict['write_input_file']['write_boundary_conditions']['Boolean']
     self._logging_object.info("Writing input file")
+    print(InputInitialConditionsBoolean)
     if InputMFRBoolean and InputInitialConditionsBoolean and InputBoundaryConditionsBoolean:
+      print('o')
       self.InputMassFlowRate()
       R5_String = self.InputInitialConditions(self._r5_filled_file)
       self.InputBoundaryConditions(R5_String)
-    elif InputMFRBoolean:
+      print(R5_String)
+    elif InputMFRBoolean and InputInitialConditionsBoolean:
       self.InputMassFlowRate()
+      print('w')
+      self.InputInitialConditions(self._r5_filled_file)
+      print('l')
     elif InputInitialConditionsBoolean and InputBoundaryConditionsBoolean:
+      print('d')
       R5_String = self.InputInitialConditions(self._r5_template_file)
       self.InputBoundaryConditions(R5_String)
 
@@ -558,10 +579,12 @@ class Test(Subanalysis):
 
   def ProcessInputFile(self):
     if self._subanalysis_dict[self._test_name]['Actions']['Input']['Create_Input_File']:
-      print('z')
-      self._logging_object.info("Writing input file")
+      print('p')
+      #self._logging_object.info("Writing input file")
       self.GenerateListofReplacements()
+      print('k')
       self.CheckChannelsinFile()
+      print('m')
       self.WriteInputFile()
 
 class Tables():
@@ -787,7 +810,6 @@ class Plots():
         for i, _ in enumerate(PlotInstance._instruments):
           pass
         #print(PlotInstance._instruments)
-    print('z')
 
   def MakePlots(self):
       # # make_plots

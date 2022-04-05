@@ -22,8 +22,6 @@
 * the core, a middle ring with coolant holes, and a solid ring outside it. The
 * permanent side reflector is also modeled as a solid ring.
 *
-* THIS DECK BYPASSES THE STEAM GENERATOR AND CONNECTS BCs AT 215 AND 240.
-* ---------------------------------------------------------------
 * The primary coolant system includes the hot and cold ducts, the steam 
 * generator plenums and tubes, the gas circulator, pressure relief and
 * depressurization valves, the check valve at the steam generator inlet, the loop
@@ -73,7 +71,6 @@
 * The deck is set-up to model test PG-26, a low power DCC
 * -----------------------------------------------------------
 *
-* - Thisis the NO STEAM GENERATOR Deck
 * - Changes compared to QA basedeck HTTF_base_2018-05-30QA.i:
 *   - Split hot duct has been added.
 *
@@ -96,9 +93,6 @@
 123 141010000 4.088765  hen hegap1
 124 146010000 4.088765  hen hegap2
 125 151010000 4.088765  hen hegap3
-
-126 220010000 0.0 hen SG_he
-127 330010000 0.0 h2o SG_h2o
 *201 86400.0 1.0-6 0.006 19  30000 6000000 60000000
 *201 300.0 1.0-6 0.006 19  300 60000 60000000
 201 10000.0 1.0-6 0.006 3 10000 100000 50000000
@@ -158,8 +152,6 @@
 20602350 time  0 ge  null  0 1.0  l * strat pressure control after 5 seconds
 * no more pressure control  
 20602340 time  0 ge  null  0 180162.0  l * 1/6/2019 20:22:00
-* Dummy never true
-20602320 time  0 le  null  0 -1.0  l 
 *
 * primary helium blower trip
 * (only used when dynamic blower control is used)
@@ -183,8 +175,8 @@
 20602460  time  0 ge  null  0 180214.0  l * close valve
 *
 * primary coolant system relief valve trips
-20602940  p 293010000 gt  null  0 1.16E+06  n * opening pressure
-20602950  p 293010000 lt  null  0 1.10E+06  n * closing pressure
+20602940  p 293010000 gt  null  0 1.16E+08  n * opening pressure
+20602950  p 293010000 lt  null  0 1.10E+08  n * closing pressure
 20612940  294 or  1295  n * initial opening or already open
 20612950  1294  and -295  n * open valve
 *
@@ -217,17 +209,16 @@
 * primary pressure (helium filling through SV-4014 
 * and depressurisation through CV-6201) 
 *
-*2330000 HeCont  tmdpjun
-*2330101 234000000 270010000 0.0 0
-*2330200 1 0 cntrlvar 4209
-*2330201 -1000.0 0.0 -1000.0 0.0
-*2330202  1000.0 0.0  1000.0 0.0
+2330000 HeCont  tmdpjun
+2330101 234000000 270010000 0.0 0
+2330200 1 0 cntrlvar 4209
+2330201 -1000.0 0.0 -1000.0 0.0
+2330202  1000.0 0.0  1000.0 0.0
 *
 2340000 HeInlet  tmdpvol
 2340101 1.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0
-2340200 3 0 cntrlvar 4200
-2340201 1000.0 1000.0 300.0 
-2340202 1.0e6 1.0e6 300.0 
+2340200 3
+2340201 0.0 50.0e5 300.0 
 *2340201 0.0 7.00E+05  531.75
 *2340200 3 0 cntrlvar  234
 *2340201 100000.0  1.00E+05  531.75
@@ -1081,14 +1072,11 @@
 * valve V-101
 *
 2170000 V-101 valve
-*2170101 215010000 220000000 0.05067 0.97  0.91  0000000
-2170101 215010000 234000000 0.05067 0.97  0.91  0000200
+2170101 215010000 220000000 0.05067 0.97  0.91  0000000
 2170110 0.254 0.0 1.0 1.0
 2170201 0 0.0 0.0 0.0
-2170300 mtrvlv
-2170301 232 234 1.0 1.0
-*2170300 chkvlv
-*2170301 0 0.0 500.0 0
+2170300 chkvlv
+2170301 0 0.0 500.0 0
 *
 * orifice plate
 *2170000  orifice sngljun
@@ -1146,33 +1134,26 @@
 *
 * steam generator outlet plenum
 *
-*2280000 SGouplen  branch
-*2280001 2 1
-*2280101 0.0 0.51440 0.0236
-*2280102 0.0 -90.0 -0.51440
-*2280103 0.000046  0.0000  0
-*2280200 3 $P228010000 $TEMPG228010000
-*2281101 225010000 228000000 0.0 0.43  0.33  0000200
-*2282101 228010000 230000000 0.03228 0.21  0.31  0000000
-*2281110 0.0166  0.0 1.0 1.0
-*2282110 0.2027  0.0 1.0 1.0
-*2281201 0.0 0.0 0.0
-*2282201 0.0 0.0 0.0
+2280000 SGouplen  branch
+2280001 2 1
+2280101 0.0 0.51440 0.0236
+2280102 0.0 -90.0 -0.51440
+2280103 0.000046  0.0000  0
+2280200 3 $P228010000 $TEMPG228010000
+2281101 225010000 228000000 0.0 0.43  0.33  0000200
+2282101 228010000 230000000 0.03228 0.21  0.31  0000000
+2281110 0.0166  0.0 1.0 1.0
+2282110 0.2027  0.0 1.0 1.0
+2281201 0.0 0.0 0.0
+2282201 0.0 0.0 0.0
 *
 * pipe from steam generator to circulator - 8-PCC-SS3-200
 *
-*2300000 SG2cmprs  snglvol
-*2300101 0.03228 2.28273 0.0
-*2300102 0.0 -52.1 -1.80070
-*2300103 0.000046  0.2027  0
-*2300200 3 $P230010000 $TEMPG230010000
-2300000 SG2cmprs  tmdpvol
+2300000 SG2cmprs  snglvol
 2300101 0.03228 2.28273 0.0
 2300102 0.0 -52.1 -1.80070
 2300103 0.000046  0.2027  0
-2300200 3 0 cntrlvar 4502
-2300201  100.0 2.0e5  100.0
-2300202 1000.0 2.0e5 1000.0
+2300200 3 $P230010000 $TEMPG230010000
 *
 * circulator
 *
@@ -1185,7 +1166,7 @@
 2351101 230010000 235000000 0.03228 0.46  0.46  0
 2351110 0.0 0.0 1.0 1.0
 2351201 0.0 0.0 0.0
-
+*
 2370000 circultr  tmdpjun
 2370101 235010000 240000000 0.00000
 2370200 1 0 cntrlvar  237
@@ -3383,7 +3364,7 @@
 12201400  0
 12201401 $HTVAT220101 3
 12201501  220010000 0 1 1 0.0893  1
-12201601  215010000 0 1 1 0.0893  1
+12201601  228010000 0 1 1 0.0893  1
 12201701  0 0.0 0.0 0.0 1
 12201800  1
 12201801  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.16  1.1 1.0 1
@@ -3441,7 +3422,7 @@
 12280301  0 6
 12280400  0
 12280401 $HTVAT228001 7
-12280501  225220000 0 1 1 0.51  1
+12280501  228010000 0 1 1 0.51  1
 12280601  -950  0 3951  1 0.51  1
 12280701  0 0.0 0.0 0.0 1
 12280800  1
@@ -3458,7 +3439,7 @@
 12300301  0.0 6
 12300400  0
 12300401 $HTVAT230001 7
-12300501  215010000 0 1 1 2.2827  1
+12300501  230010000 0 1 1 2.2827  1
 12300601  -950  0 3951  1 2.2827  1
 12300701  0 0.0 0.0 0.0 1
 12300800  1
@@ -4987,13 +4968,13 @@
 * 304 stainless steel
 *
 20100300  tbl/fctn  1 1
-20100301  200.0 13.25
+20100301  250.0 13.25
 20100302  300.0 13.25
 20100303  1671.0  39.1619
 20100304  1727.0  20.0
 20100305  3000.0  20.0
 *
-20100351  200.0 3.72E+06
+20100351  250.0 3.72E+06
 20100352  300.0 3.72E+06
 20100353  400.0 3.94E+06
 20100354  500.0 4.12E+06
@@ -5280,11 +5261,11 @@
 20260117  1900.0  32.35
 20260118  2000.0  26.83
 *
-* pressure in preimary loop PT-6001
+* pressure in preimary loop
 *
 20220000 reac-t
 *
-* pressure in RCST PT-4001
+* pressure in RCST
 * 
 20220100 reac-t
 *
@@ -5298,11 +5279,8 @@
 20221005 180550.1  0.0 
 20221006  1.0e6    0.0 
 *
-* Core delta T measured TF-2311 - TF-6101
+* Core delta T measured
 20222000 reac-t
-*
-* Core inlet temperature TF-6202
-20223000 reac-t
 *
 * power in heater 101
 *
@@ -5406,18 +5384,6 @@
 *20502340  inpress integral  0.5 7.00E+05  0
 *20502341  cntrlvar  233
 *
-* Helium circulator outlet temperature
-* --------------------------------------
-* Evaluate needed target delta T from table
-20545000 CoreT function 1.0 0.0 1
-20545001 time 0 230
-* compute difference
-20545010 CoreTinD sum 1.0 0.0 0 
-20545011 0.0 1.0 cntrlvar 4500 -1.0 tempg 240010000
-* compute new inlet temperature
-20545020 CoreTinD sum 1.0 0.0 0
-20545021  0.0 1.0 cntrlvar 4500 1.0 cntrlvar 4501
-*
 * feedwater flow control
 *
 *20503190  SGtmperr  sum 1.0 0.0 0
@@ -5446,7 +5412,7 @@
 * Primary pressure control
 * ===================
 * Evaluate needed pressure from table 
-20542000 PrimPre function 1.0 0.0 1
+20542000 PrimPre function 1.0 0.0 0
 20542001 time 0 200
 * conmpuet difference during heat-up 
 * => He goes in SV-4014
@@ -6067,7 +6033,7 @@
 *
 * facility steam generator liquid level (% of span)
 *
-20503550  LF-5002 sum 44.58116  50.0  1
+20503550  LF-5002 sum 44.58116  50.0  1 3 0.6 0.8
 20503551  -0.03815  1.0 cntrlvar  350
 *
 * potable water supply valve controls
@@ -7678,7 +7644,7 @@
 20516157    1.0 tmassv  206060000 1.0 tmassv  206070000
 *
 20516160  massSGp sum 1.0 0.0 1
-20516161  0.0 1.0 tmassv  220010000 * 1.0 tmassv  228010000
+20516161  0.0 1.0 tmassv  220010000 1.0 tmassv  228010000
 20516162    1.0 tmassv  225010000 1.0 tmassv  225020000
 20516163    1.0 tmassv  225030000 1.0 tmassv  225040000
 20516164    1.0 tmassv  225050000 1.0 tmassv  225060000

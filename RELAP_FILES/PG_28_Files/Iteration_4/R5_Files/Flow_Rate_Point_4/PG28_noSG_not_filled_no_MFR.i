@@ -1,5 +1,5 @@
 =base_2018-05-30QA.i HTTF system model
-* base model adjusted for PG-26
+* base model adjusted for PG-28
 *
 * This model represents the High Temperature Test Facility (HTTF) (prismatic core
 * design), which is being built at Oregon State University to support the Advanced

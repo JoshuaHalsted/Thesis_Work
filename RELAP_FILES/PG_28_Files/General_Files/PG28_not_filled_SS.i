@@ -1,5 +1,5 @@
 =base_2018-05-30QA.i HTTF system model
-* base model adjusted for PG-26
+* base model adjusted for PG-28
 *
 * This model represents the High Temperature Test Facility (HTTF) (prismatic core
 * design), which is being built at Oregon State University to support the Advanced
@@ -22,8 +22,6 @@
 * the core, a middle ring with coolant holes, and a solid ring outside it. The
 * permanent side reflector is also modeled as a solid ring.
 *
-* THIS DECK BYPASSES THE STEAM GENERATOR AND CONNECTS BCs AT 215 AND 240.
-* ---------------------------------------------------------------
 * The primary coolant system includes the hot and cold ducts, the steam 
 * generator plenums and tubes, the gas circulator, pressure relief and
 * depressurization valves, the check valve at the steam generator inlet, the loop
@@ -70,15 +68,14 @@
 * using conduction enclosures.
 *
 * -----------------------------------------------------------
-* The deck is set-up to model test PG-26, a low power DCC
+* The deck is set-up to model test PG-28, a low power DCC
 * -----------------------------------------------------------
 *
-* - Thisis the NO STEAM GENERATOR Deck
 * - Changes compared to QA basedeck HTTF_base_2018-05-30QA.i:
 *   - Split hot duct has been added.
 *
-* - Initial conditions (from OSU-HTTF-TAR-026-R0)
-* - Boundary conditions (from OSU-HTTF-TAR-026-R0)
+* - Initial conditions (from OSU-HTTF-TAR-028-R0)
+* - Boundary conditions (from OSU-HTTF-TAR-028-R0)
 *
 *
 *
@@ -96,11 +93,6 @@
 123 141010000 4.088765  hen hegap1
 124 146010000 4.088765  hen hegap2
 125 151010000 4.088765  hen hegap3
-
-126 220010000 0.0 hen SG_he
-127 330010000 0.0 h2o SG_h2o
-*201 86400.0 1.0-6 0.006 19  30000 6000000 60000000
-*201 300.0 1.0-6 0.006 19  300 60000 60000000
 201 10000.0 1.0-6 0.006 3 10000 100000 50000000
 *
 *******************************************************
@@ -138,9 +130,6 @@
 *
 20600000  expanded
 *
-* Stready state pressure control end time
-*20602330 time  0 le  null  0 -1.0  l * open pressure control valve
-*20602340 time  0 ge  null  0 15.0  l * close pressrue control valve
 *
 * Control primary and RCST system pressure
 * =================================
@@ -151,51 +140,43 @@
 * Primary: Switch primary from pressurising through SV-4014 to 
 *          depressurisation through SV-6201
 * RCST: Switch from leakage valves to depressurisation through SV-4001
-20602330 time  0 ge  null  0 178842.0  l * 1/6/2019 20:00:00
+20602330 time  0 ge  null  0 1.16E+08  l * 1/6/2019 20:00:00
 
 * Global on/off switches
 * strat pressure control
-20602350 time  0 ge  null  0 1.0  l * strat pressure control after 5 seconds
+20602350 time  0 ge  null  0 1.16E+08  l * strat pressure control after 5 seconds
 * no more pressure control  
-20602340 time  0 ge  null  0 180162.0  l * 1/6/2019 20:22:00
-* Dummy never true
-20602320 time  0 le  null  0 -1.0  l 
+20602340 time  0 ge  null  0 1.16E+08  l * 1/6/2019 20:22:00
 *
 * primary helium blower trip
 * (only used when dynamic blower control is used)
-20602360 time  0 ge  null  0 180550.0  l * 
-*
-* scram trip
-*20601000  time  0 ge  null  0 1.00E+06  l
+20602360 time  0 ge  null  0 1.16E+08  l * 
 *
 * break trips
-20602050  time  0 ge  null  0 180247.0  l * open hot duct break valve
-20602060  time  0 le  null  0 -1.0  l * close hot duct break valve
+20602050  time  0 ge  null  0 1.16E+08  l * open hot duct break valve
+20602060  time  0 ge  null  0 1.16E+08  l * close hot duct break valve
 
-20602550  time  0 ge  null  0 180233.0  l * open cold leg break valve
-20602560  time  0 le  null  0 -1.0  l * close cold leg break valve
-
-*20600250 time  0 le  null  0 -1.0  l * open CRD break valve
-*20600750 time  0 le  null  0 -1.0  l * open vessel bottom break valve
+20602550  time  0 ge  null  0 1.16E+08  l * open cold leg break valve
+20602560  time  0 ge  null  0 1.16E+08  l * close cold leg break valve
 *
 * valve V-6201 trips
-20602450  time  0 le  null  0 -1.0  l * open valve
-20602460  time  0 ge  null  0 180214.0  l * close valve
+20602450  time  0 ge  null  0 1.16E+08  l * open valve
+20602460  time  0 ge  null  0 1.16E+08  l * close valve
 *
 * primary coolant system relief valve trips
-20602940  p 293010000 gt  null  0 1.16E+06  n * opening pressure
-20602950  p 293010000 lt  null  0 1.10E+06  n * closing pressure
+20602940  p 293010000 gt  null  0 1.16E+08  n * opening pressure
+20602950  p 293010000 gt  null  0 1.10E+08  n * closing pressure
 20612940  294 or  1295  n * initial opening or already open
 20612950  1294  and -295  n * open valve
 *
 * primary coolant system depressurization valve trips
-20602960  time  0 ge  null  0 1.00E+06  n * open valve manually
-20602970  time  0 ge  null  0 1.00E+06  n * close valve manually
+20602960  time  0 ge  null  0 1.16E+08  n * open valve manually
+20602970  time  0 ge  null  0 1.16E+08  n * close valve manually
 20612960  296 and -297  n * open valve
 *
 * steam generator relief valve trips
-20603940  p 390010000 gt  null  0 7.91E+05  n * opening pressure
-20603950  p 390010000 lt  null  0 7.70E+05  n * closing pressure
+20603940  p 390010000 gt  null  0 1.16E+08  n * opening pressure
+20603950  p 390010000 gt  null  0 1.16E+08  n * closing pressure
 20613940  394 or  1395  n * initial opening or already open
 20613950  1394  and -395  n * open valve
 *
@@ -217,42 +198,16 @@
 * primary pressure (helium filling through SV-4014 
 * and depressurisation through CV-6201) 
 *
-*2330000 HeCont  tmdpjun
-*2330101 234000000 270010000 0.0 0
-*2330200 1 0 cntrlvar 4209
-*2330201 -1000.0 0.0 -1000.0 0.0
-*2330202  1000.0 0.0  1000.0 0.0
+2330000 HeCont  tmdpjun
+2330101 234000000 270010000 0.0 0
+2330200 1 0 cntrlvar 4209
+2330201 -1000.0 0.0 -1000.0 0.0
+2330202  1000.0 0.0  1000.0 0.0
 *
 2340000 HeInlet  tmdpvol
 2340101 1.0 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0
-2340200 3 0 cntrlvar 4200
-2340201 1000.0 1000.0 300.0 
-2340202 1.0e6 1.0e6 300.0 
-*2340201 0.0 7.00E+05  531.75
-*2340200 3 0 cntrlvar  234
-*2340201 100000.0  1.00E+05  531.75
-*2340202 800000.0  8.00E+05  531.75
-*
-* To allow for mass adjustments from the initial conditios
-* this "steady state" pressure control volume is conected to the
-* problem for 15 secs.
-* 
-* This now becomes a full primary system pressure controller
-* see above
-* 
-*2330000 PCSPctrl  sngljun
-*2330101 230010000 234000000 0.0 0.0 0.0 0
-*2330201 0 0.0 0.0 0.0
-*2330000 ss-contr valve
-*2330101 270040001 234000000 0.01  0.0 0.0 0000200
-*2330201 0 0.0 0.0 0.0
-*2330300 mtrvlv
-*2330301 233 234 0.2 1.0
-*
-*2340000 ss-contr tmdpvol
-*2340101 0.03228 1.203 0.0 0.0 0.0 0.0 0.0 0.0 10
-*2340200 3
-*2340201 0.0 $P270010000 531.75
+2340200 3
+2340201 0.0 50.0e5 300.0 
 *
 * This is the dynamic pressure control to 
 * depressuris the RCST through CV-4001 
@@ -760,9 +715,6 @@
 1661301 0.0 0.00  0.0 14
 1661401 0.0127  0.0 1.0 1.0 14
 *
-*1680000 PSRoutlt  sngljun
-*1680101 166150004 175010003 0.00596 0.84  0.46  3
-*1680201 0 0.0 0.01  0.0
 * PSR-to-barrel gap outlet junction
 * AE New coponent -> split duct
 1680000 PSRoutlt  sngljun
@@ -812,17 +764,6 @@
 1702051 0.015875  0.0 1.0 1.0 5
 1702061 0.01463 0.0 1.0 1.0 6
 *
-* core outlet plenum
-*
-*1750000 outplenm  branch
-*1750001 1 1
-*1750101 0.7296  0.22225 0.0
-*1750102 0.0 -90.0 -0.22225
-*1750103 0.000046  0.097 0
-*1750200 3 7.00E+05  960.15
-*1751101 175010004 200000000 0.06973 0.0 0.0 0000002
-*1751110 0.0 0.0 1.0 1.0
-*1751201 0.0 1.0 0.0
 * core outlet plenum
 * AE New coponent -> split duct
 1750000 outplenm  branch
@@ -894,32 +835,6 @@
 1851110 0.0 0.0 1.0 1.0
 1851201 0.0 0.0 0.0
 *
-* hot duct
-*
-*2000000 "hot duct" pipe
-*2000001 6
-*2000101 0.0697  4
-*2000102 0.0700  6
-*2000301 0.43180 1
-*2000302 0.65095 2
-*2000303 0.41270 3
-*2000304 0.41270 4
-*2000305 0.49058 5
-*2000306 0.49058 6
-*2001901 0.29797 6
-*2000401 0.0 6
-*2000601 0.0 6
-*2000801 0.000046  0.29797 4
-*2000802 0.000046  0.29845 6
-*2002401 0.0 0.0 6
-*2000901 0.0 0.0 4
-*2000902 0.057 0.057 5
-*2001001 0 6
-*2001101 0 5
-*2001201 3 7.00E+05  960.15  0.0 0.0 0.0 6
-*2001300 1
-*2001301 0.0 1.0 0.0 5
-*2001401 0.0 0.0 1.0 1.0 5
 * hot duct top
 * AE New coponent -> split duct
 2000000 "duct top" pipe
@@ -951,15 +866,9 @@
 2001301 0.0 0.0 0.0 6
 2001401 0.0 0.0 1.0 1.0 6
 *
-* hot duct top connection to RCST
-* AE New coponent -> split duct
-*2010000 "top-RCST"  sngljun
-*2010101 200010000 280020003 0.0350  1.0 0.5 0
-*2010201 1 0.0 0.0 0.0
 * Hot leg (upper part) breack valve
 2050000 V-3001 valve
 2050101 200010000 280020003 0.0350 0.05 0.1 0000200
-*2050101 200010000 280020003 0.0350 0.0 0.0 0000000
 2050201 0 0.0 0.0 0.0
 2050300 mtrvlv
 2050301 205 206 0.2 0.0
@@ -1044,28 +953,6 @@
 2092061 0.0 0.0 1.0 1.0 6
 2092071 0.0 0.0 1.0 1.0 7
 *
-*
-* valve V-3001
-* AE TODO This valve needs to be put back into the hot duct somehow...
-*2050000 V-3001 valve
-*2050101 200010000 210000000 0.0700  0.0 0.0 0000200
-*2050201 0 0.0 0.0 0.0
-*2050300 mtrvlv
-*2050301 205 206 0.2 0.0
-*
-* hot duct pipe into RCST
-* AE This component is not needed anymore -> split hot duct
-*2100000 hot-RCST  branch
-*2100001 1 1
-*2100101 0.0700  0.66040 0.0
-*2100102 0.0 0.0 0.0
-*2100103 0.000046  0.2985  0
-*2100200 3 1.00E+05  300.00
-*2101101 210010000 280020001 0.06996 1.0 0.5 0000000
-* replace the card above with the one below for hot duct breaks with the RCST spool piece installed
-*** 2101101  282010000 210010000 0.0 0.0 0.0 0000100
-*2101201 0.0 0.0 0.0
-*
 * pipe from hot duct to SG - 10-RCH-SS6-101
 *
 2150000 hot-SG  branch
@@ -1081,20 +968,11 @@
 * valve V-101
 *
 2170000 V-101 valve
-*2170101 215010000 220000000 0.05067 0.97  0.91  0000000
-2170101 215010000 234000000 0.05067 0.97  0.91  0000200
+2170101 215010000 220000000 0.05067 0.97  0.91  0000000
 2170110 0.254 0.0 1.0 1.0
 2170201 0 0.0 0.0 0.0
-2170300 mtrvlv
-2170301 232 234 1.0 1.0
-*2170300 chkvlv
-*2170301 0 0.0 500.0 0
-*
-* orifice plate
-*2170000  orifice sngljun
-*2170101  215010000 220000000 0.00785 61.43 61.37 0000200
-*2170110  0.1 0.0 1.0 1.0
-*2170201  0 0.0 1.0 0.0
+2170300 chkvlv
+2170301 0 0.0 500.0 0
 *
 * steam generator inlet plenum
 *
@@ -1146,33 +1024,26 @@
 *
 * steam generator outlet plenum
 *
-*2280000 SGouplen  branch
-*2280001 2 1
-*2280101 0.0 0.51440 0.0236
-*2280102 0.0 -90.0 -0.51440
-*2280103 0.000046  0.0000  0
-*2280200 3 $P228010000 $TEMPG228010000
-*2281101 225010000 228000000 0.0 0.43  0.33  0000200
-*2282101 228010000 230000000 0.03228 0.21  0.31  0000000
-*2281110 0.0166  0.0 1.0 1.0
-*2282110 0.2027  0.0 1.0 1.0
-*2281201 0.0 0.0 0.0
-*2282201 0.0 0.0 0.0
+2280000 SGouplen  branch
+2280001 2 1
+2280101 0.0 0.51440 0.0236
+2280102 0.0 -90.0 -0.51440
+2280103 0.000046  0.0000  0
+2280200 3 $P228010000 $TEMPG228010000
+2281101 225010000 228000000 0.0 0.43  0.33  0000200
+2282101 228010000 230000000 0.03228 0.21  0.31  0000000
+2281110 0.0166  0.0 1.0 1.0
+2282110 0.2027  0.0 1.0 1.0
+2281201 0.0 0.0 0.0
+2282201 0.0 0.0 0.0
 *
 * pipe from steam generator to circulator - 8-PCC-SS3-200
 *
-*2300000 SG2cmprs  snglvol
-*2300101 0.03228 2.28273 0.0
-*2300102 0.0 -52.1 -1.80070
-*2300103 0.000046  0.2027  0
-*2300200 3 $P230010000 $TEMPG230010000
-2300000 SG2cmprs  tmdpvol
+2300000 SG2cmprs  snglvol
 2300101 0.03228 2.28273 0.0
 2300102 0.0 -52.1 -1.80070
 2300103 0.000046  0.2027  0
-2300200 3 0 cntrlvar 4502
-2300201  100.0 2.0e5  100.0
-2300202 1000.0 2.0e5 1000.0
+2300200 3 $P230010000 $TEMPG230010000
 *
 * circulator
 *
@@ -1185,43 +1056,12 @@
 2351101 230010000 235000000 0.03228 0.46  0.46  0
 2351110 0.0 0.0 1.0 1.0
 2351201 0.0 0.0 0.0
-
+*
 2370000 circultr  tmdpjun
 2370101 235010000 240000000 0.00000
-2370200 1 0 cntrlvar  237
-&&&INSERT MFR HERE&&&
-*
-* AE circulator model
-* 
-*2370000 circultr pump
-*2370101 0.0 1.2033  0.6791 0.0 -16.9 -0.34920 1
-*2370108 230010000 0.0 0.0 0.0 0
-*2370109 240000000 0.0 0.0 0.0 0
-*2370200 3 $P235010000 $TEMPG235010000
-*2370201 1 0.0 0.0 0
-*2370202 1 0.0 0.0 0
-* Use built-in Westinghouse water pump curves
-* => needs to be changed
-*2370301 -2 -1 -3 -1 0 0 0
-***2370302 371.75 0.0 0.996753 23.469 1.0 1.0 1.34555 0.0
-*2370302 371.75 0.0 0.996753 20213.0 1.0 1.0 0.120 0.0
-*+ 0.0 0.0 0.0 0.0
-*2376100 0
-***          time            w/s
-*2376101        0.0       0.0
-*2376102      293.0       0.0
-*2376103      293.1      74.35      * 20%
-*2376104      442.0      74.35      * 20%
-*2376105      442.1     107.8075    * 29%
-*2376106   180550.0     107.8075    * 29%
-*2376107   180550.1       0.0
-*2376108     1.0e6        0.0
-*
-*2370000 circultr tmdpjun
-*2370101 235010000 240000000 0.00000
-*2370200 1 0 cntrlvar  237
-*2370201 0.10  0.0 0.10  0.0
-*2370202 1.5 0.0 1.5 0.0
+2370200 1 0
+2370201 0.0 0.0 0.023040871 0
+2370202 10000.00 0.0 0.023040871 0
 *
 * pipe from circulator to valve V-6201 - 8-PCC-SS-201
 *
@@ -1321,25 +1161,6 @@
 2701301 0.0 0.0 0.0 3
 *
 * reactor cavity simulation tank (two-volume configuration)
-*
-*2800000 RCST  pipe
-*2800001 2
-*2800101 0.0 2
-*2800301 1.5240  1
-*2800302 4.0831  2
-*2800401 3.8 1
-*2800402 14.1  2
-*2800601 90.0  2
-*2800701 1.5240  1
-*2800702 4.0831  2
-*2800801 0.000046  2.0828  2
-*2800901 0.0 0.0 1
-*2801001 0 2
-*2801101 0 1
-*2801201 3 1.00E+05  300.00  0.0 0.0 0.0 2
-*2801300 1
-*2801301 0.0 0.0 0.0 1
-* reactor cavity simulation tank (two-volume configuration)
 * AE New coponent -> split duct
 2800000 RCST  pipe
 2800001 2
@@ -1359,22 +1180,6 @@
 2801300 1
 2801301 0.0 0.0 0.0 1
 *
-* reactor cavity simulation tank (single-volume configuration)
-*
-*2800000  RCST  snglvol
-*2800101  0.0 5.6071  17.9212
-*2800102  0.0 90.0  5.6071
-*2800103  0.000046  2.0828  0
-*2800200  3 1.00E+05  300.00
-*
-* spool piece connecting the hot and cold leg break nozzles inside the RCST
-* AE The spool piece needs re-numbering. 282 is now taken by -> split duct
-*2820000  RCSTspol  snglvol
-*2820101  0.0295  1.1172  0.0
-*2820102  0.0 0.0 0.0
-*2820103  0.000046  0.1937  0
-*2820200  3 1.00E+05  300.00
-*
 * small RCST volume connected to hot duct bottom half
 * AE New coponent -> split duct
 2820000 optophd branch
@@ -1384,21 +1189,16 @@
 2820103 0.000000  2.083 0
 2820200 3 $P282010000 $TEMPG282010000
 2821101 280020001 282000000 0.0 0.0 0.0 0
-*2822101 282010000 206000000 0.0350  0.5 1.0 0
 2821110 0.0 0.0 1.0 1.0
-*2822110 0.0 0.0 1.0 1.0
 2821201 0.0 0.0 0.0
-*2822201 0.0 0.0 0.0
 * Hot leg (lower part) breack valve
 2070000 V-3001 valve
 2070101 282010000 206000000 0.0340  0.05 0.1 0000200
-*2070101 282010000 206000000 0.0340  0.0 0.0 0000000
 2070201 0 0.0 0.0 0.0
 2070300 mtrvlv
 2070301 205 206 0.2 0.0
 * duplicate of V-3001 to simulate leaking
 2080000 V-3001 valve
-*2080101 282010000 206000000 0.0350  0.0 0.0 0000200
 2080101 282010000 206000000 0.0340  0.05 0.1 0000200
 2080201 0 0.0 0.0 0.0
 2080300 srvvlv
@@ -1701,246 +1501,6 @@
 4980200 4
 4980201 0.0 1.00E+05  300.00  1.0
 *
-* CRD break line connection from upper plenum
-*
-*050000 UP-CRD  sngljun
-*050101 120010000 10000000  0.01174 0.48  0.91  0000200
-*050201 0 0.0 0.0 0.0
-*
-* CRD break line pressure vessel nozzle
-*
-*100000 CRDnozzl  pipe
-*100001 25
-*100101 0.01174 25
-*100301 0.01955 25
-*100401 0.0 25
-*100601 90.0  25
-*100701 0.01955 25
-*100801 0.000046  0.122 25
-*100901 0.0 0.0 24
-*101001 0 25
-*101101 0 24
-*101201 3 7.00E+05  531.75  0.0 0.0 0.0 25
-*101300 1
-*101301 0.0 0.0 0.0 24
-*
-* CRD break line connection from nozzle to pipe
-*
-*150000 UP-CRD  sngljun
-*150101 10010000  20000000  0.00742 0.30  1.93  0000200
-*150201 0 0.0 0.0 0.0
-*
-* CRD break line from nozzle to valve
-*
-*200000 CRDbrkp1  pipe
-*200001 35
-*200101 0.00742 35
-*200301 0.02041 35
-*200401 0.0 35
-*200601 0.00000 35
-*200701 0.00000 35
-*200801 0.000046  0.09718 35
-*200901 0.0 0.0 34
-*201001 0 35
-*201101 0 34
-*201201 3 7.00E+05  531.75  0.0 0.0 0.0 35
-*201300 1
-*201301 0.0 0.0 0.0 34
-*
-* CRD break valve
-*
-*250000 CRDbrkv valve * valve V-332
-*250101 20010000  30000000  0.00742 0.057 0.057 0000200
-*250201 0 0.0 0.0 0.0
-*250300 trpvlv
-*250301 25
-*
-* CRD break line from valve to RCST
-*
-*300000 CRDbrkp2  pipe
-*300001 92
-*300101 0.00742 92
-*300301 0.01998 92
-*300401 0.0 92
-*300601 -3.64256  92
-*300701 -0.001269 92
-*300801 0.000046  0.09718 92
-*300901 0.0 0.0 91
-*301001 0 92
-*301101 0 91
-*301201 3 7.00E+05  300.00  0.0 0.0 0.0 92
-*301300 1
-*301301 0.0 0.0 0.0 91
-*
-*310000 CRD-2-3 sngljun
-*310101 30010000  32000000  0.00742 0.00  0.00  0000000
-*310201 0 0.0 0.0 0.0
-*
-*320000 CRDbrkp3  pipe
-*320001 92
-*320101 0.00742 92
-*320301 0.01998 92
-*320401 0.0 92
-*320601 -3.64256  92
-*320701 -0.001269 92
-*320801 0.000046  0.09718 92
-*320901 0.0 0.0 91
-*321001 0 92
-*321101 0 91
-*321201 3 7.00E+05  300.00  0.0 0.0 0.0 92
-*321300 1
-*321301 0.0 0.0 0.0 91
-*
-*330000 CRD-3-4 sngljun
-*330101 32010000  34000000  0.00742 0.00  0.00  0000000
-*330201 0 0.0 0.0 0.0
-*
-*340000 CRDbrkp4  pipe
-*340001 92
-*340101 0.00742 92
-*340301 0.01998 92
-*340401 0.0 92
-*340601 -3.64256  92
-*340701 -0.001269 92
-*340801 0.000046  0.09718 92
-*340901 0.0 0.0 91
-*341001 0 92
-*341101 0 91
-*341201 3 7.00E+05  300.00  0.0 0.0 0.0 92
-*341300 1
-*341301 0.0 0.0 0.0 91
-*
-* CRD break line connection to RCST
-*
-*350000 CRD-RCST  sngljun
-*350101 34010000  280010000 0.00742 1.00  0.50  0000200
-*350201 0 0.0 0.0 0.0
-*
-* vessel bottom break line connection from core support region
-*
-*550000 vs-btbrk  sngljun
-*550101 105010005 60000000  0.00742 0.50  0.99  0000202
-*550201 0 0.0 0.0 0.0
-*
-* vessel bottom break line pressure vessel nozzle stub
-*
-*600000 vbtnozzl  pipe
-*600001 43
-*600101 0.00742 43
-*600301 0.020084  43
-*600401 0.0 43
-*600601 -90.0 43
-*600701 -0.0200837  43
-*600801 0.000046  0.097 43
-*600901 0.0 0.0 42
-*601001 0 43
-*601101 0 42
-*601201 3 7.00E+05  531.75  0.0 0.0 0.0 43
-*601300 1
-*601301 0.0 0.0 0.0 42
-*
-* vessel bottom break line connection from nozzle to pipe
-*
-*650000 nozl-pip  sngljun
-*650101 60010000  70000000  0.00742 0.5 1.0 0000200
-*650201 0 0.0 0.0 0.0
-*
-* vessel bottom break line from nozzle to valve
-*
-*700000 vbtbrkp1  pipe
-*700001 73
-*700101 0.00742 73
-*700301 0.02009 73
-*700401 0.0 73
-*700601 -5.33641  73
-*700701 -0.001868 73
-*700801 0.000046  0.09718 73
-*700901 0.0 0.0 72
-*701001 0 73
-*701101 0 72
-*701201 3 7.00E+05  531.75  0.0 0.0 0.0 73
-*701300 1
-*701301 0.0 0.0 0.0 72
-*
-*710000 vbt-1-2 sngljun
-*710101 70010000  72000000  0.00742 0.0 0.0 0000000
-*710201 0 0.0 0.0 0.0
-*
-* vessel bottom break line from nozzle to valve
-*
-*720000 vbtbrkp1  pipe
-*720001 73
-*720101 0.00742 73
-*720301 0.02009 73
-*720401 0.0 73
-*720601 -5.33641  73
-*720701 -0.001868 73
-*720801 0.000046  0.09718 73
-*720901 0.0 0.0 72
-*721001 0 73
-*721101 0 72
-*721201 3 7.00E+05  531.75  0.0 0.0 0.0 73
-*721300 1
-*721301 0.0 0.0 0.0 72
-*
-* vessel bottom break valve
-*
-*750000 vbtbrkv valve * valve V-331
-*750101 72010000  80000000  0.00742 0.057 0.057 0000200
-*750201 0 0.0 0.0 0.0
-*750300 trpvlv
-*750301 75
-*
-* vessel bottom break line from valve to RCST
-*
-*800000 vbtbrkp3  pipe
-*800001 96
-*800101 0.00742 96
-*800301 0.01999 96
-*800401 0.0 96
-*800601 0.00000 96
-*800701 0.00000 96
-*800801 0.000046  0.09718 96
-*800901 0.0 0.0 95
-*801001 0 96
-*801101 0 95
-*801201 3 1.00E+05  300.00  0.0 0.0 0.0 96
-*801300 1
-*801301 0.0 0.0 0.0 95
-*
-* vessel bottom break line connection to RCST
-*
-*850000 vbt-RCST  sngljun
-*850101 80010000  280000000 0.00742 1.00  0.50  0000200
-*850201 0 0.0 0.0 0.0
-*
-* cavity air volume
-*
-*9000000  cavity  pipe
-*9000001  20
-*9000101  3.8 20
-*9000301  1.35230 1
-*9000302  0.32728 2
-*9000303  0.22225 3
-*9000304  0.25146 4
-*9000305  0.25146 5
-*9000306  0.19812 15
-*9000307  0.19050 16
-*9000308  0.20320 17
-*9000309  0.27320 18
-*9000310  0.83185 19
-*9000311  1.69969 20
-*9000401  0.0 20
-*9000601  90.0  20
-*9000801  0.000046  0.0 20
-*9000901  0 0.0 19
-*9001001  0 20
-*9001101  0 19
-*9001201  4 1.00E+05  300.00  0.0 0.0 0.0 20
-*9001300  1
-*9001301  0.0 0.0 0.0 19
-*9001401  0.0 0.0 1.0 1.0 19
-*
 9030000 confineo  sngljun
 9030101 900010000 905000000 0.0 0.0 0.0 0
 9030201 0 0.0 0.0 0.0
@@ -1969,17 +1529,11 @@
 * RCCS pump
 *
 9200000 RCCSpump  tmdpjun
-*9200101  460010000 930000000 0.00050
 * use the card below if the alternate source volume (Component 915) is used
 9200101 915010000 930000000 0.00050
-*9200200  1  0  cntrlvar  920
 9200200  1
 *       time  liq  vap  interf
 9200201  0.0  0.0  0.0  0.0
-
-*9200202  2.0  2.0  0.0  0.0
-* Maximum at 0.42 (25 lpm as found on FT-9001)
-*9200202  0.42  0.42  0.0  0.0
 *
 * RCCS piping from pump to inlet headers
 *
@@ -2062,7 +1616,6 @@
 9600102 0.0 -33.6898  -3.0374
 9600103 0.000046  0.0253  0
 9600200 3 2.00E+05 $TEMPF960010000
-*9601101  960010000 450050003 0.0022  1.0 0.5 0001000
 * use the card below for the once-through RCCS model (Component 965 enabled)
 9601101 960010000 965000000 0.0022  0.0 0.0 0001000
 9601110 0.0376  0.0 1.0 1.0
@@ -3102,26 +2655,6 @@
 11660915  0.0 2.98  0.11  0.0 0.0 0.0 0.0 1.0 3.1 1.1 1.0 15
 *
 * outlet plenum lower plate - heat structure 1750
-*
-*11750000  1 9 1 1 0.0 0
-*11750100  0 1
-*11750101  4 0.079375
-*11750102  2 0.111375
-*11750103  2 0.136775
-*11750201  -1  4
-*11750202  -1  6
-*11750203  3 8
-*11750301  0.0 8
-*11750400  0
-*11750401  700.0 9
-*11750501  175010000 0 1 1 1.7713  1
-*11750601  105020000 0 1 1 1.7713  1
-*11750701  0 0.0 0.0 0.0 1
-*11750800  1
-*11750801  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.14  1.1 1.0 1
-*11750900  1
-*11750901  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.14  1.1 1.0 1
-* outlet plenum lower plate - heat structure 1750
 * AE New coponent -> split duct
 11750000  1 9 1 0 0.0 0
 11750100  0 1
@@ -3157,32 +2690,6 @@
 11751900  1
 11751901  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.22  1.1 1.0 1
 *
-* hot duct - heat structure 2000
-*
-*12000000  4 9 2 1 0.148984  0
-*12000100  0 1
-*12000101  1 0.1524
-*12000102  4 0.161925
-*12000103  3 0.1653413
-*12000201  3 1 * 304 stainless steel
-*12000202  -8  5 * alumina silica insulation
-*12000203  3 8 * 304 stainless steel
-*12000301  0.0 8
-*12000400  0
-*12000401  960.15  9
-*12000501  200010000 0 1 1 0.4318  1
-*12000502  200020000 0 1 1 0.6510  2
-*12000503  200030000 0 1 1 0.4127  3
-*12000504  200040000 0 1 1 0.4127  4
-*12000601  270040000 0 1 1 0.4318  1
-*12000602  270030000 0 1 1 0.6510  2
-*12000603  270020000 0 1 1 0.4127  3
-*12000604  270010000 0 1 1 0.4127  4
-*12000701  0 0.0 0.0 0.0 4
-*12000800  1
-*12000801  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.30  1.1 1.0 4
-*12000900  1
-*12000901  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.33  1.1 1.0 4
 * hot duct top half, volumes 1-4 - heat structure 2000
 * AE New coponent -> split duct
 12000000  4 9 2 0 0.148984  0
@@ -3210,22 +2717,6 @@
 12000900  1
 12000901  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.33  1.1 1.0 4
 *
-* hot leg - heat structure 2001
-*
-*12001000  2 7 2 1 0.149225  0
-*12001100  0 1
-*12001101  3 0.161925
-*12001102  3 0.212925
-*12001201  3 3 * 304 stainless steel
-*12001202  -9  6 * pipe insulation
-*12001301  0 6
-*12001400  0
-*12001401  960.15  7
-*12001501  200050000 10000 1 1 0.4906  2
-*12001601  -950  0 3951  1 0.4906  2
-*12001701  0 0.0 0.0 0.0 2
-*12001800  1
-*12001801  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.30  1.1 1.0 2
 * hot duct top half, volumes 5 and 6 - heat structure 2001
 * AE New coponent -> split duct
 12001000  2 7 2 0 0.149225  0
@@ -3321,24 +2812,6 @@
 12062900  1
 12062901  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.33  1.1 1.0 4
 *
-* hot leg from valve V-6001 into RCST - heat structure 2100
-* AE This component is not needed anymore -> split hot duct
-*12100000  1 4 2 1 0.1492  0
-*12100100  0 1
-*12100101  3 0.161925
-*12100201  3 3 * 304 stainless steel
-*12100301  0.0 3
-*12100400  0
-*12100401  960.15  4
-*12100501  210010000 0 1 1 0.6604  1
-*12100601  280020000 0 1 1 0.6604  1
-***12100601 280010000 0 1 1 0.6604  1 * use with single-volume RCST
-*12100701  0 0.0 0.0 0.0 1
-*12100800  1
-*12100801  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.30  1.1 1.0 1
-*12100900  1
-*12100901  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.32  1.1 1.0 1
-*
 * pipe from hot duct to steam generator inlet plenum - heat structure 2150
 *
 12150000  1 7 2 1 0.1270  0
@@ -3383,7 +2856,7 @@
 12201400  0
 12201401 $HTVAT220101 3
 12201501  220010000 0 1 1 0.0893  1
-12201601  215010000 0 1 1 0.0893  1
+12201601  228010000 0 1 1 0.0893  1
 12201701  0 0.0 0.0 0.0 1
 12201800  1
 12201801  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.16  1.1 1.0 1
@@ -3441,7 +2914,7 @@
 12280301  0 6
 12280400  0
 12280401 $HTVAT228001 7
-12280501  225220000 0 1 1 0.51  1
+12280501  228010000 0 1 1 0.51  1
 12280601  -950  0 3951  1 0.51  1
 12280701  0 0.0 0.0 0.0 1
 12280800  1
@@ -3458,7 +2931,7 @@
 12300301  0.0 6
 12300400  0
 12300401 $HTVAT230001 7
-12300501  215010000 0 1 1 2.2827  1
+12300501  230010000 0 1 1 2.2827  1
 12300601  -950  0 3951  1 2.2827  1
 12300701  0 0.0 0.0 0.0 1
 12300800  1
@@ -3597,42 +3070,6 @@
 12800800  1
 12800801  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 5.61  1.1 1.0 2
 *
-* RCST - heat structure 2800 (single-volume configuration)
-*
-*12800000 1 7 2 1 1.0414  0
-*12800100 0 1
-*12800101 3 1.0509
-*12800102 3 1.1019
-*12800201 3 3 * 304 stainless steel
-*12800202 -6  6 * permanent insulation
-*12800301 0.0 6
-*12800400 0
-*12800401 300.00  7
-*12800501 280010000 0 1 1 5.6071  1
-*12800601 -950  0 3951  1 5.6071  1
-*12800701 0 0.0 0.0 0.0 1
-*12800800 1
-*12800801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 5.61  1.1 1.0 1
-*
-* hot duct break spool piece - heat structure 2820
-*
-*12820000 1 7 2 1 0.0968  0
-*12820100 0 1
-*12820101 3 0.1095
-*12820102 3 0.1603
-*12820201 3 3 * 304 stainless steel
-*12820202 9 6 * pipe insulation
-*12820301 0.0 6
-*12820400 0
-*12820401 300.00  7
-*12820501 282010000 0 1 1 1.1172  1
-*12820601 280010000 0 1 1 1.1172  1
-*12820701 0 0.0 0.0 0.0 1
-*12820800 1
-*12820801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.19  1.1 1.0 1
-*12820900 1
-*12820901 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.32  1.1 1.0 1
-*
 * steam generator outer cylindrical shell - heat structure 3400
 *
 13400000  13  7 2 1 0.2985  0
@@ -3702,142 +3139,6 @@
 13550801  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.27  1.1 1.0 1
 13550900  1
 13550901  0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.33  1.1 1.0 1
-*
-* CRD break nozzle - heat structure 0100
-*
-*10100000 25  7 2 1 0.0611  0
-*10100100 0 1
-*10100101 3 0.0707
-*10100102 3 0.1217
-*10100201 3 3
-*10100202 -9  6 * pipe insulation
-*10100301 0.0 6
-*10100400 0
-*10100401 531.75  7
-*10100501 10010000  10000 1 1 0.0196  25
-*10100601 -950  0 3951  1 0.0196  25
-*10100701 0 0.0 0.0 0.0 25
-*10100800 1
-*10100801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.00  1.1 1.0 25
-*
-* CRD break line piping from pressure vessel nozzle to valve V-332 - heat structure 0200
-*
-*10200000 35  7 2 1 0.0486  0
-*10200100 0 1
-*10200101 3 0.05715
-*10200102 3 0.10815
-*10200201 3 3
-*10200202 -9  6 * pipe insulation
-*10200301 0.0 6
-*10200400 0
-*10200401 531.75  7
-*10200501 20010000  10000 1 1 0.0204  35
-*10200601 -950  0 3951  1 0.0204  35
-*10200701 0 0.0 0.0 0.0 35
-*10200800 1
-*10200801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.00  1.1 1.0 35
-*
-* CRD break line piping from valve V-332 to RCST, section 1 - heat structure 0300
-*
-*10300000 92  7 2 1 0.0486  0
-*10300100 0 1
-*10300101 3 0.05715
-*10300102 3 0.10815
-*10300201 3 3
-*10300202 -9  6 * pipe insulation
-*10300301 0.0 6
-*10300400 0
-*10300401 300.00  7
-*10300501 30010000  10000 1 1 0.0200  92
-*10300601 -950  0 3951  1 0.0200  92
-*10300701 0 0.0 0.0 0.0 92
-*10300800 1
-*10300801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.10  1.1 1.0 92
-*
-* CRD break line piping from valve V-332 to RCST, section 2 - heat structure 0320
-*
-*10320000 92  7 2 1 0.0486  0
-*10320100 0 1
-*10320101 3 0.05715
-*10320102 3 0.10815
-*10320201 3 3
-*10320202 -9  6 * pipe insulation
-*10320301 0.0 6
-*10320400 0
-*10320401 300.00  7
-*10320501 32010000  10000 1 1 0.0200  92
-*10320601 -950  0 3951  1 0.0200  92
-*10320701 0 0.0 0.0 0.0 92
-*10320800 1
-*10320801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.10  1.1 1.0 92
-*
-* CRD break line piping from valve V-332 to RCST, section 3 - heat structure 0340
-*
-*10340000 92  7 2 1 0.0486  0
-*10340100 0 1
-*10340101 3 0.05715
-*10340102 3 0.10815
-*10340201 3 3
-*10340202 -9  6 * pipe insulation
-*10340301 0.0 6
-*10340400 0
-*10340401 300.00  7
-*10340501 34010000  10000 1 1 0.0200  92
-*10340601 -950  0 3951  1 0.0200  92
-*10340701 0 0.0 0.0 0.0 92
-*10340800 1
-*10340801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.10  1.1 1.0 92
-*
-* pressure vessel bottom break line piping from pressure vessel nozzle stub to valve V-331, section 1 - heat structure 0700
-*
-*10700000 73  7 2 1 0.0486  0
-*10700100 0 1
-*10700101 3 0.05715
-*10700102 3 0.10815
-*10700201 3 3
-*10700202 -9  6 * pipe insulation
-*10700301 0.0 6
-*10700400 0
-*10700401 531.75  7
-*10700501 70010000  10000 1 1 0.0201  73
-*10700601 -950  0 3951  1 0.0201  73
-*10700701 0 0.0 0.0 0.0 73
-*10700800 1
-*10700801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.27  1.1 1.0 73
-*
-* pressure vessel bottom break line piping from pressure vessel nozzle stub to valve V-331, section 1 - heat structure 0720
-*
-*10720000 73  7 2 1 0.0486  0
-*10720100 0 1
-*10720101 3 0.05715
-*10720102 3 0.10815
-*10720201 3 3
-*10720202 -9  6 * pipe insulation
-*10720301 0.0 6
-*10720400 0
-*10720401 531.75  7
-*10720501 72010000  10000 1 1 0.0201  73
-*10720601 -950  0 3951  1 0.0201  73
-*10720701 0 0.0 0.0 0.0 73
-*10720800 1
-*10720801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.27  1.1 1.0 73
-*
-* pressure vessel bottom break line piping from valve V-331 to RCST - heat structure 0800
-*
-*10800000 96  7 2 1 0.0486  0
-*10800100 0 1
-*10800101 3 0.05715
-*10800102 3 0.10815
-*10800201 3 3
-*10800202 -9  6 * pipe insulation
-*10800301 0.0 6
-*10800400 0
-*10800401 300.00  7
-*10800501 80010000  10000 1 1 0.0200  96
-*10800601 -950  0 3951  1 0.0200  96
-*10800701 0 0.0 0.0 0.0 96
-*10800800 1
-*10800801 0.0 1.0 1.0 0.0 0.0 0.0 0.0 1.0 0.10  1.1 1.0 96
 *
 * RCCS front panel (facing vessel) - heat structure 9500
 *
@@ -4886,16 +4187,6 @@
 * material properties
 *******************************************************
 *
-* Greencast-94F plus ceramic
-*
-20100100  tbl/fctn  1 1
-*20100101 250.0 5.25
-*20100102 478.0 5.25
-*20100103 698.0 3.58
-*20100104 923.0 2.83
-*20100105 1143.0  2.49
-*20100106 1368.0  2.47
-*20100107 2000.0  2.47
 * curve-fit values
 20100101  250.0 7.37
 20100102  300.0 7.37
@@ -4987,13 +4278,13 @@
 * 304 stainless steel
 *
 20100300  tbl/fctn  1 1
-20100301  200.0 13.25
+20100301  250.0 13.25
 20100302  300.0 13.25
 20100303  1671.0  39.1619
 20100304  1727.0  20.0
 20100305  3000.0  20.0
 *
-20100351  200.0 3.72E+06
+20100351  250.0 3.72E+06
 20100352  300.0 3.72E+06
 20100353  400.0 3.94E+06
 20100354  500.0 4.12E+06
@@ -5280,29 +4571,16 @@
 20260117  1900.0  32.35
 20260118  2000.0  26.83
 *
-* pressure in preimary loop PT-6001
+* pressure in preimary loop
 *
 20220000 reac-t
 *
-* pressure in RCST PT-4001
+* pressure in RCST
 * 
 20220100 reac-t
 *
-* Blower mass flow table
-20221000 reac-t
-*         time mass flow rate
-20221001      0.0  0.0 
-20221002    293.0  0.0 
-20221003    293.1  0.005 
-20221004 180550.0  0.005 
-20221005 180550.1  0.0 
-20221006  1.0e6    0.0 
-*
-* Core delta T measured TF-2311 - TF-6101
+* Core delta T measured
 20222000 reac-t
-*
-* Core inlet temperature TF-6202
-20223000 reac-t
 *
 * power in heater 101
 *
@@ -5368,13 +4646,6 @@
 * ---------------------------
 * inlet flow controller
 * AE This used to control the helium circulator
-* 
-* This is the dynamic controller for the helium circulator, the table input is below*
-*20502360  temperr sum 1.0 0.0 0
-*20502361  -960.15 1.0 tempg 175010000
-*
-*20502370  inflow  integral  0.001 1.0 0
-*20502371  cntrlvar  236
 *
 * Evaluate needed target delta T from table
 20544000 CoreDT function 1.0 0.0 0
@@ -5393,35 +4664,20 @@
 20502370 CoreDT mult 1.0 0.0 0
 20502371 cntrlvar 4401 cntrlvar 4403
 *
-* This is the table input for the helium circulator, the dynamic controller is above
-*20502370  inflow  function  1.0 0.0 0
-*20502371  time 0 210
-*
-* outlet pressure controller
-* AE This used to control the pressure at the SG outlet
-*    via a added tmdpvol (now removed)
-*20502330  presserr  sum 1.0 0.0 0
-*20502331  700000.0  -1.0  p 100010000
-*
-*20502340  inpress integral  0.5 7.00E+05  0
-*20502341  cntrlvar  233
-*
-* Helium circulator outlet temperature
-* --------------------------------------
-* Evaluate needed target delta T from table
-20545000 CoreT function 1.0 0.0 1
-20545001 time 0 230
-* compute difference
-20545010 CoreTinD sum 1.0 0.0 0 
-20545011 0.0 1.0 cntrlvar 4500 -1.0 tempg 240010000
-* compute new inlet temperature
-20545020 CoreTinD sum 1.0 0.0 0
-20545021  0.0 1.0 cntrlvar 4500 1.0 cntrlvar 4501
+* Helium circulator outlet temperature	
+* --------------------------------------	
+* Evaluate needed target delta T from table	
+20545000 CoreT function 1.0 0.0 1	
+20545001 time 0 230	
+* compute difference	
+20545010 CoreTinD sum 1.0 0.0 0 	
+20545011 0.0 1.0 cntrlvar 4500 -1.0 tempg 240010000	
+* compute new inlet temperature	
+20545020 CoreTinD sum 1.0 0.0 0	
+20545021  0.0 1.0 cntrlvar 4500 1.0 cntrlvar 4501	
 *
 * feedwater flow control
 *
-*20503190  SGtmperr  sum 1.0 0.0 0
-*20503191  -531.75 1.0 tempg 270040000 * temperature setpoint
 * AE steam generator feedwater flow controled bt SG level, not temperature
 20503190  SGlvlerr  sum 1.0 0.0 0
 20503191  65.00 -1.0 cntrlvar 355 * SG level setpoint
@@ -5435,7 +4691,6 @@
 * steam pressure control
 *
 20503690  SG-P-err  sum 1.0 0.0 0
-*20503691  -515000.0 1.0 p 355010000 * steam pressure
 * AE change the steam pressure set point
 20503691  -125000.0 1.0 p 355010000 * steam pressure
 *
@@ -5446,7 +4701,7 @@
 * Primary pressure control
 * ===================
 * Evaluate needed pressure from table 
-20542000 PrimPre function 1.0 0.0 1
+20542000 PrimPre function 1.0 0.0 0
 20542001 time 0 200
 * conmpuet difference during heat-up 
 * => He goes in SV-4014
@@ -6047,14 +5302,6 @@
 20502760  rvessdp sum 1.0 0.0 1
 20502761  0.0 1.0 p 100010000 -1.0  p 200010000
 *
-* feedwater flow control (for transients with steam generator PCS isolation)
-*
-*20503190 SGleverr  sum 1.0 0.0 0
-*20503191 2.0520  -1.0  cntrlvar  350
-*
-*20503200 SGFWflow  integral  0.01  0.0 0
-*20503201 cntrlvar  319
-*
 * liquid level (m) in steam generator boiler
 *
 20503500  SGlevel sum 1.0 0.0 1
@@ -6067,7 +5314,7 @@
 *
 * facility steam generator liquid level (% of span)
 *
-20503550  LF-5002 sum 44.58116  50.0  1
+20503550  LF-5002 sum 44.58116  0.6913  1 3 0.6 0.8
 20503551  -0.03815  1.0 cntrlvar  350
 *
 * potable water supply valve controls
@@ -6078,10 +5325,6 @@
 20504031  0.0 1.0 mflowj  320000000
 * if the alternate RCCS source volume is being used and flow is not being discharged to the storage tank, delete the card below
 20504032    1.0 mflowj  945010000 -1.0000 mflowj  955010000
-* if the normal RCCS water source is being used but flow is not recirculated to the storage tank, use the card below
-*20504032   1.0 mflowj  945010000
-* if the alternate RCCS source volume is being used but flow is being discharged to the storage tank, use the card below
-*20504032   -1.0  mflowj  955010000
 *
 20504040  lowlevel  tripunit  1.0 0.0 0
 20504041  1410
@@ -6223,8 +5466,6 @@
 20509190  RCCSterr  sum 1.0 0.0 0
 20509191  0.0 1.0 tempf 955010000 -1.0  cntrlvar  918
 *
-*20509200  RCCSflo prop-int  1.0 1.0 0 1 0.0
-*20509201  0.07  0.0001  cntrlvar  919
 * AE made this a little faster 
 20509200  RCCSflo prop-int  1.0 0.0 1 1 0.0
 20509201  0.07  0.01  cntrlvar  919
@@ -7128,10 +6369,6 @@
 *
 * environmental heat losses
 *
-*20514010  hs200ehl  sum 1.0 0.0 1
-*20514011  0.0 0.656 htrnr 200100101 0.656 htrnr 200100201
-* environmental heat loss calculations
-* AE New coponent -> split duct
 20514010  hs200ehl  sum 1.0 0.0 1
 20514011  0.0 0.328 htrnr 200100101 0.328 htrnr 200100201
 20514012    0.328 htrnr 206100101 0.328 htrnr 206100201
@@ -7168,7 +6405,6 @@
 20514130  hs280ehl  sum 1.0 0.0 1
 20514131  0.0 8.969 htrnr 280000101 29.852  htrnr 280000201
 * replace the card above with the one below when using the single-volume RCST
-*20514131 0.0 38.821  htrnr 280000101
 *
 20514140  hs340ehl  sum 1.0 0.0 1
 20514141  0.0 0.315 htrnr 340000101 0.315 htrnr 340000201
@@ -7181,366 +6417,6 @@
 *
 20514150  hs355ehl  sum 1.0 0.0 1
 20514151  0.0 0.689 htrnr 355000101
-*
-* use the cards below for a CRD line break
-*
-*20514160 hl0100  sum 1.0 0.0 1
-*20514161 0.0 0.0149  htrnr 10000101  0.0149  htrnr 10000201
-*20514162   0.0149  htrnr 10000301  0.0149  htrnr 10000401
-*20514163   0.0149  htrnr 10000501  0.0149  htrnr 10000601
-*20514164   0.0149  htrnr 10000701  0.0149  htrnr 10000801
-*20514165   0.0149  htrnr 10000901  0.0149  htrnr 10001001
-*20514166   0.0149  htrnr 10001101  0.0149  htrnr 10001201
-*20514167   0.0149  htrnr 10001301  0.0149  htrnr 10001401
-*20514168   0.0149  htrnr 10001501  0.0149  htrnr 10001601
-*+    0.0149  htrnr 10001701  0.0149  htrnr 10001801
-*+    0.0149  htrnr 10001901  0.0149  htrnr 10002001
-*+    0.0149  htrnr 10002101  0.0149  htrnr 10002201
-*+    0.0149  htrnr 10002301  0.0149  htrnr 10002401
-*+    0.0149  htrnr 10002501
-*
-*20514170 hl020-1 sum 1.0 0.0 1
-*20514171 0.0 0.0139  htrnr 20000101  0.0139  htrnr 20000201
-*20514172   0.0139  htrnr 20000301  0.0139  htrnr 20000401
-*20514173   0.0139  htrnr 20000501  0.0139  htrnr 20000601
-*20514174   0.0139  htrnr 20000701  0.0139  htrnr 20000801
-*20514175   0.0139  htrnr 20000901  0.0139  htrnr 20001001
-*20514176   0.0139  htrnr 20001101  0.0139  htrnr 20001201
-*20514177   0.0139  htrnr 20001301  0.0139  htrnr 20001401
-*20514178   0.0139  htrnr 20001501  0.0139  htrnr 20001601
-*+    0.0139  htrnr 20001701  0.0139  htrnr 20001801
-*+    0.0139  htrnr 20001901  0.0139  htrnr 20002001
-*+    0.0139  htrnr 20002101  0.0139  htrnr 20002201
-*+    0.0139  htrnr 20002301  0.0139  htrnr 20002401
-*+    0.0139  htrnr 20002501  0.0139  htrnr 20002601
-*+    0.0139  htrnr 20002701  0.0139  htrnr 20002801
-*+    0.0139  htrnr 20002901  0.0139  htrnr 20003001
-*+    0.0139  htrnr 20003101  0.0139  htrnr 20003201
-*+    0.0139  htrnr 20003301  0.0139  htrnr 20003401
-*+    0.0139  htrnr 20003501
-*
-*20514180 hl030-1 sum 1.0 0.0 1
-*20514181 0.0 0.0136  htrnr 30000101  0.0136  htrnr 30000201
-*20514182   0.0136  htrnr 30000301  0.0136  htrnr 30000401
-*20514183   0.0136  htrnr 30000501  0.0136  htrnr 30000601
-*20514184   0.0136  htrnr 30000701  0.0136  htrnr 30000801
-*20514185   0.0136  htrnr 30000901  0.0136  htrnr 30001001
-*20514186   0.0136  htrnr 30001101  0.0136  htrnr 30001201
-*20514187   0.0136  htrnr 30001301  0.0136  htrnr 30001401
-*20514188   0.0136  htrnr 30001501  0.0136  htrnr 30001601
-*+    0.0136  htrnr 30001701  0.0136  htrnr 30001801
-*+    0.0136  htrnr 30001901  0.0136  htrnr 30002001
-*+    0.0136  htrnr 30002101  0.0136  htrnr 30002201
-*+    0.0136  htrnr 30002301  0.0136  htrnr 30002401
-*+    0.0136  htrnr 30002501  0.0136  htrnr 30002601
-*+    0.0136  htrnr 30002701  0.0136  htrnr 30002801
-*+    0.0136  htrnr 30002901  0.0136  htrnr 30003001
-*+    0.0136  htrnr 30003101  0.0136  htrnr 30003201
-*+    0.0136  htrnr 30003301  0.0136  htrnr 30003401
-*+    0.0136  htrnr 30003501  0.0136  htrnr 30003601
-*+    0.0136  htrnr 30003701  0.0136  htrnr 30003801
-*+    0.0136  htrnr 30003901  0.0136  htrnr 30004001
-*
-*20514190 hl030-2 sum 1.0 0.0 1
-*20514191 0.0 0.0136  htrnr 30004101  0.0136  htrnr 30004201
-*20514192   0.0136  htrnr 30004301  0.0136  htrnr 30004401
-*20514193   0.0136  htrnr 30004501  0.0136  htrnr 30004601
-*20514194   0.0136  htrnr 30004701  0.0136  htrnr 30004801
-*20514195   0.0136  htrnr 30004901  0.0136  htrnr 30005001
-*20514196   0.0136  htrnr 30005101  0.0136  htrnr 30005201
-*20514197   0.0136  htrnr 30005301  0.0136  htrnr 30005401
-*20514198   0.0136  htrnr 30005501  0.0136  htrnr 30005601
-*+    0.0136  htrnr 30005701  0.0136  htrnr 30005801
-*+    0.0136  htrnr 30005901  0.0136  htrnr 30006001
-*+    0.0136  htrnr 30006101  0.0136  htrnr 30006201
-*+    0.0136  htrnr 30006301  0.0136  htrnr 30006401
-*+    0.0136  htrnr 30006501  0.0136  htrnr 30006601
-*+    0.0136  htrnr 30006701  0.0136  htrnr 30006801
-*+    0.0136  htrnr 30006901  0.0136  htrnr 30007001
-*+    0.0136  htrnr 30007101  0.0136  htrnr 30007201
-*+    0.0136  htrnr 30007301  0.0136  htrnr 30007401
-*+    0.0136  htrnr 30007501  0.0136  htrnr 30007601
-*+    0.0136  htrnr 30007701  0.0136  htrnr 30007801
-*+    0.0136  htrnr 30007901  0.0136  htrnr 30008001
-*
-*20514200 hl030-3 sum 1.0 0.0 1
-*20514201 0.0 0.0136  htrnr 30008101  0.0136  htrnr 30008201
-*20514202   0.0136  htrnr 30008301  0.0136  htrnr 30008401
-*20514203   0.0136  htrnr 30008501  0.0136  htrnr 30008601
-*20514204   0.0136  htrnr 30008701  0.0136  htrnr 30008801
-*20514205   0.0136  htrnr 30008901  0.0136  htrnr 30009001
-*20514206   0.0136  htrnr 30009101  0.0136  htrnr 30009201
-*
-*20514210 hs030ehl  sum 1.0 0.0 1
-*20514211 0.0 1.0 cntrlvar  1418  1.0 cntrlvar  1419
-*20514212   1.0 cntrlvar  1420
-*
-*20514220 hl032-1 sum 1.0 0.0 1
-*20514221 0.0 0.0136  htrnr 32000101  0.0136  htrnr 32000201
-*20514222   0.0136  htrnr 32000301  0.0136  htrnr 32000401
-*20514223   0.0136  htrnr 32000501  0.0136  htrnr 32000601
-*20514224   0.0136  htrnr 32000701  0.0136  htrnr 32000801
-*20514225   0.0136  htrnr 32000901  0.0136  htrnr 32001001
-*20514226   0.0136  htrnr 32001101  0.0136  htrnr 32001201
-*20514227   0.0136  htrnr 32001301  0.0136  htrnr 32001401
-*20514228   0.0136  htrnr 32001501  0.0136  htrnr 32001601
-*+    0.0136  htrnr 32001701  0.0136  htrnr 32001801
-*+    0.0136  htrnr 32001901  0.0136  htrnr 32002001
-*+    0.0136  htrnr 32002101  0.0136  htrnr 32002201
-*+    0.0136  htrnr 32002301  0.0136  htrnr 32002401
-*+    0.0136  htrnr 32002501  0.0136  htrnr 32002601
-*+    0.0136  htrnr 32002701  0.0136  htrnr 32002801
-*+    0.0136  htrnr 32002901  0.0136  htrnr 32003001
-*+    0.0136  htrnr 32003101  0.0136  htrnr 32003201
-*+    0.0136  htrnr 32003301  0.0136  htrnr 32003401
-*+    0.0136  htrnr 32003501  0.0136  htrnr 32003601
-*+    0.0136  htrnr 32003701  0.0136  htrnr 32003801
-*+    0.0136  htrnr 32003901  0.0136  htrnr 32004001
-*
-*20514230 hl032-2 sum 1.0 0.0 1
-*20514231 0.0 0.0136  htrnr 32004101  0.0136  htrnr 32004201
-*20514232   0.0136  htrnr 32004301  0.0136  htrnr 32004401
-*20514233   0.0136  htrnr 32004501  0.0136  htrnr 32004601
-*20514234   0.0136  htrnr 32004701  0.0136  htrnr 32004801
-*20514235   0.0136  htrnr 32004901  0.0136  htrnr 32005001
-*20514236   0.0136  htrnr 32005101  0.0136  htrnr 32005201
-*20514237   0.0136  htrnr 32005301  0.0136  htrnr 32005401
-*20514238   0.0136  htrnr 32005501  0.0136  htrnr 32005601
-*+    0.0136  htrnr 32005701  0.0136  htrnr 32005801
-*+    0.0136  htrnr 32005901  0.0136  htrnr 32006001
-*+    0.0136  htrnr 32006101  0.0136  htrnr 32006201
-*+    0.0136  htrnr 32006301  0.0136  htrnr 32006401
-*+    0.0136  htrnr 32006501  0.0136  htrnr 32006601
-*+    0.0136  htrnr 32006701  0.0136  htrnr 32006801
-*+    0.0136  htrnr 32006901  0.0136  htrnr 32007001
-*+    0.0136  htrnr 32007101  0.0136  htrnr 32007201
-*+    0.0136  htrnr 32007301  0.0136  htrnr 32007401
-*+    0.0136  htrnr 32007501  0.0136  htrnr 32007601
-*+    0.0136  htrnr 32007701  0.0136  htrnr 32007801
-*+    0.0136  htrnr 32007901  0.0136  htrnr 32008001
-*
-*20514240 hl032-3 sum 1.0 0.0 1
-*20514241 0.0 0.0136  htrnr 32008101  0.0136  htrnr 32008201
-*20514242   0.0136  htrnr 32008301  0.0136  htrnr 32008401
-*20514243   0.0136  htrnr 32008501  0.0136  htrnr 32008601
-*20514244   0.0136  htrnr 32008701  0.0136  htrnr 32008801
-*20514245   0.0136  htrnr 32008901  0.0136  htrnr 32009001
-*20514246   0.0136  htrnr 32009101  0.0136  htrnr 32009201
-*
-*20514250 hs032ehl  sum 1.0 0.0 1
-*20514251 0.0 1.0 cntrlvar  1422  1.0 cntrlvar  1423
-*20514252   1.0 cntrlvar  1424
-*
-*20514260 hl034-1 sum 1.0 0.0 1
-*20514261 0.0 0.0136  htrnr 34000101  0.0136  htrnr 34000201
-*20514262   0.0136  htrnr 34000301  0.0136  htrnr 34000401
-*20514263   0.0136  htrnr 34000501  0.0136  htrnr 34000601
-*20514264   0.0136  htrnr 34000701  0.0136  htrnr 34000801
-*20514265   0.0136  htrnr 34000901  0.0136  htrnr 34001001
-*20514266   0.0136  htrnr 34001101  0.0136  htrnr 34001201
-*20514267   0.0136  htrnr 34001301  0.0136  htrnr 34001401
-*20514268   0.0136  htrnr 34001501  0.0136  htrnr 34001601
-*+    0.0136  htrnr 34001701  0.0136  htrnr 34001801
-*+    0.0136  htrnr 34001901  0.0136  htrnr 34002001
-*+    0.0136  htrnr 34002101  0.0136  htrnr 34002201
-*+    0.0136  htrnr 34002301  0.0136  htrnr 34002401
-*+    0.0136  htrnr 34002501  0.0136  htrnr 34002601
-*+    0.0136  htrnr 34002701  0.0136  htrnr 34002801
-*+    0.0136  htrnr 34002901  0.0136  htrnr 34003001
-*+    0.0136  htrnr 34003101  0.0136  htrnr 34003201
-*+    0.0136  htrnr 34003301  0.0136  htrnr 34003401
-*+    0.0136  htrnr 34003501  0.0136  htrnr 34003601
-*+    0.0136  htrnr 34003701  0.0136  htrnr 34003801
-*+    0.0136  htrnr 34003901  0.0136  htrnr 34004001
-*
-*20514270 hl034-2 sum 1.0 0.0 1
-*20514271 0.0 0.0136  htrnr 34004101  0.0136  htrnr 34004201
-*20514272   0.0136  htrnr 34004301  0.0136  htrnr 34004401
-*20514273   0.0136  htrnr 34004501  0.0136  htrnr 34004601
-*20514274   0.0136  htrnr 34004701  0.0136  htrnr 34004801
-*20514275   0.0136  htrnr 34004901  0.0136  htrnr 34005001
-*20514276   0.0136  htrnr 34005101  0.0136  htrnr 34005201
-*20514277   0.0136  htrnr 34005301  0.0136  htrnr 34005401
-*20514278   0.0136  htrnr 34005501  0.0136  htrnr 34005601
-*+    0.0136  htrnr 34005701  0.0136  htrnr 34005801
-*+    0.0136  htrnr 34005901  0.0136  htrnr 34006001
-*+    0.0136  htrnr 34006101  0.0136  htrnr 34006201
-*+    0.0136  htrnr 34006301  0.0136  htrnr 34006401
-*+    0.0136  htrnr 34006501  0.0136  htrnr 34006601
-*+    0.0136  htrnr 34006701  0.0136  htrnr 34006801
-*+    0.0136  htrnr 34006901  0.0136  htrnr 34007001
-*+    0.0136  htrnr 34007101  0.0136  htrnr 34007201
-*+    0.0136  htrnr 34007301  0.0136  htrnr 34007401
-*+    0.0136  htrnr 34007501  0.0136  htrnr 34007601
-*+    0.0136  htrnr 34007701  0.0136  htrnr 34007801
-*+    0.0136  htrnr 34007901  0.0136  htrnr 34008001
-*
-*20514280 hl034-3 sum 1.0 0.0 1
-*20514281 0.0 0.0136  htrnr 34008101  0.0136  htrnr 34008201
-*20514282   0.0136  htrnr 34008301  0.0136  htrnr 34008401
-*20514283   0.0136  htrnr 34008501  0.0136  htrnr 34008601
-*20514284   0.0136  htrnr 34008701  0.0136  htrnr 34008801
-*20514285   0.0136  htrnr 34008901  0.0136  htrnr 34009001
-*20514286   0.0136  htrnr 34009101  0.0136  htrnr 34009201
-*
-*20514290 hs034ehl  sum 1.0 0.0 1
-*20514291 0.0 1.0 cntrlvar  1426  1.0 cntrlvar  1427
-*20514292   1.0 cntrlvar  1428
-*
-*20514300 CRDbkehl  sum 1.0 0.0 1
-*20514301 0.0 1.0 cntrlvar  1416  1.0 cntrlvar  1417
-*20514302   1.0 cntrlvar  1421  1.0 cntrlvar  1425
-*20514303   1.0 cntrlvar  1429
-*
-* use the cards below for a vessel bottom break
-*20514310 hl070-1 sum 1.0 0.0 1
-*20514311 0.0 0.0137  htrnr 70000101  0.0137  htrnr 70000201
-*20514312   0.0137  htrnr 70000301  0.0137  htrnr 70000401
-*20514313   0.0137  htrnr 70000501  0.0137  htrnr 70000601
-*20514314   0.0137  htrnr 70000701  0.0137  htrnr 70000801
-*20514315   0.0137  htrnr 70000901  0.0137  htrnr 70001001
-*20514316   0.0137  htrnr 70001101  0.0137  htrnr 70001201
-*20514317   0.0137  htrnr 70001301  0.0137  htrnr 70001401
-*20514318   0.0137  htrnr 70001501  0.0137  htrnr 70001601
-*+    0.0137  htrnr 70001701  0.0137  htrnr 70001801
-*+    0.0137  htrnr 70001901  0.0137  htrnr 70002001
-*+    0.0137  htrnr 70002101  0.0137  htrnr 70002201
-*+    0.0137  htrnr 70002301  0.0137  htrnr 70002401
-*+    0.0137  htrnr 70002501  0.0137  htrnr 70002601
-*+    0.0137  htrnr 70002701  0.0137  htrnr 70002801
-*+    0.0137  htrnr 70002901  0.0137  htrnr 70003001
-*+    0.0137  htrnr 70003101  0.0137  htrnr 70003201
-*+    0.0137  htrnr 70003301  0.0137  htrnr 70003401
-*+    0.0137  htrnr 70003501  0.0137  htrnr 70003601
-*+    0.0137  htrnr 70003701  0.0137  htrnr 70003801
-*+    0.0137  htrnr 70003901  0.0137  htrnr 70004001
-*
-*20514320 hl070-2 sum 1.0 0.0 1
-*20514321 0.0 0.0137  htrnr 70004101  0.0137  htrnr 70004201
-*20514322   0.0137  htrnr 70004301  0.0137  htrnr 70004401
-*20514323   0.0137  htrnr 70004501  0.0137  htrnr 70004601
-*20514324   0.0137  htrnr 70004701  0.0137  htrnr 70004801
-*20514325   0.0137  htrnr 70004901  0.0137  htrnr 70005001
-*20514326   0.0137  htrnr 70005101  0.0137  htrnr 70005201
-*20514327   0.0137  htrnr 70005301  0.0137  htrnr 70005401
-*20514328   0.0137  htrnr 70005501  0.0137  htrnr 70005601
-*+    0.0137  htrnr 70005701  0.0137  htrnr 70005801
-*+    0.0137  htrnr 70005901  0.0137  htrnr 70006001
-*+    0.0137  htrnr 70006101  0.0137  htrnr 70006201
-*+    0.0137  htrnr 70006301  0.0137  htrnr 70006401
-*+    0.0137  htrnr 70006501  0.0137  htrnr 70006601
-*+    0.0137  htrnr 70006701  0.0137  htrnr 70006801
-*+    0.0137  htrnr 70006901  0.0137  htrnr 70007001
-*+    0.0137  htrnr 70007101  0.0137  htrnr 70007201
-*+    0.0137  htrnr 70007301
-*
-*20514330 hs070ehl  sum 1.0 0.0 1
-*20514331 0.0 1.0 cntrlvar  1431  1.0 cntrlvar  1432
-*
-*20514340 hl072-1 sum 1.0 0.0 1
-*20514341 0.0 0.0137  htrnr 72000101  0.0137  htrnr 72000201
-*20514342   0.0137  htrnr 72000301  0.0137  htrnr 72000401
-*20514343   0.0137  htrnr 72000501  0.0137  htrnr 72000601
-*20514344   0.0137  htrnr 72000701  0.0137  htrnr 72000801
-*20514345   0.0137  htrnr 72000901  0.0137  htrnr 72001001
-*20514346   0.0137  htrnr 72001101  0.0137  htrnr 72001201
-*20514347   0.0137  htrnr 72001301  0.0137  htrnr 72001401
-*20514348   0.0137  htrnr 72001501  0.0137  htrnr 72001601
-*+    0.0137  htrnr 72001701  0.0137  htrnr 72001801
-*+    0.0137  htrnr 72001901  0.0137  htrnr 72002001
-*+    0.0137  htrnr 72002101  0.0137  htrnr 72002201
-*+    0.0137  htrnr 72002301  0.0137  htrnr 72002401
-*+    0.0137  htrnr 72002501  0.0137  htrnr 72002601
-*+    0.0137  htrnr 72002701  0.0137  htrnr 72002801
-*+    0.0137  htrnr 72002901  0.0137  htrnr 72003001
-*+    0.0137  htrnr 72003101  0.0137  htrnr 72003201
-*+    0.0137  htrnr 72003301  0.0137  htrnr 72003401
-*+    0.0137  htrnr 72003501  0.0137  htrnr 72003601
-*+    0.0137  htrnr 72003701  0.0137  htrnr 72003801
-*+    0.0137  htrnr 72003901  0.0137  htrnr 72004001
-*
-*20514350 hl072-2 sum 1.0 0.0 1
-*20514351 0.0 0.0137  htrnr 72004101  0.0137  htrnr 72004201
-*20514352   0.0137  htrnr 72004301  0.0137  htrnr 72004401
-*20514353   0.0137  htrnr 72004501  0.0137  htrnr 72004601
-*20514354   0.0137  htrnr 72004701  0.0137  htrnr 72004801
-*20514355   0.0137  htrnr 72004901  0.0137  htrnr 72005001
-*20514356   0.0137  htrnr 72005101  0.0137  htrnr 72005201
-*20514357   0.0137  htrnr 72005301  0.0137  htrnr 72005401
-*20514358   0.0137  htrnr 72005501  0.0137  htrnr 72005601
-*+    0.0137  htrnr 72005701  0.0137  htrnr 72005801
-*+    0.0137  htrnr 72005901  0.0137  htrnr 72006001
-*+    0.0137  htrnr 72006101  0.0137  htrnr 72006201
-*+    0.0137  htrnr 72006301  0.0137  htrnr 72006401
-*+    0.0137  htrnr 72006501  0.0137  htrnr 72006601
-*+    0.0137  htrnr 72006701  0.0137  htrnr 72006801
-*+    0.0137  htrnr 72006901  0.0137  htrnr 72007001
-*+    0.0137  htrnr 72007101  0.0137  htrnr 72007201
-*+    0.0137  htrnr 72007301
-*
-*20514360 hs072ehl  sum 1.0 0.0 1
-*20514361 0.0 1.0 cntrlvar  1434  1.0 cntrlvar  1435
-*
-*20514370 hl080-1 sum 1.0 0.0 1
-*20514371 0.0 0.0136  htrnr 80000101  0.0136  htrnr 80000201
-*20514372   0.0136  htrnr 80000301  0.0136  htrnr 80000401
-*20514373   0.0136  htrnr 80000501  0.0136  htrnr 80000601
-*20514374   0.0136  htrnr 80000701  0.0136  htrnr 80000801
-*20514375   0.0136  htrnr 80000901  0.0136  htrnr 80001001
-*20514376   0.0136  htrnr 80001101  0.0136  htrnr 80001201
-*20514377   0.0136  htrnr 80001301  0.0136  htrnr 80001401
-*20514378   0.0136  htrnr 80001501  0.0136  htrnr 80001601
-*+    0.0136  htrnr 80001701  0.0136  htrnr 80001801
-*+    0.0136  htrnr 80001901  0.0136  htrnr 80002001
-*+    0.0136  htrnr 80002101  0.0136  htrnr 80002201
-*+    0.0136  htrnr 80002301  0.0136  htrnr 80002401
-*+    0.0136  htrnr 80002501  0.0136  htrnr 80002601
-*+    0.0136  htrnr 80002701  0.0136  htrnr 80002801
-*+    0.0136  htrnr 80002901  0.0136  htrnr 80003001
-*+    0.0136  htrnr 80003101  0.0136  htrnr 80003201
-*+    0.0136  htrnr 80003301  0.0136  htrnr 80003401
-*+    0.0136  htrnr 80003501  0.0136  htrnr 80003601
-*+    0.0136  htrnr 80003701  0.0136  htrnr 80003801
-*+    0.0136  htrnr 80003901  0.0136  htrnr 80004001
-*
-*20514380 hl080-2 sum 1.0 0.0 1
-*20514381 0.0 0.0136  htrnr 80004101  0.0136  htrnr 80004201
-*20514382   0.0136  htrnr 80004301  0.0136  htrnr 80004401
-*20514383   0.0136  htrnr 80004501  0.0136  htrnr 80004601
-*20514384   0.0136  htrnr 80004701  0.0136  htrnr 80004801
-*20514385   0.0136  htrnr 80004901  0.0136  htrnr 80005001
-*20514386   0.0136  htrnr 80005101  0.0136  htrnr 80005201
-*20514387   0.0136  htrnr 80005301  0.0136  htrnr 80005401
-*20514388   0.0136  htrnr 80005501  0.0136  htrnr 80005601
-*+    0.0136  htrnr 80005701  0.0136  htrnr 80005801
-*+    0.0136  htrnr 80005901  0.0136  htrnr 80006001
-*+    0.0136  htrnr 80006101  0.0136  htrnr 80006201
-*+    0.0136  htrnr 80006301  0.0136  htrnr 80006401
-*+    0.0136  htrnr 80006501  0.0136  htrnr 80006601
-*+    0.0136  htrnr 80006701  0.0136  htrnr 80006801
-*+    0.0136  htrnr 80006901  0.0136  htrnr 80007001
-*+    0.0136  htrnr 80007101  0.0136  htrnr 80007201
-*+    0.0136  htrnr 80007301  0.0136  htrnr 80007401
-*+    0.0136  htrnr 80007501  0.0136  htrnr 80007601
-*+    0.0136  htrnr 80007701  0.0136  htrnr 80007801
-*+    0.0136  htrnr 80007901  0.0136  htrnr 80008001
-*
-*20514390 hl080-3 sum 1.0 0.0 1
-*20514391 0.0 0.0136  htrnr 80008101  0.0136  htrnr 80008201
-*20514392   0.0136  htrnr 80008301  0.0136  htrnr 80008401
-*20514393   0.0136  htrnr 80008501  0.0136  htrnr 80008601
-*20514394   0.0136  htrnr 80008701  0.0136  htrnr 80008801
-*20514395   0.0136  htrnr 80008901  0.0136  htrnr 80009001
-*20514396   0.0136  htrnr 80009101  0.0136  htrnr 80009201
-*20514397   0.0136  htrnr 80009301  0.0136  htrnr 80009401
-*20514398   0.0136  htrnr 80009501  0.0136  htrnr 80009601
-*
-*20514400 hs080ehl  sum 1.0 0.0 1
-*20514401 0.0 1.0 cntrlvar  1437  1.0 cntrlvar  1438
-*20514402   1.0 cntrlvar  1439
-*
-*20514410 vbtbkehl  sum 1.0 0.0 1
-*20514411 0.0 1.0 cntrlvar  1436  1.0 cntrlvar  1440
 *
 20514440  pipeehl sum 1.0 0.0 1
 20514441  0.0 1.0 cntrlvar  1401  1.0 cntrlvar  1403
@@ -7555,12 +6431,6 @@
 20514460  PCSehl  sum 1.0 0.0 1
 20514461  0.0 1.0 cntrlvar  1444  1.0 cntrlvar  1404
 20514462    1.0 cntrlvar  1405  1.0 cntrlvar  1413
-* add the card below if the vessel CRD break line is included in the model
-*20514463   1.0 cntrlvar  1430
-* add the card below if the vessel bottom break line is included in the model
-*20514463   1.0 cntrlvar  1441
-* add the card below if both vessel break lines are included in the model
-*20514463   1.0 cntrlvar  1430  1.0 cntrlvar  1441
 *
 20514470  SCSehl  sum 1.0 0.0 1
 20514471  0.0 1.0 cntrlvar  1414  1.0 cntrlvar  1415
@@ -7661,11 +6531,6 @@
 20516111  0.0 1.0 cntrlvar  1608  1.0 cntrlvar  1609
 20516112    1.0 cntrlvar  1610
 *
-*20516150  masshleg  sum 1.0 0.0 1
-*20516151  0.0 1.0 tmassv  200010000 1.0 tmassv  200020000
-*20516152    1.0 tmassv  200030000 1.0 tmassv  200040000
-*20516153    1.0 tmassv  200050000 1.0 tmassv  200060000
-*20516154    1.0 tmassv  215010000
 * coolant mass calculations
 * AE New coponent -> split duct
 20516150  masshleg  sum 1.0 0.0 1
@@ -7678,7 +6543,7 @@
 20516157    1.0 tmassv  206060000 1.0 tmassv  206070000
 *
 20516160  massSGp sum 1.0 0.0 1
-20516161  0.0 1.0 tmassv  220010000 * 1.0 tmassv  228010000
+20516161  0.0 1.0 tmassv  220010000 1.0 tmassv  228010000
 20516162    1.0 tmassv  225010000 1.0 tmassv  225020000
 20516163    1.0 tmassv  225030000 1.0 tmassv  225040000
 20516164    1.0 tmassv  225050000 1.0 tmassv  225060000
@@ -7706,11 +6571,7 @@
 20516190  massPCS sum 1.0 0.0 1
 20516191  0.0 1.0 cntrlvar  1611  1.0 cntrlvar  1618
 *
-*20516210  massRCST  sum 1.0 0.0 1
-*20516211  0.0 1.0 tmassv  210010000 1.0 tmassv  258010000
-*20516212    1.0 tmassv  280010000 1.0 tmassv  280020000
 * replace the card above with the one below when using the single-volume RCST
-***20516212   1.0 tmassv  280010000
 * AE New coponent -> split duct
 20516210  massRCST  sum 1.0 0.0 1
 20516211  0.0 1.0 tmassv  282010000 1.0 tmassv  258010000
@@ -7764,854 +6625,6 @@
 20516400  massWS  sum 1.0 0.0 1
 20516401  0.0 1.0 cntrlvar  1627  1.0 cntrlvar  1632
 20516402    1.0 cntrlvar  1637
-*
-* variables for scaling assessments
-*
-*20520010  ch115dp sum 1.0 0.0 1
-*20520011  0.0 1.0 p 115010000 -1.0  p 115140000
-*
-*20520020  ch115pav  sum 1.0 0.0 1
-*20520021  0.0 0.5 p 115010000 0.5 p 115140000
-*
-*20520030  ch115dt sum 1.0 0.0 1
-*20520031  0.0 1.0 tempg 115140000 -1.0  tempg 115010000
-*
-*20520040  ch115tav  sum 1.0 0.0 1
-*20520041  0.0 0.5 tempg 115140000 0.5 tempg 115010000
-*
-*20520050  ch115rhv  sum 1.0 0.0 1
-*20520051  0.0 0.5 rhog  115140000 0.5 rhog  115010000
-*
-*20520060  ch115Cpt  mult  1.0 0.0 1
-*20520061  csubpg  115010000
-*
-*20520070  ch115Cpb  mult  1.0 0.0 1
-*20520071  csubpg  115140000
-*
-*20520080  ch115Cpa  sum 1.0 0.0 1
-*20520081  0.0 0.5 csubpg  115140000 0.5 csubpg  115010000
-*
-*20520090  ch115vsm  mult  1.0 1.0E-05 1
-*20520091  viscg 115080000
-*
-*20520100  ch115ivs  div 1.0 1.0E+05 1
-*20520101  viscg 115080000
-*
-*20520110  ch115Bm mult  1.0 0.0 1
-*20520111  betagg  115080000
-*
-*20520120  ch115Cpm  mult  1.0 0.0 1
-*20520121  csubpg  115080000
-*
-*20520130  ch115tcm  mult  1.0 0.0 1
-*20520131  thcong  115080000
-*
-*20520140  ch115itc  div 1.0 0.0 1
-*20520141  thcong  115080000
-*
-*20520150  ch115dTw  sum 1.0 0.0 1
-*20520151  0.0 1.0 httemp  115001005 -1.0  tempg 115100000
-*
-*20520160  ch115Gm mult  1.0 0.0 1
-*20520161  rhog  115080000 velg  115080000
-*
-*20520170  ch115Re mult  0.11430 0.0 1
-*20520171  cntrlvar  2016  cntrlvar  2010
-*
-*20520180  ch115Nu mult  0.11430 0.0 1
-*20520181  hthtc 115001001 cntrlvar  2014
-*
-*20520190  ch115Pr mult  1.0 0.0 1
-*20520191  csubpg  115080000 viscg 115080000 cntrlvar  2014
-*
-*20520200  ch115Gr mult  394.55  0.0 1
-*20520201  betagg  115080000 cntrlvar  2015  rhog  115080000
-*20520202  rhog  115080000 cntrlvar  2010  cntrlvar  2010
-*
-*20520210  ch115Fr poweri  0.8927  0.0 1
-*20520211  velg  115080000 2
-*
-*20520220  ch115q-1  mult  1.0 0.0 1
-*20520221  betagg  115080000 htrnr 115001001
-*
-*20520230  ch115q-2  mult  1.0 0.0 1
-*20520231  cntrlvar  2016  csubpg  115080000
-*
-*20520240  ch115q+ div 1.0 0.0 1
-*20520241  cntrlvar  2023  cntrlvar  2022
-*
-*20520250  ch115Kv div 4.0 0.0 1
-*20520251  cntrlvar  2017  cntrlvar  2024
-*
-*20520260  ch115Re2  poweri  1.0 0.0 1
-*20520261  cntrlvar  2017  2
-*
-*20520270  ch115Ri div 1.0 0.0 1
-*20520271  cntrlvar  2026  cntrlvar  2020
-*
-*20520280  ch115B01  powerr  1.0 0.0 1
-*20520281  cntrlvar  2026  1.7125
-*
-*20520290  ch115B02  powerr  1.0 0.0 1
-*20520291  cntrlvar  2019  0.8
-*
-*20520300  ch115B03  mult  1.0 0.0 1
-*20520301  cntrlvar  2028  cntrlvar  2029
-*
-*20520310  ch115Bo div 1.0 0.0 1
-*20520311  cntrlvar  2030  cntrlvar  2020
-*
-*20520510  ch132dp sum 1.0 0.0 1
-*20520511  0.0 1.0 p 132020000 -1.0  p 132130000
-*
-*20520520  ch132pav  sum 1.0 0.0 1
-*20520521  0.0 0.5 p 132020000 0.5 p 132130000
-*
-*20520530  ch132dt sum 1.0 0.0 1
-*20520531  0.0 1.0 tempg 132130000 -1.0  tempg 132020000
-*
-*20520540  ch132tav  sum 1.0 0.0 1
-*20520541  0.0 0.5 tempg 132130000 0.5 tempg 132020000
-*
-*20520550  ch132rhv  sum 1.0 0.0 1
-*20520551  0.0 0.5 rhog  132130000 0.5 rhog  132020000
-*
-*20520560  ch132Cpt  mult  1.0 0.0 1
-*20520561  csubpg  132020000
-*
-*20520570  ch132Cpb  mult  1.0 0.0 1
-*20520571  csubpg  132130000
-*
-*20520580  ch132Cpa  sum 1.0 0.0 1
-*20520581  0.0 0.5 csubpg  132130000 0.5 csubpg  132020000
-*
-*20520590  ch132vsm  mult  1.0 1.0E-05 1
-*20520591  viscg 132080000
-*
-*20520600  ch132ivs  div 1.0 1.0E+05 1
-*20520601  viscg 132080000
-*
-*20520610  ch132Bm mult  1.0 0.0 1
-*20520611  betagg  132080000
-*
-*20520620  ch132Cpm  mult  1.0 0.0 1
-*20520621  csubpg  132080000
-*
-*20520630  ch132tcm  mult  1.0 0.0 1
-*20520631  thcong  132080000
-*
-*20520640  ch132itc  div 1.0 0.0 1
-*20520641  thcong  132080000
-*
-*20520650  ch132dTw  sum 1.0 0.0 1
-*20520651  0.0 1.0 httemp  132000801 -1.0  tempg 132080000
-*
-*20520660  ch132Gm mult  1.0 0.0 1
-*20520661  rhog  132080000 velg  132080000
-*
-*20520670  ch132Re mult  0.0191  0.0 1
-*20520671  cntrlvar  2066  cntrlvar  2060
-*
-*20520680  ch132Nu mult  0.0191  0.0 1
-*20520681  hthtc 132000800 cntrlvar  2064
-*
-*20520690  ch132Pr mult  1.0 0.0 1
-*20520691  csubpg  132080000 viscg 132080000 cntrlvar  2064
-*
-*20520700  ch132Gr mult  76.21 0.0 1
-*20520701  betagg  132080000 cntrlvar  2065  rhog  132080000
-*20520702  rhog  132080000 cntrlvar  2060  cntrlvar  2060
-*
-*20520710  ch132Fr poweri  5.3565  0.0 1
-*20520711  velg  132080000 2
-*
-*20520720  ch132q-1  mult  1.0 0.0 1
-*20520721  betagg  132080000 htrnr 132000800
-*
-*20520730  ch132q-2  mult  1.0 0.0 1
-*20520731  cntrlvar  2066  csubpg  132080000
-*
-*20520740  ch132q+ div 1.0 0.0 1
-*20520741  cntrlvar  2073  cntrlvar  2072
-*
-*20520750  ch132Kv div 4.0 0.0 1
-*20520751  cntrlvar  2067  cntrlvar  2074
-*
-*20520760  ch132Re2  poweri  1.0 0.0 1
-*20520761  cntrlvar  2067  2
-*
-*20520770  ch132Ri div 1.0 0.0 1
-*20520771  cntrlvar  2076  cntrlvar  2070
-*
-*20520780  ch132B01  powerr  1.0 0.0 1
-*20520781  cntrlvar  2076  1.7125
-*
-*20520790  ch132B02  powerr  1.0 0.0 1
-*20520791  cntrlvar  2069  0.8
-*
-*20520800  ch132B03  mult  1.0 0.0 1
-*20520801  cntrlvar  2078  cntrlvar  2079
-*
-*20520810  ch132Bo div 1.0 0.0 1
-*20520811  cntrlvar  2080  cntrlvar  2070
-*
-*20521010  ch140dp sum 1.0 0.0 1
-*20521011  0.0 1.0 p 140020000 -1.0  p 140130000
-*
-*20521020  ch140pav  sum 1.0 0.0 1
-*20521021  0.0 0.5 p 140020000 0.5 p 140130000
-*
-*20521030  ch140dt sum 1.0 0.0 1
-*20521031  0.0 1.0 tempg 140130000 -1.0  tempg 140020000
-*
-*20521040  ch140tav  sum 1.0 0.0 1
-*20521041  0.0 0.5 tempg 140130000 0.5 tempg 140020000
-*
-*20521050  ch140rhv  sum 1.0 0.0 1
-*20521051  0.0 0.5 rhog  140130000 0.5 rhog  140020000
-*
-*20521060  ch140Cpt  mult  1.0 0.0 1
-*20521061  csubpg  140020000
-*
-*20521070  ch140Cpb  mult  1.0 0.0 1
-*20521071  csubpg  140130000
-*
-*20521080  ch140Cpa  sum 1.0 0.0 1
-*20521081  0.0 0.5 csubpg  140130000 0.5 csubpg  140020000
-*
-*20521090  ch140vsm  mult  1.0 1.0E-05 1
-*20521091  viscg 140080000
-*
-*20521100  ch140ivs  div 1.0 1.0E+05 1
-*20521101  viscg 140080000
-*
-*20521110  ch140Bm mult  1.0 0.0 1
-*20521111  betagg  140080000
-*
-*20521120  ch140Cpm  mult  1.0 0.0 1
-*20521121  csubpg  140080000
-*
-*20521130  ch140tcm  mult  1.0 0.0 1
-*20521131  thcong  140080000
-*
-*20521140  ch140itc  div 1.0 0.0 1
-*20521141  thcong  140080000
-*
-*20521150  ch140dTw  sum 1.0 0.0 1
-*20521151  0.0 1.0 httemp  140100601 -1.0  tempg 140080000
-*
-*20521160  ch140Gm mult  1.0 0.0 1
-*20521161  rhog  140080000 velg  140080000
-*
-*20521170  ch140Re mult  0.015 0.0 1
-*20521171  cntrlvar  2116  cntrlvar  2110
-*
-*20521180  ch140Nu mult  0.015 0.0 1
-*20521181  hthtc 140100600 cntrlvar  2114
-*
-*20521190  ch140Pr mult  1.0 0.0 1
-*20521191  csubpg  140080000 viscg 140080000 cntrlvar  2114
-*
-*20521200  ch140Gr mult  76.21 0.0 1
-*20521201  betagg  140080000 cntrlvar  2115  rhog  140080000
-*20521202  rhog  140080000 cntrlvar  2110  cntrlvar  2110
-*
-*20521210  ch140Fr poweri  6.8027  0.0 1
-*20521211  velg  140080000 2
-*
-*20521220  ch140q-1  mult  1.0 0.0 1
-*20521221  betagg  140080000 htrnr 140100600
-*
-*20521230  ch140q-2  mult  1.0 0.0 1
-*20521231  cntrlvar  2116  csubpg  140080000
-*
-*20521240  ch140q+ div 1.0 0.0 1
-*20521241  cntrlvar  2123  cntrlvar  2122
-*
-*20521250  ch140Kv div 4.0 0.0 1
-*20521251  cntrlvar  2117  cntrlvar  2124
-*
-*20521260  ch140Re2  poweri  1.0 0.0 1
-*20521261  cntrlvar  2117  2
-*
-*20521270  ch140Ri div 1.0 0.0 1
-*20521271  cntrlvar  2126  cntrlvar  2120
-*
-*20521280  ch140B01  powerr  1.0 0.0 1
-*20521281  cntrlvar  2126  1.7125
-*
-*20521290  ch140B02  powerr  1.0 0.0 1
-*20521291  cntrlvar  2119  0.8
-*
-*20521300  ch140B03  mult  1.0 0.0 1
-*20521301  cntrlvar  2128  cntrlvar  2129
-*
-*20521310  ch140Bo div 1.0 0.0 1
-*20521311  cntrlvar  2130  cntrlvar  2120
-*
-*20521510  ch145dp sum 1.0 0.0 1
-*20521511  0.0 1.0 p 145020000 -1.0  p 145130000
-*
-*20521520  ch145pav  sum 1.0 0.0 1
-*20521521  0.0 0.5 p 145020000 0.5 p 145130000
-*
-*20521530  ch145dt sum 1.0 0.0 1
-*20521531  0.0 1.0 tempg 145130000 -1.0  tempg 145020000
-*
-*20521540  ch145tav  sum 1.0 0.0 1
-*20521541  0.0 0.5 tempg 145130000 0.5 tempg 145020000
-*
-*20521550  ch145rhv  sum 1.0 0.0 1
-*20521551  0.0 0.5 rhog  145130000 0.5 rhog  145020000
-*
-*20521560  ch145Cpt  mult  1.0 0.0 1
-*20521561  csubpg  145020000
-*
-*20521570  ch145Cpb  mult  1.0 0.0 1
-*20521571  csubpg  145130000
-*
-*20521580  ch145Cpa  sum 1.0 0.0 1
-*20521581  0.0 0.5 csubpg  145130000 0.5 csubpg  145020000
-*
-*20521590  ch145vsm  mult  1.0 1.0E-05 1
-*20521591  viscg 145080000
-*
-*20521600  ch145ivs  div 1.0 1.0E+05 1
-*20521601  viscg 145080000
-*
-*20521610  ch145Bm mult  1.0 0.0 1
-*20521611  betagg  145080000
-*
-*20521620  ch145Cpm  mult  1.0 0.0 1
-*20521621  csubpg  145080000
-*
-*20521630  ch145tcm  mult  1.0 0.0 1
-*20521631  thcong  145080000
-*
-*20521640  ch145itc  div 1.0 0.0 1
-*20521641  thcong  145080000
-*
-*20521650  ch145dTw  sum 1.0 0.0 1
-*20521651  0.0 1.0 httemp  145100601 -1.0  tempg 145080000
-*
-*20521660  ch145Gm mult  1.0 0.0 1
-*20521661  rhog  145080000 velg  145080000
-*
-*20521670  ch145Re mult  0.016 0.0 1
-*20521671  cntrlvar  2166  cntrlvar  2160
-*
-*20521680  ch145Nu mult  0.016 0.0 1
-*20521681  hthtc 145100600 cntrlvar  2164
-*
-*20521690  ch145Pr mult  1.0 0.0 1
-*20521691  csubpg  145080000 viscg 145080000 cntrlvar  2164
-*
-*20521700  ch145Gr mult  76.21 0.0 1
-*20521701  betagg  145080000 cntrlvar  2165  rhog  145080000
-*20521702  rhog  145080000 cntrlvar  2160  cntrlvar  2160
-*
-*20521710  ch145Fr poweri  6.4278  0.0 1
-*20521711  velg  145080000 2
-*
-*20521720  ch145q-1  mult  1.0 0.0 1
-*20521721  betagg  145080000 htrnr 145100600
-*
-*20521730  ch145q-2  mult  1.0 0.0 1
-*20521731  cntrlvar  2166  csubpg  145080000
-*
-*20521740  ch145q+ div 1.0 0.0 1
-*20521741  cntrlvar  2173  cntrlvar  2172
-*
-*20521750  ch145Kv div 4.0 0.0 1
-*20521751  cntrlvar  2167  cntrlvar  2174
-*
-*20521760  ch145Re2  poweri  1.0 0.0 1
-*20521761  cntrlvar  2167  2
-*
-*20521770  ch145Ri div 1.0 0.0 1
-*20521771  cntrlvar  2176  cntrlvar  2170
-*
-*20521780  ch145B01  powerr  1.0 0.0 1
-*20521781  cntrlvar  2176  1.7125
-*
-*20521790  ch145B02  powerr  1.0 0.0 1
-*20521791  cntrlvar  2169  0.8
-*
-*20521800  ch145B03  mult  1.0 0.0 1
-*20521801  cntrlvar  2178  cntrlvar  2179
-*
-*20521810  ch145Bo div 1.0 0.0 1
-*20521811  cntrlvar  2180  cntrlvar  2170
-*
-*20522010  ch150dp sum 1.0 0.0 1
-*20522011  0.0 1.0 p 150020000 -1.0  p 150130000
-*
-*20522020  ch150pav  sum 1.0 0.0 1
-*20522021  0.0 0.5 p 150020000 0.5 p 150130000
-*
-*20522030  ch150dt sum 1.0 0.0 1
-*20522031  0.0 1.0 tempg 150130000 -1.0  tempg 150020000
-*
-*20522040  ch150tav  sum 1.0 0.0 1
-*20522041  0.0 0.5 tempg 150130000 0.5 tempg 150020000
-*
-*20522050  ch150rhv  sum 1.0 0.0 1
-*20522051  0.0 0.5 rhog  150130000 0.5 rhog  150020000
-*
-*20522060  ch150Cpt  mult  1.0 0.0 1
-*20522061  csubpg  150020000
-*
-*20522070  ch150Cpb  mult  1.0 0.0 1
-*20522071  csubpg  150130000
-*
-*20522080  ch150Cpa  sum 1.0 0.0 1
-*20522081  0.0 0.5 csubpg  150130000 0.5 csubpg  150020000
-*
-*20522090  ch150vsm  mult  1.0 1.0E-05 1
-*20522091  viscg 150080000
-*
-*20522100  ch150ivs  div 1.0 1.0E+05 1
-*20522101  viscg 150080000
-*
-*20522110  ch150Bm mult  1.0 0.0 1
-*20522111  betagg  150080000
-*
-*20522120  ch150Cpm  mult  1.0 0.0 1
-*20522121  csubpg  150080000
-*
-*20522130  ch150tcm  mult  1.0 0.0 1
-*20522131  thcong  150080000
-*
-*20522140  ch150itc  div 1.0 0.0 1
-*20522141  thcong  150080000
-*
-*20522150  ch150dTw  sum 1.0 0.0 1
-*20522151  0.0 1.0 httemp  150100601 -1.0  tempg 150080000
-*
-*20522160  ch150Gm mult  1.0 0.0 1
-*20522161  rhog  150080000 velg  150080000
-*
-*20522170  ch150Re mult  0.0144  0.0 1
-*20522171  cntrlvar  2216  cntrlvar  2210
-*
-*20522180  ch150Nu mult  0.0144  0.0 1
-*20522181  hthtc 150100600 cntrlvar  2214
-*
-*20522190  ch150Pr mult  1.0 0.0 1
-*20522191  csubpg  150080000 viscg 150080000 cntrlvar  2214
-*
-*20522200  ch150Gr mult  76.21 0.0 1
-*20522201  betagg  150080000 cntrlvar  2215  rhog  150080000
-*20522202  rhog  150080000 cntrlvar  2210  cntrlvar  2210
-*
-*20522210  ch150Fr poweri  7.0862  0.0 1
-*20522211  velg  150080000 2
-*
-*20522220  ch150q-1  mult  1.0 0.0 1
-*20522221  betagg  150080000 htrnr 150100600
-*
-*20522230  ch150q-2  mult  1.0 0.0 1
-*20522231  cntrlvar  2216  csubpg  150080000
-*
-*20522240  ch150q+ div 1.0 0.0 1
-*20522241  cntrlvar  2223  cntrlvar  2222
-*
-*20522250  ch150Kv div 4.0 0.0 1
-*20522251  cntrlvar  2217  cntrlvar  2224
-*
-*20522260  ch150Re2  poweri  1.0 0.0 1
-*20522261  cntrlvar  2217  2
-*
-*20522270  ch150Ri div 1.0 0.0 1
-*20522271  cntrlvar  2226  cntrlvar  2220
-*
-*20522280  ch150B01  powerr  1.0 0.0 1
-*20522281  cntrlvar  2226  1.7125
-*
-*20522290  ch150B02  powerr  1.0 0.0 1
-*20522291  cntrlvar  2219  0.8
-*
-*20522300  ch150B03  mult  1.0 0.0 1
-*20522301  cntrlvar  2228  cntrlvar  2229
-*
-*20522310  ch150Bo div 1.0 0.0 1
-*20522311  cntrlvar  2230  cntrlvar  2220
-*
-*20522510  ch162dp sum 1.0 0.0 1
-*20522511  0.0 1.0 p 162020000 -1.0  p 162130000
-*
-*20522520  ch162pav  sum 1.0 0.0 1
-*20522521  0.0 0.5 p 162020000 0.5 p 162130000
-*
-*20522530  ch162dt sum 1.0 0.0 1
-*20522531  0.0 1.0 tempg 162130000 -1.0  tempg 162020000
-*
-*20522540  ch162tav  sum 1.0 0.0 1
-*20522541  0.0 0.5 tempg 162130000 0.5 tempg 162020000
-*
-*20522550  ch162rhv  sum 1.0 0.0 1
-*20522551  0.0 0.5 rhog  162130000 0.5 rhog  162020000
-*
-*20522560  ch162Cpt  mult  1.0 0.0 1
-*20522561  csubpg  162020000
-*
-*20522570  ch162Cpb  mult  1.0 0.0 1
-*20522571  csubpg  162130000
-*
-*20522580  ch162Cpa  sum 1.0 0.0 1
-*20522581  0.0 0.5 csubpg  162130000 0.5 csubpg  162020000
-*
-*20522590  ch162vsm  mult  1.0 1.0E-05 1
-*20522591  viscg 162080000
-*
-*20522600  ch162ivs  div 1.0 1.0E+05 1
-*20522601  viscg 162080000
-*
-*20522610  ch162Bm mult  1.0 0.0 1
-*20522611  betagg  162080000
-*
-*20522620  ch162Cpm  mult  1.0 0.0 1
-*20522621  csubpg  162080000
-*
-*20522630  ch162tcm  mult  1.0 0.0 1
-*20522631  thcong  162080000
-*
-*20522640  ch162itc  div 1.0 0.0 1
-*20522641  thcong  162080000
-*
-*20522650  ch162dTw  sum 1.0 0.0 1
-*20522651  0.0 1.0 httemp  162000801 -1.0  tempg 162080000
-*
-*20522660  ch162Gm mult  1.0 0.0 1
-*20522661  rhog  162080000 velg  162080000
-*
-*20522670  ch162Re mult  0.015875  0.0 1
-*20522671  cntrlvar  2266  cntrlvar  2260
-*
-*20522680  ch162Nu mult  0.015875  0.0 1
-*20522681  hthtc 162000800 cntrlvar  2264
-*
-*20522690  ch162Pr mult  1.0 0.0 1
-*20522691  csubpg  162080000 viscg 162080000 cntrlvar  2264
-*
-*20522700  ch162Gr mult  76.21 0.0 1
-*20522701  betagg  162080000 cntrlvar  2265  rhog  162080000
-*20522702  rhog  162080000 cntrlvar  2260  cntrlvar  2260
-*
-*20522710  ch162Fr poweri  6.4278  0.0 1
-*20522711  velg  162080000 2
-*
-*20522720  ch162q-1  mult  1.0 0.0 1
-*20522721  betagg  162080000 htrnr 162000800
-*
-*20522730  ch162q-2  mult  1.0 0.0 1
-*20522731  cntrlvar  2266  csubpg  162080000
-*
-*20522740  ch162q+ div 1.0 0.0 1
-*20522741  cntrlvar  2273  cntrlvar  2272
-*
-*20522750  ch162Kv div 4.0 0.0 1
-*20522751  cntrlvar  2267  cntrlvar  2274
-*
-*20522760  ch162Re2  poweri  1.0 0.0 1
-*20522761  cntrlvar  2267  2
-*
-*20522770  ch162Ri div 1.0 0.0 1
-*20522771  cntrlvar  2276  cntrlvar  2270
-*
-*20522780  ch162B01  powerr  1.0 0.0 1
-*20522781  cntrlvar  2276  1.7125
-*
-*20522790  ch162B02  powerr  1.0 0.0 1
-*20522791  cntrlvar  2269  0.8
-*
-*20522800  ch162B03  mult  1.0 0.0 1
-*20522801  cntrlvar  2278  cntrlvar  2279
-*
-*20522810  ch162Bo div 1.0 0.0 1
-*20522811  cntrlvar  2280  cntrlvar  2270
-*
-*20523010  ch164dp sum 1.0 0.0 1
-*20523011  0.0 1.0 p 164020000 -1.0  p 164130000
-*
-*20523020  ch164pav  sum 1.0 0.0 1
-*20523021  0.0 0.5 p 164020000 0.5 p 164130000
-*
-*20523030  ch164dt sum 1.0 0.0 1
-*20523031  0.0 1.0 tempg 164130000 -1.0  tempg 164020000
-*
-*20523040  ch164tav  sum 1.0 0.0 1
-*20523041  0.0 0.5 tempg 164130000 0.5 tempg 164020000
-*
-*20523050  ch164rhv  sum 1.0 0.0 1
-*20523051  0.0 0.5 rhog  164130000 0.5 rhog  164020000
-*
-*20523060  ch164Cpt  mult  1.0 0.0 1
-*20523061  csubpg  164020000
-*
-*20523070  ch164Cpb  mult  1.0 0.0 1
-*20523071  csubpg  164130000
-*
-*20523080  ch164Cpa  sum 1.0 0.0 1
-*20523081  0.0 0.5 csubpg  164130000 0.5 csubpg  164020000
-*
-*20523090  ch164vsm  mult  1.0 1.0E-05 1
-*20523091  viscg 164080000
-*
-*20523100  ch164ivs  div 1.0 1.0E+05 1
-*20523101  viscg 164080000
-*
-*20523110  ch164Bm mult  1.0 0.0 1
-*20523111  betagg  164080000
-*
-*20523120  ch164Cpm  mult  1.0 0.0 1
-*20523121  csubpg  164080000
-*
-*20523130  ch164tcm  mult  1.0 0.0 1
-*20523131  thcong  164080000
-*
-*20523140  ch164itc  div 1.0 0.0 1
-*20523141  thcong  164080000
-*
-*20523150  ch164dTw  sum 1.0 0.0 1
-*20523151  0.0 1.0 httemp  164000807 -1.0  tempg 164080000
-*
-*20523160  ch164Gm mult  1.0 0.0 1
-*20523161  rhog  164080000 velg  164080000
-*
-*20523170  ch164Re mult  0.0146304 0.0 1
-*20523171  cntrlvar  2316  cntrlvar  2310
-*
-*20523180  ch164Nu mult  0.0146304 0.0 1
-*20523181  hthtc 164000801 cntrlvar  2314
-*
-*20523190  ch164Pr mult  1.0 0.0 1
-*20523191  csubpg  164080000 viscg 164080000 cntrlvar  2314
-*
-*20523200  ch164Gr mult  76.21 0.0 1
-*20523201  betagg  164080000 cntrlvar  2315  rhog  164080000
-*20523202  rhog  164080000 cntrlvar  2310  cntrlvar  2310
-*
-*20523210  ch164Fr poweri  6.9746  0.0 1
-*20523211  velg  164080000 2
-*
-*20523220  ch164q-1  mult  1.0 0.0 1
-*20523221  betagg  164080000 htrnr 164000801
-*
-*20523230  ch164q-2  mult  1.0 0.0 1
-*20523231  cntrlvar  2316  csubpg  164080000
-*
-*20523240  ch164q+ div 1.0 0.0 1
-*20523241  cntrlvar  2323  cntrlvar  2322
-*
-*20523250  ch164Kv div 4.0 0.0 1
-*20523251  cntrlvar  2317  cntrlvar  2324
-*
-*20523260  ch164Re2  poweri  1.0 0.0 1
-*20523261  cntrlvar  2317  2
-*
-*20523270  ch164Ri div 1.0 0.0 1
-*20523271  cntrlvar  2326  cntrlvar  2320
-*
-*20523280  ch164B01  powerr  1.0 0.0 1
-*20523281  cntrlvar  2326  1.7125
-*
-*20523290  ch164B02  powerr  1.0 0.0 1
-*20523291  cntrlvar  2319  0.8
-*
-*20523300  ch164B03  mult  1.0 0.0 1
-*20523301  cntrlvar  2328  cntrlvar  2329
-*
-*20523310  ch164Bo div 1.0 0.0 1
-*20523311  cntrlvar  2330  cntrlvar  2320
-*
-*20523510  ch166dp sum 1.0 0.0 1
-*20523511  0.0 1.0 p 166020000 -1.0  p 166130000
-*
-*20523520  ch166pav  sum 1.0 0.0 1
-*20523521  0.0 0.5 p 166020000 0.5 p 166130000
-*
-*20523530  ch166dt sum 1.0 0.0 1
-*20523531  0.0 1.0 tempg 166130000 -1.0  tempg 166020000
-*
-*20523540  ch166tav  sum 1.0 0.0 1
-*20523541  0.0 0.5 tempg 166130000 0.5 tempg 166020000
-*
-*20523550  ch166rhv  sum 1.0 0.0 1
-*20523551  0.0 0.5 rhog  166130000 0.5 rhog  166020000
-*
-*20523560  ch166Cpt  mult  1.0 0.0 1
-*20523561  csubpg  166020000
-*
-*20523570  ch166Cpb  mult  1.0 0.0 1
-*20523571  csubpg  166130000
-*
-*20523580  ch166Cpa  sum 1.0 0.0 1
-*20523581  0.0 0.5 csubpg  166130000 0.5 csubpg  166020000
-*
-*20523590  ch166vsm  mult  1.0 1.0E-05 1
-*20523591  viscg 166080000
-*
-*20523600  ch166ivs  div 1.0 1.0E+05 1
-*20523601  viscg 166080000
-*
-*20523610  ch166Bm mult  1.0 0.0 1
-*20523611  betagg  166080000
-*
-*20523620  ch166Cpm  mult  1.0 0.0 1
-*20523621  csubpg  166080000
-*
-*20523630  ch166tcm  mult  1.0 0.0 1
-*20523631  thcong  166080000
-*
-*20523640  ch166itc  div 1.0 0.0 1
-*20523641  thcong  166080000
-*
-*20523650  ch166dTw  sum 1.0 0.0 1
-*20523651  0.0 1.0 httemp  166000807 -1.0  tempg 166080000
-*
-*20523660  ch166Gm mult  1.0 0.0 1
-*20523661  rhog  166080000 velg  166080000
-*
-*20523670  ch166Re mult  0.013 0.0 1
-*20523671  cntrlvar  2366  cntrlvar  2360
-*
-*20523680  ch166Nu mult  0.013 0.0 1
-*20523681  hthtc 166000801 cntrlvar  2364
-*
-*20523690  ch166Pr mult  1.0 0.0 1
-*20523691  csubpg  166080000 viscg 166080000 cntrlvar  2364
-*
-*20523700  ch166Gr mult  76.21 0.0 1
-*20523701  betagg  166080000 cntrlvar  2365  rhog  166080000
-*20523702  rhog  166080000 cntrlvar  2360  cntrlvar  2360
-*
-*20523710  ch166Fr poweri  8.0187  0.0 1
-*20523711  velg  166080000 2
-*
-*20523720  ch166q-1  mult  1.0 0.0 1
-*20523721  betagg  166080000 htrnr 166000801
-*
-*20523730  ch166q-2  mult  1.0 0.0 1
-*20523731  cntrlvar  2366  csubpg  166080000
-*
-*20523740  ch166q+ div 1.0 0.0 1
-*20523741  cntrlvar  2373  cntrlvar  2372
-*
-*20523750  ch166Kv div 4.0 0.0 1
-*20523751  cntrlvar  2367  cntrlvar  2374
-*
-*20523760  ch166Re2  poweri  1.0 0.0 1
-*20523761  cntrlvar  2367  2
-*
-*20523770  ch166Ri div 1.0 0.0 1
-*20523771  cntrlvar  2376  cntrlvar  2370
-*
-*20523780  ch166B01  powerr  1.0 0.0 1
-*20523781  cntrlvar  2376  1.7125
-*
-*20523790  ch166B02  powerr  1.0 0.0 1
-*20523791  cntrlvar  2369  0.8
-*
-*20523800  ch166B03  mult  1.0 0.0 1
-*20523801  cntrlvar  2378  cntrlvar  2379
-*
-*20523810  ch166Bo div 1.0 0.0 1
-*20523811  cntrlvar  2380  cntrlvar  2370
-*
-*20524010  ch950dp sum 1.0 0.0 1
-*20524011  0.0 1.0 p 950010000 -1.0  p 950190000
-*
-*20524020  ch950pav  sum 1.0 0.0 1
-*20524021  0.0 0.5 p 950010000 0.5 p 950190000
-*
-*20524030  ch950dt sum 1.0 0.0 1
-*20524031  0.0 1.0 tempg 950190000 -1.0  tempg 950010000
-*
-*20524040  ch950tav  sum 1.0 0.0 1
-*20524041  0.0 0.5 tempg 950190000 0.5 tempg 950010000
-*
-*20524050  ch950rhv  sum 1.0 0.0 1
-*20524051  0.0 0.5 rhog  950190000 0.5 rhog  950010000
-*
-*20524060  ch950Cpt  mult  1.0 0.0 1
-*20524061  csubpg  950010000
-*
-*20524070  ch950Cpb  mult  1.0 0.0 1
-*20524071  csubpg  950190000
-*
-*20524080  ch950Cpa  sum 1.0 0.0 1
-*20524081  0.0 0.5 csubpg  950190000 0.5 csubpg  950010000
-*
-*20524090  ch950vsm  mult  1.0 1.0E-05 1
-*20524091  viscg 950100000
-*
-*20524100  ch950ivs  div 1.0 1.0E+05 1
-*20524101  viscg 950100000
-*
-*20524110  ch950Bm mult  1.0 0.0 1
-*20524111  betagg  950100000
-*
-*20524120  ch950Cpm  mult  1.0 0.0 1
-*20524121  csubpg  950100000
-*
-*20524130  ch950tcm  mult  1.0 0.0 1
-*20524131  thcong  950100000
-*
-*20524140  ch950itc  div 1.0 0.0 1
-*20524141  thcong  950100000
-*
-*20524150  ch950dTw  sum 1.0 0.0 1
-*20524151  0.0 1.0 httemp  950001004 -1.0  tempg 950100000
-*
-*20524160  ch950Gm mult  1.0 0.0 1
-*20524161  rhog  950100000 velg  950100000
-*
-*20524170  ch950Re mult  0.0508  0.0 1
-*20524171  cntrlvar  2416  cntrlvar  2410
-*
-*20524180  ch950Nu mult  0.0508  0.0 1
-*20524181  hthtc 950001001 cntrlvar  2414
-*
-*20524190  ch950Pr mult  1.0 0.0 1
-*20524191  csubpg  950100000 viscg 950100000 cntrlvar  2414
-*
-*20524200  ch950Gr mult  1440.41 0.0 1
-*20524201  betagg  950100000 cntrlvar  2415  rhog  950100000
-*20524202  rhog  950100000 cntrlvar  2410  cntrlvar  2410
-*
-*20524210  ch950Fr poweri  2.0087  0.0 1
-*20524211  velg  950100000 2
-*
-*20524220  ch950q-1  mult  1.0 0.0 1
-*20524221  betagg  950100000 htrnr 950001001
-*
-*20524230  ch950q-2  mult  1.0 0.0 1
-*20524231  cntrlvar  2416  csubpg  950100000
-*
-*20524240  ch950q+ div 1.0 0.0 1
-*20524241  cntrlvar  2423  cntrlvar  2422
-*
-*20524250  ch950Kv div 4.0 0.0 1
-*20524251  cntrlvar  2417  cntrlvar  2424
-*
-*20524260  ch950Re2  poweri  1.0 0.0 1
-*20524261  cntrlvar  2417  2
-*
-*20524270  ch950Ri div 1.0 0.0 1
-*20524271  cntrlvar  2426  cntrlvar  2420
-*
-*20524280  ch950B01  powerr  1.0 0.0 1
-*20524281  cntrlvar  2426  1.7125
-*
-*20524290  ch950B02  powerr  1.0 0.0 1
-*20524291  cntrlvar  2419  0.8
-*
-*20524300  ch950B03  mult  1.0 0.0 1
-*20524301  cntrlvar  2428  cntrlvar  2429
-*
-*20524310  ch950Bo div 1.0 0.0 1
-*20524311  cntrlvar  2430  cntrlvar  2420
 *
 * structure energy storage
 *
@@ -10012,8 +8025,6 @@
 20534710  hc200001  function  1.0E-06 0.0 1
 20534711  htvat 2000001 3
 *
-*20534720  es200001  mult  0.00291 0.0 1
-*20534721  htvat 2000001 cntrlvar  3471
 * structure energy storage calculations
 * AE New coponent -> split duct
 20534720  es200001  mult  0.00146 0.0 1
@@ -10022,8 +8033,6 @@
 20534730  hc200002  function  1.0E-06 0.0 1
 20534731  htvat 2000002 3
 *
-*20534740  es200002  mult  0.00439 0.0 1
-*20534741  htvat 2000002 cntrlvar  3473
 * AE New coponent -> split duct
 20534740  es200002  mult  0.00439 0.0 1
 20534741  htvat 2000002 cntrlvar  3473
@@ -10031,8 +8040,6 @@
 20534750  hc200003  function  1.0E-06 0.0 1
 20534751  htvat 2000003 3
 *
-*20534760  es200003  mult  0.00278 0.0 1
-*20534761  htvat 2000003 cntrlvar  3475
 * AE New coponent -> split duct
 20534760  es200003  mult  0.00139 0.0 1
 20534761  htvat 2000003 cntrlvar  3475
@@ -10040,8 +8047,6 @@
 20534770  hc200004  function  1.0E-06 0.0 1
 20534771  htvat 2000004 3
 *
-*20534780  es200004  mult  0.00278 0.0 1
-*20534781  htvat 2000004 cntrlvar  3477
 * AE New coponent -> split duct
 20534780  es200004  mult  0.00139 0.0 1
 20534781  htvat 2000004 cntrlvar  3477
@@ -10058,20 +8063,14 @@
 20534810  hc200102  function  1.0E-06 0.0 1
 20534811  htvat 2001002 3
 *
-*20534820  es200102  mult  0.00609 0.0 1
-*20534821  htvat 2001002 cntrlvar  3481
 * AE New coponent -> split duct
 20534820  es200102  mult  0.00305 0.0 1
 20534821  htvat 2001002 cntrlvar  3481
 *
-*20534830  hc210001  function  1.0E-06 0.0 1
-*20534831  htvat 2100001 3
 * AE New coponent -> split duct
 20534830  hc200201  function  1.0E-06 0.0 1
 20534831  htvat 2002001 3
 *
-*20534840  es210001  mult  0.00820 0.0 1
-*20534841  htvat 2100001 cntrlvar  3483
 * AE New coponent -> split duct
 20534840  es200201  mult  0.00410 0.0 1
 20534841  htvat 2002001 cntrlvar  3483
@@ -10329,20 +8328,6 @@
 20535760  es270004  mult  0.00578 0.0 1
 20535761  htvat 2700004 cntrlvar  3575
 *
-*20535770  es-PCpip  sum 1.0 0.0 1
-*20535771  0.0 1.0 cntrlvar  3472  1.0 cntrlvar  3474
-*20535772    1.0 cntrlvar  3476  1.0 cntrlvar  3478
-*20535773    1.0 cntrlvar  3480  1.0 cntrlvar  3482
-*20535774    1.0 cntrlvar  3484  1.0 cntrlvar  3486
-*20535775    1.0 cntrlvar  3488  1.0 cntrlvar  3490
-*20535776    1.0 cntrlvar  3546  1.0 cntrlvar  3548
-*20535777    1.0 cntrlvar  3550  1.0 cntrlvar  3552
-*20535778    1.0 cntrlvar  3554  1.0 cntrlvar  3556
-*+   1.0 cntrlvar  3558  1.0 cntrlvar  3560
-*+   1.0 cntrlvar  3562  1.0 cntrlvar  3564
-*+   1.0 cntrlvar  3566  1.0 cntrlvar  3568
-*+   1.0 cntrlvar  3570  1.0 cntrlvar  3572
-*+   1.0 cntrlvar  3574  1.0 cntrlvar  3576
 * AE New coponent -> split duct
 20535770  es-PCpip  sum 1.0 0.0 1
 20535771  0.0 1.0 cntrlvar  3472  1.0 cntrlvar  3474
