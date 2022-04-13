@@ -5,6 +5,7 @@ import yaml
 import numpy as np
 import glob
 from pathlib import Path
+import scipy.optimize
 
 sys.path.insert(1, 'C:\\Users\\17577\\Thesis_Work\\STAR_CCM_Files\\PostProcessing_Folder')
 
@@ -56,7 +57,7 @@ def WriteFile2List(StringList, Filename):
 
 
 def CreateRatio(Sim1, Sim2):
-    return Sim1._char_size/Sim2._char_size
+    return Sim2._char_size/Sim1._char_size
 
 def CompareRatios(Sim_List):
     iteration = 0
@@ -71,6 +72,21 @@ def CompareRatios(Sim_List):
 
 def AccessNestedDictValue(Dict, value):
     return Dict[value]
+
+def FindApparentOrder(r_21, r_32, epsilon_32, epsilon_21):
+    print(r_21)
+    if epsilon_32/epsilon_21 > 0:
+        sign = 1
+    else:
+        sign = -1
+    print("sign is equal to %s"%sign)
+    def ApparentOrder(p):
+        x = p - (1/np.log(r_21))*np.abs((np.log(np.abs(epsilon_32/epsilon_21))) + np.log((r_21**p-sign)/(r_32**p-sign)))
+        return x
+    x = scipy.optimize.fsolve(ApparentOrder, (1/np.log(r_21)))
+    print(1/np.log(r_21))
+    print(x)
+    return x
 
 ## Class definitions
 
@@ -122,7 +138,10 @@ class Calculation():
         self._ratio_list = ratio_list
         self._epsilon = self.CalculateEpsilon()
         self._analysis_dict = analysis_dict
-        ApparentOrder = float((1/np.log(ratio_list[1]))*np.abs(np.abs(self._epsilon[1]/self._epsilon[0])+np.log((ratio_list[0]-1)/(ratio_list[1]-1))))
+        ApparentOrder = float(FindApparentOrder(ratio_list[0], ratio_list[1], self._epsilon[1], self._epsilon[0]))
+        print(phi)
+        print(ratio_list)
+        #ApparentOrder = float((1/np.log(ratio_list[1]))*np.abs(np.abs(self._epsilon[1]/self._epsilon[0])+np.log((ratio_list[0]-1)/(ratio_list[1]-1))))
         self._analysis_dict[region]['ApparentOrder'] = "{:.4e}".format(ApparentOrder)
         phi21ext = float(ratio_list[0]**ApparentOrder * self._phi[0]-self._phi[1])/(ratio_list[0]**ApparentOrder - 1)
         self._analysis_dict[region]['phi21ext'] = round(phi21ext, 2)
@@ -172,7 +191,7 @@ def main():
         Analysis_Dict = Calculation(Phi, ratio_list, Analysis_Dict, region).ReturnDict()
     with open(GCI_RESULTS_YAML, 'w') as file:
         outputs = yaml.dump(Analysis_Dict, file)
-        print(Analysis_Dict)
+        #print(Analysis_Dict)
     ProcessSTAROutput.WriteOverleafTable("Discretization_Error_Table.sty", "Discretization_Error_Table_Filled.sty", Analysis_Dict)
 
 main()
