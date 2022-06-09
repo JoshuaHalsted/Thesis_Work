@@ -1,14 +1,11 @@
-test_names = ["Point_625","Point_5625","Point_5","Point_4375","Point_375","Point_3125","Point_25"]
-
-
-test_names = ["Point_4"]
+test_names = ["1_Point_5"]
 
 if len(test_names) > 0:
     for test, _ in enumerate(test_names):
-        fout = open("RELAP_FILES/PG_28_Files/Flow_Rate_%s/Output_Flow_Rate_%s.csv"%(test_names[test],test_names[test]), "w")
+        fout = open("RELAP_FILES/PG_28_Files/Iteration_1/Results/Output_Flow_Rate_%s.csv"%(test_names[test]), "w")
         mytemp = ""
         mytempplotnum = ""
-        Output_File = "RELAP_FILES/PG_28_Files/Flow_Rate_%s/Output_Flow_Rate_%s.o"%(test_names[test],test_names[test])
+        Output_File = "RELAP_FILES/PG_28_Files/Iteration_1/Results/Output_Flow_Rate_%s.o"%(test_names[test])
         with open(Output_File) as fp:
             count = 0
             start = False
