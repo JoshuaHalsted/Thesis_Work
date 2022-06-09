@@ -1,0 +1,105 @@
+Hot_Duct:
+  ApparentOrder: '4.5921e+00'
+  Fluid_Volume: 0.045842
+  GCI_21_Fine: '5.2432e-08'
+  GCI_32_Fine: '1.8928e-05'
+  Simulation1:
+    Name: Fine
+    Number_Cells: 5369856
+    Report_Name: Fine_Mesh_Reports.txt
+    Variable_of_Interest:
+      Name: Pressure
+      Tag: PT-3001
+      Value: 211906.7
+  Simulation2:
+    Name: Medium
+    Number_Cells: 1489439
+    Report_Name: Medium_Mesh_Reports.txt
+    Variable_of_Interest:
+      Name: Pressure
+      Tag: PT-3001
+      Value: 211909.9
+  Simulation3:
+    Name: Coarse
+    Number_Cells: 1015753
+    Report_Name: Coarse_Mesh_Reports.txt
+    Variable_of_Interest:
+      Name: Pressure
+      Tag: PT-3001
+      Value: 211925.3
+  error21_a: '1.5101e-05'
+  error21_ext: '4.1946e-08'
+  error32_a: '7.2672e-05'
+  error32_ext: '1.5143e-05'
+  phi21ext: 211906.69
+  phi32ext: 211906.69
+Lower_Plenum:
+  ApparentOrder: '1.1742e+00'
+  Fluid_Volume: 0.18621
+  GCI_21_Fine: '1.2659e-04'
+  GCI_32_Fine: '4.3576e-05'
+  Simulation1:
+    Name: Fine
+    Number_Cells: 6324521
+    Report_Name: Fine_Mesh_Reports.txt
+    Variable_of_Interest:
+      Name: Pressure
+      Tag: DP-2001
+      Value: 211913.4
+  Simulation2:
+    Name: Medium
+    Number_Cells: 4787368
+    Report_Name: Medium_Mesh_Reports.txt
+    Variable_of_Interest:
+      Name: Pressure
+      Tag: DP-2001
+      Value: 211921.7
+  Simulation3:
+    Name: Coarse
+    Number_Cells: 2276095
+    Report_Name: Coarse_Mesh_Reports.txt
+    Variable_of_Interest:
+      Name: Pressure
+      Tag: DP-2001
+      Value: 211932.0
+  error21_a: '3.9167e-05'
+  error21_ext: '1.0128e-04'
+  error32_a: '4.8603e-05'
+  error32_ext: '3.4862e-05'
+  phi21ext: 211891.94
+  phi32ext: 211914.31
+Tee:
+  ApparentOrder: '4.3530e+00'
+  Fluid_Volume: 0.1373
+  GCI_21_Fine: '9.9635e-08'
+  GCI_32_Fine: '1.7039e-05'
+  Simulation1:
+    Name: Fine
+    Number_Cells: 463544
+    Report_Name: Fine_Mesh_Reports.txt
+    Variable_of_Interest:
+      Name: Pressure
+      Tag: PT-3002
+      Value: 211899.7
+  Simulation2:
+    Name: Medium
+    Number_Cells: 149659
+    Report_Name: Medium_Mesh_Reports.txt
+    Variable_of_Interest:
+      Name: Pressure
+      Tag: PT-3002
+      Value: 211897.4
+  Simulation3:
+    Name: Coarse
+    Number_Cells: 91419
+    Report_Name: Coarse_Mesh_Reports.txt
+    Variable_of_Interest:
+      Name: Pressure
+      Tag: PT-3002
+      Value: 211919.2
+  error21_a: '1.0854e-05'
+  error21_ext: '7.9708e-08'
+  error32_a: '1.0288e-04'
+  error32_ext: '1.3631e-05'
+  phi21ext: 211899.72
+  phi32ext: 211894.51

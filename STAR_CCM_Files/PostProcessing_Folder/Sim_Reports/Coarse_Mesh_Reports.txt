@@ -1,0 +1,256 @@
+	Element Count
+
+Part                          	Element Count 
+------------------------------	-------------
+Connection_2_RCST             	 3.704700e+04 cells
+Hot_Duct                      	 1.015753e+06 cells
+Lower_Plenum                  	 2.276095e+06 cells
+Refine_This_LP                	 5.748550e+05 cells
+Tee                           	 9.141900e+04 cells
+                              	-------------
+                         Total:	 3.995169e+06 element
+
+	Heat Transfer of Boundary Heat Transfer on Volume Mesh
+
+Part                      Value (W)
+------------------    -------------
+Region: 1320-014      -6.852218e+02
+Region: 1660-015       9.780363e+02
+Region: 1750-001       5.763441e+02
+Region: 1751-001       4.840375e+02
+Region: 2000-001       2.415753e+03
+Region: 2150-001       3.881575e+03
+Region: RCST_Valve     0.000000e+00
+------------------    -------------
+            Total:     7.650525e+03
+
+	Mass Flow
+
+Part                   Value (kg/s)
+------------------    -------------
+Region: 170-010100    -6.508850e-04
+Region: 170-010200    -4.919400e-03
+Region: 170-010300    -7.423440e-03
+Region: 170-010400    -7.703710e-03
+Region: 170-010500    -2.336490e-03
+------------------    -------------
+            Total:    -2.303392e-02
+
+	Maximum of Mach Number on Volume Mesh
+
+Part                        Value
+-----------------    ------------
+Connection_2_RCST    1.111647e-03
+Hot_Duct             6.809514e-03
+Lower_Plenum         7.594248e-03
+Refine_This_LP       7.116468e-03
+Tee                  5.125483e-03
+-----------------    ------------
+           Total:    7.594248e-03
+
+	Maximum of Turbulent Dissipation Rate on Volume Mesh
+
+Part                 Value (m^2/s^3)
+-----------------    ---------------
+Connection_2_RCST       2.297246e+02
+Hot_Duct                1.714704e+04
+Lower_Plenum            3.544028e+03
+Refine_This_LP          1.602328e+04
+Tee                     9.075029e+02
+-----------------    ---------------
+           Total:       1.714704e+04
+
+	Maximum of Turbulent Kinetic Energy on Volume Mesh
+
+Part                 Value (J/kg)
+-----------------    ------------
+Connection_2_RCST    8.107183e-01
+Hot_Duct             5.585035e+00
+Lower_Plenum         8.148743e+00
+Refine_This_LP       2.190444e+00
+Tee                  3.601561e+00
+-----------------    ------------
+           Total:    8.148743e+00
+
+	Maximum of Turbulent Viscosity on Volume Mesh
+
+Part                 Value (Pa-s)
+-----------------    ------------
+Connection_2_RCST    1.558122e-03
+Hot_Duct             1.559140e-03
+Lower_Plenum         1.492410e-03
+Refine_This_LP       1.472861e-03
+Tee                  1.559177e-03
+-----------------    ------------
+           Total:    1.559177e-03
+
+	Maximum of Turbulent Viscosity Ratio on Volume Mesh
+
+Part                        Value
+-----------------    ------------
+Connection_2_RCST    7.833301e+01
+Hot_Duct             7.838422e+01
+Lower_Plenum         7.502941e+01
+Refine_This_LP       7.404662e+01
+Tee                  7.838607e+01
+-----------------    ------------
+           Total:    7.838607e+01
+
+	Maximum of Wall Y+ on Volume Mesh
+
+Part                                   Value
+----------------------------    ------------
+Connection_2_RCST.2000-001      2.642580e-02
+Connection_2_RCST.RCST_Valve    6.675570e-03
+Hot_Duct.2000-001               7.492191e-02
+Hot_Duct.Rakes                  7.218738e-02
+Lower_Plenum.1320-014           1.722986e-01
+Lower_Plenum.1660-015           2.900596e-01
+Lower_Plenum.1750-001           2.029123e-01
+Lower_Plenum.1751-001           2.564829e+00
+Lower_Plenum.Front_LP_Top       1.008175e-01
+Lower_Plenum.Inner_Bypass       2.062860e+00
+Lower_Plenum.Outer_Bypass       1.566280e+00
+Lower_Plenum.Ring_2             1.973175e-01
+Lower_Plenum.Ring_3             2.081727e-01
+Lower_Plenum.Ring_4             1.500954e-01
+Refine_This_LP.1660-015         3.070001e-02
+Refine_This_LP.Front_LP_Top     1.643794e-02
+Tee.2000-001                    1.196820e-01
+Tee.2150-001                    9.255531e-02
+----------------------------    ------------
+                      Total:    2.564829e+00
+
+	Maximum of Absolute Pressure on Volume Mesh
+
+Part        Value (Pa)
+------    ------------
+Region    2.119347e+05
+------    ------------
+Total:    2.119347e+05
+
+abs(${Outlet_MFR})-abs(${Inlet_MFR}) = -3.732306e-06  (kg/s)	
+
+	Minimum of Absolute Pressure on Volume Mesh
+
+Part        Value (Pa)
+------    ------------
+Region    2.119130e+05
+------    ------------
+Total:    2.119130e+05
+
+	Maximum of Temperature on Volume Mesh
+
+Part          Value (K)
+-------    ------------
+TF-3001    5.251251e+02
+TF-3101    4.830179e+02
+TF-3102    5.055932e+02
+TF-3103    5.253148e+02
+-------    ------------
+ Total:    5.253148e+02
+
+	Mass Flow
+
+Part                  Value (kg/s)
+------------------    ------------
+Region: 215-010000    2.303019e-02
+------------------    ------------
+            Total:    2.303019e-02
+
+${Maximum_Pressure}-${Minimum_Pressure} =  2.168726e+01  (Pa)	
+
+	Maximum of Absolute Pressure on Volume Mesh
+
+Part         Value (Pa)
+-------    ------------
+DP-2001    2.119320e+05
+PT-3001    2.119253e+05
+PT-3002    2.119192e+05
+-------    ------------
+ Total:    2.119320e+05
+
+	Maximum of Temperature on Volume Mesh
+
+Part          Value (K)
+-------    ------------
+TF-2102    4.770936e+02
+TF-2201    5.179834e+02
+TF-2202    5.181865e+02
+TF-2203    5.184775e+02
+TF-2204    5.189770e+02
+TF-2205    5.212421e+02
+TF-2206    5.207084e+02
+TF-2207    5.195258e+02
+TF-2208    5.186191e+02
+TF-2209    5.181904e+02
+TF-2210    5.183883e+02
+TF-2211    5.196339e+02
+TF-2212    5.206876e+02
+TF-2213    5.191657e+02
+TF-2214    5.184829e+02
+TF-2215    5.182411e+02
+TF-2216    5.171039e+02
+TF-2301    5.177745e+02
+TF-2302    5.182209e+02
+TF-2303    5.183174e+02
+TF-2304    5.181887e+02
+TF-2305    5.189779e+02
+TF-2306    5.182584e+02
+TF-2307    5.193703e+02
+TF-2308    5.186828e+02
+TF-2309    5.182183e+02
+TF-2310    5.198359e+02
+TF-2311    5.217598e+02
+TF-2312    5.209293e+02
+TF-2313    5.192764e+02
+TF-2314    5.180561e+02
+TF-2315    5.182308e+02
+TF-2316    5.177369e+02
+TF-2402    5.653877e+02
+TF-2403    5.653480e+02
+TF-2404    5.654336e+02
+TF-2405    5.654014e+02
+TF-2406    5.652903e+02
+TF-2407    5.652988e+02
+TF-2409    5.654368e+02
+TF-2410    5.653309e+02
+TF-2411    5.652177e+02
+TF-2412    5.654888e+02
+TF-2413    5.654003e+02
+TF-2414    5.653580e+02
+TF-3001    5.251251e+02
+TF-3101    4.830179e+02
+TF-3102    5.055932e+02
+TF-3103    5.253148e+02
+TS-2103    4.771031e+02
+TS-2104    4.770733e+02
+TS-2105    4.771923e+02
+TS-2106    4.776343e+02
+TS-2107    4.771131e+02
+TS-2109    4.770478e+02
+TS-2110    4.770591e+02
+TS-2111    4.774461e+02
+TS-2112    4.770815e+02
+TS-2113    4.771056e+02
+TS-2114    4.771075e+02
+-------    ------------
+ Total:    5.654888e+02
+
+	Surface Average of Wall Y+ on Volume Mesh
+
+Part                                   Value
+----------------------------    ------------
+Connection_2_RCST.2000-001      6.717659e-03
+Connection_2_RCST.RCST_Valve    2.313995e-03
+Hot_Duct.2000-001               1.540937e-02
+Hot_Duct.Rakes                  2.084870e-02
+Lower_Plenum.1660-015           3.047067e-02
+Lower_Plenum.1751-001           4.503442e-02
+Lower_Plenum.Front_LP_Top       4.652583e-02
+Refine_This_LP.1660-015         4.308212e-03
+Refine_This_LP.Front_LP_Top     4.504771e-03
+Tee.2000-001                    3.106107e-02
+Tee.2150-001                    4.044220e-02
+----------------------------    ------------
+                      Total:    3.464522e-02

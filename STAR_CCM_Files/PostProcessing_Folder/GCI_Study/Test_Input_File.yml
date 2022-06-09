@@ -1,0 +1,78 @@
+Hot_Duct:
+  Fluid_Volume: 0.045842
+  Simulation1:
+      Name: 'Fine'
+      Report_Name: 'Fine_Mesh_Reports.txt'
+      Number_Cells:
+      Variable_of_Interest:
+          Name: Pressure
+          Tag: 'PT-3001'
+          Value:
+  Simulation2:
+      Name: 'Medium'
+      Report_Name: 'Medium_Mesh_Reports.txt'
+      Number_Cells:
+      Variable_of_Interest:
+          Name: Pressure
+          Tag: 'PT-3001'
+          Value:
+  Simulation3:
+      Name: 'Coarse'
+      Report_Name: 'Coarse_Mesh_Reports.txt'
+      Number_Cells:
+      Variable_of_Interest:
+          Name: Pressure
+          Tag: 'PT-3001'
+          Value: 
+Lower_Plenum:
+  Fluid_Volume: 0.18621
+  Simulation1:
+      Name: 'Fine'
+      Report_Name: 'Fine_Mesh_Reports.txt'
+      Number_Cells:
+      Variable_of_Interest:
+          Name: Pressure
+          Tag: 'DP-2001'
+          Value:
+  Simulation2:
+      Name: 'Medium'
+      Report_Name: 'Medium_Mesh_Reports.txt'
+      Number_Cells:
+      Variable_of_Interest:
+          Name: Pressure
+          Tag: 'DP-2001'
+          Value:
+  Simulation3:
+      Name: 'Coarse'
+      Report_Name: 'Coarse_Mesh_Reports.txt'
+      Number_Cells:
+      Variable_of_Interest:
+          Name: Pressure
+          Tag: 'DP-2001'
+          Value:
+Tee:
+  Fluid_Volume: 0.13730
+  Simulation1:
+      Name: 'Fine'
+      Report_Name: 'Fine_Mesh_Reports.txt'
+      Number_Cells:
+      Variable_of_Interest:
+          Name: Pressure
+          Tag: 'PT-3002'
+          Value: 
+  Simulation2:
+      Name: 'Medium'
+      Report_Name: 'Medium_Mesh_Reports.txt'
+      Number_Cells:
+      Variable_of_Interest:
+          Name: Pressure
+          Tag: 'PT-3002'
+          Value:
+  Simulation3:
+      Name: 'Coarse'
+      Report_Name: 'Coarse_Mesh_Reports.txt'
+      Number_Cells:
+      Variable_of_Interest:
+          Name: Pressure
+          Tag: 'PT-3002'
+          Value:

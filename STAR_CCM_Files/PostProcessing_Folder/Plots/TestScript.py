@@ -19,13 +19,13 @@ with open(os.path.join(CURRENT_DIRECTORY,'STAR_CCM_Files/PostProcessing_Folder/P
 with open(os.path.join(CURRENT_DIRECTORY,'STAR_CCM_Files/PostProcessing_Folder/Plots/TC_info.yml')) as f:
     data = yaml.load(f, Loader=SafeLoader)
 
-with open(os.path.join(CURRENT_DIRECTORY,'STAR_CCM_Files/PostProcessing_Folder/Coarse_Mesh_Reports.txt')) as f:
+with open(os.path.join(CURRENT_DIRECTORY,'STAR_CCM_Files/PostProcessing_Folder/Sim_Reports/Coarse_Mesh_Reports.txt')) as f:
     coarse_lines = f.read().splitlines()
 
-with open(os.path.join(CURRENT_DIRECTORY,'STAR_CCM_Files/PostProcessing_Folder/Medium_Mesh_Reports.txt')) as f:
+with open(os.path.join(CURRENT_DIRECTORY,'STAR_CCM_Files/PostProcessing_Folder/Sim_Reports/Medium_Mesh_Reports.txt')) as f:
     medium_lines = f.read().splitlines()
 
-with open(os.path.join(CURRENT_DIRECTORY,'STAR_CCM_Files/PostProcessing_Folder/Fine_Mesh_Reports.txt')) as f:
+with open(os.path.join(CURRENT_DIRECTORY,'STAR_CCM_Files/PostProcessing_Folder/Sim_Reports/Fine_Mesh_Reports.txt')) as f:
     fine_lines = f.read().splitlines()
 
 xcoord = []
@@ -42,7 +42,7 @@ for line in lines:
 
 def SearchforTemp(temp_list, TC):
     for line in temp_list:
-        if TC in line:
+        if TC.replace("_", "-") in line:
             temp = float(line.split("    ")[1])
             return temp
 
@@ -96,9 +96,11 @@ for Height in data.keys():
     Theta = []
     temps_inst = []
     for TC in data[Height]:
+        #print(TC)
         data[Height][TC]['Location']['x'] = xcoord[iteration]
         data[Height][TC]['Location']['y'] = ycoord[iteration]
         data[Height][TC]['Location']['z'] = zcoord[iteration]
+        #print(data[Height][TC])
         data[Height][TC]['Location']['Radius'] = float(GetNormalizedRadius(xcoord[iteration], zcoord[iteration]))
         data[Height][TC]['Location']['Theta'] = float(GetTheta(xcoord[iteration], zcoord[iteration]))
         data[Height][TC]['Results']['Coarse'] = SearchforTemp(coarse_lines, TC)
@@ -160,7 +162,7 @@ def MakeOverleafTable():
     for Height in data.keys():
         for TC in data[Height].keys():
             try:
-                string_list.append("%s & %s & %s & %s &%s & %s & %s & \\"%(TC, round(data[Height][TC]['Reading'],2), round(data[Height][TC]['Results']['Coarse'],2), round(data[Height][TC]['Results']['Medium'],2), round(data[Height][TC]['Results']['Fine'],2), round(data[Height][TC]['Results']['Absolute_Error'],2), round(data[Height][TC]['Results']['Relative_Error'],2)))
+                string_list.append("%s & %s & %s & %s & %s & %s & %s \\\\ \hline"%(TC.replace('_', '-'), round(data[Height][TC]['Reading'],2), round(data[Height][TC]['Results']['Coarse'],2), round(data[Height][TC]['Results']['Medium'],2), round(data[Height][TC]['Results']['Fine'],2), round(data[Height][TC]['Results']['Absolute_Error'],2), round(data[Height][TC]['Results']['Relative_Error'],2)))
             except KeyError:
                 print("%s does not have a thermocouple reading"%TC)
     with open(os.path.join(Plot_Path, "Overleaf_Table.txt"),'w') as file:
@@ -170,4 +172,4 @@ def MakeOverleafTable():
     file.close()
     pass
 
-#MakeOverleafTable()
+MakeOverleafTable()
