@@ -29,9 +29,9 @@ Measured = pd.read_csv(r'C:/Users/17577/Thesis_Work/RELAP_FILES\Automation_Tools
 
 for (colname,colval) in Measured.iteritems():
     if "DP" in colname:
-        Measured[colname] = colval.values * 1000.0
+        Measured[colname] = colval.values
     elif "PT" in colname:
-        Measured[colname] = colval.values * 1000.0
+        Measured[colname] = colval.values
     elif "TF" or "TS" in colname:
          Measured[colname] = colval.values + 273.15
 
@@ -70,7 +70,7 @@ class Plot(DefaultSettings):
         PropertyList = []
         for location in self.GetLocations():
             for property in self._dict['Instruments'][location]:
-                PropertyList.append(property)
+                PropertyList.append("%s (%s)"%(property, self._dict['Instruments'][location][property]['Units']))
         PropertyList = list(dict.fromkeys(PropertyList))
         return PropertyList
 
@@ -78,7 +78,7 @@ class Plot(DefaultSettings):
         InstrumentList = []
         for location in  self._instr_locations:
             for properties in self._properties:
-                InstrumentList.append(self._dict['Instruments'][location][properties]['Label'])
+                InstrumentList.append(self._dict['Instruments'][location][properties.split(" ")[0]]['Label'])
         return InstrumentList
 
     def GetSettings(self):
@@ -113,8 +113,8 @@ class Plot(DefaultSettings):
     def InputDatapoints(self, ax, property_index):
         for location in self._instr_locations:
             try:
-                instrument = self._dict['Instruments'][location][self._properties[property_index]]['Label']
-                color = self._dict['Instruments'][location][self._properties[property_index]]['Color']
+                instrument = self._dict['Instruments'][location][self._properties[property_index].split(" ")[0]]['Label']
+                color = self._dict['Instruments'][location][self._properties[property_index].split(" ")[0]]['Color']
                 X, Y = self.MakeSpline(Measured['Run_Time'], Measured[instrument])
                 ax.plot(X, Y, color=color, label = instrument)
             except:
@@ -126,11 +126,11 @@ class Plot(DefaultSettings):
             if property==0:
                 fig, ax1 = self.InitializeYAxis(self._properties[property])
                 ax1 = self.InputDatapoints(ax1, property)
-                leg = ax1.legend(bbox_to_anchor=(0.5, 1.02), fontsize=self._settings_dict['lfontsizeSmall'])
+                leg = ax1.legend(bbox_to_anchor=(0.25, 1.25), fontsize=self._settings_dict['lfontsizeSmall'])
             else:
                 fig2, ax2 = self.InitializeYAxis(self._properties[property], ax1)
                 ax2 = self.InputDatapoints(ax2, property)
-                leg = ax2.legend(loc='center', bbox_to_anchor=(0.75, 1.02), fontsize=self._settings_dict['lfontsizeSmall'])
+                leg = ax2.legend(bbox_to_anchor=(1.0, 1.25), fontsize=self._settings_dict['lfontsizeSmall'])
             fig.tight_layout()
             plt.title(self._dict['Title'], fontsize=16)
             fig.savefig(self._directory + '/%s.png'%(self._name))

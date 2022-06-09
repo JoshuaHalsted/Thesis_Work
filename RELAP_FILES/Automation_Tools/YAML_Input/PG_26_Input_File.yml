@@ -1,9 +1,9 @@
 Analysis:
-    Name: "PG_26"
+    Name: "PG_28"
     Experimental_Data:
-        Measured_Data_Quality: "PG26_Data_Quality.csv"
+        Measured_Data_Quality: "PG28_Data_Quality.csv"
         Measured_Data_Trend: "PG26_Data_Trend.csv"
-    Directory: "C:\\Users\\17577\\Thesis_Work\\RELAP_FILES\\PG_26_Files"
+    Directory: "C:\\Users\\17577\\Thesis_Work\\RELAP_FILES\\PG_28_Files"
     Subanalysis:
         Iteration_1:
             Flow_Rate_1:
@@ -19,15 +19,15 @@ Analysis:
                     Input:
                       Create_Input_File: True
                       generate_list_of_replecements: False
-                      check_if_channels_are_in_file: True
+                      check_if_channels_are_in_file: False
                       write_input_file: 
                           write_initial_conditions:
-                              Boolean: False
+                              Boolean: True
                           write_boundary_conditions:
                               Boolean: False
                           write_mfr: 
-                              Boolean: False
-                              Factor: 1.0
+                              Boolean: True
+                              Factor: 0.4
                       write_strip_file: False
                     Plots:
                         make_plots: False
