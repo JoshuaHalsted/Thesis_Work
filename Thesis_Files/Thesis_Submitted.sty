@@ -1,0 +1,2295 @@
+%\title{beavtex}
+\documentclass[double,12pt]{beavtex}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{mathtools, nccmath}
+\usepackage{array}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{indentfirst}
+\usepackage[labelformat=parens,labelsep=quad,skip=1pt]{caption}
+\usepackage{graphicx}
+\usepackage{rotating} %Package added to allow the rotation of figures and chart on a page, {sidewaysfigure} command
+\usepackage{tablefootnote} %Packaged added to allow footnotes in the tabular environment, use \tablefootnote command
+\usepackage{longtable}
+\usepackage[acronym]{glossaries}
+\usepackage{nomencl}
+\setlength{\nomitemsep}{-\parsep}
+\makenomenclature
+\title{Validation Analysis for the OSU HTTF PG-28 Test Using RELAP5-3D and STAR-CCM+}
+\author{Joshua K Halsted}
+\degree{Master of Science}
+\doctype{Thesis}
+\department{Nuclear Engineering and Radiation Health Physics}
+\depttype{School}
+\depthead{Head}
+\major{Nuclear Engineering}
+\advisor{Izabela Gutowska}
+\submitdate{May 20, 2022}
+\commencementyear{2022}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]   
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{16pt}{\Huge}   
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
+\setlength{\textfloatsep}{10pt}
+
+\makeglossaries
+
+\newacronym{amr}{AMR}{adaptive mesh refinement}
+\newacronym{bc}{BC}{boundary condition}
+\newacronym{bop}{BOP}{balance-of-plant}
+\newacronym{cd}{CD}{cold duct}
+\newacronym{cfd}{CFD}{computational fluid dynamics}
+\newacronym{das}{DAS}{data acquisition system}
+\newacronym{dP}{DP}{differential pressure}
+\newacronym{dT}{DT}{temperature drop}
+\newacronym{dpt}{DPT}{differential pressure transducer}
+\newacronym{dns}{DNS}{director numerical solution}
+\newacronym{eos}{EOS}{equation-of-state}
+\newacronym{fvm}{FVM}{finite volume method}
+\newacronym{ga}{GA}{General Atomics}
+\newacronym{gc}{GC}{gas circulator}
+\newacronym{gci}{GCI}{gas concentration instrument}
+\newacronym{hd}{HD}{hot duct}
+\newacronym{htgr}{HTGR}{high temperature gas reactor}
+\newacronym{httf}{HTTF}{High Temperature Test Facility}
+\newacronym{iet}{IET}{integral effects test}
+\newacronym{inl}{INL}{Idaho National Laboratory}
+\newacronym{loca}{LOCA}{loss-of-coolant accident}
+\newacronym{lp}{LP}{lower plenum}
+\newacronym{lsq}{LSQ}{least-squares quality}
+\newacronym{lwr}{LWR}{light water reactor}
+\newacronym{mcss}{MCSS}{main core support structure}
+\newacronym{mhtgr}{MHTGR}{modular high temperature gas reactor}
+\newacronym{mfr}{MFR}{mass flow rate}
+\newacronym{moose}{MOOSE}{Multiphysics Object Oriented Simulation Environment}
+\newacronym{ns}{NS}{Navier-Stokes}
+\newacronym{oandm}{O\&M}{operations and maintenance}
+\newacronym{od}{OD}{outlet duct}
+\newacronym{osu}{OSU}{Oregon State University}
+\newacronym{pcs}{PCS}{primary coolant system}
+\newacronym{pg}{PG}{Procedural Guide}
+\newacronym{pirt}{PIRT}{Phenomena and Identification Ranking Table}
+\newacronym{pt}{PT}{pressure transducers}
+\newacronym{pwss}{PWSS}{potable water supply system}
+\newacronym{qa}{QA}{quality assurance}
+\newacronym{r5}{R5}{RELAP5-3D}
+\newacronym{r7}{R7}{RELAP7}
+\newacronym{rans}{RANS}{Reynolds-Averaged Navier-Stoke}
+\newacronym{rc}{RC}{reactor cavity}
+\newacronym{rccs}{RCCS}{reactor cavity cooling system}
+\newacronym{rcst}{RCST}{reactor cavity simulation tank}
+\newacronym{rpv}{RPV}{reactor pressure vessel}
+\newacronym{rsm}{RSM}{Reynolds stress model}
+\newacronym{rss}{RSS}{root-sum-square}
+\newacronym{rx}{RX}{reactor core}
+\newacronym{scs}{SCS}{secondary coolant system}
+\newacronym{sfm}{SFM}{segregated flow model}
+\newacronym{sg}{SG}{steam generator}
+\newacronym{ss}{SS}{steady-state}
+\newacronym{star}{STAR}{STAR-CCM+}
+\newacronym{tc}{TC}{thermocouple}
+\newacronym{tdj}{TDJ}{time dependent junction}
+\newacronym{tdr}{TDR}{turbulent dissipation rate}
+\newacronym{tdv}{TDV}{time dependent volume}
+\newacronym{tf}{TF}{fluid temperature thermocouples}
+\newacronym{tke}{TKE}{turbulent kinetic energy}
+\newacronym{ts}{TS}{solid temperature thermocouples}
+\newacronym{up}{UP}{upper plenum}
+\newacronym{vandv}{V\&V}{validation and verification}
+
+
+\makenomenclature
+\nomenclature{$A$}{Cross-sectional area}
+\nomenclature{$\alpha$}{Void fraction ($\alpha_{g}$ $\alpha_{f}$ are specific to gas and liquid, respectively)}
+\nomenclature{$c_{p}$}{Specific heat (constant pressure)}
+\nomenclature{$DISS$}{Energy dissipation function }
+\nomenclature{\acrshort{dP}}{Pressure drop}
+\nomenclature{\acrshort{dT}}{Temperature drop}
+\nomenclature{$D$}{Experimental data value}
+\nomenclature{$E_{abs}$}{Absolute error}
+\nomenclature{$E_{rel}$}{Relative error}
+\nomenclature{$\epsilon$}{Turbulent dissipation rate for a unit mass (used for $k-\epsilon$ model)}
+\nomenclature{$\epsilon_{d}$}{Experimental data error}
+\nomenclature{$\epsilon_{input}$}{Error from input values}
+\nomenclature{$\epsilon_{model}$}{Error from physics assumptions}
+\nomenclature{$\epsilon_{num}$}{Numerical (computational) round-off error}
+\nomenclature{$\epsilon_{s}$}{Simulation error}
+\nomenclature{$FIG$}{interphase friction drag (liquid)}
+\nomenclature{$FIG$}{interphase friction drag (vapor)}
+\nomenclature{$FWF$}{wall drag coefficient (liquid)}
+\nomenclature{$FWG$}{wall drag coefficient (vapor)}
+\nomenclature{$i$}{Fluid chemical thermal enthalpy}
+\nomenclature{$\kappa$}{von Karman's constant}
+\nomenclature{K}{Turbulent kinetic energy (used for $k-\epsilon$ and $k-\omega$ model)}
+\nomenclature{$\lambda$}{Thermal conductivity}
+\nomenclature{$\overrightarrow{f}_{b}$}{External body force exerted on fluid unit volume}
+\nomenclature{$\overline{\overline{I}}$}{Identity matrix}
+\nomenclature{$Ma$}{Mach number}
+\nomenclature{$\mu$}{Fluid shear stress}
+\nomenclature{$\mu_{t}$}{Turbulent shear stress}
+\nomenclature{$\mu/\mu_{t}$}{Turbulent viscosity ratio}
+\nomenclature{$N$}{Number of cells}
+\nomenclature{$\nu$}{Kinematic viscosity}
+\nomenclature{$\Tilde{nu}$}{Kinematic eddy viscosity parameter (used for Spalart-Allmaras model)}
+\nomenclature{$\omega$}{Turbulent frequency, equal to $\epsilon/k$}
+\nomenclature{$\phi$}{General transport scalar variable, equivalent to $\Phi + \phi^{'}$}
+\nomenclature{$\phi^{'}$}{Fluctuating component of $\phi$}
+\nomenclature{$\Phi$}{Mean component of $\phi$}
+\nomenclature{$\rho$}{Fluid density}
+\nomenclature{$\overline{\overline{\sigma}}$}{Stress tensor, equal to $-P \overline{\overline{I}} + \overline{\overline{T}}$}
+\nomenclature{$\overrightarrow{v}$}{Velocity vector, equivalent to $u \hat{i} + v \hat{j} + w \hat{k}$}
+\nomenclature{$P$}{Fluid pressure}
+\nomenclature{$\overrightarrow{q}$}{Heat flux (into fluid)}
+\nomenclature{$Q$}{Volumetric flow rate}
+\nomenclature{$\dot{q}$}{Heat rate}
+\nomenclature{$R$}{Specific gas constant}
+\nomenclature{$R_{fluid}$}{Flow resistance}
+\nomenclature{$Re$}{Reynolds number}
+\nomenclature{$S$}{Simulation result}
+\nomenclature{$S_{E}$}{User-specified energy source term}
+\nomenclature{$T$}{Fluid temperature}
+\nomenclature{$\overline{\overline{T}}$}{Viscous stress tensor, equal to }
+\nomenclature{$U_{\infty}$}{Free stream velocity}
+\nomenclature{$u$}{x-component of $\overrightarrow{v}$}
+\nomenclature{$u^{+}$}{Non-dimensional velocity}
+\nomenclature{$u_{d}$}{Data uncertainty}
+\nomenclature{$u_{inp}$}{Input uncertainty}
+\nomenclature{$u_{num}$}{Numerical uncertainty}
+\nomenclature{$u_{val}$}{Validation standard uncertainty}
+\nomenclature{$v$}{y-component of $\overrightarrow{v}$}
+\nomenclature{$w$}{z-component of $\overrightarrow{v}$}
+\nomenclature{$y^{+}$}{Non-dimensional distance from wall}
+
+\vspace{-4mm}
+\abstract{High temperature gas reactors (\acrshort{htgr}'s) have been  researched and operated commercially since the inception of the nuclear industry. Newer designs, such as the \acrlong{ga} (\acrshort{ga}) Modular \acrshort{htgr}, aim to lower capital costs by shifting towards smaller, more modular designs, although further cost reductions with respect to \acrlong{oandm} (\acrshort{oandm}) are needed to make this design more economical. One phenomena affecting \acrshort{oandm} is the thermal stratification that occurs within the \acrshort{htgr} \acrlong{lp} (\acrshort{lp}) region as a result of differing fluid jet temperatures exiting the core. The temperatures may vary by hundreds of degrees, consequentially causing significant thermal stresses in \acrshort{lp} structures and downstream \acrlong{bop} (\acrshort{bop}) components.  Computational tools can be used as a substitute for experiments, but must first be validated with experimental data to meet the Nuclear Regulatory Commission's licensing requirements. The \acrlong{osu} (\acrshort{osu}) \acrlong{httf} (\acrshort{httf}) \acrlong{pg} (\acrshort{pg}) 28 Low Power ($<$350 kW) Lower Plenum Mixing Test was performed for this purpose, and this document details the effort to validate system- and mesoscale-level codes with the experimental data.}
+
+
+\acknowledgements{I would like to first thank my advisor, Dr. Gutowska, for the opportunities afforded to me to work on scaled test facilities. This includes helping design Kairos Power's SET facility in 2020, and writing reports pertaining to OSU HTTF and SFSET tests in 2021. I would like to also thank Dr. Woods for his guidance with the HTTF and Kairos SET while he was the principal investigator.
+
+Next, I would like to thank INL scientists Dr. Balestra and Dr. Epiney for their assistance with RELAP and MOOSE/Pronghorn. Dr. Epiney helped me understand the HTTF RELAP deck, while Dr. Balestra mentored me during my summer internship at INL. Both were patient explaining concepts that I did not previously understand, and I am grateful. 
+
+Graduate school was a period where I learned how to learn. It also taught me how to be resourceful and independent. I want to thank my mentors (Bill Walters, Mike Bingham and Randy Ellison), my supervisor (Keith Higar), and manager (at the time) Steve Lydzinski for helping reinforce these principles during my internship at Framatome as a software development intern.
+
+Special thanks are needed for my fellow undergraduate and graduate students who I have sought help from, as well as assisted, when it came to both classwork and research projects. I have learned so much from these people not just about technical details of what we are studying, but also how to work in groups and build chemistry. The laughs and "aha!" moments were well worth the countless late nights. 
+
+Last, I would like to thank my Mom and Dad for being supportive of my decision to pursue graduate school. It has opened up opportunities to work for people that emphasize the value of good work and diligence. It was always a joy to come home and see you both when I could, as well as the 30+ animals on the property, and to remind myself to take time to enjoy things outside of my passion for engineering.}
+
+
+\begin{document}
+\maketitle
+\mainmatter
+
+%-------------------------INTRODUCTION-----------------------------
+
+\chapter{Introduction}
+
+\section{Background}
+
+\subsection{The Need for Cheap, Abundant Energy}
+
+In its 2021 revision of the International Energy Outlook report \cite{eia_ieo}, the United States Energy Information Administration projects that world energy consumption will grow by nearly 50\% between 2020 and 2050 (see Figure \ref{fig:EIA_Projections}). Affordable energy production and distribution is vital for elevating and maintaining a high standard of living, and is a central reason why institutions around the world invest trillions of dollars into the energy sector annually \cite{iea_2021}. There has been significant interest worldwide to shift energy production away from hydrocarbon-based sources to reduce carbon emissions (see Figure \ref{fig:EIA_Projections_Sector} through \ref{fig:EIA_Electricity_Generation}), with many countries pledging to be carbon-neutral within the next few decades \cite{lang_2022}.
+\begin{center}
+    \begin{figure}[htp]
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/EIA_Projections.JPG}
+        	\caption{World energy consumption projections (OECD and non-OECD)}
+        	\label{fig:EIA_Projections}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/EIA_Projections_Sector.JPG}
+        	\caption{Primary energy consumption by energy source (world)}
+        	\label{fig:EIA_Projections_Sector}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/EIA_Projections_Source.JPG}
+        	\caption{Share of primary energy consumption by source (world)}
+        	\label{fig:EIA_Projections_Source}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/EIA_Electricity_Generation.PNG}
+        	\caption{Share of primary electricity consumption by source (world)}
+        	\label{fig:EIA_Electricity_Generation}
+        	\end{center}
+      \end{subfigure}
+    \caption[EIA projections for energy and electricity]{\small \centering EIA projections for energy and electricity (taken from \cite{eia_ieo} with no changes)}
+    \end{figure}
+\end{center}
+
+\vspace{-5mm}
+Nuclear reactors are marketed as safe \cite{WN_Safety}, reliable \cite{mueller_2021}, relatively carbon-neutral \cite{rhodes_2022}, and do not require as much land as other power production methods \cite{shellenberger_2021}. Reactors currently provide approximately 20\% of America's electricity needs, but only 4\% of global energy production \cite{eia_nuclear}. A central reason for why that share has not increased substantially since the technology's inception in the early 1950's is the capital costs associated with building, operating, and decommissioning \cite{touran}, as well as the technology's inability to expand into additional energy markets separate from electricity production \cite{process_heat}. The majority of the world's nuclear reactors are \acrlong{lwr}s (\acrshort{lwr}s), which have a relatively high power density compared to other designs, but are limited to electricity production because of the relatively low primary side outlet temperatures. Since \acrshort{lwr}s operate at high pressures, they require a significant amount of structural support and thus, scale economically with volume. The problem with this is that long construction times associated with large projects often go over budget \cite{pereira} and the energy market may fluctuate such that the project would become uneconomical. This combination makes utilities reluctant to invest billions in upfront capital for nuclear plants \cite{roques}.
+
+One specific class of reactors designed to address these economic issues are \acrlong{mhtgr}s (\acrshort{mhtgr}s) \cite{office_of_nuclear_energy_kinsey_2019}. These reactors utilize gas as the working fluid because the pumping requirements are small relative to liquid-cooled reactors, gas is considered neutronically transparent (improving fuel economics), and noble gases are chemically inert. Gas reactors require relatively less structural reinforcement than water-based reactors because the operating pressure is significantly less. The \acrlong{rx} (\acrshort{rx}) consists of ceramic, hexagonal prismatic blocks (Figure \ref{fig:MHTGR_Core_Structure}) containing both the fuel (TRISO kernels, Figure \ref{fig:TRISO-fuel-particle}) and the graphite reflector (Figure \ref{fig:GA_MHTGR_Core_Block}). The \acrshort{rx} can also be retrofitted to accommodate a pebble-bed configuration, where ceramic spheres containing TRISO kernels are packed into the \acrlong{rpv} (\acrshort{rpv}) and no prismatic blocks are used. 
+\clearpage
+\begin{center}
+    \begin{figure}[!ht]
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/MHTGR_Core_Structure.PNG}
+    	\caption[Typical hexagonal-shaped, ceramic core block used for the \acrshort{rx} in \acrshort{htgr}s]{Typical hexagonal-shaped, ceramic core block used for the \acrshort{rx} in \acrshort{htgr}s (taken from \cite{windes_mhtgr} with no changes)}
+    	\label{fig:MHTGR_Core_Structure}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/TRISO-fuel-particle.png}
+        	\caption[Illustration of a TRISO fuel particle]{Illustration of a TRISO fuel particle (taken from \cite{triso_fuel} with no changes)}
+        	\label{fig:TRISO-fuel-particle}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{15cm}
+        \begin{center}
+        	\includegraphics[width=15cm]{Figures/MHTGR_Cutaway_Diagrams.PNG}
+        	\caption[Cutaway of \acrshort{ga}-\acrshort{mhtgr} \acrshort{rpv} (left) and a top view of the core (right)]{\small\centering Cutaway of \acrshort{ga}-\acrshort{mhtgr} \acrshort{rpv} (left) and a top view of the core (right) (taken from \cite{wang_sun_sabharwall_2020} with no changes)}
+        	\label{fig:GA_MHTGR_Core_Block}
+        \end{center}
+      \end{subfigure}
+      \caption{\acrshort{ga}-\acrshort{mhtgr}}
+    \end{figure}
+\end{center} 
+\vspace{-15mm}
+\subsection{Licensing the General Atomics \acrshort{mhtgr}}
+The \acrlong{ga} (\acrshort{ga}) \acrshort{mhtgr} \cite{murray} is similar to the design implemented at the Fort St. Vrain power plant in Colorado, utilizing ceramic, prismatic blocks in the \acrshort{rx} with kernel fuel, helium coolant, and a graphite moderator. Figure \ref{fig:GA_MHTGR_Operating_Characteristics} shows some of the thermodynamic aspects of the \acrshort{ga}-\acrshort{mhtgr}. Whereas in a \acrshort{lwr} the inlet/outlet \acrshort{rx} temperatures may differ by only 25$^{o}$C, the \acrshort{ga}-\acrshort{mhtgr} can achieve thermal efficiencies north of 45\% because the temperature gain is over 400$^{o}$C.
+\begin{center}
+    \begin{figure}
+        \begin{center}
+        	\includegraphics[width=12cm]{Figures/GA_MHTGR_Operating_Characteristics.PNG}
+        	\caption[Some operating characteristics of the \acrshort{ga}-\acrshort{mhtgr}]{Some operating characteristics of the \acrshort{ga}-\acrshort{mhtgr} (taken from \cite{gutowska_scaling} with no changes)}
+        	\label{fig:GA_MHTGR_Operating_Characteristics}
+        \end{center}
+    \end{figure}
+\end{center}
+\vspace{-5mm} %5mm vertical space
+
+Fort St. Vrain was successful in demonstrating fuel performance, core physics, and fuel handling/refueling, but had issues with respect to \acrshort{bop} components and power fluctuations as a result of \acrshort{rx} blocks shifting position during operations. Reducing the size of the power plant not only may help alleviate these issues, but may also make the reactor more passively safe. In the United States, the Nuclear Regulatory Commission requires designers pursuing a license for a passively safe design to demonstrate that the \acrshort{rx} can be cooled (via natural convection) without external power or operator intervention for three full days. This situation implies that no mechanical and/or electric components can be used to assist with cooling the \acrshort{rx}. \acrshort{htgr}s aim to do this by utilizing all three modes of heat transfer, with coolant sufficiently convecting heat away from the \acrshort{rx}, using panels to siphon heat from the \acrshort{rpv} via radiative heat transfer, and using other plant structures to cool the \acrshort{rpv} via conduction. Likewise, the \acrshort{rx} components consist of sufficient material properties to achieve a high melting temperature and negative reactivity coefficients.
+
+To complete the licensing of such a design, phenomena unique to the reactor design (see \acrlong{pirt}  (\acrshort{pirt}) \cite{ball_2008}) must be properly characterized, particularly with the use of computer codes, for both normal operations and accident scenarios. Important phenomena specific to normal operations include:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Understanding the flow distribution in the \acrshort{lp};
+    \item Characterizing the bypass flow through the core; and
+    \item Generating power and flux profiles.
+\end{itemize}
+\vspace{-2mm} %5mm vertical space
+All three are ranked with high importance, and low or medium knowledge. The first phenomena is particularly important because the \acrshort{lp} is where the helium coolant is the hottest, but because the fluid jets exiting the core have different temperatures, the \acrshort{lp} support structures may experience significant temperature gradients \cite{osti_1038194}. 
+
+These codes, if validated with experimental data, can be used to simulate a spectrum of operating scenarios to prove that the reactor is indeed safe to operate. Part of this validation process incorporates using scaled \acrlong{iet} (\acrshort{iet}) facilities to gather experimental data, which is compared to computational results from system-level codes and \acrlong{cfd} (\acrshort{cfd}) solvers. These \acrshort{iet}'s are particularly useful since they are less expensive and easier to manage than a full-scale prototype. One such facility is the \acrshort{osu} \acrshort{httf} (see Figure \ref{fig:HTTF_Shell} for facility rendering, and Figure \ref{fig:GA_MHTGR_Operating} for geometric comparisons to the \acrshort{ga}-\acrshort{mhtgr}). From 2015 to 2019, the \acrshort{osu} \acrshort{httf} was used to collect data for tests performed intended to simulate basic shakedown and heat-up tests, conduction cooldown events, and normal operations. 
+\vspace{-8mm}
+\begin{center}
+    \begin{figure}[!ht]
+        \begin{center}
+        \includegraphics[width=6cm]{Figures/HTTF_Shell}
+        \caption{3D rendering of the \acrshort{httf}}
+        \label{fig:HTTF_Shell}
+        \end{center}
+    \end{figure}
+\end{center}
+
+\begin{center}
+    \begin{figure}[!ht]
+        \begin{center}
+        	\includegraphics[width=14cm]{Figures/Geometric_Scaling.PNG}
+        	\caption[Geometric length  scales of the \acrshort{httf}, with respect to the prototypical \acrshort{ga}-\acrshort{mhtgr}]{Geometric length  scales of the \acrshort{httf}, with respect to the prototypical \acrshort{ga}-\acrshort{mhtgr} (taken from \cite{gutowska_scaling} with no changes)}
+        	\label{fig:GA_MHTGR_Operating}
+        \end{center}
+    \end{figure}
+\end{center}
+\vspace{-8mm}
+
+\section{\acrshort{lp} Mixing}
+
+The \acrshort{lp} present in the \acrshort{ga}-\acrshort{mhtgr} is configured such that it geometrically resembles a tube bank, which produces a complex mixing flow (see Figure \ref{fig:LP_Flow_Behavior}). As the fluid exits the core, it takes a near 90$^{o}$ turn, but not before some of the jets impinge on the \acrshort{lp} floor. This flow regime consists of an array of fluid jets with inlet velocities that, in the typical \acrshort{ga}-\acrshort{mhtgr}, can vary between 50 to 100 m/s. Recirculation zones are present immediately downstream of the support columns, generating flow separation that causes wakes. More importantly, however, the temperature range of the jets entering the \acrshort{lp} can range in temperature by as much as 300-500$^{o}$C \cite{rodriguez_2010}.  
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=13cm]{Figures/Flow_Behavior_LP.PNG}
+    	\caption[Different types of fluid behaviors that might be seen in a typical \acrshort{htgr} \acrshort{lp}]{Different types of fluid behaviors that might be seen in a typical \acrshort{htgr} \acrshort{lp} (taken from \cite{rodriguez_2010} with no changes)}
+    	\label{fig:LP_Flow_Behavior}
+    	\end{center}
+\end{figure}
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=13cm]{Figures/Fluid_Support_Column_Interaction.PNG}
+    	\caption[Fluid streamline in a typical \acrshort{lp} unit cell]{Fluid streamline in a typical \acrshort{lp} unit cell (taken from \cite{salkhordeh_clifford_jana_kimber_2018} with no changes)}
+    	\label{fig:Fluid_Support_Column_Interaction}
+    	\end{center}
+\end{figure}
+\vspace{-8mm}
+There are two potential safety-related hazards associated with this phenomena: one is that the diverse temperatures can cause thermal stresses in \acrshort{lp} components such as the support columns, the floor, and sides; the other is that an insufficient level of mixing may occur that would result in a significant temperature range in the fluid at the outlet. The former point has severe consequences, since these jets can cause significant thermal stresses in the support columns, resulting in thermal fatigue and a possibility of structural failure. Compounding this problem is that the highly turbulent flow in the \acrshort{lp} is expected to create wakes and, consequentially, vibrations as it traverses through this tube bank, which could degrade the support columns much quicker. This latter point of thermal stratification in the \acrshort{od} would create thermal stresses in downstream components, such as the heat exchanger. However, it is a relatively easier problem to solve, since the fluid is reasonably developed and easier to understand. Thermal stratification in this region can be mitigated by implementing obstructions that enhance mixing prior to this fluid interacting with safety-related \acrshort{bop} components.
+\begin{center}
+    \begin{figure}[!ht]
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/LP_Mixing_Profile.jpg}
+        	\caption[\acrshort{cfd} predictions of jet temperatures in the \acrshort{ga}-\acrshort{mhtgr} \acrshort{lp}]{\acrshort{cfd} predictions of jet temperatures in the \acrshort{ga}-\acrshort{mhtgr} \acrshort{lp} (taken from \cite{salkhordeh_clifford_jana_kimber_2018} with no changes)}
+        	\label{fig:LP_Mixing_Profile}
+        \end{center}
+    \end{figure}
+\end{center}
+\vspace{-5mm}
+
+Significant research has been performed to generate modeling techniques and understand the turbulent mixing characteristics in these regions \cite{rodriguez_2010} \cite{anderson_hassan_schultz_2008} \cite{tauveron_2003} \cite{clifford_fradeneck_oler_salkhordeh_kimber_2019}, but experimental data is needed to validate these models, particularly experimental data from a facility that resembles that of the prototype. The \acrshort{osu} \acrshort{httf} has had two tests performed (\acrshort{pg}-28 and \acrshort{pg}-30) specifically to gather experimental data to validate computational models, and the former test is the subject of this report. 
+\vspace{-3mm}
+\section{Objective}
+
+The objective of this thesis is to validate a pair of fluid dynamics codes with experimental data for one of the normal operations tests completed at the \acrshort{osu} \acrshort{httf}, which specifically examines the thermal stratification phenomena. This manuscript also details the process of verifying that the results of a high-fidelity \acrshort{lp} model reach some spatial convergence through a grid refinement study. The  system-level code (RELAP5-3D) will be used to generate inlet and outlet boundary conditions for a relatively higher-fidelity \acrshort{cfd} software (STAR-CCM+), which models the \acrshort{lp} and \acrshort{od} domain directly. Previous studies have been performed to couple system codes with \acrshort{cfd} software to model the \acrshort{lp} domain, but have been performed in the context of incorporating conditions expected to be seen in the prototype or what has been proposed as a test in the \acrshort{httf}. This is a unique study where actual experimental results are compared with simulations.
+
+Although an analysis for the entire test would be useful, only one instance in time is examined for validation. This is because coupling codes may introduce additional errors, and the objective is to examine the distortions at a "snapshot", e.g. when the facility is in a quasi-steady state. The quantitative results (and qualitative reasons for the results) from this effort will provide the reader a general idea of how well this approach actually simulates a normal operations scenario in the \acrshort{osu} \acrshort{httf}, and if the phenomena identified in the \acrshort{mhtgr} \acrshort{pirt} is actually seen. 
+
+If a sufficient level of thermal stratification is seen in both the \acrshort{lp} and \acrshort{od}, and the individual validation locations are accurately characterized for both temperature and pressure, it implies that it is acceptable to homogenize inlet \acrshort{lp} temperatures with a system-level code, and that having a channel-by-channel profile is not needed to get reasonable results relative to the experimental data. Further work can be done to couple the two codes together to validate the entire test, which generally examines the change in fluid behavior as a function of mass flow rate. If the \acrshort{lp} region is well-predicted, but there is insufficient thermal stratification in the \acrshort{od}, it implies that the boundary conditions are likely correct, but the \acrshort{cfd} model is not properly capturing the mixing characteristics of the flow, and more scrutiny needs to be applied to the \acrshort{cfd} models implemented. Likewise, if a sufficient level of thermal stratification can be seen in the \acrshort{od}, but the temperatures in the \acrshort{lp} are not well predicted, then it implies that the \acrshort{cfd} model captures the mixing reasonably well, but the method by which the inlet boundary conditions are created should be re-examined. 
+
+%------------------------LIT REVIEW--------------------------------
+
+\chapter{Literature Review}
+
+The first part of this literature review explains different aspects of the \acrshort{httf}, specifically the facility layout, instrumentation, and the  \acrshort{pg}-28 Low Power ($<$350 kW) Lower Plenum Mixing Test. The second part discusses the nature of system codes, and how they are used to model phenomena in large facilities. The third part discusses \acrlong{fvm} (\acrshort{fvm}) solvers, and why they are applicable to the complicated flow region that is the \acrshort{httf} \acrshort{lp}. The fourth and final section explains the process of \acrlong{vandv} (\acrshort{vandv}). 
+\vspace{-6mm}
+\section{\acrshort{httf} – Facility Description and Experiments}
+
+To summarize \cite{woods}, the facility contains the \acrlong{pcs} (\acrshort{pcs}) which has an \acrshort{rpv}, a concentric pipe consisting of the hot and cold ducts (\acrshort{hd} and \acrshort{cd}), a \acrlong{sg} (\acrshort{sg}), a \acrlong{gc} (\acrshort{gc}), and connecting pipes. Break valves in both the \acrshort{hd} and \acrshort{cd} connect to a \acrlong{rcst} (\acrshort{rcst}), which is used during conduction cooldown tests to alter the gas composition to simulate the various thermodynamic conditions that may exist outside of the RPV following a \acrlong{loca} (\acrshort{loca}). The \acrshort{rpv} is surrounded by the \acrlong{rccs} (\acrshort{rccs}), which consists of cooling panels meant to capture radiative heat transfer from the \acrshort{rpv} to the environment.  Isolation valves can close off the supply of water that runs through a series of pipes connecting to the panels to simulate a compromised heat sink. These auxiliary systems are not used extensively in the \acrshort{pg}-28 test; thus, the following subsections will only provide more details about the \acrlong{rx} (\acrshort{rx}), lower plenum (LP), and \acrshort{hd}.  
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=12cm]{Figures/HTTF_Simple_Facility_Diagram.png}
+    	\caption[Simplified system diagram of the \acrshort{httf}]{Simplified system diagram of the \acrshort{httf} (taken from \cite{brumback_2020} with no changes)}
+    	\label{fig:HTTF_Facility_Schematic}
+    \end{center}
+\end{figure}
+\vspace{-10mm}
+\subsection{\acrshort{rx} and \acrshort{lp} Layout}
+
+Figure \ref{fig:HTTF_RPV_Flow} shows the \acrshort{httf} \acrshort{rpv} flow path. Cold gas enters the concentric duct, flows down and outwards through the \acrlong{mcss} (\acrshort{mcss}), upwards through a riser and into the \acrlong{up} (\acrshort{up}). The \acrshort{up} comprises of space with rods protruding from the \acrshort{rpv} upper head ceiling. Below the \acrshort{up} are a series of stacked alumina ceramic blocks comprising the \acrshort{rx} (\ref{fig:HTTF_Core_Blocks}), which simulates both the core and the upper/lower reflectors of the \acrshort{ga} \acrshort{mhtgr}. Surrounding these blocks are ceramic blocks that represent the side reflector. Underneath these ceramic blocks is a roof, which covers the \acrshort{lp} chamber and the \acrshort{lp} floor/supports. All components in the \acrshort{rx} use either Greencast-94F or silicon carbide ceramic. More details about the scaling of these materials can be found in Figure \ref{fig:Material_Scaling} and the \acrshort{osu} \acrshort{httf} Scaling Report \cite{gutowska_scaling}.
+\vspace{-8mm}
+\begin{center}
+    \begin{figure}[!ht]
+        \begin{subfigure}{6cm}
+            \begin{center}
+            	\includegraphics[width=6cm]{Figures/HTTF_RPV_Flow}
+            	\caption[Flowpath in the \acrshort{httf} \acrshort{rpv}]{\small Flowpath in the \acrshort{httf} \acrshort{rpv}}
+            	\label{fig:HTTF_RPV_Flow}
+            \end{center}
+        \end{subfigure}
+        \begin{subfigure}{5.5cm}
+            \begin{center}
+            	\includegraphics[width=5.5cm]{Figures/HTTF_Core_Blocks}
+            	\caption[\acrshort{httf} \acrshort{rx} blocks]{\small \acrshort{httf} \acrshort{rx} blocks}
+            	\label{fig:HTTF_Core_Blocks}
+            \end{center}
+        \end{subfigure}
+        \hspace{1em}
+        \begin{subfigure}{6cm}
+            \begin{center}
+            	\includegraphics[width=6cm]{Figures/HTTF_Core_Block}
+            	\caption[Typical \acrshort{rx} blocks]{\small Typical \acrshort{rx} blocks}
+            	\label{fig:HTTF_Core_Block}
+            \end{center}
+        \end{subfigure}
+        \hspace{4em}
+        \begin{subfigure}{6cm}
+            \begin{center}
+            	\includegraphics[width=6cm]{Figures/HTTF_Side_Reflector}
+            	\caption[Side reflector blocks]{\small Side reflector blocks}
+            	\label{fig:HTTF_Side_Reflector}
+            \end{center}
+        \end{subfigure}
+      \caption[Cross-sectional views of the \acrshort{httf} power-production component]{\small \centering Cross-sectional views of the \acrshort{httf} power-production component (taken from \cite{gutowska_design} with no changes)}
+    \end{figure}
+\end{center}
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=14cm]{Figures/Material_Scaling.PNG}
+    	\caption[\acrshort{httf} \acrshort{rx} material scaling factors]{\acrshort{httf} \acrshort{rx} material scaling factors (taken from \cite{gutowska_design} with no changes)}
+    	\label{fig:Material_Scaling}
+    \end{center}
+\end{figure}
+
+The \acrshort{rx} consists of 234 coolant channels that vary in size between 0.375" and 0.625" in diameter. Since the \acrshort{rx} consists of hexagonal blocks, each block can be divided into 1/6th azimuthal sections, with symmetry across the concentric duct axis (Figure \ref{fig:Core_Block_Channels}). The primary sector (which is the most instrumented sector) is located opposite of the concentric duct, whereas the secondary sector is 60$^{o}$ counter-clockwise from the duct, and the tertiary sector (the least instrumented) is in line with the duct. The six 0.625" diameter holes are part of the inner bypass, whereas the outer 36 are considered the outer bypass. 1" holes are embedded between the channels to accommodate for the graphite heater rods.
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=12cm]{Figures/Core_Block_Channels.png}
+    	\caption[\acrshort{rx} channel layout]{\acrshort{rx} channel layout (taken from \cite{louria} with no changes)}
+    	\label{fig:Core_Block_Channels}
+    \end{center}
+\end{figure}
+
+As the helium coolant exits the \acrshort{rx}, it impinges on the \acrshort{lp} floor, interacts with the support columns, then exits at a nearly 90$^{o}$ bend through the \acrshort{hd}. The \acrshort{hd} is a pipe which connects to the \acrshort{sg} via a 90$^{o}$ tee. The \acrshort{lp} domain is a place where significant pressure losses and jet mixing are expected to occur, and is also where significant temperature gradients in the structural materials are expected to be present. Minimizing these temperature gradients will lower the chances of thermal striping, a phenomenon that would require frequent maintenance \cite{landfried_2016}. An objective of the \acrshort{httf} is to quantify, via experimental data, how prevalent temperature differences are in the fluid jets and materials via the use of \acrlong{tc}s (\acrshort{tc}'s).
+
+\vspace{-12mm}
+\subsection{\acrshort{httf} Instrumentation}
+
+The \acrshort{httf} has 400 data acquisition channels comprising approximately 500 instruments, including \acrshort{tc}'s, \acrlong{pt}s (\acrshort{pt}'s), \acrlong{dpt}s (\acrshort{dpt}'s), flow meters, and \acrlong{gci} (\acrshort{gci}’s). The following subsections detail which instruments are particularly important to the \acrshort{pg}-28 test (particularly the \acrshort{rx}, \acrshort{lp} and \acrshort{od}), with a brief description of the instruments used in other parts of the \acrshort{httf}. For more information, please consult the \acrshort{osu} \acrshort{httf} Instrumentation Plan \cite{louria} for further details.
+\vspace{-6mm}
+\subsection{Lower Plenum}
+
+To support the \acrshort{lp} instrumentation and provide structural support for the \acrshort{rx}, a total of 163 ceramic support posts are embedded into the \acrshort{lp} floor. 16 of these posts can support \acrshort{tc}'s. The fluid jets exiting the \acrshort{rx} are routed to the \acrshort{tc}'s through the side of the support posts via 0.6 cm diameter channels located at 25\% and 75\% of the support post height (Figure \ref{fig:HTTF_LP_Support_Posts}). There are 58 K-type \acrshort{tc}'s that are used within the \acrshort{lp}. 32 are gas \acrshort{tc}'s installed near the middle of the posts, 12 are gas \acrshort{tc}'s installed at the LP inlet, 12 are ceramic material \acrshort{tc}'s installed into the \acrshort{lp} floor, and 2 are ceramic material \acrshort{tc}'s installed into the side reflector of the \acrshort{lp} to measure solid material temperatures. Figure \ref{fig:HTTF_LP_PT_Placement_Axial} shows an elevation layout for two support columns that are aligned specifically to measure temperatures for gas jets. A radial layout of the \acrshort{tc}'s in the \acrshort{lp} is provided in Figure \ref{fig:HTTF_LP_PT_Placement_Radial}.
+\begin{center}
+\begin{figure}
+  \begin{subfigure}{15cm}
+    \begin{center}
+    	\includegraphics[width=9cm]{Figures/HTTF_LP_Support_Posts.png}
+    	\caption{Diagram showing \acrshort{tc}'s and gas detectors in the LP. Channels with 4 \acrshort{tc}'s have \acrshort{tc}'s located at the gas inlet, upper, lower, and floor, while those with only 2 are located at the upper and lower.}
+    	\label{fig:HTTF_LP_Support_Posts}
+    	\end{center}
+  \end{subfigure}
+  \hspace{1em}
+  \begin{subfigure}{15cm}
+    \begin{center}
+    	\includegraphics[width=9cm]{Figures/HTTF_LP_PT_Placement_Axial.png}
+    	\caption{Elevation layout for \acrshort{tc}'s in two adjacent support columns used for jet characterization. The black circles represent \acrshort{tc}'s used for measure temperatures in the inlet plenum, 25\% \acrshort{lp} height, and 75\% \acrshort{lp} height. The purple circle represents a single \acrshort{tc} used for measuring solid material temperature of the \acrshort{lp} floor.}
+    	\label{fig:HTTF_LP_PT_Placement_Axial}
+    	\end{center}
+  \end{subfigure}
+  \caption[\acrshort{lp} support post layout and instrument routing]{\small \centering \acrshort{lp} support post layout and instrument routing (taken from \cite{gutowska_design} with no changes)}
+\end{figure}
+\end{center}
+One pressure tap is located near the edge of the \acrshort{lp} opposite the side containing the inlet and outlet ducts. This pressure tap is connected to a \acrshort{dpt}; the reference pressure for this \acrshort{dpt} is the \acrshort{rpv} inlet pressure. 
+\begin{center}
+\begin{figure}
+  \begin{subfigure}{7cm}
+         \begin{center}
+    	\includegraphics[width=7cm]{Figures/HTTF_LP_TC_Placement_Radial.png}
+    	\caption{\acrshort{tc} locations within the \acrshort{lp}. Purple circles represent \acrshort{tc}'s used to measure side reflector temperatures; black represents \acrshort{tc}'s used to measure gas temperatures at 25\% and 75\% of the \acrshort{lp} height; blue circles represent 4 \acrshort{tc}'s used for jet characterization and \acrshort{lp} floor temperatures}
+    	\label{fig:HTTF_LP_TC_Placement_Radial}
+    	\end{center}
+  \end{subfigure}
+  \hspace{1em}
+  \begin{subfigure}{7cm}
+    \begin{center}
+    	\includegraphics[width=7cm]{Figures/HTTF_LP_PT_Placement_Radial.png}
+    	\caption{\acrshort{dpt} location (DP-2001) shown in bottom left as a green circle, which will be used for the grid convergence study. The red ovals are where the \acrshort{gci} sensors are located, but were not operated during the \acrshort{pg}-28 test}
+    	\label{fig:HTTF_LP_PT_Placement_Radial}
+    	\end{center}
+  \end{subfigure}
+  \caption[Instrument layouts in the \acrshort{lp}]{\small \centering Instrument layouts in the \acrshort{lp} (taken from \cite{louria} with no changes)}
+\end{figure}
+\end{center}
+\vspace{-6mm}
+\subsection{Outlet Duct}
+
+The \acrshort{od} (also known as the \acrshort{hd}) consists of K-type \acrshort{tc}'s, plate-type \acrshort{gci}'s, and pressure sensors. These instruments are encapsulated into a “rake” (see Figure \ref{fig:Rake_Figure}), and the \acrshort{od} consists of three rakes installed at separate locations. \acrshort{tc} and \acrshort{gci}’s are “stacked” vertically (see Figure \ref{fig:HTTF_HD_Rake_TCs}). Rake 1 also consists of pressure taps at the top of the Hot Leg and Cold Leg; a static pressure sensor is located at the top of the Cold Leg pressure tap to provide a baseline system pressure. This pressure provides the reference pressure used in the \acrshort{dpt}'s for the primary system.
+\begin{center}
+\begin{figure}[!ht]
+    	\includegraphics[width=13cm]{Figures/Rake_Figure.png}
+    	\caption{CAD model of the rake containing \acrshort{tc}'s and \acrshort{gci}'s}
+    	\label{fig:Rake_Figure}
+\end{figure}
+\vspace{-15mm}
+\end{center}
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=8cm]{Figures/HTTF_HD_Rake_TCs.png}
+    	\caption[Locations of instruments within Hot Legs (inner) and Cold Legs (outer). Top left is the TC layout in Rake 1; top right is the \acrshort{tc} layout in Rake 2; bottom pictures are the \acrshort{gci} layouts in Rakes 1 and 2]{Locations of instruments within Hot Legs (inner) and Cold Legs (outer). Top left is the TC layout in Rake 1; top right is the \acrshort{tc} layout in Rake 2; bottom pictures are the \acrshort{gci} layouts in Rakes 1 and 2 (taken from \cite{louria} with no changes)}
+    	\label{fig:HTTF_HD_Rake_TCs}
+    \end{center}
+\end{figure}
+
+\vspace{-6mm}
+\subsection{Heater Banks}
+
+The \acrshort{httf} utilizes 210 graphite dogbone-shaped heater rods to heat the core (Figure \ref{fig:Dog_Bone_Heaters}). These rods are divided into 10 heater banks (Figure \ref{fig:Heater_Bank_Layout}), where each heater bank has three legs, and each leg carries one phase of the three phase power provided by an external source. Originally, the heater banks were supposed to work in pairs, and the total power output was initially rated at 2.2 MW, but was scaled back after shakedown testing because several heating units were damaged and replaced. The heating setup was changed several times to make a "hybrid" setup that only utilized four or five of the original heating units (namely, 103/104, 107/110, and 106) that can provide about 1/20th of the initial power. This reduction in power ultimately impacts the scaling distortions that exist (namely, the $Re$ number) and creates asymmetry in the \acrshort{rx} temperature profile. This will prove important when assessing the results from the system-level code for the test simulation.
+
+\begin{center}
+\begin{figure}
+    \begin{subfigure}{13cm}
+        \begin{center}
+        	\includegraphics[width=13cm]{Figures/Dog_Bone_Heaters.png}
+        	\caption[Dog-bone shaped heaters]{Dog-bone shaped heaters (taken from \cite{gutowska_design} with no changes)}
+        	\label{fig:Dog_Bone_Heaters}
+        \end{center}
+    \end{subfigure}
+      \hspace{5em}
+    \begin{subfigure}{13cm}
+        \begin{center}
+        	\includegraphics[width=13cm]{Figures/Heater_Bank_Layout.png}
+        	\caption[Heater bank layout]{Heater bank layout (taken from \cite{brumback_2020} with no changes)}
+        	\label{fig:Heater_Bank_Layout}
+        \end{center}
+    \end{subfigure}
+    \caption[Information about the heating unit used in the \acrshort{httf}]{\small \centering Information about the heating unit used in the \acrshort{httf}}
+\end{figure}
+\end{center}
+\vspace{-12mm}
+\section{\acrshort{pg}-28 Test Description}
+
+The \acrshort{pg}-28 test was conducted to examine thermal profiles and mixing phenomena in the LP due to changes in the system \acrlong{mfr} (\acrshort{mfr}). The power to the heaters was held constant throughout the duration of the test (see Figure \ref{fig:PG_28_Heater_Output}). The \acrshort{gc} motor speed was increased three times (Figure \ref{fig:PG_28_MS}), leading to jumps in heat removal rates (see Figures \ref{fig:PG_28_LP_Post_Temps} and \ref{fig:Block_7_Core_Temperatures}). 
+
+\begin{center}
+\begin{figure}[!ht]
+    \begin{subfigure}{8cm}
+        \begin{center}
+        	\includegraphics[width=8cm]{Figures/PG_28_Heater_Output.png}
+        	\caption[Heater output during the \acrshort{pg}-28 test]{Heater output during the \acrshort{pg}-28 test}
+        	\label{fig:PG_28_Heater_Output}
+        	\end{center}
+    \end{subfigure}
+    \begin{subfigure}{6cm}
+        \begin{center}
+        	\includegraphics[width=6cm]{Figures/PG_28_MS.png}
+        	\caption[\acrshort{gc} motor speed during the test]{\acrshort{gc} motor speed during the test}
+        	\label{fig:PG_28_MS}
+        \end{center}
+    \end{subfigure}
+    \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/PG_28_LP_Post_Temps.png}
+        	\caption[\acrshort{lp} post temperatures during test]{\acrshort{lp} post temperatures during test}
+        	\label{fig:PG_28_LP_Post_Temps}
+        \end{center}
+    \end{subfigure}
+    \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Block_7_Core_Temperatures.png}
+        	\caption[\acrshort{lp} post temperatures during test]{Block 7 \acrshort{tc} readings}
+        	\label{fig:Block_7_Core_Temperatures}
+        \end{center}
+    \end{subfigure}
+    \caption[Higher \acrshort{mfr} resulted in cooling the \acrshort{rx} and \acrshort{lp}]{\small Higher \acrshort{mfr} resulted in cooling the \acrshort{rx} and \acrshort{lp} (taken from \cite{pg_28} with no changes)}
+\end{figure}
+\end{center}
+
+The core was heated up over 47 hours until a hot \acrlong{ss} (\acrshort{ss}) was reached, which incorporated that the:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Peak core temperature was between 780 and 820$^{o}$ C;
+    \item Core average temperature was between 525 and 575$^{o}$ C; and
+    \item No channel temperature increased more than 5$^{o}$ C per hour.
+\end{itemize}
+\vspace{-2mm} %5mm vertical space
+Additional conditions that had to be met are outlined in Figure \ref{fig:PG_28_Initial_Conditions}. Core temperatures were allowed to increase throughout the core, so long as material requirements were not exceeded and heater power was relatively steady. As these core temperatures increased, the water level in the \acrshort{sg} decreased. Once it decreased below 60\%, the \acrshort{sg} inlet valve was opened to increase the water level. The \acrshort{rccs} was continuously operated with a motor speed of 30\%. 
+
+The entire test lasted around 6.5 hours. Figures \ref{fig:SG_Inlet_Outlet} through \ref{fig:SG_EOS} show some of the system-level temperature and pressure readings obtained through the test. Figures A.1 and A.2 in Appendix A show the fluid and solid \acrshort{tc} readings at a specific time before the \acrshort{gc} speed was increased, showing that there is a significant amount of asymmetry in the \acrshort{rx}. The general trend is that the secondary sector is the coldest and the primary sector is consistently the hottest. This makes sense because the heating units utilized during the test are located in the primary sector and part of the tertiary sector. These figures also show that there are localized hot and cold spots that are channel-specific, but this could be a result of some of the \acrshort{tc}'s not working properly, even though they were indicated as fully functioning in the test document \cite{pg_28}.
+
+\begin{figure}
+    \begin{center}
+    	\includegraphics[width=11.5cm]{Figures/PG_28_Initial_Conditions.png}
+    	\caption[Additional initial conditions for the \acrshort{pg}-28 test]{Additional initial conditions for the \acrshort{pg}-28 test (taken from \cite{pg_28} with no changes)}
+    	\label{fig:PG_28_Initial_Conditions}
+    	\end{center}
+\end{figure}
+
+\begin{center}
+\begin{figure}
+  \begin{subfigure}{7.5cm}
+    \begin{center}
+    	\includegraphics[width=7.5cm]{Figures/SG_Inlet_Outlet.PNG}
+    	\caption[Statepoints for the \acrshort{sg} inlet/outlet]{\small \centering Statepoints for the \acrshort{sg} inlet/outlet}
+    	\label{fig:SG_Inlet_Outlet}
+    \end{center}
+  \end{subfigure}
+  \begin{subfigure}{7.5cm}
+    \begin{center}
+    	\includegraphics[width=7.5cm]{Figures/RPV_EOS.PNG}
+    	\caption[Statepoints for the \acrshort{rpv} inlet and outlet]{\small \centering Statepoints for the \acrshort{rpv} inlet and outlet}
+    	\label{fig:RPV_EOS}
+    \end{center}
+  \end{subfigure}
+  \begin{subfigure}{7.5cm}
+    \begin{center}
+    	\includegraphics[width=7.5cm]{Figures/RPV_Pressure_Drops.PNG}
+    	\caption[Pressure drops at certain points in the \acrshort{rpv}]{\small Pressure drops at certain points in the \acrshort{rpv}}
+    	\label{fig:RPV_Pressure_Drops}
+    \end{center}
+  \end{subfigure}
+  \begin{subfigure}{7.5cm}
+    \begin{center}
+    	\includegraphics[width=7.5cm]{Figures/SG_EOS.PNG}
+    	\caption[\acrshort{eos} for the \acrshort{sg}]{\small \centering \acrshort{eos} for the \acrshort{sg}}
+    	\label{fig:SG_EOS}
+    \end{center}
+  \end{subfigure}
+  \caption[Statepoints for the \acrshort{httf} during the \acrshort{pg}-28 test]{\small \centering Statepoints for the \acrshort{httf} during the \acrshort{pg}-28 test}
+\end{figure}
+\end{center}
+
+\section{System-Level Codes}
+
+Traditionally, evaluating the performance of nuclear power plants during accident conditions has been achieved using system-level thermal hydraulic codes. Original system codes were developed according to conservative model assumptions; however, operators asked for codes that performed “best estimate” analysis, which simulated accidents as realistically as possible. An example would be not having sufficient capabilities to model turbulence (whirling flow), but having the capability to solve systems of equations for bulk-fluid and nodal temperature behaviors for general piping systems, primarily by relying on empirical correlations for closure models. Best-estimate thermal-hydraulic codes (e.g. RELAP, TRAC, CATHARE, ATHLET) are generally based on two-phase flow equations resolved in Eulerian coordinates. The two-phase flow field is described by mass, momentum, and energy conservation equations for the liquid and vapor phases separately and mass conservation equations for noncondensable gas present in the mixture.
+\vspace{-6mm}
+\subsection{RELAP5-3D (\acrshort{r5})}
+
+\acrshort{r5}, originally developed by \acrshort{inl} \cite{relap} to model accidents and operational transients in \acrshort{lwr}s, has been extensively used to model system-level phenomena for many Gen-IV designs. It has the capability to simulate a wide variety of hydraulic and thermal transient behavior for both nuclear and non-nuclear systems. In addition to solving continuum equations built-in equations of state (\acrshort{eos}), the code has neutronic kinetics modeling capability. Turbomachinery such as pumps, valves, compressors, accumulators, etc. are available within the code, with the ability to control their responses via control variables and trips.  
+\vspace{-6mm}
+\subsubsection{Code Architecture}
+
+\acrshort{r5}'s code infrastructure utilizes a top-down, modular structure, programmed in the FORTRAN language. Each model and procedure is isolated into separate subroutines, or functions that don’t return output. The top-most structure consists of input (INPUTD), transient/\acrshort{ss} (TRNCTL), and stripping (STRIP) blocks. The first and third blocks are relatively simple; INPUTD consists of three main processing phases:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Read input data, check for syntax errors, store data;
+    \item Restart data is read, and input data is processed again;
+    \item Cross-checking interrelationships of various types of data, and cross-linking of data blocks is completed.
+\end{itemize}
+STRIP extracts simulation data from a plot file to facilitate information exchange between \acrshort{r5} and other programs (such as Excel). 
+\vspace{-2mm} %5mm vertical space
+The TRNCTL block handles both transient and \acrshort{ss} options. Both options are relatively similar in functionality; however, the \acrshort{ss} option only works if the program determines that \acrshort{ss} conditions are met (this occurs when convergence testing algorithms conclude that \acrshort{ss} is reached). Often, a problem will be ran in transient mode from an initial state until time derivatives for certain thermodynamic properties approach zero. 
+
+Figure \ref{fig:RELAP_Block_Structure} details the structure of the TRNCTL block structure. Subroutine TRNSET essentially sets up the infrastructure needed to manage the output of a transient analysis (cross-linking data block information, create arrays for solution control, manage memory). TRAN controls the transient advancement of the solution. TRNFIN releases computational space for data blocks no longer needed, once TRAN has executed.
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=10cm]{Figures/RELAP_Block_Structure.png}
+    	\caption[Transient/\acrshort{ss} block structure for \acrshort{r5}]{Transient/\acrshort{ss} block structure for \acrshort{r5}  (taken from \cite{palazzi_bluck_walker_2018} with no changes)}
+    	\label{fig:RELAP_Block_Structure}
+    	\end{center}
+\end{figure}
+
+\noindent
+The TRAN block consists of the following components:
+\begin{itemize}
+    \item CHKLEV controls two-phase mixture levels between volumes (volumes are defined in the input deck);
+    \item TRIP evaluates logical statements that result in true or false statements (e.g. trip values can open or close valves);
+    \item TSTATE provides fluid thermodynamic state information, and computes velocities for time-dependent junctions;
+    \item HTADV calculates the heat transferred across solid boundaries of hydrodynamic volumes;
+    \item HYDRO advances the hydrodynamic solution;
+    \item RKIN subroutine is an option which models reactor kinetics using the NESTLE code to calculate power;
+    \item CONVAR simulates hydrodynamic system controls; and
+    \item DTSTEP determines the temporal step size and whether transient advancements should be terminated.
+\end{itemize}
+All but the RKIN modules are utilized with respect to the \acrshort{httf} input model.
+\vspace{-6mm}
+\subsubsection{Hydrodynamic Model}
+
+\acrshort{r5}’s hydrodynamic models is a transient, two-fluid model for a two-phase vapor/gas-liquid mixture, having the capability to contain noncondensable components, soluble components, and radionuclides. These equations can be expanded to incorporate either 1D, 2D, or 3D geometries. In the event that reactor kinetics are not being taken into account, and noncondensables do not exist within the two-phase flow, the number of equations reduces to six, outlined in Appendix B, Table \ref{R5_eqt}. The independent variables for these equations are time and space, which can be defined either in Cartesian or cylindrical coordinates.
+
+\acrshort{r5}’s hydrodynamic spatial domain is split up into volumes and junctions. Volumes are essentially stream tubes that have an inlet and outlet. Every volume in \acrshort{r5} has an associated length, volume, flow area, vertical angle, wall roughness, hydraulic diameter, flags (e.g. boron presence, type of fluid present), and initial conditions. Positive vertical elevation defines a volume if the fluid flows from a lower elevation to a higher one. A volume can be used to impose pressure or temperature \acrlong{bc}s (\acrshort{bc}'s). These are called \acrlong{tdv}s (\acrshort{tdv}’s). 
+
+Junctions are entities that join volumes together. Each junction has flags, a flow area, initial conditions, and information about what volumes are upstream and downstream of the junction. Just like \acrshort{tdv}’s, junctions can be used to impose \acrshort{bc}'s such as velocity or \acrlong{mfr} (\acrshort{mfr}) in a time-dependent manner. These \acrlong{tdj}s (\acrshort{tdj}’s) can be used to model flow components such as a pump. \acrshort{tdv}’s and \acrshort{tdj}’s are used extensively when coupling \acrshort{r5}  with \acrshort{cfd} codes. 
+
+The discretization of the hydrodynamic model for \acrshort{r5} is based on a “room and doors” concept, which is an upwind-difference based scheme utilizing a staggered spatial mesh where scalar properties are defined in “rooms” and vector quantities at “doors”. The net accumulation of mass and energy in a volume is the difference between what enters (plus sources) and what exits. This is then averaged over the entire volume and “set” at the volume’s center (the “room”). At the volume's center, there must be an associated velocity (momentum flux) associated with this mass and energy. This velocity is defined at the cell boundary, which constitutes a “door”. See Figure \ref{fig:RELAP_Room_Doors} for a visualization of the rooms and doors concept.
+
+\begin{figure}
+    \begin{center}
+    	\includegraphics[width=10cm]{Figures/RELAP_Room_Doors.png}
+    	\caption[\acrshort{r5} rooms and doors concept, also known as a staggered grid approach]{\acrshort{r5} rooms and doors concept, also known as a staggered grid approach (taken from \cite{palazzi_bluck_walker_2018} with no changes)}
+    	\label{fig:RELAP_Room_Doors}
+    	\end{center}
+\end{figure}
+
+The code is solved numerically using a semi-implicit finite-difference technique by default (typically used for transients) or, if specified by the user, a nearly-implicit finite-difference technique, which allows violation of the material Courant limit (ideal for slowly varying transient calculations). This scheme is first order accurate in both space and time. The nature of the two-fluid differential equations constitutes an ill-posed initial boundary value problem, but the introduction of artificial terms enables the problem to be well-posed. Reynolds stress-like terms, which are necessary for modelling eddying flows, are not incorporated into the numerical scheme. Time step advancement is manipulated by the code to ensure a stable solution; the code utilizes a direct lower-upper factorization scheme to solve the linearized system of conservation equations. Overall, \acrshort{r5} has been tested to be consistent, stable, and convergent for the two-phase fluid model.
+
+\subsubsection{Heat Structure Model}
+
+Heat transfer calculations across hydrodynamic volumes boundaries are performed through heat structures. These structures are typically rectangular, cylindrical, or spherical; the inclusion of a radial dimension gives more modelling capabilities compared to hydrodynamic components. The Crank-Nicolson finite difference method is used to solve the heat transfer equation, which is unconditionally stable and second-order accurate with respect to time. The possible \acrshort{bc}'s for these structures include symmetry or insulating conditions, custom heat transfer correlations, and time-dependent quantities such as heat flux and power.
+\vspace{-6mm}
+\subsubsection{\acrshort{r5} Input Model for \acrshort{httf}}
+
+\acrshort{inl} \cite{bayless} developed an \acrshort{r5} input deck for the \acrshort{httf}, which initially included the \acrshort{rpv}, \acrlong{rc} (\acrshort{rc}) atmosphere, and RCCS. This model was later revised to more accurately resemble the \acrshort{httf} geometry according to the 2018 version drawings and layout document. This updated version consists of alternate break piping, \acrshort{rpv}, \acrshort{pcs}, \acrlong{scs} (\acrshort{scs}), \acrlong{pwss} (\acrshort{pwss}), \acrshort{rc}, and \acrshort{rccs}. With respect to the hydrodynamic modelling, the numbering scheme goes as follows:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item 1-99: alternate break piping (not used for any tests);
+    \item 100-199: \acrshort{rpv};
+    \item 200-299: \acrshort{pcs} piping/components;
+    \item 300-399: \acrshort{scs} piping/components;
+    \item 400-499: \acrshort{pwss}
+    \item 900-999: \acrshort{rc} and \acrshort{rccs}
+\end{itemize}
+A brief description of the nodalization techniques used to model the hydrodynamic components needed for the input deck of the \acrshort{rpv} is provided in the next section. 
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=13cm]{Figures/HTTF_RELAP_Nodalization.png}
+	\caption[\acrshort{httf} system nodalization scheme]{\acrshort{httf} system nodalization scheme (taken from \cite{bayless} with no changes)}
+	\label{fig:HTTF_RELAP_Nodalization}
+    \end{center}
+\end{figure}
+\vspace{-6mm}
+\subsubsection{Input model for \acrshort{httf}}
+
+Figure \ref{fig:HTTF_RELAP_RPV_Nodalization_Axial} shows the axial \acrshort{rpv} \acrshort{r5} nodalization. To summarize, flow enters from the cold duct (270), passes through the \acrshort{mcss} (105) under the \acrshort{lp} floor, then flows up through an annulus (115) between the side reflector and core barrel to the \acrshort{up} (120). Flow then passes down through various flow channels (132, 140, 145, 150, 162, 164, 166) in the \acrshort{rx}, recombines in the \acrshort{lp} (175), then flows out into the \acrshort{hd} (200 and 206). The split-duct model incorporates additional volumes to provide more fidelity in the \acrshort{lp} region. Volumes 175 to 215 are to be replicated using \acrshort{cfd}. More details about the axial nodalization can be found in Sections 4.1 and 5.1 of Bayless’ input model.
+\begin{center}
+    \begin{figure}[!ht]
+      \begin{subfigure}{6cm}
+        \begin{center}
+        	\includegraphics[width=6cm]{Figures/HTTF_RELAP_RPV_Nodalization_Axial.png}
+    	\caption{Axial nodalization diagram of the \acrshort{httf} \acrshort{rpv}}
+    	\label{fig:HTTF_RELAP_RPV_Nodalization_Axial}
+        \end{center}
+      \end{subfigure}
+        \begin{subfigure}{8cm}
+            \begin{center}
+            	\includegraphics[width=8cm]{Figures/Split_Duct_R5_Model.PNG}
+            	\caption[Split duct model used in the \acrshort{r5} simulations]{\small Split duct model used in the \acrshort{r5} simulations \cite{bayless}}
+            	\label{fig:Split_Duct_R5_Model}
+            \end{center}
+        \end{subfigure}
+      \begin{subfigure}{10cm}
+        \begin{center}
+        	\includegraphics[width=10cm]{Figures/HTTF_RELAP_RPV_Nodalization_Radial.png}
+    	    \caption{Radial nodalization diagram of \acrshort{rpv}}
+    	    \label{fig:HTTF_RELAP_RPV_Nodalization_Radial}
+        \end{center}
+      \end{subfigure}
+      \caption[ \acrshort{httf} \acrshort{rpv} nodalization diagrams]{\small \centering \acrshort{httf} \acrshort{rpv} nodalization diagrams (taken from \cite{bayless} with no changes)}
+    \end{figure}
+\end{center}
+
+\vspace{-5mm}
+Figure \ref{fig:HTTF_RELAP_RPV_Nodalization_Radial} shows the radial \acrshort{rpv} geometric nodalization. This core ring is divided into three heated rings to replicate the hexagonal block pattern of the modular high-temperature gas-cooled reactor. The boundaries of the inner and outer rings were extended beyond the full hexagonal block geometry to include all of the coolant channels. Each heated ring consists of hexagonal blocks, which have heater rods embedded and various number of coolant channels. The side reflector encapsulates the outermost heated ring; it consists of three separate rings. The innermost ring is solid ceramic, the middle ring consists of channels, and the outermost is a relatively thin solid ring of ceramic. A small coolant gap exists between this outermost side reflector and the permanent reflector. Another small coolant gap surrounds the permanent reflector. The permanent reflector is in direct contact with the core barrel.
+
+The central reflector (conduction Enclosure 1) is divided into three regions consisting of a central solid cylinder (structure 1300), a middle ring of ceramic (structure 1320), and a solid outer ring that is adjacent to the core (structure 1340). Pipe 132 is connected to the left side of 1320. 
+
+The inner core ring consists of structures 1401, 1402, and 1403 (heater rods), which relies on a general table for power. Pipe 140, representing core channels, is attached to the left side of 1401, while pipe 141, which represents a helium gap, is attached to the right side. 
+
+The middle core ring consists of structures 1451, 1452, and 1453 (heater rods), which relies on a general table for power. Pipe 145, representing core channels, is attached to the left side of 1451, while pipe 146, which represents a helium gap, is attached to the right side. 
+
+The outer core ring consists of structures 1501, 1502, and 1503 (heater rods), which relies on a general table for power. Pipe 150, representing core channels, is attached to the left side of 1501, while pipe 151, which represents a helium gap, is attached to the right side. 
+
+Structures 1600, 1620, 1640, and 1660 constitute the side reflector. These structures do not have a heat source. Pipe 162, representing the outer bypass, is attached to the left side of 162. Helium gaps 164 and 166 are attached to the left sides of structures 1640 and 1660, respectively. 
+
+\vspace{-6mm}
+\subsection{Previous \acrshort{httf} \acrshort{r5} Simulations}
+
+Significant work has been done to model the system response of the \acrshort{httf} using \acrshort{r5} for different testing scenarios. In 2019, \acrshort{osu} performed a transient test that simulated a double ended inlet-outlet crossover duct break, a type of depressurized conduction cooldown test [13]. Epiney [14] used \acrshort{r5} to model this test, and compared the simulation results to the test data. The input deck was modified to incorporate a split duct model (Figure \ref{fig:Split_Duct_R5_Model}) since \acrshort{r5} cannot simulate countercurrent flow within a single volume. Python scripts were used to implement initial conditions and modified trips and controls, as well as extract and plot results.
+
+The results were that ceramic and helium temperatures, as well as heat removal rates after the duct break, were generally underpredicted, with many assessment findings being minimal or insufficient in agreement with the test data (Figure \ref{fig:Epiney_Results}. A lack of certainty in the flow rate and material data prevented troubleshooting problems with the input deck; these problems appear to lead to the energy balance within the core not being properly captured. This led to important phenomena such as natural circulation and molecular diffusion—two phenomena expected to occur via scaling laws—to not be well-apparent.
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=13cm]{Figures/Epiney_Results.PNG}
+	\caption[Qualitative results from the PG-26 \acrshort{r5} simulations]{Qualitative results from the PG-26 \acrshort{r5} simulations (taken from \cite{epiney} with no changes)}
+	\label{fig:Epiney_Results}
+    \end{center}
+\end{figure}
+\vspace{-5mm}
+\section{\acrshort{fvm} Solvers}
+
+The use of commercial \acrshort{cfd} codes has led to leaps in engineering fields that require detailed modelling of fluid flow and heat transfer, particularly in the power generation and aerospace sectors. Guidance has been written on how to use \acrshort{cfd} for general nuclear safety analysis \cite{johnson_pointer}. \acrshort{cfd} has been used to improve power outputs at existing nuclear power plants \cite{wang_wang_tian_qiu_su_2021} via modelling complicated geometries within the core to enhance turbulent mixing. In the \acrshort{httf} \acrshort{lp}, the walls and support columns create disturbances in the flow, resulting in eddies and wakes. The following subsections briefly describe the general equations that are solved in \acrshort{star} and the general workflow for creating a model.
+\vspace{-6mm}
+
+\subsection{Fundamental Equations}
+
+To represent the bulk properties of fluid flow accurately, the fluid must be regarded as a continuum. This means that a single fluid “element” does not account for the motions of an individual fluid molecule. This allows the fluid to be modelled according to macroscopic parameters such as temperature, velocity, pressure, and density, as well as spatial and temporal derivatives. This fluid, and the mechanics by which it behaves, must obey the three conservation laws:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item The mass of the fluid must be conserved;
+    \item The rate of change of (linear and angular) momentum equals the sum of the forces on a fluid element (Newton’s second law);
+    \item The rate of change of energy is equal to the sum of the rate of heat addition to and the rate of work done on a fluid element (first law of thermodynamics)
+\end{itemize}
+These three principles, which describe classical continuum mechanics, are described in equation form in Appendix C. There is a pattern with respect to how these equations are written which, if rewritten in terms of some general variable $\phi$:
+\begin{equation}
+    \frac{\partial (\rho \phi)}{\partial t} + \nabla \cdot (\rho \phi \overrightarrow{v}) = \nabla \cdot (\Gamma \nabla \phi) + S_{\phi}
+\label{eq:GTE_Differential}
+\end{equation}
+By setting $\phi$ equal to 1, $\overrightarrow{v}$ (which has scalar components $u$, $v$, $w$), and $E$, this equation can be rewritten in a form outlined in Appendix B. \acrshort{cfd} codes that use the \acrshort{fvm} typically take this transport equation and manipulate it such that it is written in integral form. By integrating Eq. \ref{eq:GTE_Differential} across a control volume, and applying Gauss's divergence theorem, Eq. \ref{eq:GTE_Differential} becomes:
+
+\begin{equation}
+    \frac{\partial}{\partial t} \int\limits_{CV} \, (\rho \phi) dV\ + \int\limits_{CS} \, \overrightarrow{n} \cdot (\rho \overrightarrow{v} \phi) dA\ = \int\limits_{CV} \, \overrightarrow{n} \cdot (\Gamma \nabla \phi) dA\ + \int\limits_{CV} \, S_{\phi} dV\
+\label{eq:GTE_Integrated}
+\end{equation}
+\vspace{-10mm}
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=14cm]{Figures/GTE_Balance.PNG}
+    	\caption[Balance of $\phi$ via Equation \ref{eq:GTE_Integrated}]{Balance of $\phi$ via Equation \ref{eq:GTE_Integrated}, from \cite{versteeg_malalasekera_2011} with no changes}
+    	\label{fig:GTE_Balance}
+    	\end{center}
+\end{figure}
+
+\acrshort{cfd} software (ANSYS Fluent, OpenFoam, STAR-CCM+) use finite volume domain spatial discretization to subdivide a domain into a specific number of control volumes. These individual control volumes are called mesh cells, and may vary in size and shape. Different numerical techniques are used to solve for cell properties (e.g. upwind schemes for convective terms, implicit for unsteady flows, central differencing for diffusion terms). The selection of the numerical solver for each property is dependent on what type of problem needs to be solved. Siemens \acrlong{star} (\acrshort{star}) version 2020.1.1 was used for this specific analysis.
+\vspace{-6mm}
+\subsection{Geometry and Mesh}
+
+In \acrshort{star}, a geometry is the starting point for all simulation efforts, and is derived from a CAD model. Geometries can be modified with \acrshort{star}'s own CAD model modifier, and can be used to represent either the places where fluid is not supposed to be (e.g. walls of a fluid domain), or the fluid domain itself. The user must then assign this geometry into sections, or parts, and these parts to a region. A region is a volume domain which is completed surrounded by boundaries, and is the domain where physics takes place. Regions contain information about the boundary conditions of the problem, and must be assigned before creating a mesh. Multiple regions can be created that utilize different models and solvers, but often, one region is assigned so that one set of physics is applied.
+
+Once a region has been created, the user must create a mesh. A mesh is a domain that has cells which store information about the variables being solved. Meshes, in \acrshort{star}, can be region- or parts-based. Both methods permit the user to specify where higher or lower fidelity is needed based on where fluid property gradients might exist. Region-based meshing practices have been phased out with later versions of \acrshort{star}, so the suggested practice is to utilize operations on the parts generated from the CAD model to automatically generate the mesh. \acrshort{star} provides the user flexibility in what type of meshes can be generated, as well as optimization tools to improve individual cell quality. These automation tools save the user considerable amounts of time, particularly when trying to mesh the near-wall regions. A user can run a coarse mesh to convergence, reduce the base size of the cells, and run another simulation that will likely converge more quickly and give more accurate results. More information about specific strategies for meshing the \acrshort{httf} \acrshort{lp} can be found in Section \ref{sec:Mesh_Quality}.
+\vspace{-6mm}
+\subsection{Fluid Flow Models}
+
+The type of solver that is used to solve Eq. \ref{eq:GTE_Integrated} depends on the type of physics that the user wants to specify, as well as how well the solution converges. The more assumptions that are made and implemented into the solvers (e.g. incompressible, subsonic, steady, inviscid), the less terms there are in Eq. \ref{eq:GTE_Integrated} to be solved for, and the faster the solver will iterate. Information about the workflow for choosing the proper solver for simulations involving gases is outlined in detail in \cite{cd-adapco}, but the general steps are, after creating the mesh:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Determine if the fluid is Newtonian or non-Newtonian;
+    \item Select a steady or transient time mode;
+    \item Choose a solver strategy (coupled, segregated, viscous):
+    \begin{itemize}
+        \item Coupled flow: solves \acrshort{ns} equations simultaneously with pseudo-time-stepping approach;
+        \item Segregated flow: similar to coupled flow, but solves the momentum equations sequentially and uses a Rhie-Chow interpolation to smooth out pressure gradients; solves Eq. \ref{STAR_Energy} for some alternate variable besides total energy $E$ depending on the model:
+        \begin{itemize}
+            \item Segregated fluid enthalpy: solves for fluid chemical thermal enthalpy $i$, then fluid temperature $T$ via \acrshort{eos};
+            \item Segregated fluid isothermal: $T$ is kept constant;
+            \item Segregated fluid temperature: solves for $T$.
+        \end{itemize}
+    \end{itemize}
+    \item Choose a viscous regime (inviscid, laminar, turbulent)
+    \item Specify fluid \acrshort{eos} (constant density, ideal gas, thermal non-equilibrium, custom)
+    \item Choose turbulence model (see Section \ref{sec:turbulent_modeling})
+    \item Set various under-relaxation factors to stabilize and reach convergence quicker;
+\end{itemize}
+According to \cite{cd-adapco}, a segregated flow model is suggested since the fluid is assumed to be incompressible if the $Ma$ number is less than 0.2 everywhere in the domain. This model is detailed more in Section \ref{sec:SegregatedFlowSection}.
+\vspace{-6mm}
+\subsection{Turbulence Modelling}\label{sec:turbulent_modeling}
+
+There is no set definition of what turbulence is; rather, it is better defined by general flow characteristics and features. Turbulent flows are unsteady, irregular, seemingly random and chaotic; its motions can be observed at many spatial scales from eddies and bulges comparable in size to the width the flow container to the smallest scales that a camera can resolve [8]. This latter point is particularly important because it is the basis by which various assumptions can be made that form different turbulent models. These models are substitutes for directly solving the \acrlong{ns} (\acrshort{ns}) equations for turbulent flow (known as \acrlong{dns}, or \acrshort{dns}). \acrshort{dns} can be used for modelling small geometries such as the hottest channel, but it is not feasible for an entire coolant system, much less the \acrshort{lp} domain that is to be simulated, because the required computation requirements to simulate turbulent flows grows as a cube of the $Re$ number.
+\vspace{-6mm}
+\subsection{\acrlong{rans}}
+
+\acrshort{star} has two classes of turbulence models: \acrlong{rans} (\acrshort{rans}), and scale-resolving simulations. \acrshort{rans} utilizes Reynolds decomposition, which divides the transport scalar into both mean ($\overline{\phi}$) and fluctuating ($\phi^{'}$) components (Eq. \ref{eq:Reynolds_Decomposition}), with emphasis on solving for the mean transport scalar using a variety of closure models. 
+\begin{equation}
+    \phi(t) = \overline{\phi} + \phi^{'}
+\label{eq:Reynolds_Decomposition}
+\end{equation}
+By contrast, the scale-resolving simulations resolve large scales of turbulence, and models small-scale motions.  Previous attempts at modelling phenomena in the \acrshort{lp} have utilized \acrshort{rans} methods, which will be the focus of this section, and is chosen for these simulations.
+
+In \acrshort{rans}, the averaging process may be thought of as time-averaging for \acrshort{ss} situations and ensemble averaging for repeatable transient situations. Inserting the decomposed solution variables into the \acrshort{ns} equations results in continuity and momentum equations for the mean quantities representing the Reynolds-averaged \acrshort{ns} equations (see Appendix C, Eq. \ref{RANS_Continuity} through \ref{RANS_z_Momentum}), which can be condensed into another transport equation for scalar $\psi$. 
+
+\begin{equation}
+    \frac{\partial \Phi}{\partial t} + \nabla \cdot (\varphi \overrightarrow{U}) = \frac{1}{\rho} \nabla \cdot (\Gamma_{\varphi} \nabla \Phi) + \left [  \frac{\partial (\overline{u^{'} \varphi^{'}})}{\partial x} + \frac{\partial (\overline{v^{'} \varphi^{'}})}{\partial y} \frac{\partial (\overline{w^{'} \varphi^{'}})}{\partial z} \right ] + S_{\Phi}
+\label{eq:STAR_Turbulent_Transport}
+\end{equation}
+Eq. \ref{eq:STAR_Turbulent_Transport} assumes incompressible flow with a fluid continuum that has a constant viscosity. This equation focuses on the effects of the Reynolds stresses on the mean flow properties. Fluctuations in pressure and velocity are not very significant on the final results unless the $Ma$ number approaches 3-5 according to an analysis performed by Bradshaw \emph{et al.} \cite{bradshaw_cebeci_whitelaw_1981}.
+\vspace{-6mm}
+\subsection{Wall Treatment}
+
+Flows, whether turbulent or not, can be either fully-developed or not. Fully-developed implies that the velocity and temperature gradients within the flow do not change over the course of some distance \cite{white_2008}. The region where these gradients exist is called the boundary layer \cite{liburdy_2021}. An obstacle can disturb this fully-developed flow and cause changes to these gradients by imposing both a force normal to the fluid velocity vector (e.g. impingement) and tangential to it (shear stress). These two effects will impact the pressure drop along the fluid direction (also termed the entry length), as pressure drop is typically linear with respect to distance in a fully developed flow. The deviance of the velocity vectors from the mean flow direction implies the presence of eddies, which help mix fluid streams with differing temperature and mass compositions.
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=13cm]{Figures/Developing_Flow.PNG}
+    	\caption[Illustration of the entry-length and fully developed flows in a circular pipe]{Illustration of the entry-length and fully developed flows in a circular pipe, taken from \cite{white_2008} with no changes}
+    	\label{fig:white_2008}
+    	\end{center}
+\end{figure}
+
+The \acrshort{cfd} mesh must be modified to accurately capture how these wall shear stresses and impingements affect the fluid \acrshort{eos}. The \acrshort{cfd} models used depend on the quantification of how viscous effects (e.g. tangential forces) compare to the overall behavior of the flow (which is determined from both viscous and inertial forces far from the wall) is needed. The $Re$ number is a dimensionless number that quantifies this proportion:
+\begin{equation}
+    Re = \frac{U_{\infty} y}{\nu} \equiv \frac{Inertial Forces}{Viscous Forces}
+\label{eq:Re_Number}
+\end{equation}
+Where $y$ is the normal distance from the wall into the fluid. As $y$ approaches zero, the $Re$ number approaches 1, and the viscous forces will be the same magnitude as the inertia forces. This implies that there exists a thin layer near the wall where viscous effects influence the velocity profile significantly more than the inertial forces. This definition of the $Re$ number can be modified if the mean flow velocity, $\overline{U}$, is strictly a function of the normal distance $y$, the fluid dynamic viscosity $\mu$, and the wall shear stress, $\tau_{w}$:
+\begin{equation}
+    \overline{U} = f(y,\rho,\mu,\tau_{w})
+\label{eq:Viscous_Mean_Velocity}
+\end{equation}
+To get this in a form similar to Eq. \ref{eq:Re_Number}, a substitution can be made for $\tau_{w}$ such that it is a function of the "friction velocity" $u_{\tau}$, which helps quantify the effects of wall shear stress on the mean properties of the flow:
+\begin{equation}
+    u_{\tau} = \sqrt{\tau_{w}/\rho}
+\label{eq:Mean_Velocity_Viscous}
+\end{equation}
+Since $u_{\tau}$ has units of velocity, it can be used in dimensional analysis to generate a nondimensional velocity $u^{+}$:
+\begin{equation}
+    u^{+} = \frac{\overline{U}}{u_{\tau}} = f \left (\frac{\rho u_{\tau} y}{\mu} \right ) = f(y^{+})
+\label{eq:u_star_viscous}
+\end{equation}
+To account for the region that is impacted by the shear stress of the wall, but is not dependent on the viscosity of the fluid, the mean velocity can be a function of the boundary layer thickness $\delta$ instead:
+\begin{equation}
+    \overline{U} = f(y,\rho,\delta,\tau_{w})
+\label{eq:Mean_Velocity_Inertial}
+\end{equation}
+Dimensional analysis would then show that:
+\begin{equation}
+    u^{+} = \frac{\overline{U}}{u_{\tau}} = f \left (\frac{y}{\delta} \right ) = f(y^{+})
+\label{eq:u_star_inertial}
+\end{equation}
+This relationship, that $u^{+}=f(y^{+})$, can be used to describe a class of flows at different points from the wall. The two regions of interest are the viscous sub-layer, by which the $\overline{U}$ is dominated by viscous forces (Eq. \ref{eq:u_star_viscous}), where $y^{+}<5$, and the inertia-dominated layer (Eq. \ref{eq:u_star_inertial}), where $y^{+}>30$. These different layers are shown in Eq. \ref{fig:Velocity_Layers}. 
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=13cm]{Figures/Velocity_Layers.PNG}
+    	\caption[Visualization of the three regions for wall treatment]{Visualization of the three regions for wall treatment, taken from \cite{cd-adapco} with no changes}
+    	\label{fig:Velocity_Layers}
+    	\end{center}
+\end{figure}
+
+Experiments have been performed to characterize how $u^{+}$ relates to $y^{+}$. For the viscous sub-layer, $u^{+} \propto y^{+}$, implying a linear relationship, whereas for the inertial region, the relationship is logarithmic:
+\begin{equation}
+    u^{+} \propto \frac{1}{\kappa} \ln{E y^{+}}
+\label{eq:Inertial_Region_Relation}
+\end{equation}
+Here, $E$ is a constant depending on the wall roughness, and $\kappa$ (von Karman's constant) is a universal constant equal to 0.4. The significance is that these relations will hold for a whole range of flow geometries and $Re$. This is important to ensure that the appropriate wall-treatment models are selected (two-layer, high $y^{+}$, low $y^{+}$) such that $y^{+}$ values do not fall between 5 and 30 (also known as the buffer layer).
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=13cm]{Figures/Velocity_Distribution_Layers.PNG}
+    	\caption[$u^{+}$ distribution near a solid wall for turbulent flows]{$u^{+}$ distribution near a solid wall for turbulent flows, taken from \cite{cd-adapco} with no changes}
+    	\label{fig:Velocity_Distribution_Layers}
+    	\end{center}
+\end{figure}
+\vspace{-8mm}
+\section{\acrshort{vandv} Description}
+
+The concern of \acrshort{vandv} is to assess the accuracy of a computational simulation, whether the simulation pertains to \acrshort{cfd} or computational heat transfer (CHT). Formal guidance for performing \acrshort{vandv} is described in ASME \acrshort{vandv} 20-2009 \cite{vandv}, which will be used to prepare and present simulation results.
+
+Verification is the process of determining whether a model implemented accurately represents the developer’s conceptual description and solution to the model (“did I do the thing right?”) It is the estimation of numerical uncertainty through parametric, convergence, and order-of-accuracy studies. Code and solution verification precede validation; it establishes that the code accurately solves the mathematical model incorporated in the code, proving that the code is free of mistakes for the simulations of interest. Verification incorporates testing different models (particularly turbulence and energy-related solvers) to find discrepancies in results and quantify errors, including:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Roundoff error: comparing results obtained using different levels of machine accuracy, such as single and double precision;
+    \item Iterative convergence error: investigating the effects of systematic variation of the truncation criteria for all residuals on target quantities of interest; and
+    \item Discretization error: requiring at least three successive levels of mesh refinement.
+\end{itemize}
+Previous verification efforts of the \acrshort{httf} simulation domain to determine the appropriate turbulence models have been performed by Dr. Gradecka \cite{gradecka}. Usually, sensitivity studies should be performed for different meshing techniques and \acrshort{bc}'s applied to the simulation domain, constituting the verification process. However, since the \acrshort{mfr} for the \acrshort{pg}-28 test is anywhere between 1/10th to 1/25th of the full-power test case (e.g. $Re$ equal to 4,000 compared to $>$40,000), it is expected that there would not be much variation in the results (e.g. $k$, $\epsilon$) because of the relatively low pressure and velocity gradients. Thus, a detailed sensitivity analysis using a variety of turbulence models was not performed.
+
+Validation is the process of determining the degree to which a model accurately represents the real world from the perspective of the intended uses of the model (“did I do the right thing?”) In short, validation cannot occur without benchmark experimental data. It involves quantifying different types of uncertainties, including:
+\begin{itemize}
+    \item Input uncertainty: estimated by means of a sensitivity or uncertainty analysis, involving multiple test runs of the model with different values of input data samples from probability distributions based on their mean value and expected variations, and
+    \item Physical modelling uncertainty: directly comparing \acrshort{cfd} results with high-quality experimental results.
+\end{itemize}
+The discrepancy between the experimental data and the simulation results (a.k.a the absolute error), is the difference between the simulation result and the measured value:
+\begin{equation}
+    E = D - S
+\label{eq:Discrepancy_Equation}
+\end{equation}
+$E$ is the primary parameter of interest for this study, since experimental data is readily available. In terms of errors, $E_{abs}$ is the difference between the simulation and experimental errors:
+\begin{equation}
+    E_{abs} = \epsilon_{d}-\epsilon_{s}
+\label{eq:Sim_Exp_Error}
+\end{equation}
+For this analysis, however, the absolute error is simply taken as the discrepancy ($E=E_{abs}$), and the relative error is this discrepancy divided by the data value:
+\begin{equation}
+    E_{rel} = \frac{E_{abs}}{D}
+\label{eq:Sim_Exp_Rel_Error}
+\end{equation}
+The error of the simulation, $\epsilon_{s}$, is quantified as the sum of the model assumptions $\epsilon_{model}$ (e.g. the physics that is assumed for the particular problem), the input errors $\epsilon_{input}$ (e.g. \acrshort{bc}'s), and the numerical errors from solving the given set of equations $\epsilon_{num}$:
+\begin{equation}
+    \epsilon_{sim} = \epsilon_{model} + \epsilon_{input} + \epsilon_{num}
+\label{eq:Sim_Error_Quantified}
+\end{equation}
+Since the input, numerical, and experimental errors are often not known (and neither are their uncertainties), it is best to quantify these as the validation standard uncertainty $u_{val}$ so that $\epsilon_{model}=E \pm u_{val}$. This assumption assumed that these errors are dispersed around a population mean \cite{TestUncertainty}. Coleman and Stern \cite{coleman_stern_1997} define $u_{val}$ as the square root of the sum of the squares of the (current) data, numerical simulation, and previous data uncertainties:
+\begin{equation}
+    u_{val} = \sqrt{u_{d}^{2} + u_{num}^{2} + u_{previous}^{2} }
+\label{eq:Validation_Uncertainty}
+\end{equation}
+$u_{val}$ is the validation "noise level" imposed by the uncertainties that are inherent in each of the separate uncertainties, and should always be greater than $\vert E \vert$ to formally indicate that improvements can be made to the model. 
+
+$u_{data}$ is the uncertainty resulting from instrument readings. Since only the temperature and pressure readings are compared to the simulation results, the uncertainties from the relevant instrument channels can be readily obtained from the \acrshort{httf} Instrumentation Plan \cite{louria}. In short, the total channel uncertainty $u_{data}$ is the \acrlong{rss} (\acrshort{rss}) of the random uncertainty ($u_{r}$) and the systematic uncertainty ($u_{b}$):
+\begin{equation}
+    u_{data} = \sqrt{u_{r}^{2} + u_{b}^{2}}
+\label{eq:Total_Instrument_Uncertainty}
+\end{equation}
+$u_{r}$ was assumed to be 0 in the HTTF Instrumentation Guide. $u_{b}$ must be found by find the \acrshort{rss} of the individual instrument uncertainty $u_{i}$ and the \acrlong{das} (\acrshort{das}) uncertainty ($u_{DAS}$):
+\begin{equation}
+    u_{b} = \sqrt{u_{i}^{2} + u_{DAS}^{2}}
+\label{eq:Systematic_Uncertainty}
+\end{equation}
+$u_{DAS}$ consists of three components, since the \acrshort{das} comprises of an input module ($u_{DAS1}$), a master controller ($u_{DAS2}$) and a master chassis ($u_{DAS3}$):
+\begin{equation}
+    u_{DAS} = \sqrt{u_{DAS1}^{2} + u_{DAS2}^{2} +u_{DAS3}^{2} }
+\label{eq:DAS_Uncertainty}
+\end{equation}
+These are outlined in Table \ref{Instrument_Uncertainties}.
+
+\begin{table}[!ht]\centering
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ |m{2cm}| m{4.5cm} | m{4.5cm}| m{2cm}|}\hline
+\textbf{Parameter} & \textbf{Type-K \acrshort{tc}}  & \textbf{Type-R \acrshort{tc}} & \textbf{\acrshort{pt}} \\\hline
+Units & $^{o}$C & $^{o}$C & MPa \\\hline
+$u_{c}$ & From 0 to 275C: 1.1$^{o}$ C; from 275C to 1250C: 0.4\% & From 0 to 600C: 2.4$^{o}$ C; from 600C to 1450C: 0.4\% & 0.0025 \\\hline
+$u_{DAS}$ & 1.838 & 2.174 & 0.0076 \\\hline
+$u_{b}$ & From 0 to 275C: 2.142$^{o}$ C; from 275C to 1250C:$[1.838^{2}+0.4\%*reading^{2}]^{1/2}$\% & From 0 to 600C: 3.238$^{o}$ C; from 600C to 1450C:$[2.174^{2}+0.4\%*reading^{2}]^{1/2}$\% & 0.0077 \\\hline
+$u_{p}$ & 0.0 & 0.0 & 0.0 \\\hline
+$u_{data}$ & From 0 to 275C: 4.284$^{o}$ C; from 275C to 1250C:$2*[1.838^{2}+0.4\%*reading^{2}]^{1/2}$\% & From 0 to 600C: 6.477$^{o}$ C; from 600C to 1450C:$2*[2.174^{2}+0.4\%*reading^{2}]^{1/2}$\% & 0.016 \\\hline
+\end{tabular}\caption{Instrument uncertainties for \acrshort{tc}'s and \acrshort{pt}'s}\label{Instrument_Uncertainties}\end{table} 
+
+
+$u_{num}$  can be approximated via conducting a grid independence study, specifically by using Roache's Grid Convergence Index ($GCI$) \cite{vandv}. This parameter is a measure of how far the computed value is away from the true value, where the local cell size approaches 0 \cite{slater_2021}. As the grid is refined (grid cells become smaller and the number of cells in the flow domain increase) and the time step is refined (reduced) the spatial and temporal discretization errors, respectively, should asymptotically approach zero, excluding computer round-off error. Since this study only pertains to examining the results at one instance, the temporal error can be ignored, so the study only pertains to quantifying the spatial discretization error. $u_{num}$ can be approximated as half of the $GCI$, which is calculated according to the process outlined in Section \ref{sec:GCI_Calculations}.
+
+Last, $u_{previous}$ is the simulation modeling uncertainty arising from using previous experimental data. This is assumed to be $u_{val}$ that was calculated from a previous simulation with different data, preferably with a simulation result that was reasonably close with the experimental data. Since this uncertainty is unavailable, it is assumed to be 0; future studies into the \acrshort{lp} that take a similar modelling approach should use $u_{val}$ calculated from this study.
+
+
+%-------------------MATERIALS & METHODS--------------------------
+
+\chapter{Materials and Methods}
+\vspace{-4mm}
+\section{\acrshort{r5} Simulations}
+
+\acrshort{r5}, specifically version 4.3.4, was used to generate the \acrshort{bc}'s for the \acrshort{star} \acrshort{lp} simulation. The \acrshort{bc}'s that were applied to the \acrshort{lp} simulation were:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Inlet \acrshort{mfr} and fluid temperature (from branch 170)
+    \item Outlet pressure (from pipe 215)
+    \item Wall temperatures (various heat structures), include 1200-001 (\acrshort{hd}), 1320-014 (\acrshort{lp} roof), 1660-015 (\acrshort{lp} walls), 1750-001 (\acrshort{lp} floor), 1751-001 (support posts), and 2150-001 (outlet duct)
+\end{itemize}
+\vspace{-6mm}
+\subsection{\acrshort{mfr} Approximations}
+
+Prior to performing \acrshort{r5} simulations, the \acrshort{mfr} had to be determined and implemented into the \acrshort{httf} deck via a branch (235) and \acrshort{tdj} (237) component combination, since there was not enough information provided by the vendor for \acrshort{gc} frictional torque and slippage to implement a pump card. The \acrshort{osu} \acrshort{httf} is not equipped with a flow meter that explicitly estimates the primary loop’s \acrshort{mfr}.The pressure transducer readings (PT-6201 and PT-6202) were used to deduce the pressure drop across the \acrshort{gc}, and the volumetric flow rate was approximated via a fifth-order polynomial fitting the vendor provided. The \acrshort{mfr} was calculated by then using the thermocouple readings (\acrshort{tf}-6201 and \acrshort{tf}-6202) to determine the fluid density via Engineering Equation Solver \cite{klein_1996}, and smoothed using RStudio (see Figure \ref{fig:Calculated_MFR}). 
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=10.5cm]{Figures/Circ_Inlet_Outlet_State.JPG}
+    	\caption{Experimental data for \acrshort{gc} inlet/outlet temperature and pressure readings used for generating Eq. \ref{fig:Calculated_MFR}}
+    	\label{fig:Circ_Inlet_Outlet_State}
+    	\end{center}
+\end{figure}
+\vspace{-5mm}
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=10.5cm]{Figures/Calculated_MFR.JPG}
+    	\caption{Calculated \acrshort{mfr} and implemented into \acrshort{r5}}
+    	\label{fig:Calculated_MFR}
+    	\end{center}
+\end{figure}
+
+
+
+\vspace{-4mm}
+\subsection{Description of \acrshort{r5} Simulations}
+
+Several iterations were performed to find reasonable agreement between the system-level results and the experimental data. Specific modifications to the decks for each iteration are discussed below. 
+\vspace{-6mm}
+\subsection{Iteration 1}
+
+The first approach was to directly simulate the test with the initial conditions specified in the experimental data, with no heat-up phase. \acrshort{r5} tables were generated to specify the \acrshort{mfr} in the 235 \acrshort{tdj} component, the heater outputs, and the steam generator dome pressure (via attaching a \acrshort{tdv} to the 375 component downstream). The original \acrshort{qa} deck implemented controls to ensure that the water level stayed at around 65\%, but a failed attempt to try to mimic what was implemented during the test resulted in this feature being taken out. This was appropriate because the water level did not drop below 60\% until the 8000 second mark (this was chosen as the end point of the simulation), and a general idea of what the true \acrshort{mfr} was could be deduced by looking at how quickly water boiled off during this period. \acrshort{mfr}'s equal to 1.5x, 1.25x, 1.0x, 0.75x and 0.5x with respect to the initial \acrshort{mfr} calculation were tried.  The chief conclusion is that, for a wide range of \acrshort{mfr}, the fluid temperatures passing through the core were significantly underpredicted, the pressure drops (except for the \acrshort{rx}) were underpredicted, and the \acrshort{mfr} that provided the best heat balance across the \acrshort{sg} was closer to half of the initially calculated \acrshort{mfr}. 
+
+\begin{center}
+    \begin{figure}[!ht]
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Block_5_Channel_Fluid_Temperatures_Iteration_1.PNG}
+        	\caption{Block 5 channel temperatures}
+        	\label{fig:Block_5_Channel_Fluid_Temperatures_Iteration_1}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Core_DT.PNG}
+        	\caption{\acrshort{rx} temperature gain}
+        	\label{fig:Core_Pressure_Drop_Iteration_1}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/LF_5002.PNG}
+        	\caption{\acrshort{sg} water level}
+        	\label{fig:SG_Water_Level_Iteration_1}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/PT_6202.PNG}
+        	\caption{Circulator outlet pressure}
+        	\label{fig:PT_6202_Iteration_1}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/PT_3001.PNG}
+        	\caption{Hot leg pressure}
+        	\label{fig:DP_3001_Iteration_1}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/RPV_Pressure_Drop_Iteration_1.PNG}
+        	\caption{\acrshort{rpv} pressure drop}
+        	\label{fig:RPV_Pressure_Drop}
+        	\end{center}
+      \end{subfigure}
+    \caption[\acrshort{r5} iteration 1 results]{\small \acrshort{r5} iteration 1 results}
+    \end{figure}
+\end{center}
+
+\subsection{Iteration 2}
+
+In addition to testing \acrshort{mfr}'s that were substantially less than what was initially calculated (0.25x-0.625x of nominal), the forward-loss coefficients were modified by an order of magnitude for volumes 100, 105, 110, 115, 175, 183, 225, and 270 to try to obtain a large pressure loss across the \acrshort{sg}, \acrshort{gc}, \acrshort{cd}, and the \acrshort{rpv}. The duration of the simulation remained at 8000 seconds. These simulations resulted in an improved \acrshort{rx} \acrshort{dP}, yet the same problems present in the first iteration of simulations persisted, namely that the block fluid temperatures and \acrshort{rpv} \acrshort{dP} were significantly underpredicted, the system did not appear to be at a steady state based on the trends present in the \acrshort{rx} fluid temperatures and system pressures, and the \acrshort{sg} \acrshort{dT} was still underpredicted. It was also concluded that some heat-up phase was needed prior to performing a test simulation. 
+
+\vspace{-4mm}
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Core_DT_Iteration_2.PNG}
+        	\caption{\acrshort{rx} DP}
+        	\label{fig:Core_DT_Iteration_2}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Primary_System_Pressure_Iteration_2.JPG.PNG}
+        	\caption{Circulator outlet pressure}
+        	\label{fig:Primary_System_Pressure_Iteration_2}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/RPV_DP_Iteration_2.PNG}
+        	\caption{\acrshort{rpv} DP}
+        	\label{fig:RPV_DP_Iteration_2}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/SG_Temps_Iteration_2.PNG}
+        	\caption{\acrshort{sg} inlet/outlet DT}
+        	\label{fig:SG_Temps_Iteration_2}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Core_Block_3_Fluid_Temps_Iteration_2.PNG}
+        	\caption{\acrshort{rx} block 3 fluid temperatures}
+        	\label{fig:Core_Block_3_Fluid_Temps_Iteration_2}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Core_Block_3_Solid_Temps_Iteration_2.PNG}
+        	\caption{\acrshort{rx} block 3 solid temperatures}
+        	\label{fig:Core_Block_3_Solid_Temps_Iteration_2}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Core_Block_7_Fluid_Temps_Iteration_2.PNG}
+        	\caption{\acrshort{rx} block 7 fluid temperatures}
+        	\label{fig:Core_Block_7_Fluid_Temps_Iteration_2}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/RPV_Temp_Diff_Iteration_2.PNG}
+        	\caption{\acrshort{rpv} DT}
+        	\label{fig:RPV_Temp_Diff_Iteration_2}
+        	\end{center}
+      \end{subfigure}
+    \caption[System-level results for the second iteration of \acrshort{r5} simulations]{\small System-level results for the second iteration of \acrshort{r5} simulations}
+    \end{figure}
+\end{center}
+\vspace{-4mm}
+\subsection{Iteration 3}
+
+The third iteration incorporating using the base deck, but only implementing an artificial volume (298) to control the system pressure and temperature with the \acrshort{pt}-6202 and TF-6202 data. It was determined, based on the previous simulations, that results parsed from a timestamp after the first \acrshort{gc} motor speed increase would not be as accurate as taking results from a point in the simulation that represented a quasi steady-state mode. Thus, a decision was made to simulate a 10 hour heat-phase, then perform a simulation up to 5000 seconds into the test. 5000 seconds was chosen because the statepoints at the \acrshort{sg} inlet/outlet were at their lowest rate-of-change (see Eq. \ref{fig:SG_Inlet_Outlet}) and, since experimental data existed where the fluid specific enthalpy could be deduced, a calorimetric balance could be taken across the \acrshort{sg} inlet/outlet to deduce the \acrshort{mfr}, assuming that all of the power provided by the heaters was being removed by the \acrshort{sg}:
+\begin{equation}
+    \dot{q} = \dot{m}(i_{out}-i_{in}) = \dot{m}c_{p}(T_{out}-T_{in})
+    \label{eq:calorimetric_heat_balance}
+\end{equation}
+This yielded a \acrshort{mfr} that was equal to about 40\% of nominal. This method can only be applied where the rates of change for $T$ and $P$ are 0 because an increase or decrease implies that there is a heat transfer imbalance, and that the heat added to the fluid in the \acrshort{rx} is not equal to the heat removed from the fluid in the \acrshort{sg}, which could result in an overpredicted \acrshort{mfr}.  Although fluid and solid \acrshort{tc} readings in other places in the \acrshort{pcs} are not at equilibrium, this seemed to be a decent approximation for a single point in the simulations.
+
+Some system-level results for this single simulation are shown in Figure \ref{R5_Iteration_4_System_Results}. From this table, the following can be deduced:
+\begin{itemize}
+    \item The heat transfer across the \acrshort{rx} is still underpredicted, even though the \acrshort{rx} inlet $T$ is fairly accurate with the experimental data;
+    \item \acrshort{rx} \acrshort{dP} is rather insignificant, although it should be corrected for future conduction cooldown simulations;
+    \item The \acrshort{gc} \acrshort{dP} is critically underpredicted, which impacts the \acrshort{dT} across the \acrshort{gc}. This explains why the \acrshort{rx} inlet $T$ is overpredicted;
+    \item Pressure drops across the \acrshort{cd} bend, \acrshort{mcss}, and \acrshort{up} are underpredicted;
+    \item There is little \acrshort{dP} predicted across the \acrshort{sg}, but not because of an insufficient \acrshort{dT}. 
+\end{itemize}
+More discussion about these results is provided in Section \ref{sec:R5_ResultsDiscussion}.
+
+\begin{table}[!ht]\centering
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ |m{2.5cm}| m{2cm} | m{2.5cm} | m{3cm} | m{2cm}|}\hline
+\textbf{Parameter} & \textbf{Data} & \textbf{R5}& \textbf{$E_{rel}$} (\%) & \textbf{$E_{abs}$} \\\hline
+\acrshort{rx} Inlet $T$ & 360.39 & 379.06 & -4.92 & -18.67 \\
+\acrshort{rx} Outlet $T$ & 587.85 & 517.32 & 13.63 & 70.53 \\
+\acrshort{rx} \acrshort{dT} & 227.46 & 138.27 & 64.51 & 89.19 \\
+\acrshort{rx} \acrshort{dP} & 12.37 & 5.76 & 114.74 & 6.61 \\\hline
+\acrshort{gc} Inlet $P$ & 208.16 & 211.68 & -1.66 & -3.52 \\
+\acrshort{gc} Outlet $P$ & 212.20 & 211.74 & 0.22 & 0.46 \\
+\acrshort{gc} Inlet $T$ & 385.26 & 388.08 & -0.73 & -2.82 \\
+\acrshort{gc} Outlet $T$ & 361.25 & 385.92 & -6.39 & -24.67 \\
+\acrshort{gc} \acrshort{dT} & -24.01 & -2.16 & 1010.24 & -21.85 \\
+\acrshort{gc} \acrshort{dP} & 4040.00 & 55.10 & 7232.12 & 3984.90 \\\hline
+Cold Leg PT & 637.60 & 21.99 & 2799.86 & 615.61 \\\hline
+MCSS \acrshort{dP} & 33.83 & -0.86 & -4049.59 & 34.69 \\\hline
+\acrshort{lp} \acrshort{dP} & -4.70 & 16.53 & -128.41 & -21.23 \\\hline
+\acrshort{up} \acrshort{dP} & 40.01 & 10.16 & 293.68 & 29.85 \\\hline
+\acrshort{sg} Inlet $P$ & 211900.00 & 211703.00 & 0.09 & 197.00 \\
+\acrshort{sg} Outlet $P$ & 208160.00 & 211682.00 & -1.66 & -3522.00 \\
+\acrshort{sg} Inlet $T$ & 484.67 & 501.22 & -3.30 & -16.55 \\
+\acrshort{sg} Outlet $T$ & 385.26 & 388.08 & -0.73 & -2.82 \\
+\acrshort{sg} \acrshort{dT} & -99.41 & -113.15 & -12.14 & 13.74 \\
+\acrshort{sg} PT & -3740.00 & -21.00 & 17709.52 & -3719.00 \\
+\acrshort{sg} Dome $T$ & 385.20 & 387.14 & -0.50 & -1.94 \\
+\acrshort{sg} Dome $P$ & 163530.00 & 163342.10 & 0.12 & 187.90 \\\hline
+\end{tabular}\caption{System-level results for the fourth iteration of \acrshort{r5} simulations}\label{R5_Iteration_4_System_Results}\end{table}
+
+\subsection{Limitations}
+
+\acrshort{r5}'s original application to analyze system component interactions, taking into account multiple types of physics (e.g. mixed fluid flow, heat transfer, reactor kinetics) in the context of simple modelling assumptions. These modelling assumptions include assuming fluid flow in a 1D stream tube or 3D if using a multidimensional hydrodynamic component, and one- or two-dimensional heat conduction in solids (heat structures can be modeled as cylinders and/or slabs). Calculating these mean properties permit the use of correlations to describe complex phenomena (e.g. turbulence) while also permitting relatively quick computational results. An appropriate application of \acrshort{r5} would be examining the time scales by which subsystems (such as an emergency core cooling system) can effectively respond to a \acrshort{loca}. It is less effective at predicting localized phenomena, such as where hot spots may occur in the core.
+
+Understanding that \acrshort{r5} has these limited applications provides the user an idea of what could be expected in a validation effort. The \acrshort{r5} model for the \acrshort{httf} will have plena that have mostly uniform properties, the fluid should asymptotically reach a peak temperature as it travels through the \acrshort{rx}, the fluid properties will be uniform circumferentially but not necessarily radially, and the hottest \acrshort{rx} block temperatures should be situated towards the midregion. This is not what is shown in the experimental data, and should be a point of emphasis if future simulations are to use \acrshort{r5} decks.
+
+\section{\acrshort{star} Simulations}
+
+Simulation results from \acrshort{r5} were then provided into the \acrshort{star} \acrshort{lp} model in the form of boundary conditions (see Table \ref{STAR_BCs}). This chapter, and its subsections, elaborates more about the geometry, mesh, and physics used to model the \acrshort{lp}.
+
+\begin{table}[!ht]\centering
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ m{4cm} m{4cm} m{4cm} }\hline
+Boundary & BC Type & Value \\\hline
+170-010100 & \acrshort{mfr} ($T$) & 0.651 g/s (562.2 K) \\
+170-010200 & \acrshort{mfr} ($T$) & 4.919 g/s (561.8 K) \\
+170-010300 & \acrshort{mfr} ($T$) & 7.423 g/s (541.3 K) \\
+170-010400 & \acrshort{mfr} ($T$) & 7.704 g/s (512.0 K) \\
+170-010500 & \acrshort{mfr} ($T$) & 2.337 g/s (471.6 K) \\
+215-010000 & $P_{gage}$ ($T$) &  110.486 kPa (501.2 K) \\
+1320-014 & $T$ & 565.679 K \\
+1660-015 & $T$ & 435.711 K \\
+1750-001 & $T$ & 476.881 K  \\
+1751-001 & $T$ & 518.259 K \\
+2000-001 & $T$ & 416.168 K \\
+2150-001 & $T$ & 309.319 K \\
+Rakes & Adiabatic & N/A \\
+RCST-Valve & Adiabatic & N/A \\
+Unheated-Walls & Adiabatic & N/A \\
+\hline\end{tabular}\caption{\acrshort{bc}s used for \acrshort{star} simulations}\label{STAR_BCs}\end{table}
+\vspace{-8mm}
+\subsection{Geometry}
+
+The boundaries of the simulation domain were first determined before performing any simulations. Previous \acrshort{star} models for the \acrshort{lp} drew the inlet boundary at the interface between the \acrshort{lp} fluid domain and the \acrshort{lp} roof, while the outlet boundary was drawn somewhere in the outlet duct. These boundaries defining the fluid domain were redrawn (see Figure \ref{fig:LP_Geometry} for the full model). The inlet boundary was determined as the point where the junction 170 in \acrshort{r5} exists. The tee that joins the \acrshort{hd} with the \acrshort{sg} inlet was incorporated, as this would influence the velocity profile of the helium jets exiting the \acrshort{lp}. Additionally, the pipe that connects the \acrshort{pcs} with the \acrshort{rccs} was included (up to the place where the valve exists) because, while the fluid in this domain is relatively stationary, the behavior of the fluid jets that impinge upon it (as well as the heat transfer) may be different if it were replaced by a physical wall.  
+
+The final CAD model had five main parts, each having a different level of mesh fidelity. These include the \acrshort{lp}, \acrshort{hd}, a refined portion of the \acrshort{lp} roof, the tee, and a pipe connecting the Tee to the \acrshort{rcst} valve.
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=13cm]{Figures/STAR_Sim_Domain.png}
+    	\caption{Geometric model used for creating parts in \acrshort{star}}
+    	\label{fig:LP_Geometry}
+    	\end{center}
+\end{figure}
+
+\vspace{-5mm}
+\subsection{Mesh}\label{sec:Mesh_Quality}
+
+Parts-based meshing was used to mesh the four individual parts with different levels of fidelity. The fluid in the \acrshort{lp}, \acrshort{lp} roof, and \acrshort{hd} would experience jet impingement and wake formation from the walls, support columns, and the rakes, while the Tee would experience jet impingement and fluid redirection.
+\begin{center}
+    \begin{figure}[!ht]
+      \begin{subfigure}{6.5cm}
+        \begin{center}
+        	\includegraphics[width=6.5cm]{Figures/LP_Roof_Mesh.PNG}
+        	\caption{Refined section of \acrshort{lp} roof}
+        	\label{fig:LP_Roof_Mesh}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{6.5cm}
+        \begin{center}
+        	\includegraphics[width=6.5cm]{Figures/Rake_Mesh.PNG}
+        	\caption{Rakes}
+        	\label{fig:Rake_Mesh}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{6.5cm}
+        \begin{center}
+        	\includegraphics[width=6.5cm]{Figures/LP_Mesh.PNG}
+        	\caption{Isometric view of \acrshort{lp}}
+        	\label{fig:LP_Mesh}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{6.5cm}
+        \begin{center}
+        	\includegraphics[width=6.5cm]{Figures/System_Mesh.PNG}
+        	\caption{Isometric view of domain}
+        	\label{fig:System_Mesh}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{6.5cm}
+        \begin{center}
+        	\includegraphics[width=6.5cm]{Figures/Inlet_Flow_Channel_Mesh.PNG}
+        	\caption{Inlet flow channel}
+        	\label{fig:Inlet_Flow_Channel_Mesh}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=6.5cm]{Figures/LP_Bottom_Mesh.PNG}
+        	\caption{Bottom of \acrshort{lp}}
+        	\label{fig:LP_Bottom_Mesh}
+        	\end{center}
+      \end{subfigure}
+    \caption[Several illustrations of the parts-based meshing method implemented]{\small Several illustrations of the parts-based meshing method implemented}
+    \end{figure}
+\end{center}
+
+\vspace{-6mm}
+An automated mesh utilizing equilateral triangles was used, as this simplified the meshing process. \acrshort{star} provides the capability to use polyhedrals, but it was found that this often resulted in divergent solutions, even when features in \acrshort{star} were used to remove invalid cells. Some metrics that are often used to determine what is a good versus a bad cell include:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Cell quality: a general metric that is based on a hybrid of the Gauss and least-squares methods for cell gradient calculation methods, and is dependent on the orientation of cell faces and the relative positions of cell nodes. 
+    \item Chevron cells: pairs of thin slender cells that share a common face whose angle is such that the line joining the cell centers does not go through the common face. 
+    \item Skewness angle: the angle between the face area vector $a$ (face normal) and the vector connecting the two cell centroids, $ds$ from Figure \ref{fig:Skewness_Angle}. Skewness angles greater than 85$^{o}$ should be avoided, and those greater than 90 will hinder convergence. 
+    \item Volume change: the ratio between a cell and its biggest neighbor. Volume changes of less than $10^{-3}$ are considered a bad pairing of cells.
+    \item Least squares quality (\acrshort{lsq}): indicator of the quality of a cell, using the physical location of a cell centroid relative to the cell centroid locations of its face-neighbors.
+    \item Face validity: an area-weighted measure of the correctness of the face normals relative to their attached cell centroid.
+\end{itemize}
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{6cm}
+        \begin{center}
+        	\includegraphics[width=6cm]{Figures/Cell_Quality.PNG}
+        	\caption{Cell quality}
+        	\label{fig:Cell_Quality}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{6cm}
+        \begin{center}
+        	\includegraphics[width=6cm]{Figures/Chevron_Cells.PNG}
+        	\caption{Chevron cells}
+        	\label{fig:Chevron_Cells}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{6cm}
+        \begin{center}
+        	\includegraphics[width=6cm]{Figures/Skewness_Angle.PNG}
+        	\caption{Skewness angle}
+        	\label{fig:Skewness_Angle}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{6cm}
+        \begin{center}
+        	\includegraphics[width=6cm]{Figures/Volume_Change.PNG}
+        	\caption{Volume change}
+        	\label{fig:Volume_Change}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{6cm}
+        \begin{center}
+        	\includegraphics[width=6cm]{Figures/Least_Squares_Value.PNG}
+        	\caption{Least squares value}
+        	\label{fig:Least_Squares_Value}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Face_Validity.PNG}
+        	\caption{Face validity}
+        	\label{fig:Face_Validity}
+        	\end{center}
+      \end{subfigure}
+    \caption[Some mesh parameters that should be optimized to ensure good solution convergence]{\small Some mesh parameters that should be optimized to ensure good solution convergence, from \cite{cd-adapco} with no changes}
+    \end{figure}
+\end{center}
+\vspace{-3mm}
+The coarse and medium meshes were ran to convergence with the initial mesh settings, while the fine mesh was generated using the adaptive mesh refinement (\acrshort{amr}) method, which would split cells if certain criteria were met for field functions present in the mesh. The three meshes had 3995169, 6822976, and 12629908 total cells. The field functions used as criteria for \acrshort{amr} were the \acrshort{tke}, \acrshort{tdr}, turbulent viscosity ($\nabla \mu_{t}$), and the turbulent viscosity ratio (\acrshort{tdr}, equal to $\mu_{t} / \mu$) because this would permit refinement with areas where significant velocity gradients and disturbances existed. The \acrshort{amr} feature would refine the mesh every 2500 iterations (to allow for decent convergence of the intermediate mesh), refining cells if they met the following criteria:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Cell Size * $\nabla k > 50.0$
+    \item Cell Size * $\nabla \epsilon > 50.0$
+    \item Cell Size * $\nabla \mu_{t} > 50.0$
+    \item Cell Size * $\mu_{t} / \mu > 50.0$
+\end{itemize}
+
+\begin{table}[!ht]\centering
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ m{2cm} m{4cm} m{3cm} }\hline
+Model & Part & Number of Cells \\\hline
+Coarse & Lower Plenum & 2276095 \\
+Coarse & Hot Duct & 1015753 \\
+Coarse & Tee & 91419 \\
+Coarse & Refined LP Roof & 574855 \\
+Coarse & Connection2RCST & 37047 \\\hline
+Medium & Lower Plenum & 4787368 \\
+Medium & Hot Duct & 1489439 \\
+Medium & Tee & 149659 \\
+Medium & Refined LP Roof & 359463 \\
+Medium & Connection2RCST & 37047 \\\hline
+Fine & Lower Plenum & 6324521  \\
+Fine & Hot Duct & 5369856 \\
+Fine & Tee & 463544 \\
+Fine & Refined LP Roof & 394401 \\
+Fine & Connection2RCST & 77586 \\
+\hline\end{tabular}\caption{Number of cells present in each of the three \acrshort{star} models}\label{Number_Cells_STAR_Model}\end{table}
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Coarse_Mesh_Rakes.PNG}
+        	\caption{Coarse mesh}
+        	\label{fig:Coarse_Mesh_Rakes}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7.5cm}
+        \begin{center}
+        	\includegraphics[width=7.5cm]{Figures/Fine_Mesh_Rakes.PNG}
+        	\caption{Fine mesh (with \acrshort{amr})}
+        	\label{fig:Fine_Mesh_Rakes}
+        \end{center}
+      \end{subfigure}
+    \caption[Midplane section of mesh near \acrshort{lp} outlet/rakes]{\small Midplane section of mesh near \acrshort{lp} outlet/rakes}
+    \end{figure}
+\end{center}
+\vspace{-8mm}
+\clearpage
+\subsection{Physics}
+Once the mesh was implemented, the following models were used for all fluid domains:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Steady
+    \item Ideal gas
+    \item Three-dimensional
+    \item Segregated flow (segregated fluid temperature)
+    \item K-Epsilon Turbulence (low-Re)
+    \item Low $y^{+}$ Wall treatment
+\end{itemize}
+The equations presented in Appendix C are solved based on the assumption that the pressure and viscosity differences in the \acrshort{lp} domain are small. Pressure can be assumed to be relatively constant since the experimental data (specifically, the pressure readings from PT-3001 and PT-3002) indicate only a pressure drop on the order of a few kilopascals. Although fluid jet temperatures differ by several hundred degrees, which has a profound impact on the (dynamic) viscosity, the assumption of constant viscosity greatly simplifies the governing equations and speeds up calculations. In the context of the \acrshort{pg}-28 test, the $Re$, while not as high as what is supposed to be modeled in the \acrshort{httf} scaling document \cite{gutowska_scaling}, suggests turbulent flow. Likewise, since the flow being modeled is for one instance in time, the steady-state option was selected.
+\vspace{-6mm}
+\subsubsection{Segregated Flow Model}\label{sec:SegregatedFlowSection}
+
+\acrlong{sfm} (\acrshort{sfm}), specifically the \acrshort{sfm} fluid temperature model, was chosen to model thermodynamic properties of the fluid. The \acrshort{sfm} solves each of the individual momentum equations in turn. A predictor-corrector approach is used to link these momentum equations with the continuity equation. It is most applicable to nearly constant-density flows (usually $Ma<<1$), although it can handle some compressible flows and natural convection. To confirm this, the $Ma$ is quantified for each of the simulations in each part in Table \ref{Ma_Number_STAR}. Every part had a maximum $Ma$ number well under 0.2, which validates the assumption that the flow is largely incompressible, and the segregated flow model is appropriate.
+
+\begin{table}[!ht]\centering
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ m{2cm} m{4cm} m{3cm} }\hline
+Model & Part & Max $Ma$ \\\hline
+Coarse & Lower Plenum & 7.594248e-03 \\
+Coarse & Hot Duct & 6.809514e-03 \\
+Coarse & Tee & 5.125483e-03 \\
+Coarse & Refined LP Roof & 7.116468e-03 \\
+Coarse & Connection2RCST & 1.111647e-03 \\\hline
+Medium & Lower Plenum & 8.994149e-03 \\
+Medium & Hot Duct & 2.854848e-02 \\
+Medium & Tee & 6.864851e-03 \\
+Medium & Refined LP Roof & 2.900352e-02 \\
+Medium & Connection2RCST & 1.142724e-03 \\\hline
+Fine & Lower Plenum & 1.002459e-02 \\
+Fine & Hot Duct & 6.715216e-02 \\
+Fine & Tee & 5.752594e-03 \\
+Fine & Refined LP Roof & 6.668686e-02 \\
+Fine & Connection2RCST & 1.153629e-03 \\
+\hline\end{tabular}\caption{Max $Ma$ number in each part, for each simulation}\label{Ma_Number_STAR}\end{table}
+
+\subsubsection{Turbulence Model}
+
+When using \acrshort{rans} models, the effects of turbulence on the mean flow must be accounted for, e.g. how the Reynolds stresses and time-averaged scalar transport terms affect the flow. Additional models are needed to predict these stresses and transport terms. \acrshort{rans} models differ by the parameters that are calculated from various number of equations. However, further models are needed to be specified. \acrshort{star} has several \acrshort{rans} models, including the $k-\epsilon$, $k-\omega$, Reynolds stress, and Spalart-Allmaras models. Each of these models is supposed to be applied to a specific flow behavior:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item $k-\epsilon$ works well in confined, circulating flows, and is the most widely used and validated model, and also requires two additional equations to solve for the turbulent kinetic energy $k$ and the turbulent dissipation rate $\epsilon$;
+    \item $k-\omega$ provides superior performance for complex boundary layer flows under adverse pressure gradients and separations, and also requires two additional equations for $k$ and turbulent frequency, $\omega$;
+    \item \acrlong{rsm} (\acrshort{rsm}) the individual Reynolds stresses better than the $k-\epsilon$, and is typically used where complex strain fields and/or significant body forces on the fluid domain exist, and requires seven additional equations (most computationally expensive);
+    \item Spalart-Allmaras performs well in external flows where adverse pressure gradients exist, and requires one additional equation to solve for a kinematic eddy viscosity, $\Tilde{\nu}$. 
+\end{itemize}
+
+Despite the $k-\omega$ model being well-suited for low-$Re$ turbulent flows (which is the flow regime during the \acrshort{pg}-28 test), previous \acrshort{star} simulations  for the \acrshort{lp} have utilized $k-\epsilon$ because it provides the best convergence, and is still applicable to the confined-flow problem that is being simulated. It is documented that the $k-\epsilon$ overpredicts the turbulence shear stress, particularly in the presence of large pressure gradients, and overpredicts the levels of turbulence and heat transfer when in regions where there is jet impingement. However, both of these concerns are likely not significant, since the $Re$ is relatively low (on the order of $10^{3}$) and pressure drops are on the order of a $10^{2}-10^{3}$ Pascal. Both of the two-equation models tend to fail to include subtle interactions between turbulent stresses and mean flow when compared to the \acrshort{rsm}, but the \acrshort{rsm} is computationally intensive. 
+\vspace{-6mm}
+\subsubsection{Wall Treatment}
+
+Once the $k-\epsilon$ model was selected, attention turned to how to capture the wall effects. Using the low-Re, low $y^{+}$ wall treatment method required that the $y^{+}$ values for all of the walls in the simulation domain should be less than 1, negating the need to specify a surface roughness. Usually, it is best practice to use between 20-30 prism layers for this treatment method \cite{wimshurt_2021}; however, this increased the number of cells in the simulation domain for the coarse mesh to the order of $10^7$, so attempts were made to reduce this number to 5-15 by altering the growth rate and the overall layer thickness. Through trial-and-error, surface-averaged and max wall $y^{+}$ values were mostly brought below 1 (see Tables \ref{Average_y+_Values} and \ref{Max_y+_Values} in Appendix D, respectively).
+
+\vspace{-6mm}
+\section{Grid Independence Study}\label{sec:GCI_Calculations}
+
+The objective of a grid convergence study for a steady-state simulation is to provide insight into how (and if) the base size of the mesh affects the solution. Specifically, the method proposed by Roache \cite{celik_ghia_roache_freitas_coleman_raad_2008} provides a systematic method to estimate the discretization error, even if successive refinements of the grid are not integer multiples, as well as a consistent parameter (the grid convergence index, $GCI$) that can serve as a error band on the convergence of the solution. As the mesh is refined, the parameters of interest used for Roache's method should approach an asymptotic value, and the $GCI$ is a measure of how far a simulation result is from the asymptotic value should the grid size approach 0.
+
+For this grid convergence study, the approximate\footnote{The exact locations for \acrshort{pt}-3002 were approximated based on \cite{brawley_outlet_duct_drawing_2019}; this drawing should have also shown the location of \acrshort{pt}-3001 as well, but did not.  \cite{bowers_HTTF_sys_drawing_2019} shows that \acrshort{pt}-3002 does not exist, while \cite{louria} indicates otherwise. \acrshort{pt}-3001 was chosen to exist at the top of the \acrshort{hd} in between the two rakes.} locations where \acrshort{pt}-3001, \acrshort{pt}-3002, and \acrshort{dP}-2001 were chosen. These three locations were chosen because a local cell average size unique to the individual parts of the simulation domain where the locations reside in can be used. For each location, a general process (outlined below) was followed \cite{celik_ghia_roache_freitas_coleman_raad_2008}: 
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Evaluate the (local) relative cell size ($h$). The average cell size for each part meshed was calculated for this parameter ($N_{i}/V_{fluid,i}$);
+    \item Determine the grid refinement factor $r$, which is determined by taking the ratio of the coarse mesh with a finer mesh ($r=h_{coarse}/h_{fine}$). Typically, if this ratio is greater than 1.3, the grid is sufficiently refined, although this is based on "rule-of-thumb" justification;
+    \item Calculate the apparent order $p$:
+    \begin{equation}
+        p = \frac{1}{\ln{r_{21}}} \lvert \ln{\lvert\epsilon_{32}/\epsilon_{21}\rvert + q(p)}\rvert
+        \label{eq:apparent_order}
+    \end{equation}
+    Eq. \ref{eq:apparent_order} suggests that $p$ is defined as a function of itself:
+    \begin{equation}
+        q(p) = \ln{\left ( \frac{r^{p}_{21}-s}{r^{p}_{32}-s} \right )}
+        \label{eq:define_q}
+    \end{equation}
+    Where:
+    \begin{equation}
+        s = 1 \cdot sign(\epsilon_{32}/\epsilon_{21})
+        \label{eq:define_s}
+    \end{equation}
+    Here, $\epsilon_{32}=\phi_{3}-\phi_{2}$ and $\epsilon_{21}=\phi_{2}-\phi_{1}$, where $\phi$ is some transport variable solution. A sign that further refinement may be needed if $\epsilon_{32}/\epsilon_{21}<0$, which suggests oscillatory convergence. 
+    \item Calculate the extrapolated values for the exact solution based on the results from two meshes:
+    \begin{equation}
+        \phi^{21}_{ext} = \frac{r^{p}_{21} \phi_{1} - \phi_{2}}{r^{p}_{21}-1}
+        \label{eq:phi_32_ext}
+    \end{equation}
+    \begin{equation}
+        \phi^{32}_{ext} = \frac{r^{p}_{32} \phi_{2} - \phi_{3}}{r^{p}_{32}-1}
+        \label{eq:phi_21_ext}
+    \end{equation}
+    \item The last parts incorporate calculating the relative error:
+    \begin{equation}
+        e^{21}_{a} = \left \lvert \frac{\phi_{1}-\phi_{2}}{\phi_{1}} \right \rvert 
+        \label{eq:relative_error}
+    \end{equation}
+    \item The extrapolated relative error:
+    \begin{equation}
+        e^{21}_{ext} = \left \lvert \frac{\phi^{21}_{ext}-\phi_{1}}{\phi^{21}_{ext}} \right \rvert
+        \label{eq:extrapolated_relative_error}
+    \end{equation}
+    \item And finally, the fine-grid convergence index:
+    \begin{equation}
+        GCI^{21}_{fine} = \frac{1.25e^{21}_{a}}{r^{p}_{21}-1}
+        \label{eq:fine_gci}
+    \end{equation}
+    The 1.25 represents a factor of safety, which is chosen arbitrarily. Calculations \ref{eq:relative_error} through \ref{eq:fine_gci} must be repeated for $\phi^{32}_{ext}$.
+\end{itemize}
+
+
+
+%------------------------RESULTS--------------------------------
+
+\chapter{\acrshort{cfd} Results}
+
+This section discusses some of the results generated in \acrshort{star}, specifically some flow characteristics, results at \acrshort{tc} and \acrshort{pt} locations, and the grid refinement study.
+\vspace{-10mm}
+\section{General Flow Behavior}
+
+Figure \ref{Top_Midplane_Results} shows the midplane results for various field functions. The general conclusion from these figures is that the pressure decreases from the far end of the \acrshort{lp} to the \acrshort{hd} (with virtually no decrease until the middle portion of the \acrshort{lp}), albeit by only a few pascals. The hottest temperatures are concentrated towards the middle of the \acrshort{lp}, with a range of about 130$^{o}$. The most significant velocity gradients are located at the interface of the \acrshort{lp} and the \acrshort{hd}.
+
+Figure \ref{HD_Temperatures} shows the evolution of the $T$ profiles throughout the flow path. The rakes serve as an obstruction by which the boundary layers are disturbed and coolant jets are mixed. The fluid appears to be well-mixed before entering the Tee portion, at which point the profiles shift, where a "cold" spot is located at the near-side of the tee. Figure \ref{Midplane_Parameters} shows that the fastest velocities in the Tee are near the corner, where much of the momentum shifts to the far end of the tee, creating a relatively stagnate zone on the near end of the pipe, resulting in a drop in temperature. The temperature profile then homogenizes near the outlet.
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Top_Midplane_Pressure.PNG}
+        	\caption{Pressure plot}
+        	\label{fig:Top_Midplane_Pressure}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Top_Midplane_Temperature.PNG}
+        	\caption{Temperature plot}
+        	\label{fig:Top_Midplane_Temperature}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Top_Midplane_TKE.PNG}
+        	\caption{\acrshort{tke} plot}
+        	\label{fig:Top_Midplane_TKE}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Top_Midplane_Velocity_Magnitude.PNG}
+        	\caption{Velocity magnitude plot}
+        	\label{fig:Top_Midplane_Velocity_Magnitude}
+        	\end{center}
+      \end{subfigure}
+    \caption[Solution views for various field functions at the top midplane]{\small Solution views for various field functions at the top midplane}
+    \label{Top_Midplane_Results}
+    \end{figure}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{4.5cm}
+        \begin{center}
+        	\includegraphics[width=4.5cm]{Figures/LP_HD_Connect_Temperature.PNG}
+        	\caption{\acrshort{hd}/\acrshort{lp} interface}
+        	\label{fig:LP_HD_Connect_Temperature}
+        \end{center}
+      \end{subfigure}
+      \hspace{1em}
+      \begin{subfigure}{4.5cm}
+        \begin{center}
+        	\includegraphics[width=4.5cm]{Figures/B4_Rakes_Temperature.PNG}
+        	\caption{Before rakes}
+        	\label{fig:B4_Rakes_Temperature}
+        \end{center}
+      \end{subfigure}
+      \hspace{1em}
+      \begin{subfigure}{4.5cm}
+        \begin{center}
+        	\includegraphics[width=4.5cm]{Figures/After_Rakes_Temperature.PNG}
+        	\caption{After rakes}
+        	\label{fig:After_Rakes_Temperature}
+        	\end{center}
+      \end{subfigure}
+      \hspace{1em}
+      \begin{subfigure}{4.5cm}
+        \begin{center}
+        	\includegraphics[width=4.5cm]{Figures/B4_Tee_Temperature.PNG}
+        	\caption{Before tee}
+        	\label{fig:B4_Tee_Temperature}
+        	\end{center}
+      \end{subfigure}
+      \hspace{1em}
+      \begin{subfigure}{4.5cm}
+        \begin{center}
+        	\includegraphics[width=4.5cm]{Figures/After_Tee_Temperature.PNG}
+        	\caption{After tee}
+        	\label{fig:After_Tee_Temperature}
+        	\end{center}
+      \end{subfigure}
+      \hspace{1em}
+      \begin{subfigure}{4.5cm}
+        \begin{center}
+        	\includegraphics[width=4.5cm]{Figures/Outlet_Temperature.PNG}
+        	\caption{Tee outlet}
+        	\label{fig:Outlet_Temperature}
+        	\end{center}
+      \end{subfigure}
+    \caption[Temperature profiles at various points along flowpath after \acrshort{lp}]{\small Temperature profiles at various points along flowpath after \acrshort{lp}}
+    \label{HD_Temperatures}
+    \end{figure}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{6.5cm}
+        \begin{center}
+        	\includegraphics[width=6.5cm]{Figures/STAR_Lateral_Velocity_Interface.PNG}
+        	\caption{\acrshort{hd}/\acrshort{lp} interface}
+        	\label{fig:LP_HD_Connect_Temperature}
+        \end{center}
+      \end{subfigure}
+      \hspace{1em}
+      \begin{subfigure}{6.5cm}
+        \begin{center}
+        	\includegraphics[width=6.5cm]{Figures/STAR_Lateral_Velocity_Pre_Rakes.PNG}
+        	\caption{Before rakes}
+        	\label{fig:B4_Rakes_Temperature}
+        \end{center}
+      \end{subfigure}
+    \caption[Temperature profiles at various points along flowpath after \acrshort{lp}]{\small Temperature profiles at various points along flowpath after \acrshort{lp}}
+    \label{HD_Temperatures}
+    \end{figure}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{12cm}
+        \begin{center}
+        	\includegraphics[width=12cm]{Figures/Midplane_Velocity_Magnitude.PNG}
+        	\caption{Velocity magnitude}
+        	\label{fig:Midplane_Velocity_Magnitude}
+        \end{center}
+      \end{subfigure}
+      \hspace{1em}
+      \begin{subfigure}{12cm}
+        \begin{center}
+        	\includegraphics[width=12cm]{Figures/Midplane_Temperature.PNG}
+        	\caption{Temperature}
+        	\label{fig:Midplane_Temperature}
+        \end{center}
+      \end{subfigure}
+    \caption{Midplane characteristics}
+    \label{Midplane_Parameters}
+    \end{figure}
+\end{center}
+\vspace{-20mm}
+\subsection{\acrshort{tc} Readings}
+
+Complete results for the temperatures at the \acrshort{tc} locations, as well as the absolute and relative differences with respect to the individual instrument readings, are shown in Appendix D, Table \ref{STAR_TC_Error}. Figures \ref{fig:LP_Temps_Abs_Diff} and \ref{fig:LP_Temps_Rel_Diff} show qualitative assessments of the absolute and relative errors for the \acrshort{tc} results in the \acrshort{lp}. Based on the \acrshort{tc} 22XX, 23XX and 24XX readings in Table \ref{STAR_TC_Error}, there is thermal stratification present between the top and middle parts of the fluid in the \acrshort{lp} of about 50 K; this is also reflected in the rake temperatures (\acrshort{tc}-31xx). Both errors quantified for each \acrshort{tc} suggest that either the fluid is too well-mixed before it leaves the \acrshort{lp}, the inlet fluid temperatures are not accurate, or both. Table \ref{HD_Results} shows that the simulation predicts a "cold spot" in the middle part of the rake, whereas the experimental data suggest that this middle part should be the hottest. However, the temperatures at the rakes becomes more homogenized as the mesh is refined. 
+
+\begin{center}
+\footnotesize
+\begin{longtable}{|m{1.75cm}|m{1.75cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.75cm}|m{1.75cm}|}
+\caption{\acrshort{star} \acrshort{tc} results in the rakes (in K)} \label{HD_Results} \\
+
+\hline \textbf{\acrshort{tc} Tag} & \textbf{$D_{PG-28}$} & \textbf{$S_{coarse}$} & \textbf{$S_{medium}$} & \textbf{$S_{fine}$} & \textbf{$E_{abs}$} & \textbf{$E_{rel}$} (\%) \\ \hline 
+\endfirsthead
+
+\multicolumn{7}{l}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\hline \textbf{\acrshort{tc} Tag} & \textbf{$D_{PG-28}$} & \textbf{$S_{coarse}$} & \textbf{$S_{medium}$} & \textbf{$S_{fine}$} & \textbf{$E_{abs}$} & \textbf{$E_{rel}$} (\%) \\ \hline 
+\endhead
+
+\hline
+
+TF-3001 & 484.82 $\pm$ 6.48 & 525.12 & 523.26 & 521.44 & -38.44 $\pm$ 6.48 & -7.93 $\pm$ 1.337 \\ \hline
+TF-3102 & 497.45 $\pm$ 6.48 & 505.59 & 507.39 & 518.06 & -9.94 $\pm$ 6.48 & -2.00 $\pm$ 1.303 \\ \hline
+TF-3103 & 450.15 $\pm$ 6.48 & 525.31 & 523.60 & 521.53 & -73.45 $\pm$ 6.48 & -16.32 $\pm$ 1.440 \\ \hline
+\end{longtable}
+\end{center}
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=14cm]{Figures/LP_Temps_Abs_Diff.PNG}
+    	\caption{Absolute temperature difference ($T_{exp}-T_{sim}$)}
+    	\label{fig:LP_Temps_Abs_Diff}
+    	\end{center}
+\end{figure}
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=14cm]{Figures/LP_Temps_Rel_Diff.PNG}
+    	\caption{Relative temperature difference ($1-T_{sim}/T_{exp}$, in \%)}
+    	\label{fig:LP_Temps_Rel_Diff}
+    	\end{center}
+\end{figure}
+\clearpage
+\subsection{\acrshort{pt} Readings}
+
+The results for pressure (along with the error) at the \acrshort{pt} locations is presented in Table \ref{STAR_Pressure_Results}. It is evident that the pressure reading in the Tee (\acrshort{pt}-3002) is predicted relatively well; however, there is significant deviation in the other two locations. The \acrshort{star} simulation predicts that the pressure will decrease from the \acrshort{lp} region opposite of the \acrshort{hd} to the Tee. The experimental data (which is averaged over a 10 second interval, see Figure \ref{fig:Pressure_Readings}) suggest the opposite: pressure increases from the far end of the \acrshort{lp} to the \acrshort{hd}, then decreases as it passes through the Tee. A possible reason for this is that there is significant heat transfer from the structures to the fluid as it travels to the outlet, and the $T$ \acrshort{bc}'s are not properly accounted for. 
+
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=13cm]{Figures/Pressure_Readings_5000s.PNG}
+    	\caption{Pressure readings typically oscillate significantly}
+    	\label{fig:Pressure_Readings}
+    	\end{center}
+\end{figure}
+
+\section{Grid Refinement Study}
+
+The \acrshort{gci} calculations were performed for each of the three pressure locations, and are shown in Table \ref{Discretization_Error_Table}. Inspecting $\phi$ for each of the three parameters suggests that the results for DP-2001 and PT-3001 do approach some converged value based on monotonicity, whereas PT-3002 shouldn't because $\phi_{fine}<\phi_{medium}$, but $\phi_{coarse}<\phi_{medium}$. This is peculiar because the mesh quality metrics for the Tee region don't suggest that there are any bad cells, and the significant refinement ratios between each level of refinement should lead to monotonic solutions at this location. A possible reason is that the initial coarse mesh for the Tee is not sufficiently refined, and future simulations should ensure that the coarse mesh should have at least 150k cells. 
+
+The extrapolated values for the pressure at the DP-2001 and PT-3001 locations appear to be 211891.94 Pa and 211906.69 Pa, respectively. The extrapolated value at the latter location does not appear to change much from the fine solution; this is because the grid between the medium and fine meshes was refined by about a factor of 3.6. Despite good refinement for all meshes, the difference between the simulation results and the experimental data is still substantial further away from the simulation outlet, likely because of discrepancies in the inlet boundary conditions, which makes it difficult to determine how much the code is responsible for the discrepancies in overall results versus user error.
+
+
+%-----------------------DISCUSSION--------------------------------
+
+\chapter{Discussion}
+
+This section discusses some reasons why the results between the simulations and the experimental data may differ, as well as what can be done with further simulations to narrow down the possibilities for the discrepancies using both \acrshort{r5} and \acrshort{star}.
+\vspace{-4mm}
+\section{\acrshort{r5} Simulations}\label{sec:R5_ResultsDiscussion}
+
+\subsection{Heat Balance Across \acrshort{rx}, \acrshort{sg}, and \acrshort{hd}}
+
+An issue present across all simulations is that the heat balance does not appear to be properly captured. This was also evident during the \acrshort{pg}-26 simulations, discussed in Dr. Epiney's report \cite{epiney}. The inlet \acrshort{rx} temperature is overpredicted because the \acrshort{gc} \acrshort{dT} is minimal. A corrective action may be fixing a \acrshort{tdv} to the 235 \acrshort{tdj} to match the PT-6202 and TF-6202 data values, as well as artificially altering the forward loss coefficient to increase the pressure loss. The ideal solution is to implement a pump card, although gathering homologous data would require either a separate experiment or separate \acrshort{cfd} simulations. 
+
+Matching inlet temperatures would help, but would not completely fix the issue or explain why the \acrshort{rx} \acrshort{dT} is underpredicted by more than 60\%. Dr. Epiney suspected that the \acrshort{rx} material properties may not be properly characterized. A sensitivity test involving alterations to the thermal conductivity ($\lambda$) and specific heat ($c_{p}$) were performed in his experiments. A conclusion from the report is that lowering both parameters appeared to shift some of the heat structure temperatures in the \acrshort{rx} upwards. Aside from characterizing these properties improperly initially, two possible reasons why the block material properties may be underpredicted include:
+\vspace{-2mm} %5mm vertical space
+\begin{itemize}
+\addtolength\itemsep{-4mm}
+    \item Water saturation of core block materials. The reported $\lambda$ for the \acrshort{rx} blocks in Paul Bayless' QA deck is on the order of $10^{0}$, whereas water's $\lambda$ is $10^{-1}$, and steam's is $10^{-2}$. The purpose of the heat up phase was to drain the water from the core; however, some of this water may have been trapped in the porous material, which may affect the overall $\lambda_{eff}$. 
+    \item The existing cracks in the \acrshort{rx} blocks may significantly alter the effective $\lambda$ value, similar to the concept of individual fuel pellets cracking during normal operations \cite{todreas_kazimi_2021}.
+\end{itemize}
+Besides resampling these materials for property values, future studies should include performing a sensitivity analysis on these material properties, and finding a range of property values that help match the \acrshort{rx} \acrshort{dT}, while also ensuring a large temperature drop across the \acrshort{gc}. Ensuring a correct \acrshort{rx} \acrshort{dT} would likely help reduce some of the error when it comes to individual \acrshort{rx} \acrshort{tc} comparisons, as well.
+
+Examining the \acrshort{dT} between the inlet and the outlet of the \acrshort{sg} suggests that there are issues with respect to how much heat is removed from the \acrshort{sg}. Too much heat is removed based on the 13\% overestimation, where the \acrshort{sg} inlet $T$ is overpredicted by 16\%. The experimental data suggests that there is nearly a 100$^{o}$ drop from the \acrshort{rx} outlet to the \acrshort{sg} inlet, which is counterintuitive since the \acrshort{hd} is heavily insulated, and the poor heat transfer properties of helium suggest that the counterflow heat exchanger setup present in the concentric ducts should not amount to a significant \acrshort{dT}. A possible remedy for this is to alter the insulation in the \acrshort{hd} to ensure that there is a larger \acrshort{dT} in this region, and examine the effects of altering the forward loss coefficient for the bend, as the \acrshort{dP} in this region is off by several orders of magnitude.
+\vspace{-6mm}
+\subsection{Flow Asymmetry through \acrshort{r5} Core}
+
+A fundamental assumption of Bayless' \acrshort{httf} \acrshort{r5} model is that the flow entering, transversing through, and exiting the \acrshort{rx} is uniform circumferentially (based on Figure \ref{fig:HTTF_RELAP_RPV_Nodalization_Radial}), and that these 1D characteristics only differ in the radial direction. This assumption is inconsistent with the experimental data (see figures in Appendix A). One explanation is that the \acrshort{r5} modelling technique is incompatible with the lumped-element model with equivalent circuits \cite{voldman_2022} for predicting \acrshort{mfr} through individual channels. While this model is very simple considering the complex nature of the equations presented in Table \ref{STAR_NS_Eqn}, namely the effects of temperature on fluid density, it does provide a general description, in that the resistance is proportional to the length of the path that the fluid takes. In other words, the driving potential ($P$) is equal to the product of some flow rate and the resistance for that flow to transverse between two points. In the context of fluids, the fluid pressure, $P$, is equal to the product of the volumetric flow rate $Q$ and the flow resistance, $R_{fluid}$, where $R_{fluid}$ is a function of the length of the fluid path. The shortest path the fluid can take from the \acrshort{up} to the \acrshort{hd} (where \acrshort{dP} is highest) is by transversing through channels that are closest to the \acrshort{hd} (namely, the outer bypass channels closest to the \acrshort{hd}) and through channels where the temperature gain in the fluid is minimal, as a decrease in $\rho$ increases $R_{fluid}$. 
+
+Both the \acrshort{star} models and the experimental data indicate that the pressure field in the \acrshort{lp} is not uniform; in the \acrshort{r5} model, this is not present because while the \acrshort{lp} is modelled with volumes 175, 185, 180, and 183 (which permits a higher degree of fidelity as opposed to modelling the \acrshort{lp} domain with one branch, 175), the "ring" model homogenizes the flow characteristics at each ring level and passes them to junction 170, which only connects to volume 175. However, because the experimental data and \acrshort{star} simulations show that the fluid pressure differs at the far end of the \acrshort{lp}, this will have an effect on the upstream velocity distribution. This change in mass flow rate will also change the heat removed in each channel and, ultimately, the inlet jet temperatures. This issue cannot be resolved within the current \acrshort{r5} setup itself.
+
+Likewise, the inlet plenum is modelled as a single branch, and also does not factor in the changes in velocity and temperature of the fluid that enters the core region. Based on previous \acrshort{up} \acrshort{star} simulations performed by Dr. Gutowska \cite{gutowska_woods_cadell_2019}, the fluid velocities are not uniform circumferentially (see Figure \ref{fig:Velocity_Magnitude_UP_Floor_Gutowska}). This may be problematic for the assumptions made in the \acrshort{r5} model, specifically when it comes to characterizing hot spots and, ultimately, the peak temperatures and where they occur in the upper half of the core. A further improvement upon these simulations is to alter the pressure field at the \acrshort{rx} outlet to mimic the behavior present in Figure \ref{fig:Top_Midplane_Pressure}.
+\begin{figure}[!ht]
+    \begin{center}
+    	\includegraphics[width=10cm]{Figures/Velocity_Magnitude_UP_Floor_Gutowska.PNG}
+    	\caption[\acrshort{star} simulation results for the velocity magnitude at the \acrshort{up} floor]{\acrshort{star} simulation results for the velocity magnitude at the \acrshort{up} floor (outlet pipe is on right side), taken from \cite{gutowska_woods_cadell_2019} with no changes}
+    	\label{fig:Velocity_Magnitude_UP_Floor_Gutowska}
+    \end{center}
+\end{figure}
+
+\vspace{-12mm}
+\subsection{Validate \acrshort{httf} \acrshort{r5} Model Loss Coefficients}
+
+During the second iteration of tests, substantial changes were made to the base input deck to artificially increase the pressure losses in the primary loop. Some modifications made include:
+\begin{itemize}
+    \item Controlling primary system pressure by removing the two valves 295 and 296, removed branch 293, converted single volume 298 into a \acrshort{tdv} that simulated what is already in general table 220; and
+    \item Increasing pressure loss coefficients by two orders of magnitude.
+\end{itemize}
+These additional changes managed to approximate the \acrshort{rpv}, \acrshort{cd}, \acrshort{sg} accurately, but created a scenario where flow either stagnated or reversed in the \acrshort{lp}. To correct this, a substantially larger \acrshort{mfr} is needed. Since the numerous changes would likely not be justified in a \acrshort{qa} review, these additional changes were not incorporates in the third iteration of simulations.
+
+One step that can be taken to ensure that the physics are being properly modeled is by validating the \acrshort{pg}-02 test \cite{pg_02}. The \acrshort{pg}-02 test was completed in February 2017, with the goal of measuring the forced flow pressure drops across important components and regions of the \acrshort{pcs}. The \acrshort{pcs} was filled with nitrogen gas, and the \acrshort{gc} was set at 20 different statepoints, with no heat being added to the system. Since orifices were used to generate a reduction in fluid pressure, the \acrshort{pcs} \acrshort{mfr} was calculated using the principle of the Venturi effect (see Figure \ref{fig:PG02_Flow_Rates}). This test is one of the few times where the \acrshort{mfr} was known to a certain degree, and this \acrshort{mfr} is a key unknown for modelling in the \acrshort{r5} \acrshort{httf} input deck. 
+
+\begin{figure}
+    \begin{center}
+    	\includegraphics[width=10cm]{Figures/PG02_Flow_Rates.PNG}
+    	\caption[The use of orifices permitted the calculation of the \acrshort{pcs} \acrshort{mfr} during the \acrshort{pg}-02 test]{The use of orifices permitted the calculation of the \acrshort{pcs} \acrshort{mfr} during the \acrshort{pg}-02 test, taken from \cite{pg_02} with no changes}
+    	\label{fig:PG02_Flow_Rates}
+    	\end{center}
+\end{figure}
+
+The goal of this simulation would be to verify that the theoretical calculations for the forward loss coefficients originally calculated in the base deck are indeed correct, and concluding whether or not these coefficients are dependent on the Reynolds number. \acrshort{r5} provides capability to specify a Reynolds-number dependent loss coefficient.  These loss coefficients are particularly important because pressure has a strong effect on the thermodynamic state of the fluid, and accurately capturing these losses are important for conduction cooldown tests that need to be modeled, where the pressure losses (particularly across the core and in the plenums) have an effect on the time scales for flow reversal and onset of natural circulation. 
+\vspace{-6mm}
+\subsection{Substituting \acrshort{r5} with a Higher Fidelity Solver}
+
+The previous subsections suggest what can be done to shore up discrepancies existing in the \acrshort{r5} system-level results and, to some extent, what can be done to mitigate \acrshort{r5}'s limitations on providing boundary conditions for \acrshort{star}. However, based on the \acrshort{rx} \acrshort{tc} results, there is a need to be able to perform finite-level simulations in the core. For instance, in Figure \ref{fig:Block_3_TCLocations_Solid5000Relap_Solid} and \ref{fig:Block_5_TCLocations_Solid5000Relap_Solid}, there are \acrshort{tc}s in the \acrshort{rx} blocks that are only several inches away, but differ in $T$ by up to 600 Kelvin. This is an extreme case that may not be resolvable with more detailed \acrshort{fvm} solvers, but the general consistency in these block-level diagrams is the lack of consistency when it comes to a temperature distribution, which may be partially explained if using a higher-fidelity solver. 
+
+\acrshort{inl}, through its \acrlong{moose} (\acrshort{moose}), has developed finite element method solvers to tackle problems across a broad range of physics. Two codes that have been developed for subchannel analysis include \acrlong{r7} (\acrshort{r7}) \cite{zhang}, which builds upon the \acrshort{r5} infrastructure with multi-dimensional core analysis, and Pronghorn \cite{balestra_2019}. The \acrshort{moose} framework is flexible enough for the user to develop their own programs, and can be used on high performance computing clusters. The use of these codes could provide the user more flexibility in how they specify material properties for each cell in the simulation domain to try to match the experimental data. They would also permit the user to specify where heat is applied directly such that it mimics the setup of the heater banks, in contrast to the current \acrshort{r5}, where heat is applied uniformly to the heat structures.
+\begin{center}
+    \begin{figure}[!ht]
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/R7_Modelling.PNG}
+        	\caption{\acrshort{r7} model}
+        	\label{fig:R7_Modelling}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Pronghorn_Model_Halsted.PNG}
+        	\caption{Pronghorn model, with channels and heater rods superimposed}
+        	\label{fig:Pronghorn_Model_Halsted}
+        	\end{center}
+      \end{subfigure}
+    \caption[Higher-fidelity solvers being developed for the \acrshort{httf}]{\small Higher-fidelity solvers being developed for the \acrshort{httf}, taken from \cite{osti_1812877} and \cite{osti_18128697} with no changes}
+    \end{figure}
+\end{center}
+\vspace{-12mm}
+\section{\acrshort{star} Simulations}
+
+\subsection{Reduce Number of Cells}
+
+One challenge to simulating the full \acrshort{lp} domain was that the complex geometry made it difficult to keep the number of cells in the fluid domain small enough to avoid extensive computation time per iteration, while also reaching convergence in fewer steps. It was found that simulations containing more than 70 million cells took about 15 seconds per iteration with 48 cores, one or more of the convergence criterion never reached at or below $10^{-3}$, and the wall $y^{+}$ values in certain areas never reached the order of 1 (particularly at the part interfaces). It is important to simulate the full \acrshort{lp} domain because the physics (specifically, the heat flux of the \acrshort{lp} roof and the non-uniform inlet \acrshort{mfr} and $T$) implies that a symmetry boundary condition is not sufficient to capture statepoints at \acrshort{tc} locations nor simulate the vortices that may exist within a full-domain simulation as opposed to a half-domain. 
+\vspace{-4mm}
+\subsection{Obtain Better Convergence}
+
+One of the more time-consuming issues was obtaining a satisfactory convergence for each of the three simulations. A residual $r$ represents the degree to which Eq. \ref{eq:GTE_Integrated} is balanced:
+
+\begin{equation}
+    r = \left \lvert \frac{\partial}{\partial t} \int\limits_{CV} \, (\rho \phi) dV\ + \int\limits_{CS} \, \overrightarrow{n} \cdot (\rho \overrightarrow{v} \phi) dA\ - \int\limits_{CV} \, \overrightarrow{n} \cdot (\Gamma \nabla \phi) dA\ + \int\limits_{CV} \, S_{\phi} dV\ \right \rvert
+\label{eq:STAR_Residual_Definition}
+\end{equation}
+
+To obtain a global residual, the root mean squared value is obtained by taking the average of the sum of the square of all the residuals across all cells:
+
+\begin{equation}
+    r = \sqrt{\frac{1}{n} \sum_{n} r^{2}}
+\label{eq:STAR_Residual_RMS}
+\end{equation}
+
+A "perfect mesh" is one where residuals tend towards 0; this is typically not practical since A) there will always be a computation error associated with running the simulation, and B) most simulations don't have a minimum cell quality of 1. However, the residuals are often a good indicator of the overall quality of the mesh, and whether bad cells influence the simulation. For each of the three simulations, the continuity residual typically converged just below $10^{-3}$, whereas good simulation domains would have a residual below $10^{-6}$. 
+
+%\clearpage
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Coarse_Residuals.PNG}
+        	\caption{Coarse mesh simulation}
+        	\label{fig:Coarse_Residuals}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Medium_Residuals.PNG}
+        	\caption{Medium mesh simulation}
+        	\label{fig:Medium_Residuals}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Fine_Residuals.PNG}
+        	\caption{Fine mesh simulation}
+        	\label{fig:Fine_Residuals}
+        	\end{center}
+      \end{subfigure}
+    \caption[Residuals for the three mesh simulations]{\small Residuals for the three mesh simulations. The most limiting residual was continuity at $10^{-3}$}
+    \end{figure}
+\end{center}
+
+\clearpage 
+The primary reason for this is that there are a number of cells in the mesh that do not have good quality. Table \ref{Bad_Cell_Table} shows the quantity of bad cells based on the characteristics outlined in Section \ref{sec:Mesh_Quality}. To alleviate this problem in future simulations, the user should implement a structural mesh for the \acrshort{lp} part specifically using the Directed Mesh and Pattern tool, as opposed to the Automated Mesh tool, or changing the cell geometry from triangles to quadrilaterals. 
+
+\begin{table}[!ht]\centering
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ |m{5cm}|m{2cm}|m{2cm}|m{2cm}| }\hline
+\textbf{Parameter} & \textbf{Coarse}  & \textbf{Medium} & \textbf{Fine} \\\hline
+Chevron Cells  & 1054 & 2954 & 29742 \\
+Skewness $>90^{o}$  & 16 & 7 & 11 \\
+Volume Change $<10^{-3}$  & 0 & 0 & 0 \\
+Cell Quality$ < 0.001$  & 56 & 1056 & 20226 \\
+$\acrshort{lsq} < 0.001$ & 495 & 1242 & 1394 \\
+Face Validity $<1.0$  & 12 & 4 & 6 \\
+\hline\end{tabular}\caption{Bad cells in each mesh}\label{Bad_Cell_Table}\end{table}
+\vspace{-14mm}
+\subsection{Wall $y^{+}$ Values}
+
+While the average wall $y^{+}$ values were well below 1 (see Table \ref{Average_y+_Values}), there were slivers on the \acrshort{lp} roof and at interfaces where $y^{+}$ value were well above 1 (see Figure \ref{fig:Max_y+_Values} and Table \ref{Max_y+_Values}). The implication of not having $y^{+}$ values below 1 for the low-$Re$ model is that wall heat transfer and pressure losses are not properly accounted for. Even though the size of these slivers is relatively small, they occur at places where the fluid behavior changes significantly (e.g. fluid exiting the \acrshort{lp} domain and entering the \acrshort{hd}). Steps were taken to try to alleviate this problem, namely resolving parameters such as the prism layer stretching factor and the prism layer thickness, but the result was either A) convergence not meeting the $10^{-3}$ threshold, or B) convergence factors that swung by several orders of magnitude. However, based on the metrics provided in \ref{Bad_Cell_Table}, it is evident that a few cells may be holding up convergence, since the aspect ratios of the prism-layer cells never reached above 1 ($>50$ is considered detrimental to convergence). A suggestion is to fix these cells and to increase the number of prism layers. Another suggestion is to redraw the parts boundaries so that they resembles those shown in Figure \ref{fig:STAR_New_Mesh}. 
+
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{5.5cm}
+            \begin{center}
+            	\includegraphics[width=5.5cm]{Figures/Max_y+_Values.PNG}
+            	\caption{A small sliver existed on one of the \acrshort{lp} support posts}
+            	\label{fig:Max_y+_Values_Sliver}
+            \end{center}
+      \end{subfigure}
+        \hspace{3em}
+      \begin{subfigure}{5.5cm}
+            \begin{center}
+            	\includegraphics[width=5.5cm]{Figures/Max_y+_Values_1.PNG}
+            	\caption{The highest $y^{+}$ values existed at the interface between the \acrshort{lp} and the \acrshort{hd}}
+            	\label{fig:Max_y+_Values_Interface}
+            \end{center}
+      \end{subfigure}
+    \caption[Places where the wall $y^{+}$ value was not ideal]{\small Places where the wall $y^{+}$ value was not ideal}
+    \label{fig:Max_y+_Values}
+    \end{figure}
+\end{center}
+
+\begin{table}[!ht]\centering
+\footnotesize
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ |m{2.75cm}|m{2.75cm}|m{2.75cm}|m{2.75cm}| }\hline
+\textbf{Surface} & \textbf{Coarse} & \textbf{Medium} & \textbf{Fine} \\\hline
+RCST-Valve & 6.676e-03 & 7.49e-03 & 2.951e-02 \\
+2000-001 & 1.197e-01 & 2.399e-01 & 1.932e-01 \\
+Rakes & 7.219e-02 & 2.237e-02 & 2.553e-02 \\
+1320-014 & 1.723e-01 & 6.916e-02 & 7.518e-02 \\
+1660-015 & 3.070e-02 & 1.217e-01 & 1.616e-01 \\
+1750-001 & 2.029e-01 & 9.427e-02 & 9.361e-02 \\
+1751-001 & 2.565e+00 & 1.704e+00 & 1.325e+00 \\
+Front-LP-Top & 1.008e-01 & 5.199e-02 & 5.256e-02 \\
+Inner-Bypass & 2.063e+00 & 6.622e-02 & 6.624e-02 \\
+Outer-Bypass & 1.566e+00 & 6.919e-02 & 7.175e-02 \\
+Ring-2 & 1.973e-01 & 9.013e-02 & 9.014e-02 \\
+Ring-3 & 2.082e-01 & 9.511e-02 & 9.512e-02 \\
+Ring-4 & 1.501e-01 & 8.611e-02 & 8.901e-02 \\
+2150-001 & 9.256e-02 & 1.878e-01 & 1.333e-01 \\
+\hline\end{tabular}\caption{Max Wall $y^{+}$ Values}\label{Max_y+_Values}\end{table}
+
+\begin{figure}
+    \begin{center}
+    	\includegraphics[width=14cm]{Figures/STAR_New_Mesh.PNG}
+    	\caption[Prospective mesh using quadrilaterals and redrawing part boundaries]{Prospective mesh using quadrilaterals and redrawing part boundaries}
+    	\label{fig:STAR_New_Mesh}
+    	\end{center}
+\end{figure}
+
+\vspace{-16mm}
+\subsection{Verify Locations of Instruments}
+
+While the locations of \acrshort{lp} \acrshort{tc}'s is known according to \cite{louria}, the exact locations of the \acrshort{pt}'s and the \acrshort{hd} \acrshort{tc}s were guessed. Specifically, the height and distance of \acrshort{dP}-2001 from the nearest support column was not known, so it was assumed that this instrument was located halfway up and adjacent to the column. \acrshort{pt}-3001 was assumed to be situated halfway up on the right rake that was inserted in the \acrshort{hd}. While the pressures in neither the \acrshort{r5} nor \acrshort{star} simulations had significant pressure gradients, it is important to know where the locations for these instruments are so that any deviations in the future result from simulation errors.
+
+
+\chapter{Conclusion}
+
+The objective of this investigation was to determine how well a multi-scale thermal hydraulic analysis can model the thermal stratification phenomena in the \acrshort{lp} region. The method by which this multi-scale analysis was done was using Paul Bayless' \acrshort{r5} model to provide inlet and outlet \acrshort{bc}'s to a \acrshort{star} simulation at an instance when the experimental data indicated a fairly steady state. This analysis, however, focuses on directly comparing experimental data with a multi-scale simulation, and performing a single grid convergence study to confirm a cell-size independent solution for the high-fidelity software used to model the \acrshort{lp} domain explicitly.  The \acrshort{r5} model has been approved for use via the \acrshort{qa} program established by \acrshort{osu} and \acrshort{inl}, and so an analysis to determine the validity of the model in the context of examining thermal stratification was needed.
+
+The \acrshort{pg}-28 test is one of the first experiments performed to provide a set of data specifically to quantify the existence of this phenomena. This stratification, upon impinging safety-related structures, can cause thermal fatigue via the thermal gradients present in the fluid jets, which creates a risk of failure after a certain period of time. Previous efforts to quantify this phenomena were restricted to conditions proposed as a normal operations scenario in the \acrshort{ga}-\acrshort{mhtgr}, but with a lack of experimental data, these analyses have largely been limited to verification studies.
+
+Based on what was modeled, it is apparent that, for \acrshort{r5}, substantial distortions exist with respect to the experimental data. The \acrshort{rx} \acrshort{dT} needs to be increased, as does the \acrshort{dP} and \acrshort{dT} across the \acrshort{gc}. It is evident that, based on the results in \acrshort{star} and the lack of thermal stratification seen, the flow exiting the core does not have a wide range of $T$ (e.g. the outer bypass is too hot). This is likely the consequence of trying to collapse 234 inlet channels into five broad regions and applying heat uniformly to cylindrical heat structures. Stratification of fluid jets both in the \acrshort{lp} and \acrshort{od} will require a larger range of fluid temperatures at the inlets, as opposed to relying on the bulk properties of the flow at the core outlet, which are predicted by \acrshort{r5}. Likewise, in the \acrshort{star} simulation, the fluid pressure decreases as it exits the \acrshort{lp} when it should be increasing. This latter point may be the result of either the inlet velocities not being properly characterized, wall temperature \acrshort{bc}'s are not properly set, or both. 
+
+It is suggested that a different modelling approach should be undertaken for the \acrshort{rx} region to permit higher fidelity so that individual \acrshort{tc} locations can be validated for temperature. However, if the same \acrshort{r5} model is applied for future simulations, then there is a possibility to shore up some of the distortions by altering the heat structure material properties. Having a correct heat balance across the \acrshort{rx}, with reasonable agreement for both the average inlet and outlet \acrshort{rx} temperatures, will permit the user to experiment with the temperature and \acrshort{mfr} distributions at the inlets of the \acrshort{star} simulation should the same \acrshort{r5} model be applied. This does not guarantee that individual \acrshort{tc} locations will be correctly predicted for $T$ in the \acrshort{star} simulation, but may improve the thermal stratification seen in the \acrshort{lp} and \acrshort{od}. 
+
+Much work can be done to validate the simulations with existing data, but an effort to perform another \acrshort{lp} mixing test in either the \acrshort{httf} or a separate-effects test facility (which is significantly smaller than an \acrshort{iet}) should also be considered. The \acrshort{httf} was scaled to operate with a \acrshort{mfr} of 1.0 kg/s, implying a $Re$ close to 40,000-50,000. While it is not imperative to exactly much the $Re$ number with what would be seen in the prototypical \acrshort{ga}-\acrshort{mhtgr}, it is best to conduct a test that has flow conditions that would require the same turbulence models with the prototype. It is clear that a lower-$Re$ regime flow is more influenced by friction relative to a higher-$Re$ regime flow, where the share of inertial forces influence the flow substantially more. The results from a new test with aforementioned characteristics would, in the end, serve as a greater basis for licensing the \acrshort{ga}-\acrshort{mhtgr}, as a true picture of how the fluid jets interact with the structures can be painted. These additional tests are really what will determine to what level and where thermal stratification could occur, which is directly related to the economic feasibility of such a design.
+
+\pagebreak
+
+\bibliography{thesis}
+\bibliographystyle{unsrt}
+
+\pagebreak
+
+\appendix
+
+\chapter{\acrshort{pg}-28 \acrshort{rx} \acrshort{tc} Readings}\label{sec:PG28RXTemperatures}
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_1_TCLocations_Fluid5000Relap_Fluid.PNG}
+        	\caption{Block 1}
+        	\label{fig:Block_1_TCLocations_Fluid5000Relap_Fluid}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_3_TCLocations_Fluid5000Relap_Fluid.PNG}
+        	\caption{Block 3}
+        	\label{fig:Block_3_TCLocations_Fluid5000Relap_Fluid}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_5_TCLocations_Fluid5000Relap_Fluid.PNG}
+        	\caption{Block 5}
+        	\label{fig:Block_5_TCLocations_Fluid5000Relap_Fluid}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_7_TCLocations_Fluid5000Relap_Fluid.PNG}
+        	\caption{Block 7}
+        	\label{fig:Block_7_TCLocations_Fluid5000Relap_Fluid}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_9_TCLocations_Fluid5000Relap_Fluid.PNG}
+        	\caption{Block 9}
+        	\label{fig:Block_9_TCLocations_Fluid5000Relap_Fluid}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{8cm}
+        \begin{center}
+        	\includegraphics[width=8cm]{Figures/Upper_Reflector_2_TCLocations_Fluid5000Relap_Fluid.PNG}
+        	\caption{Upper Reflector 2}
+        	\label{fig:Upper_Reflector_2_TCLocations_Fluid5000Relap_Fluid}
+        	\end{center}
+      \end{subfigure}
+    \caption[Solid \acrshort{tc} readings at 5000 seconds for the \acrshort{pg}-28 test]{\small Solid \acrshort{tc} readings at 5000 seconds for the \acrshort{pg}-28 test}
+    \end{figure}
+    \label{PG_28_Block_Temps_5000_Fluid}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_1_TCLocations_Solid5000Relap_Solid.PNG}
+        	\caption{Block 1}
+        	\label{fig:Block_1_TCLocations_Solid5000Relap_Solid}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_3_TCLocations_Solid5000Relap_Solid.PNG}
+        	\caption{Block 3}
+        	\label{fig:Block_3_TCLocations_Solid5000Relap_Solid}
+        \end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_5_TCLocations_Solid5000Relap_Solid.PNG}
+        	\caption{Block 5}
+        	\label{fig:Block_5_TCLocations_Solid5000Relap_Solid}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_7_TCLocations_Solid5000Relap_Solid.PNG}
+        	\caption{Block 7}
+        	\label{fig:Block_7_TCLocations_Solid5000Relap_Solid}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{7cm}
+        \begin{center}
+        	\includegraphics[width=7cm]{Figures/Block_9_TCLocations_Solid5000Relap_Solid.PNG}
+        	\caption{Block 9}
+        	\label{fig:Block_9_TCLocations_Solid5000Relap_Solid}
+        	\end{center}
+      \end{subfigure}
+      \begin{subfigure}{8cm}
+        \begin{center}
+        	\includegraphics[width=8cm]{Figures/Upper_Reflector_2_TCLocations_Solid5000Relap_Solid.PNG}
+        	\caption{Upper Reflector 2}
+        	\label{fig:Upper_Reflector_2_TCLocations_Solid5000Relap_Solid}
+        	\end{center}
+      \end{subfigure}
+    \caption[Fluid \acrshort{tc} readings at 5000 seconds for the \acrshort{pg}-28 test]{\small Fluid \acrshort{tc} readings at 5000 seconds for the \acrshort{pg}-28 test}
+    \end{figure}
+    \label{PG_28_Block_Temps_5000_Solid}
+\end{center}
+
+\begin{center}
+\begin{landscape}
+\begin{table}
+\chapter{Equations Solved in RELAP5-3D}
+\centering
+\footnotesize
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ m{4cm} m{15cm} }\hline
+Vapor Mass Continuity & {\begin{flalign}
+\frac{\partial}{\partial t} (\alpha_{g} \rho_{g}) + \frac{1}{A} \frac{\partial}{\partial x} \left ( \alpha_{g} \rho_{g} v_{g} A \right ) = \Gamma_{g}
+\label{R5_Vapor_Mass_Cont}\end{flalign}}\\[-2ex]
+Noncondensable Vapor Mass Continuity & {\begin{flalign}
+\frac{\partial}{\partial t} \left (\alpha_{g} \rho_{g} \chi_{n} \right ) + \frac{1}{A} \frac{\partial}{\partial x} \left ( \alpha_{g} \rho_{g} \chi_{n} v_{g} A \right ) = 0
+\label{R5_Noncond_Vapor_Mass_Cont}\end{flalign}}\\[-2ex]
+Liquid Mass Continuity & {\begin{flalign}
+\frac{\partial}{\partial t} (\alpha_{f} \rho_{f}) + \frac{1}{A} \frac{\partial}{\partial x} \left ( \alpha_{f} \rho_{f} v_{f} A \right ) = \Gamma_{f}
+\label{R5_Liquid_Mass_Cont}\end{flalign}}\\[-2ex]
+Vapor Momentum & {\begin{flalign}
+\begin{multlined}\alpha_{g} \rho_{g} A \frac{\partial v_{g}}{\partial t} + \frac{1}{2} \alpha_{g} \rho_{g} A \frac{\partial v_{g}}{\partial x} = -\alpha_{g} A \frac{\partial P}{\partial x} + \\ \alpha_{g} \rho_{g} B_{x} A - \alpha_{g} \rho_{g} A (\textbf{FWG})v_{g} + \Gamma_{g} A (v_{g,i}-v_{g}) - \\ \alpha_{g} \rho_{g} A (\textbf{FIG}) (v_{g}-v_{f} - C \alpha_{g} \alpha_{f} \rho_{m} A \left [ \frac{\partial (v_{g}-v_{f})}{\partial t} + v_{f} \frac{\partial v_{g}}{\partial x} - v_{g} \frac{\partial v_{f}}{\partial t} \right ] \end{multlined}
+\label{R5_Liquid_Cont}\end{flalign}}\\
+Liquid Momentum\footnote{The terms \textbf{FWF} \textbf{FWG} are the wall friction drag coefficients. These two factors are linear with respect to the velocity, and are the product of the friction factor, the frictional reference area per unit volume, and the magnitude of the fluid bulk velocity. The units for these two factors are $s^{-1}$. The terms \textbf{FIF} and \textbf{FIG} are the interphase frictional drag coefficients. Either the drift flux model or the drag coefficient model is used, according to the flow regime. Interphase frictional formulation depends on which model is used. The units for these two factors are $s^{-1}$.} & {\begin{flalign}
+\begin{multlined}\alpha_{f} \rho_{f} A \frac{\partial v_{f}}{\partial t} + \frac{1}{2} \alpha_{f} \rho_{f} A \frac{\partial v_{f}}{\partial x} = \\ -\alpha_{f} A \frac{\partial P}{\partial x} + \alpha_{f} \rho_{f} B_{x} A - \alpha_{g} \rho_{f} A (\textbf{FWF})v_{f} + \Gamma_{f} A (v_{f,i}-v_{f}) - \\ \alpha_{f} \rho_{f} A (\textbf{FIF}) (v_{f}-v_{g} - C \alpha_{g} \alpha_{f} \rho_{m} A \left [ \frac{\partial (v_{f}-v_{g})}{\partial t} + v_{g} \frac{\partial v_{f}}{\partial x} - v_{f} \frac{\partial v_{g}}{\partial t} \right ] \end{multlined}
+\label{R5_Liquid_Momentum}\end{flalign}}\\
+Vapor Energy & {\begin{flalign}
+\begin{multlined}\frac{\partial (\alpha_{g} \rho_{g} U_{g})}{\partial t} + \frac{1}{A} \frac{\partial}{\partial t} \left (\alpha_{g} \rho_{g} U_{g} v_{g} A \right ) = -P \frac{\partial \alpha_{g}}{\partial t} - \frac{P}{A} \frac{\partial}{\partial x} \left (\alpha_{g} v_{g} A \right ) + \\ Q_{wg} + Q_{ig} + \Gamma_{ig} h^{''}_{g} + \Gamma_{w} h_{g} + DISS_{g} \end{multlined}
+\label{R5_Vapor_Energy}\end{flalign}}\\
+Liquid Energy & {\begin{flalign}
+\begin{multlined}\frac{\partial (\alpha_{f} \rho_{f} U_{g})}{\partial t} + \frac{1}{A} \frac{\partial}{\partial t} \left (\alpha_{f} \rho_{f} U_{f} v_{f} A \right ) = -P \frac{\partial \alpha_{f}}{\partial t} - \frac{P}{A} \frac{\partial}{\partial x} \left (\alpha_{f} v_{f} A \right ) + \\ Q_{wf} + Q_{if} + \Gamma_{if} h^{''}_{f} + \Gamma_{w} h_{f} + DISS_{f} \end{multlined}
+\label{R5_Liquid_Energy}\end{flalign}}\\
+\hline\end{tabular}\caption{\acrshort{ns} Equations solved in \acrshort{r5}}\label{R5_eqt}\end{table}
+\end{landscape}
+\end{center}
+
+
+\begin{landscape}
+\begin{table}
+\chapter{Equations Solved in \acrlong{star}}
+\centering
+\footnotesize
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ m{4cm} m{15cm} }\hline
+Ideal Gas & {\begin{flalign}
+\rho = \frac{P}{RT}
+\label{STAR_Ideal_Gas}\end{flalign}}\\[-2ex]
+Continuity & {\begin{flalign}
+\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \overrightarrow{v}) = 0
+\label{STAR_Conservation_of_Mass}\end{flalign}}\\[-2ex]
+Linear Momentum  & {\begin{flalign}
+\frac{\partial \rho \overrightarrow{v}}{\partial t} + \nabla \cdot (\rho \overrightarrow{v} \otimes \overrightarrow{v}) = \nabla \cdot \overline{\overline{\sigma}} + \overrightarrow{f}_{b}
+\label{STAR_Conservation_of_Linear_Momentum}\end{flalign}}\\[-2ex]
+Angular Momentum  & {\begin{flalign}
+\overline{\overline{\sigma}} = \overline{\overline{\sigma}}^{T}
+\label{STAR_Conservation_of_Angular_Momentum}\end{flalign}}\\[-2ex]
+Energy & {\begin{flalign}
+\frac{\partial \rho E}{\partial t} + \nabla \cdot (\rho E \overrightarrow{v}) = \overrightarrow{f}_{b} \cdot \overrightarrow{v} + \nabla \cdot (\overrightarrow{v} \cdot \overline{\overline{\sigma}} - \nabla \cdot \overrightarrow{q} + S_{E})
+\label{STAR_Energy}\end{flalign}}\\
+\acrshort{ns} \acrshort{rans} Continuity & {\begin{flalign}
+\nabla \cdot \overrightarrow{U} = 0
+\label{RANS_Continuity}\end{flalign}}\\
+\acrshort{ns} \acrshort{rans} x-Momentum & {\begin{flalign}
+\begin{multlined}\frac{\partial U}{\partial t} + \nabla \cdot (U \overrightarrow{U})  = -\frac{1}{\rho} \frac{\partial P}{\partial x} + \nu \nabla \cdot (\nabla U) + \frac{1}{\rho} \left [  \frac{\partial (-\rho \overline{u^{'2}})}{\partial x} + \frac{\partial (-\rho \overline{u^{'}v^{'}})}{\partial y} + \frac{\partial (-\rho \overline{u^{'}w^{'}})}{\partial z} \right ] \end{multlined} 
+\label{RANS_x_Momentum}\end{flalign}}\\
+\acrshort{ns} \acrshort{rans} y-Momentum & {\begin{flalign}
+\begin{multlined}\frac{\partial V}{\partial t} + \nabla \cdot (V \overrightarrow{U})  = -\frac{1}{\rho} \frac{\partial P}{\partial y} + \nu \nabla \cdot (\nabla V) + \frac{1}{\rho} \left [  \frac{\partial (-\rho \overline{u^{'}v^{'})}}{\partial x} + \frac{\partial (-\rho \overline{v^{'2}})}{\partial y} + \frac{\partial (-\rho \overline{v^{'}w^{'}})}{\partial z} \right ] \end{multlined} 
+\label{RANS_y_Momentum}\end{flalign}}\\
+\acrshort{ns} \acrshort{rans} z-Momentum & {\begin{flalign}
+\begin{multlined}\frac{\partial W}{\partial t} + \nabla \cdot (W \overrightarrow{U})  = -\frac{1}{\rho} \frac{\partial P}{\partial z} + \nu \nabla \cdot (\nabla W) + \frac{1}{\rho} \left [  \frac{\partial (-\rho \overline{u^{'}w^{'})}}{\partial x} + \frac{\partial (-\rho \overline{v^{'}w^{'}})}{\partial y} + \frac{\partial (-\rho \overline{w^{'2}})}{\partial z} \right ] \end{multlined} 
+\label{RANS_z_Momentum}\end{flalign}}\\
+\hline\end{tabular}\caption{\acrshort{ns} Equations solved in \acrshort{star} w/ \acrshort{rans} turbulence solvers}\label{STAR_NS_Eqn}\end{table}
+\end{landscape}
+
+\chapter{\acrshort{star} Results Tables}
+
+\begin{table}[!ht]\centering
+\footnotesize
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ |m{2cm}|m{3.5cm}|m{3.5cm}|m{3.5cm}|}\hline
+Parameter & \textbf{DP-2001}  & \textbf{\acrshort{pt}-3001}  & \textbf{\acrshort{pt}-3002} \\\hline
+$D_{PG-28}$ & 2210279.21 $\pm$ 16000 & 212396.1 $\pm$ 16000 & 211914.63 $\pm$ 16000 \\\hline
+$S_{fine}$ & 211913.4 & 211906.7 & 211899.7 \\\hline
+$S_{medium}$ & 211921.7 & 211909.9 & 211897.4 \\\hline
+$S_{coarse}$ & 211932 & 211925.3 & 211919.2 \\\hline
+$E_{fine}$ & -1634.19 $\pm$ 16000 & 489.4 $\pm$ 16000 & 14.93 $\pm$ 16000 \\\hline
+$E_{rel}$ (Fine Mesh, \%) & -0.777 $\pm$ 0.007 & 0.23 $\pm$ 0.075 & 0.007047 $\pm$ 0.076 \\\hline
+\end{tabular}\caption{\acrshort{star} \acrshort{pt} results}\label{STAR_Pressure_Results}\end{table}
+
+\begin{table}[!ht]\centering
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ |m{2.75cm}|m{2.75cm}|m{2.75cm}|m{2.75cm}| }\hline
+Parameter & DP-2001 (\acrshort{lp}) & \acrshort{pt}-3001 (\acrshort{hd}) & \acrshort{pt}-3002 (Tee) \\\hline
+$N_{fine}$  & 6324521 & 5369856 & 463544 \\
+$N_{medium}$  & 4787368 & 1489439 & 149659 \\
+$N_{coarse}$  & 2276095 & 1015753 & 91419 \\
+\hline
+$\phi_{1}$  & 211913.4 & 211906.7 & 211899.7 \\
+$\phi_{2}$  & 211921.7 & 211909.9 & 211897.4 \\
+$\phi_{3}$  & 211932.0 & 211925.3 & 211919.2 \\
+\hline
+$p$  & 1.1742 & 4.5921 & 4.3530 \\
+$\phi^{21}_{ext}$  & 211891.94 & 211906.69 & 211899.72 \\
+$e^{21}_{a}$  & 3.9167e-05 & 1.5101e-05 & 1.0854e-05 \\
+$e^{21}_{ext}$  & 1.0128e-04 & 4.1946e-08 & 7.9708e-08 \\
+$GCI^{21}_{fine}$  & 1.2659e-04 & 5.2432e-08 & 9.9635e-08 \\
+\hline
+$\phi^{32}_{ext}$  & 211914.31 & 211906.69 & 211894.51 \\
+$e^{32}_{a}$  & 4.8603e-05 & 7.2672e-05 & 1.0288e-04 \\
+$e^{32}_{ext}$  & 3.4862e-05 & 1.5143e-05 & 1.3631e-05 \\
+$GCI^{32}_{fine}$  & 1.2659e-04 & 5.2432e-08 & 9.9635e-08 \\
+\hline\end{tabular}\caption{Discretization error calculations}\label{Discretization_Error_Table}\end{table}
+
+\begin{center}
+\footnotesize
+\begin{longtable}{|m{1.75cm}|m{1.75cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.75cm}|m{1.75cm}|}
+\caption{\acrshort{star} \acrshort{tc} Results (in K)} \label{STAR_TC_Error} \\
+
+\hline \textbf{\acrshort{tc} Tag} & \textbf{$D_{PG-28}$} & \textbf{$S_{coarse}$} & \textbf{$S_{medium}$} & \textbf{$S_{fine}$} & \textbf{$E_{abs}$} & \textbf{$E_{rel}$} (\%) \\ \hline 
+\endfirsthead
+
+\multicolumn{7}{l}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\hline \textbf{\acrshort{tc} Tag} & \textbf{$D_{PG-28}$} & \textbf{$S_{coarse}$} & \textbf{$S_{medium}$} & \textbf{$S_{fine}$} & \textbf{$E_{abs}$} & \textbf{$E_{rel}$} (\%) \\ \hline 
+\endhead
+
+\hline
+
+TS-2103 & 207.2 $\pm$ 6.477 & 477.1 & 476.98 & 476.99 & 3.32 $\pm$ 6.477 & 0.69 $\pm$ 0.014 \\ \hline         
+TS-2104 & 93.15 $\pm$ 6.477 & 477.07 & 477.01 & 477.01 & -110.73 $\pm$ 6.477 & -30.23 $\pm$ 0.017 \\ \hline         
+TS-2105 & 56.96 $\pm$ 6.477 & 477.19 & 477 & 477.02 & -146.96 $\pm$ 6.477 & -44.52 $\pm$ 0.020 \\ \hline         
+TS-2106 & 217.4 $\pm$ 6.477 & 477.63 & 477.03 & 477.08 & 13.3 $\pm$ 6.477 & 2.71 $\pm$ 0.0138 \\ \hline         
+TS-2107 & 223.4 $\pm$ 6.477 & 477.11 & 476.97 & 476.97 & 19.53 $\pm$ 6.477 & 3.93 $\pm$ 0.013 \\ \hline         
+TS-2109 & 181.2 $\pm$ 6.477 & 477.05 & 477 & 477 & -22.67 $\pm$ 6.477 & -4.99 $\pm$ 0.014 \\ \hline         
+TS-2110 & 216.3 $\pm$ 6.477 & 477.06 & 477.08 & 477.05 & 12.39 $\pm$ 6.477 & 2.53 $\pm$ 0.013 \\ \hline         
+TS-2111 & 243.6 $\pm$ 6.477 & 477.45 & 477.44 & 477.43 & 39.31 $\pm$ 6.477 & 7.61 $\pm$ 0.0125 \\ \hline         
+TS-2112 & 256.2 $\pm$ 6.477 & 477.08 & 476.99 & 477.03 & 52.32 $\pm$ 6.477 & 9.88 $\pm$ 0.01225 \\ \hline         
+TS-2113 & 200.7 $\pm$ 6.477 & 477.11 & 477.01 & 477.00 & -3.19 $\pm$ 6.477 & -0.67 $\pm$ 0.014 \\ \hline         
+TS-2114 & 195.3 $\pm$ 4.284 & 477.11 & 477.09 & 477.11 & -8.65 $\pm$ 4.284 & -1.85 $\pm$ 0.009 \\ \hline         
+TF-2201 & 174.6 $\pm$ 4.284 & 517.98 & 518.06 & 518.08 & -70.29 $\pm$ 4.284 & -15.7 $\pm$ 0.010 \\ \hline         
+TF-2202 & 201.9 $\pm$ 4.284 & 518.19 & 518.04 & 518.05 & -43.04 $\pm$ 4.284 & -9.06 $\pm$ 0.009 \\ \hline         
+TF-2203 & 238.4 $\pm$ 4.284 & 518.48 & 518.31 & 518.32 & -6.82 $\pm$ 4.284 & -1.33 $\pm$ 0.008 \\ \hline         
+TF-2204 & 253.2 $\pm$ 4.284 & 518.98 & 519.59 & 518.63 & 7.29 $\pm$ 4.284 & 1.38 $\pm$ 0.008 \\ \hline         
+TF-2205 & 178.9 $\pm$ 4.284 & 521.24 & 525.3 & 524.05 & -71.48 $\pm$ 4.284 & -15.81 $\pm$ 0.009 \\ \hline         
+TF-2206 & 243.7 $\pm$ 4.284 & 520.71 & 522.02 & 521.86 & -4.68 $\pm$ 4.284 & -0.91 $\pm$ 0.008 \\ \hline         
+TF-2207 & 252.8 $\pm$ 4.284 & 519.53 & 518.48 & 518.49 & 7.12 $\pm$ 4.284 & 1.35 $\pm$ 0.008 \\ \hline         
+TF-2208 & 49.8 $\pm$ 4.284 & 518.62 & 518.51 & 518.8 & -195.69 $\pm$ 4.284 & -60.6 $\pm$ 0.013 \\ \hline         
+TF-2209 & 196.6 $\pm$ 4.284 & 518.19 & 518.08 & 517.95 & -48.33 $\pm$ 4.284 & -10.29 $\pm$ 0.009 \\ \hline         
+TF-2210 & 248.6 $\pm$ 4.284 & 518.39 & 518.26 & 518.65 & 3.31 $\pm$ 4.284 & 0.64 $\pm$ 0.008 \\ \hline         
+TF-2211 & 291.7 $\pm$ 41.692 & 519.63 & 519.79 & 519.86 & 45.09 $\pm$ 41.692 & 7.98 $\pm$ 0.074 \\ \hline         
+TF-2212 & 328.3 $\pm$ 30.492 & 520.69 & 521.58 & 521.35 & 80.24 $\pm$ 30.492 & 13.34 $\pm$ 0.051 \\ \hline         
+TF-2213 & 239.3 $\pm$ 4.284 & 519.17 & 519.09 & 519.19 & -6.7 $\pm$ 4.284 & -1.31 $\pm$ 0.008 \\ \hline         
+TF-2214 & 236.9 $\pm$ 4.284 & 518.48 & 518.45 & 518.54 & -8.44 $\pm$ 4.284 & -1.65 $\pm$ 0.008 \\ \hline         
+TF-2215 & 217 $\pm$ 4.284 & 518.24 & 518.1 & 518.08 & -27.99 $\pm$ 4.284 & -5.71 $\pm$ 0.009 \\ \hline         
+TF-2216 & 154.6 $\pm$ 4.284 & 517.1 & 516.82 & 516.91 & -89.19 $\pm$ 4.284 & -20.85 $\pm$ 0.010 \\ \hline         
+TF-2301 & 209.2 $\pm$ 4.284 & 517.77 & 517.87 & 517.8 & -35.47 $\pm$ 4.284 & -7.35 $\pm$ 0.009 \\ \hline         
+TF-2302 & 251.7 $\pm$ 4.284 & 518.22 & 517.97 & 518.21 & 6.72 $\pm$ 4.284 & 1.28 $\pm$ 0.008 \\ \hline         
+TF-2303 & 357.1 $\pm$ 41.009 & 518.32 & 518.48 & 518.38 & 111.86 $\pm$ 41.009 & 17.75 $\pm$ 0.065 \\ \hline         
+TF-2304 & 322.9 $\pm$ 42.697 & 518.19 & 518.24 & 518 & 77.91 $\pm$ 42.697 & 13.07 $\pm$ 0.072 \\ \hline         
+TF-2305 & 336.3 $\pm$ 49.241 & 518.98 & 517.72 & 517.53 & 91.37 $\pm$ 49.241 & 14.99 $\pm$ 0.081 \\ \hline         
+TF-2306 & 388.2 $\pm$ 10.068 & 518.26 & 519.11 & 519.32 & 142.45 $\pm$ 10.068 & 21.54 $\pm$ 0.015 \\ \hline         
+TF-2307 & 74.1 $\pm$ 4.284 & 519.37 & 519.09 & 519 & -171.9 $\pm$ 4.284 & -49.5 $\pm$ 0.0123 \\ \hline         
+TF-2308 & 346.4 $\pm$ 49.405 & 518.68 & 518.66 & 518.56 & 100.91 $\pm$ 49.405 & 16.29 $\pm$ 0.079 \\ \hline         
+TF-2309 & 389.5 $\pm$ 45.773 & 518.22 & 518.1 & 518 & 144.54 $\pm$ 45.773 & 21.81 $\pm$ 0.069 \\ \hline         
+TF-2310 & 360.7 $\pm$ 39.964 & 519.84 & 518.51 & 518.76 & 114.82 $\pm$ 39.964 & 18.11 $\pm$ 0.063\\ \hline         
+TF-2311 & 314.6 $\pm$ 44.386 & 521.76 & 523.38 & 522.14 & 65.32 $\pm$ 44.386& 11.11 $\pm$ 0.076 \\ \hline         
+TF-2312 & 349.7 $\pm$ 39.283 & 520.93 & 521.43 & 521.72 & 101.49 $\pm$ 39.283 & 16.29 $\pm$ 0.063 \\ \hline         
+TF-2313 & 309.2 $\pm$ 37.118 & 519.28 & 520.05 & 519.64 & 62.69 $\pm$ 37.118 & 10.77 $\pm$ 0.0637 \\ \hline         
+TF-2314 & 292 $\pm$ 30.617 & 518.06 & 518.1 & 518.1 & 47.07 $\pm$ 30.617 & 8.33 $\pm$ 0.054 \\ \hline         
+TF-2315 & 240.3 $\pm$ 4.284 & 518.23 & 518.1 & 518.16 & -4.71 $\pm$ 4.284 & -0.92 $\pm$ 0.008 \\ \hline         
+TF-2316 & 173.4 $\pm$ 4.284 & 517.74 & 516.87 & 516.71 & -70.56 $\pm$ 4.284 & -15.8 $\pm$ 0.010 \\ \hline         
+TF-2402 & 406.2 $\pm$ 10.462 & 565.39 & 565.59 & 565.59 & 113.83 $\pm$ 10.462 & 16.76 $\pm$ 0.015 \\ \hline         
+TF-2403 & 77.44 $\pm$ 4.284 & 565.35 & 565.56 & 565.56 & -214.9 $\pm$ 4.284 & -61.3 $\pm$ 0.0122 \\ \hline         
+TF-2404 & 302.5 $\pm$ 71.398 & 565.43 & 565.52 & 565.51 & 10.16 $\pm$ 71.398 & 1.77 $\pm$ 0.124 \\ \hline         
+TF-2405 & 563.7 $\pm$ 59.867 & 565.4 & 565.52 & 565.5 & 271.38 $\pm$ 59.867 & 32.43 $\pm$ 0.072 \\ \hline         
+TF-2406 & 472.4 $\pm$ 27.819 & 565.29 & 565.44 & 565.43 & 180.16 $\pm$ 27.819 & 24.16 $\pm$ 0.037 \\ \hline         
+TF-2407 & 218 $\pm$ 4.284 & 565.3 & 565.54 & 565.58 & -74.32 $\pm$ 4.284 & -15.13 $\pm$ 0.009 \\ \hline         
+TF-2409 & 38.86 $\pm$ 4.284 & 565.44 & 565.53 & 565.53 & -253.49 $\pm$ 4.284 & -81.24 $\pm$ 0.0137 \\ \hline         
+TF-2410 & 525.7 $\pm$ 29.952 & 565.33 & 565.43 & 565.43 & 233.45 $\pm$ 29.952 & 29.22 $\pm$ 0.037 \\ \hline         
+TF-2411 & 235 $\pm$ 4.284 & 565.22 & 565.51 & 565.48 & -57.25 $\pm$ 4.284 & -11.27 $\pm$ 0.008 \\ \hline         
+TF-2412 & 321.5 $\pm$ 6.334 & 565.49 & 565.51 & 565.51 & 29.15 $\pm$ 6.334 & 4.9 $\pm$ 0.011 \\ \hline         
+TF-2413 & 40.78 $\pm$ 4.284 & 565.4 & 565.45 & 565.44 & -251.5 $\pm$ 4.284 & -80.11 $\pm$ 0.014 \\ \hline         
+TF-2414 & 367.4 $\pm$ 34.746 & 565.36 & 565.54 & 565.54 & 75.07 $\pm$ 34.746 & 11.72 $\pm$ 0.054 \\ \hline         
+\end{longtable}
+\end{center}
+
+\begin{table}[!ht]\centering
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+\begin{tabular}{ |m{2.75cm}|m{2.75cm}|m{2.75cm}|m{2.75cm}| }\hline
+\textbf{Surface} & \textbf{Coarse} & \textbf{Medium} & \textbf{Fine} \\\hline
+2000-001 & 5.750e-02 & 2.700e-03 & 2.599e-03 \\
+RCST-Valve & 5.530e-02 & 1.473e-02 & 3.027e-04 \\
+2000-001 & 1.139e-01 & 2.305e-02 & 2.271e-02 \\
+Rakes & 1.643e-01 & 9.478e-05 & 8.929e-05 \\
+1320-014 & 6.513e-02 & 1.071e-06 & 1.067e-06 \\
+1660-015 & 8.649e-02 & 7.400e-03 & 7.808e-03 \\
+1750-001 & 8.306e-02 & 1.258e-03 & 1.205e-03 \\
+1751-001 & 8.284e-02 & 2.372e-03 & 2.303e-03 \\
+Front-LP-Top & 1.374e-01 & 4.567e-01 & 4.478e-01 \\
+Inner-Bypass & 1.798e-01 & 2.414e-06 & 2.414e-06 \\
+Outer-Bypass & 1.310e-01 & 4.925e-04 & 4.707e-04 \\
+Ring-2 & 1.995e-01 & 4.773e-06 & 4.602e-06 \\
+Ring-3 & 2.094e-01 & 5.63e-06 & 5.417e-06 \\
+Ring-4 & 1.124e-01 & 1.019e-06 & 1.019e-06 \\
+2000-001 & 2.413e-01 & 1.434e-02 & 1.430e-02 \\
+2150-001 & 2.446e-01 & 6.027e-04 & 6.017e-04 \\
+\hline\end{tabular}\caption{Surface Average Wall $y^{+}$ Values}\label{Average_y+_Values}\end{table}
+
+
+\printglossary[type=\acronymtype]
+
+\printnomenclature
+
+
+\end{document}
